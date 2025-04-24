@@ -1,0 +1,23 @@
+
+
+public class Benchmark2 {
+    public static void main(String[] args) {
+        // fetch input
+        Byte input_1_0 = Byte.valueOf(args[0]);
+        Byte input_2_0 = Byte.valueOf(args[1]);
+
+
+        // Perform computation         
+        String output_1 = Byte.toString(input_1_0);
+        String output_2 = Byte.toString(input_2_0);
+
+        
+        // Compare output
+        if (output_1.equals("10") && output_2.equals("-26")) {
+            System.out.println("Correct :)");
+        } else {
+            System.exit(1);
+        }
+    }
+}
+

@@ -1,0 +1,25 @@
+
+
+public class Benchmark3 {
+    public static void main(String[] args) {
+        // fetch input
+        Integer input_1_0 = Integer.valueOf(args[0]);
+        Integer input_1_1 = Integer.valueOf(args[1]);
+        Integer input_2_0 = Integer.valueOf(args[2]);
+        Integer input_2_1 = Integer.valueOf(args[3]);
+
+
+        // Perform computation         
+        Character output_1 = Character.forDigit(input_1_0, input_1_1);
+        Character output_2 = Character.forDigit(input_2_0, input_2_1);
+
+        
+        // Compare output
+        if (output_1 == '0' && output_2 == '4') {
+            System.out.println("Correct :)");
+        } else {
+            System.exit(1);
+        }
+    }
+}
+
