@@ -90,7 +90,7 @@ The training dataset is available on Hugging Face:
 
 <div style="text-align: center">
   <a href="https://huggingface.co/datasets/Felix6326727/AutoStub/" target="_blank">
-    <img src="https://huggingface.co/datasets/huggingface/badges/resolve/main/open-in-hf-60.svg" alt="Open in HuggingFace"/>
+    <img src="https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-xl.svg" alt="Open in HuggingFace"/>
   </a>
 </div>
 
