@@ -1,0 +1,18 @@
+**/*.gradle
+**/.idea
+**/*.iml
+
+**/build
+**/*.c
+**/*.so
+
+venv
+**/venv
+.DS_Store
+**/.DS_Store
+
+# Huggingface
+autostub_training_data.csv
+paper.txt
+test.py
+upload_to_huggingface.py

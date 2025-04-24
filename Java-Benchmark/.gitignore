@@ -1,0 +1,6 @@
+.idea
+venv
+*.iml
+results_all.json
+results.json
+__pycache__

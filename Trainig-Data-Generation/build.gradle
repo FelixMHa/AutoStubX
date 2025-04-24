@@ -1,0 +1,85 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.github.johnrengelman:shadow:8.1.1'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'com.diffplug.spotless' version '6.9.0'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+
+def javaVer = JavaVersion.VERSION_17
+println "Required JAVA version: ${javaVer}"
+
+java {
+    sourceCompatibility = javaVer
+    targetCompatibility = javaVer
+}
+
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+
+shadowJar {
+    archiveBaseName.set('Training-Data-Generation')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // gson
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.34'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.34'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+/*
+task enforceJavaVersion {
+    doLast {
+        def activeJavaVersion = JavaVersion.current()
+        if(activeJavaVersion != javaVer) {
+            throw new IllegalStateException("Wrong active Java version; Found: "
+                    + activeJavaVersion + " Required: " + javaVer)
+        }
+    }
+}
+compileJava.dependsOn(enforceJavaVersion)
+*/
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.example.Main'
+        )
+    }
+}
+application {
+    mainClass = 'org.example.Main'
+}
