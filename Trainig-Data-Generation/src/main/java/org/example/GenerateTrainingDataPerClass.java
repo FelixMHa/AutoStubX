@@ -12,8 +12,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.IntSummaryStatistics;
 import java.util.List;
+import java.util.Random;
 
 public class GenerateTrainingDataPerClass {
 
@@ -26,14 +29,22 @@ public class GenerateTrainingDataPerClass {
     public static int statistics_data_diversity_string = 0;
     public static int statistics_data_diversity_decimal = 0;
     public static int statistics_data_diversity_boolean = 0;
+    public static int statistics_data_diversity_list = 0;
 
     public static HashMap<String, JavaFunctionExport> successfulMethods = new HashMap<>();
 
+    private static List<String> getParamTypeNames(Class<?>[] paramTypes) {
+        List<String> types = new ArrayList<>();
+        for (Class<?> param : paramTypes) {
+            types.add(param.getTypeName());
+        }
+        return types;
+    }
 
     public static void generateTrainingData(Class<?> targetClass) throws IOException {
 
         statistics_total_classes++;
-
+        boolean isStateful = isStateful(targetClass.getName());
         Method[] methods = targetClass.getDeclaredMethods();
         for (Method method : methods) {
             statistics_total_methods++;
@@ -46,38 +57,49 @@ public class GenerateTrainingDataPerClass {
                 continue;
 
             // Debug
-            //if (!method.getName().contains("isDefined"))
-            //    continue;
+            // if (!method.getName().contains("isDefined"))
+            // continue;
 
             // make sure the return value is not void
-            if (method.getReturnType().equals(Void.class) // not void
-                    || method.getReturnType().equals(Void.TYPE) // not void
-                    || !(isPrimitive(method.getReturnType()) || method.getReturnType().equals(String.class))) {
+            Class<?> returnType = method.getReturnType();
+            String returnTypeName = returnType.getName();
+
+            List<String> disallowedReturnTypePrefixes = List.of(
+                    "java.util.Iterator",
+                    "java.util.ListIterator",
+                    "java.util.Enumeration",
+                    "java.util.Spliterator",
+                    "java.util.stream.Stream");
+
+            boolean isDisallowedReturnType = returnType.equals(Void.TYPE)
+                    || returnType.equals(Void.class)
+                    || disallowedReturnTypePrefixes.stream().anyMatch(returnTypeName::startsWith)
+                    || !(isPrimitive(returnType) || returnType.equals(String.class) || isStateful);
+
+            if (isDisallowedReturnType) {
                 continue;
             }
 
             // extract parameter types
             Class<?>[] paramTypes = method.getParameterTypes();
 
-            // check if all parameter types are primitives or strings
+            // check if all parameter types are primitives or strings or lists
             boolean isStatic = Modifier.isStatic(method.getModifiers());
             if (isStatic &&
                     Arrays.stream(paramTypes)
-                    .filter(p -> !isPrimitive(p) && !p.equals(String.class))
-                    .count() == 0 // only primitives or strings
+                            .filter(p -> !isPrimitive(p) && !p.equals(String.class) && !isStateful)
+                            .count() == 0 // only primitives or strings
                     && paramTypes.length > 0 // at least one parameter
-                 || !isStatic && (
-                         Arrays.stream(paramTypes)
-                        .filter(p -> !isPrimitive(p) && !p.equals(String.class))
-                        .count() == 0 // If not static, then all parameters are primitives or strings
-                    || paramTypes.length == 0 // or no parameters
-            )
-            ) {
+                    || !isStatic && (Arrays.stream(paramTypes)
+                            .filter(p -> !isPrimitive(p) && !p.equals(String.class) && !isStateful)
+                            .count() == 0 // If not static, then all parameters are primitives or strings
+                            || paramTypes.length == 0 // or no parameters
+                    )) {
                 System.out.println("Method: " + method.getName());
                 System.out.println("Parameter types: " + Arrays.toString(paramTypes));
                 System.out.println("Return type: " + method.getReturnType());
                 try {
-                    generateTrainingDataForMethod(method, isStatic);
+                    generateTrainingDataForMethod(method, isStatic, isStateful);
                 } catch (OutOfMemoryError x) {
                     System.out.println("Out of memory error while generating training data for " + method.getName());
                 }
@@ -111,10 +133,21 @@ public class GenerateTrainingDataPerClass {
         return false;
     }
 
+    private static boolean isStateful(String className) {
+        return className.equals("java.util.ArrayList") ||
+                className.equals("java.util.HashMap") ||
+                className.equals("java.lang.StringBuilder") ||
+                className.equals("java.util.LinkedList") ||
+                className.equals("java.util.HashSet") ||
+                className.equals("java.util.Stack");
+    }
 
-    private static void generateTrainingDataForMethod(Method method, boolean isStatic) throws IOException {
+    
 
-        List<InputOutputPair<Object[], Object>> trainingData = new ArrayList<>();
+    private static void generateTrainingDataForMethod(Method method, boolean isStatic, boolean isStateful)
+            throws IOException {
+
+        List<SequenceInputOutputPair<Object[], Object>> trainingData = new ArrayList<>();
         String extended = Main.EXTENDED ? ".extended." : "";
         String fileName = method.toGenericString().replaceAll("[^A-Za-z0-9]", "_") + extended + ".json";
         Path trainingDataFile = Paths.get("./symbolic-regression-data/training/" + fileName);
@@ -129,49 +162,64 @@ public class GenerateTrainingDataPerClass {
             return;
         if (fileName.contains("public_java_lang_String_java_lang_String_indent_int"))
             return;
+        if (method.getName().equals("toArray") || method.getName().equals("subList")) {
+            return; // skip known problematic methods
+        }
 
         boolean printedError = false;
         int multiplier = Main.EXTENDED ? 100 : 1;
         long startTime = System.currentTimeMillis();
         statistics_samples_per_method = Main.MAX_SAMPLES * multiplier;
         for (int i = 0; i < Main.MAX_SAMPLES * multiplier; i++) {
-            // generate random values
-            Object[] args = new Object[method.getParameterCount()];
-            for (int j = 0; j < method.getParameterCount(); j++) {
-                args[j] = RandomDataProvider.randomValueForType(method.getParameterTypes()[j]);
-            }
+            Object[] args = RandomDataProvider.generateRandomArgs(method);
 
-            // invoke method
             try {
                 Object baseObject = null;
                 String stringRepresentation = null;
+                List<String> sequence = Collections.emptyList();
                 if (!isStatic) {
-                    baseObject = RandomDataProvider.randomValueForType(method.getDeclaringClass());
+                    try {
+                        baseObject = method.getDeclaringClass().getDeclaredConstructor().newInstance();
+                    } catch (Exception e) {
+                        System.out.println(
+                                "Could not instantiate base object for " + method.getDeclaringClass().getName());
+                        continue;
+                    }
+
                     stringRepresentation = String.valueOf(baseObject);
+
+                    if (isStateful) {
+                        SequenceTreeBuilder builder = new SequenceTreeBuilder(method.getDeclaringClass());
+                        builder.buildRandomState(2 + new Random().nextInt(3));
+
+                        SequenceInputOutputPair<Object[], Object> sample = builder.applyTargetAndCollect(method);
+                        if (sample != null) {
+                            trainingData.add(sample);
+                        }
+
+                        continue;
+                    }
                 }
 
                 Object output = method.invoke(baseObject, args);
 
-                // make sure the base object is still the same
-                if (!isStatic && !stringRepresentation.equals(String.valueOf(baseObject)))
+                // skip invalid outputs
+                if (!isStatic && !isStateful && !stringRepresentation.equals(String.valueOf(baseObject)))
                     continue;
-
-                // check if output is nan or infinity
                 if (output instanceof Double && (Double.isNaN((Double) output) || Double.isInfinite((Double) output)))
                     continue;
                 if (output instanceof Float && (Float.isNaN((Float) output) || Float.isInfinite((Float) output)))
                     continue;
 
+                // prepend baseObject as first argument for non-static methods
                 if (!isStatic) {
-                    // add base object as first argument
                     ArrayList<Object> list = new ArrayList<>();
                     list.add(baseObject);
                     list.addAll(Arrays.asList(args));
-
                     args = list.toArray();
                 }
 
-                trainingData.add(new InputOutputPair<>(args, output));
+                trainingData.add(new SequenceInputOutputPair<>(sequence, args, output));
             } catch (Exception e) {
                 if (!printedError) {
                     printedError = true;
@@ -183,7 +231,8 @@ public class GenerateTrainingDataPerClass {
         if (trainingData.isEmpty())
             return;
 
-        // write training data to file, replace all non-alphanumeric characters in method name
+        // write training data to file, replace all non-alphanumeric characters in
+        // method name
         System.out.println("Writing training data to " + fileName);
 
         try {
@@ -205,7 +254,16 @@ public class GenerateTrainingDataPerClass {
                 String owner = method.getDeclaringClass().getName();
                 String name = method.getName();
                 String genericString = method.toGenericString();
-                JavaFunctionExport javaFunctionExport = new JavaFunctionExport(owner, name, genericString);
+                String returnType = method.getReturnType().getTypeName();
+                List<String> paramTypes = getParamTypeNames(method.getParameterTypes());
+
+                JavaFunctionExport javaFunctionExport = new JavaFunctionExport(
+                        owner,
+                        name,
+                        genericString,
+                        returnType,
+                        paramTypes);
+
                 successfulMethods.put(trainingDataFile.getFileName().toString(), javaFunctionExport);
             }
         } catch (Exception e) {
