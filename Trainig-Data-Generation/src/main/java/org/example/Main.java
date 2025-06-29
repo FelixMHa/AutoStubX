@@ -36,7 +36,8 @@ public class Main {
                 "java.lang.Integer",
                 "java.lang.Long",
                 "java.lang.Math",
-                "java.lang.StrictMath"
+                "java.lang.StrictMath",
+                "java.util.ArrayList"
         };
 
         // generate training data for each class
@@ -51,7 +52,7 @@ public class Main {
                 if (!inScope)
                     continue;
 
-
+                
                 GenerateTrainingDataPerClass.generateTrainingData(clazz);
             } catch (IllegalArgumentException e) {
                 System.out.println("Illegal Argument Exception while generating training data for " + className);
@@ -79,6 +80,7 @@ public class Main {
         double data_diversity_decimal = (double) GenerateTrainingDataPerClass.statistics_data_diversity_decimal / total_params * 100;
         double data_diversity_boolean = (double) GenerateTrainingDataPerClass.statistics_data_diversity_boolean / total_params * 100;
         double data_diversity_string = (double) GenerateTrainingDataPerClass.statistics_data_diversity_string / total_params * 100;
+        double data_diversity_list = (double) GenerateTrainingDataPerClass.statistics_data_diversity_list / total_params * 100;
 
         System.out.println("----------");
         System.out.println("Total classes & " + GenerateTrainingDataPerClass.statistics_total_classes + "\\\\");
@@ -88,7 +90,8 @@ public class Main {
         System.out.println("Data diversity & " + String.format("%.0f", data_diversity_integer) + "\\% Integer \\\\\n" +
                 "& " + String.format("%.0f", data_diversity_decimal) + "\\% Decimal \\\\\n" +
                 "& " + String.format("%.0f", data_diversity_boolean) + "\\% Boolean \\\\\n" +
-                "& " + String.format("%.0f", data_diversity_string) + "\\% String \\\\");
+                "& " + String.format("%.0f", data_diversity_string) + "\\% String \\\\\n" +
+                "& " + String.format("%.0f", data_diversity_list) + "\\% List \\\\");
         System.out.println("----------");
     }
 }

@@ -1,11 +1,20 @@
 package org.example;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
+import java.util.Set;
 
 public class RandomDataProvider {
 
     private static Random random = new Random();
-
 
     public static Object randomValueForType(Class<?> type) {
         // This method should be extended to handle more types as needed.
@@ -14,7 +23,7 @@ public class RandomDataProvider {
 
             // get special values
             if (random.nextDouble() < 0.05) {
-                int[] specialValues = {Integer.MIN_VALUE, Integer.MAX_VALUE, 0, 1, -1};
+                int[] specialValues = { Integer.MIN_VALUE, Integer.MAX_VALUE, 0, 1, -1 };
                 return specialValues[random.nextInt(specialValues.length)];
             }
 
@@ -34,7 +43,8 @@ public class RandomDataProvider {
 
             // get special values
             if (random.nextDouble() < 0.05) {
-                double[] specialValues = {Double.MIN_VALUE, Double.MAX_VALUE, 0, 1, -1, Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY};
+                double[] specialValues = { Double.MIN_VALUE, Double.MAX_VALUE, 0, 1, -1, Double.NaN,
+                        Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY };
                 return specialValues[random.nextInt(specialValues.length)];
             }
 
@@ -51,7 +61,8 @@ public class RandomDataProvider {
 
             // get special values
             if (random.nextDouble() < 0.05) {
-                float[] specialValues = {Float.MIN_VALUE, Float.MAX_VALUE, 0, 1, -1, Float.NaN, Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY};
+                float[] specialValues = { Float.MIN_VALUE, Float.MAX_VALUE, 0, 1, -1, Float.NaN,
+                        Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY };
                 return specialValues[random.nextInt(specialValues.length)];
             }
 
@@ -67,7 +78,7 @@ public class RandomDataProvider {
 
             // get special values
             if (random.nextDouble() < 0.05) {
-                long[] specialValues = {Long.MIN_VALUE, Long.MAX_VALUE, 0, 1, -1};
+                long[] specialValues = { Long.MIN_VALUE, Long.MAX_VALUE, 0, 1, -1 };
                 return specialValues[random.nextInt(specialValues.length)];
             }
 
@@ -83,7 +94,7 @@ public class RandomDataProvider {
 
             // get special values
             if (random.nextDouble() < 0.05) {
-                short[] specialValues = {Short.MIN_VALUE, Short.MAX_VALUE, 0, 1, -1};
+                short[] specialValues = { Short.MIN_VALUE, Short.MAX_VALUE, 0, 1, -1 };
                 return specialValues[random.nextInt(specialValues.length)];
             }
 
@@ -103,7 +114,7 @@ public class RandomDataProvider {
 
             // get special values
             if (random.nextDouble() < 0.05) {
-                byte[] specialValues = {Byte.MIN_VALUE, Byte.MAX_VALUE, 0, 1, -1};
+                byte[] specialValues = { Byte.MIN_VALUE, Byte.MAX_VALUE, 0, 1, -1 };
                 return specialValues[random.nextInt(specialValues.length)];
             }
 
@@ -135,9 +146,83 @@ public class RandomDataProvider {
                 sb.append((char) random.nextInt(256));
             }
             return sb.toString();
+        } else if (List.class.isAssignableFrom(type)) {
+            GenerateTrainingDataPerClass.statistics_data_diversity_list++;
+            int length = random.nextInt(5); // Shorter to reduce exceptions
+
+            ArrayList<Object> list = new ArrayList<>();
+            for (int i = 0; i < length; i++) {
+                list.add(randomPrimitiveOrString());
+            }
+            return list;
         }
+
+        else if (type.equals(Object.class)) {
+            return randomPrimitiveOrString();
+        }
+
+        // Collections
+        else if (Collection.class.isAssignableFrom(type)) {
+            GenerateTrainingDataPerClass.statistics_data_diversity_list++;
+            List<Object> list = new ArrayList<>();
+            for (int i = 0; i < 3 + random.nextInt(3); i++) {
+                list.add(randomPrimitiveOrString());
+            }
+
+            if (List.class.isAssignableFrom(type))
+                return list;
+            if (Set.class.isAssignableFrom(type))
+                return new HashSet<>(list);
+            if (Queue.class.isAssignableFrom(type))
+                return new LinkedList<>(list);
+
+            return list; // Fallback for raw Collection
+        }
+
+        // Maps
+        else if (Map.class.isAssignableFrom(type)) {
+            Map<Object, Object> map = new HashMap<>();
+            for (int i = 0; i < 3; i++) {
+                map.put(randomPrimitiveOrString(), randomPrimitiveOrString());
+            }
+            return map;
+        }
+
+        // Functional Interfaces
+        else if (java.util.function.Predicate.class.isAssignableFrom(type)) {
+            return (java.util.function.Predicate<Object>) o -> true;
+        } else if (java.util.function.Function.class.isAssignableFrom(type)) {
+            return (java.util.function.Function<Object, Object>) o -> randomPrimitiveOrString();
+        } else if (java.util.function.Consumer.class.isAssignableFrom(type)) {
+            return (java.util.function.Consumer<Object>) o -> {
+            };
+        } else if (java.util.function.Supplier.class.isAssignableFrom(type)) {
+            return (java.util.function.Supplier<Object>) RandomDataProvider::randomPrimitiveOrString;
+        }
+
         throw new IllegalArgumentException("Type " + type + " not supported");
     }
 
+    public static Object[] generateRandomArgs(Method method) {
+        Class<?>[] paramTypes = method.getParameterTypes();
+        Object[] args = new Object[paramTypes.length];
+        for (int i = 0; i < paramTypes.length; i++) {
+            args[i] = randomValueForType(paramTypes[i]);
+        }
+        return args;
+    }
 
+    private static Object randomPrimitiveOrString() {
+        int pick = random.nextInt(4);
+        switch (pick) {
+            case 0:
+                return randomValueForType(Integer.class);
+            case 1:
+                return randomValueForType(Double.class);
+            case 2:
+                return randomValueForType(Boolean.class);
+            default:
+                return randomValueForType(String.class);
+        }
+    }
 }
