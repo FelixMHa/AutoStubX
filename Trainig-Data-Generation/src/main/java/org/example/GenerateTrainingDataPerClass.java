@@ -18,6 +18,8 @@ import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
+
 public class GenerateTrainingDataPerClass {
 
     public static int statistics_total_classes = 0;
@@ -142,8 +144,6 @@ public class GenerateTrainingDataPerClass {
                 className.equals("java.util.Stack");
     }
 
-    
-
     private static void generateTrainingDataForMethod(Method method, boolean isStatic, boolean isStateful)
             throws IOException {
 
@@ -178,17 +178,16 @@ public class GenerateTrainingDataPerClass {
                 String stringRepresentation = null;
                 List<String> sequence = Collections.emptyList();
                 if (!isStatic) {
-                    try {
-                        baseObject = method.getDeclaringClass().getDeclaredConstructor().newInstance();
-                    } catch (Exception e) {
-                        System.out.println(
-                                "Could not instantiate base object for " + method.getDeclaringClass().getName());
-                        continue;
-                    }
-
-                    stringRepresentation = String.valueOf(baseObject);
 
                     if (isStateful) {
+                        try {
+                            baseObject = method.getDeclaringClass().getDeclaredConstructor().newInstance();
+
+                        } catch (Exception e) {
+                            System.out.println(
+                                    "Could not instantiate base object for " + method.getDeclaringClass().getName());
+                            continue;
+                        }
                         SequenceTreeBuilder builder = new SequenceTreeBuilder(method.getDeclaringClass());
                         builder.buildRandomState(2 + new Random().nextInt(3));
 
@@ -198,9 +197,11 @@ public class GenerateTrainingDataPerClass {
                         }
 
                         continue;
+                    } else {
+                        baseObject = RandomDataProvider.randomValueForType(method.getDeclaringClass());
                     }
                 }
-
+                stringRepresentation = String.valueOf(baseObject);
                 Object output = method.invoke(baseObject, args);
 
                 // skip invalid outputs

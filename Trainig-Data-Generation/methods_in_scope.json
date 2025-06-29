@@ -8,6 +8,27 @@
       "float"
     ]
   },
+  "public_int_java_lang_Integer_hashCode__.json": {
+    "owner": "java.lang.Integer",
+    "name": "hashCode",
+    "genericString": "public int java.lang.Integer.hashCode()",
+    "returnType": "int",
+    "paramTypes": []
+  },
+  "public_int_java_lang_Long_hashCode__.json": {
+    "owner": "java.lang.Long",
+    "name": "hashCode",
+    "genericString": "public int java.lang.Long.hashCode()",
+    "returnType": "int",
+    "paramTypes": []
+  },
+  "public_boolean_java_lang_Boolean_booleanValue__.json": {
+    "owner": "java.lang.Boolean",
+    "name": "booleanValue",
+    "genericString": "public boolean java.lang.Boolean.booleanValue()",
+    "returnType": "boolean",
+    "paramTypes": []
+  },
   "public_static_java_lang_String_java_lang_Byte_toString_byte_.json": {
     "owner": "java.lang.Byte",
     "name": "toString",
@@ -25,6 +46,13 @@
     "paramTypes": [
       "char"
     ]
+  },
+  "public_float_java_lang_Integer_floatValue__.json": {
+    "owner": "java.lang.Integer",
+    "name": "floatValue",
+    "genericString": "public float java.lang.Integer.floatValue()",
+    "returnType": "float",
+    "paramTypes": []
   },
   "public_static_java_lang_Boolean_java_lang_Boolean_valueOf_boolean_.json": {
     "owner": "java.lang.Boolean",
@@ -44,6 +72,20 @@
       "int",
       "int"
     ]
+  },
+  "public_long_java_lang_Long_longValue__.json": {
+    "owner": "java.lang.Long",
+    "name": "longValue",
+    "genericString": "public long java.lang.Long.longValue()",
+    "returnType": "long",
+    "paramTypes": []
+  },
+  "public_float_java_lang_Long_floatValue__.json": {
+    "owner": "java.lang.Long",
+    "name": "floatValue",
+    "genericString": "public float java.lang.Long.floatValue()",
+    "returnType": "float",
+    "paramTypes": []
   },
   "public_native_java_lang_String_java_lang_String_intern__.json": {
     "owner": "java.lang.String",
@@ -162,6 +204,20 @@
       "java.lang.String"
     ]
   },
+  "public_short_java_lang_Integer_shortValue__.json": {
+    "owner": "java.lang.Integer",
+    "name": "shortValue",
+    "genericString": "public short java.lang.Integer.shortValue()",
+    "returnType": "short",
+    "paramTypes": []
+  },
+  "public_int_java_lang_Byte_hashCode__.json": {
+    "owner": "java.lang.Byte",
+    "name": "hashCode",
+    "genericString": "public int java.lang.Byte.hashCode()",
+    "returnType": "int",
+    "paramTypes": []
+  },
   "public_static_int_java_lang_Double_compare_double_double_.json": {
     "owner": "java.lang.Double",
     "name": "compare",
@@ -171,6 +227,13 @@
       "double",
       "double"
     ]
+  },
+  "public_int_java_lang_Double_intValue__.json": {
+    "owner": "java.lang.Double",
+    "name": "intValue",
+    "genericString": "public int java.lang.Double.intValue()",
+    "returnType": "int",
+    "paramTypes": []
   },
   "public_static_int_java_lang_Integer_max_int_int_.json": {
     "owner": "java.lang.Integer",
@@ -226,6 +289,13 @@
     "paramTypes": [
       "long"
     ]
+  },
+  "public_int_java_lang_Float_hashCode__.json": {
+    "owner": "java.lang.Float",
+    "name": "hashCode",
+    "genericString": "public int java.lang.Float.hashCode()",
+    "returnType": "int",
+    "paramTypes": []
   },
   "public_static_boolean_java_lang_Character_isDigit_int_.json": {
     "owner": "java.lang.Character",
@@ -321,6 +391,13 @@
     "returnType": "int",
     "paramTypes": []
   },
+  "public_double_java_lang_Long_doubleValue__.json": {
+    "owner": "java.lang.Long",
+    "name": "doubleValue",
+    "genericString": "public double java.lang.Long.doubleValue()",
+    "returnType": "double",
+    "paramTypes": []
+  },
   "public_static_native_long_java_lang_Double_doubleToRawLongBits_double_.json": {
     "owner": "java.lang.Double",
     "name": "doubleToRawLongBits",
@@ -376,6 +453,13 @@
       "char"
     ]
   },
+  "public_int_java_lang_Short_intValue__.json": {
+    "owner": "java.lang.Short",
+    "name": "intValue",
+    "genericString": "public int java.lang.Short.intValue()",
+    "returnType": "int",
+    "paramTypes": []
+  },
   "public_static_boolean_java_lang_Double_isFinite_double_.json": {
     "owner": "java.lang.Double",
     "name": "isFinite",
@@ -384,6 +468,13 @@
     "paramTypes": [
       "double"
     ]
+  },
+  "public_boolean_java_lang_Double_isInfinite__.json": {
+    "owner": "java.lang.Double",
+    "name": "isInfinite",
+    "genericString": "public boolean java.lang.Double.isInfinite()",
+    "returnType": "boolean",
+    "paramTypes": []
   },
   "public_static_java_lang_String_java_lang_Float_toString_float_.json": {
     "owner": "java.lang.Float",
@@ -404,6 +495,13 @@
       "int"
     ]
   },
+  "public_java_lang_String_java_lang_Short_toString__.json": {
+    "owner": "java.lang.Short",
+    "name": "toString",
+    "genericString": "public java.lang.String java.lang.Short.toString()",
+    "returnType": "java.lang.String",
+    "paramTypes": []
+  },
   "public_static_java_lang_String_java_lang_Integer_toBinaryString_int_.json": {
     "owner": "java.lang.Integer",
     "name": "toBinaryString",
@@ -412,6 +510,13 @@
     "paramTypes": [
       "int"
     ]
+  },
+  "public_double_java_lang_Short_doubleValue__.json": {
+    "owner": "java.lang.Short",
+    "name": "doubleValue",
+    "genericString": "public double java.lang.Short.doubleValue()",
+    "returnType": "double",
+    "paramTypes": []
   },
   "public_static_int_java_lang_Math_max_int_int_.json": {
     "owner": "java.lang.Math",
@@ -431,6 +536,13 @@
     "paramTypes": [
       "int"
     ]
+  },
+  "public_int_java_lang_Character_hashCode__.json": {
+    "owner": "java.lang.Character",
+    "name": "hashCode",
+    "genericString": "public int java.lang.Character.hashCode()",
+    "returnType": "int",
+    "paramTypes": []
   },
   "public_static_boolean_java_lang_Character_isLetter_char_.json": {
     "owner": "java.lang.Character",
@@ -467,6 +579,15 @@
     "returnType": "java.lang.String",
     "paramTypes": [
       "char"
+    ]
+  },
+  "public_int_java_lang_Byte_compareTo_java_lang_Byte_.json": {
+    "owner": "java.lang.Byte",
+    "name": "compareTo",
+    "genericString": "public int java.lang.Byte.compareTo(java.lang.Byte)",
+    "returnType": "int",
+    "paramTypes": [
+      "java.lang.Byte"
     ]
   },
   "public_static_int_java_lang_Byte_compare_byte_byte_.json": {
@@ -539,6 +660,15 @@
     "returnType": "int",
     "paramTypes": [
       "long"
+    ]
+  },
+  "public_int_java_lang_Short_compareTo_java_lang_Short_.json": {
+    "owner": "java.lang.Short",
+    "name": "compareTo",
+    "genericString": "public int java.lang.Short.compareTo(java.lang.Short)",
+    "returnType": "int",
+    "paramTypes": [
+      "java.lang.Short"
     ]
   },
   "public_int_java_lang_String_lastIndexOf_java_lang_String_int_.json": {
@@ -644,6 +774,13 @@
       "long"
     ]
   },
+  "public_int_java_lang_Boolean_hashCode__.json": {
+    "owner": "java.lang.Boolean",
+    "name": "hashCode",
+    "genericString": "public int java.lang.Boolean.hashCode()",
+    "returnType": "int",
+    "paramTypes": []
+  },
   "public_static_int_java_lang_Character_getType_int_.json": {
     "owner": "java.lang.Character",
     "name": "getType",
@@ -690,6 +827,20 @@
       "char"
     ]
   },
+  "public_long_java_lang_Integer_longValue__.json": {
+    "owner": "java.lang.Integer",
+    "name": "longValue",
+    "genericString": "public long java.lang.Integer.longValue()",
+    "returnType": "long",
+    "paramTypes": []
+  },
+  "public_byte_java_lang_Float_byteValue__.json": {
+    "owner": "java.lang.Float",
+    "name": "byteValue",
+    "genericString": "public byte java.lang.Float.byteValue()",
+    "returnType": "byte",
+    "paramTypes": []
+  },
   "public_static_boolean_java_lang_Character_isSurrogate_char_.json": {
     "owner": "java.lang.Character",
     "name": "isSurrogate",
@@ -707,6 +858,13 @@
     "paramTypes": [
       "int"
     ]
+  },
+  "public_double_java_lang_Integer_doubleValue__.json": {
+    "owner": "java.lang.Integer",
+    "name": "doubleValue",
+    "genericString": "public double java.lang.Integer.doubleValue()",
+    "returnType": "double",
+    "paramTypes": []
   },
   "public_static_java_lang_String_java_lang_String_valueOf_char_.json": {
     "owner": "java.lang.String",
@@ -789,6 +947,13 @@
     "paramTypes": [
       "int"
     ]
+  },
+  "public_java_lang_String_java_lang_Boolean_toString__.json": {
+    "owner": "java.lang.Boolean",
+    "name": "toString",
+    "genericString": "public java.lang.String java.lang.Boolean.toString()",
+    "returnType": "java.lang.String",
+    "paramTypes": []
   },
   "public_int_java_lang_String_compareTo_java_lang_String_.json": {
     "owner": "java.lang.String",
@@ -900,6 +1065,20 @@
       "int"
     ]
   },
+  "public_int_java_lang_Short_hashCode__.json": {
+    "owner": "java.lang.Short",
+    "name": "hashCode",
+    "genericString": "public int java.lang.Short.hashCode()",
+    "returnType": "int",
+    "paramTypes": []
+  },
+  "public_short_java_lang_Short_shortValue__.json": {
+    "owner": "java.lang.Short",
+    "name": "shortValue",
+    "genericString": "public short java.lang.Short.shortValue()",
+    "returnType": "short",
+    "paramTypes": []
+  },
   "public_java_lang_String_java_lang_String_toUpperCase__.json": {
     "owner": "java.lang.String",
     "name": "toUpperCase",
@@ -960,6 +1139,13 @@
     "paramTypes": [
       "java.lang.Object"
     ]
+  },
+  "public_long_java_lang_Float_longValue__.json": {
+    "owner": "java.lang.Float",
+    "name": "longValue",
+    "genericString": "public long java.lang.Float.longValue()",
+    "returnType": "long",
+    "paramTypes": []
   },
   "public_static_long_java_lang_StrictMath_multiplyHigh_long_long_.json": {
     "owner": "java.lang.StrictMath",
@@ -1027,6 +1213,13 @@
       "int"
     ]
   },
+  "public_boolean_java_lang_Float_isInfinite__.json": {
+    "owner": "java.lang.Float",
+    "name": "isInfinite",
+    "genericString": "public boolean java.lang.Float.isInfinite()",
+    "returnType": "boolean",
+    "paramTypes": []
+  },
   "public_static_int_java_lang_Character_getNumericValue_int_.json": {
     "owner": "java.lang.Character",
     "name": "getNumericValue",
@@ -1083,6 +1276,13 @@
       "byte"
     ]
   },
+  "public_long_java_lang_Byte_longValue__.json": {
+    "owner": "java.lang.Byte",
+    "name": "longValue",
+    "genericString": "public long java.lang.Byte.longValue()",
+    "returnType": "long",
+    "paramTypes": []
+  },
   "public_static_java_lang_Short_java_lang_Short_valueOf_short_.json": {
     "owner": "java.lang.Short",
     "name": "valueOf",
@@ -1119,6 +1319,13 @@
       "short"
     ]
   },
+  "public_byte_java_lang_Short_byteValue__.json": {
+    "owner": "java.lang.Short",
+    "name": "byteValue",
+    "genericString": "public byte java.lang.Short.byteValue()",
+    "returnType": "byte",
+    "paramTypes": []
+  },
   "public_java_lang_String_java_lang_String_stripIndent__.json": {
     "owner": "java.lang.String",
     "name": "stripIndent",
@@ -1152,6 +1359,13 @@
     "paramTypes": [
       "int"
     ]
+  },
+  "public_float_java_lang_Byte_floatValue__.json": {
+    "owner": "java.lang.Byte",
+    "name": "floatValue",
+    "genericString": "public float java.lang.Byte.floatValue()",
+    "returnType": "float",
+    "paramTypes": []
   },
   "public_static_long_java_lang_Long_expand_long_long_.json": {
     "owner": "java.lang.Long",
@@ -1270,6 +1484,13 @@
       "java.lang.Object"
     ]
   },
+  "public_short_java_lang_Float_shortValue__.json": {
+    "owner": "java.lang.Float",
+    "name": "shortValue",
+    "genericString": "public short java.lang.Float.shortValue()",
+    "returnType": "short",
+    "paramTypes": []
+  },
   "public_static_int_java_lang_Integer_signum_int_.json": {
     "owner": "java.lang.Integer",
     "name": "signum",
@@ -1279,6 +1500,13 @@
       "int"
     ]
   },
+  "public_java_lang_String_java_lang_Long_toString__.json": {
+    "owner": "java.lang.Long",
+    "name": "toString",
+    "genericString": "public java.lang.String java.lang.Long.toString()",
+    "returnType": "java.lang.String",
+    "paramTypes": []
+  },
   "public_static_int_java_lang_Byte_hashCode_byte_.json": {
     "owner": "java.lang.Byte",
     "name": "hashCode",
@@ -1287,6 +1515,13 @@
     "paramTypes": [
       "byte"
     ]
+  },
+  "public_float_java_lang_Short_floatValue__.json": {
+    "owner": "java.lang.Short",
+    "name": "floatValue",
+    "genericString": "public float java.lang.Short.floatValue()",
+    "returnType": "float",
+    "paramTypes": []
   },
   "public_static_boolean_java_lang_Character_isIdentifierIgnorable_char_.json": {
     "owner": "java.lang.Character",
@@ -1326,6 +1561,13 @@
       "int"
     ]
   },
+  "public_short_java_lang_Long_shortValue__.json": {
+    "owner": "java.lang.Long",
+    "name": "shortValue",
+    "genericString": "public short java.lang.Long.shortValue()",
+    "returnType": "short",
+    "paramTypes": []
+  },
   "public_java_lang_String_java_lang_String_stripTrailing__.json": {
     "owner": "java.lang.String",
     "name": "stripTrailing",
@@ -1342,6 +1584,13 @@
       "long"
     ]
   },
+  "public_java_lang_String_java_lang_Integer_toString__.json": {
+    "owner": "java.lang.Integer",
+    "name": "toString",
+    "genericString": "public java.lang.String java.lang.Integer.toString()",
+    "returnType": "java.lang.String",
+    "paramTypes": []
+  },
   "public_static_java_lang_String_java_lang_Long_toString_long_.json": {
     "owner": "java.lang.Long",
     "name": "toString",
@@ -1350,6 +1599,13 @@
     "paramTypes": [
       "long"
     ]
+  },
+  "public_char_java_lang_Character_charValue__.json": {
+    "owner": "java.lang.Character",
+    "name": "charValue",
+    "genericString": "public char java.lang.Character.charValue()",
+    "returnType": "char",
+    "paramTypes": []
   },
   "public_static_int_java_lang_StrictMath_round_float_.json": {
     "owner": "java.lang.StrictMath",
@@ -1376,6 +1632,13 @@
       "boolean",
       "boolean"
     ]
+  },
+  "public_int_java_lang_Float_intValue__.json": {
+    "owner": "java.lang.Float",
+    "name": "intValue",
+    "genericString": "public int java.lang.Float.intValue()",
+    "returnType": "int",
+    "paramTypes": []
   },
   "public_static_boolean_java_lang_Character_isIdeographic_int_.json": {
     "owner": "java.lang.Character",
@@ -1432,6 +1695,15 @@
       "float"
     ]
   },
+  "public_int_java_lang_Long_compareTo_java_lang_Long_.json": {
+    "owner": "java.lang.Long",
+    "name": "compareTo",
+    "genericString": "public int java.lang.Long.compareTo(java.lang.Long)",
+    "returnType": "int",
+    "paramTypes": [
+      "java.lang.Long"
+    ]
+  },
   "public_static_java_lang_String_java_lang_Long_toBinaryString_long_.json": {
     "owner": "java.lang.Long",
     "name": "toBinaryString",
@@ -1460,6 +1732,15 @@
       "float"
     ]
   },
+  "public_int_java_lang_Character_compareTo_java_lang_Character_.json": {
+    "owner": "java.lang.Character",
+    "name": "compareTo",
+    "genericString": "public int java.lang.Character.compareTo(java.lang.Character)",
+    "returnType": "int",
+    "paramTypes": [
+      "java.lang.Character"
+    ]
+  },
   "public_static_boolean_java_lang_Character_isLetter_int_.json": {
     "owner": "java.lang.Character",
     "name": "isLetter",
@@ -1467,6 +1748,15 @@
     "returnType": "boolean",
     "paramTypes": [
       "int"
+    ]
+  },
+  "public_int_java_lang_Boolean_compareTo_java_lang_Boolean_.json": {
+    "owner": "java.lang.Boolean",
+    "name": "compareTo",
+    "genericString": "public int java.lang.Boolean.compareTo(java.lang.Boolean)",
+    "returnType": "int",
+    "paramTypes": [
+      "java.lang.Boolean"
     ]
   },
   "public_static_boolean_java_lang_Float_isInfinite_float_.json": {
@@ -1515,6 +1805,13 @@
       "short"
     ]
   },
+  "public_byte_java_lang_Integer_byteValue__.json": {
+    "owner": "java.lang.Integer",
+    "name": "byteValue",
+    "genericString": "public byte java.lang.Integer.byteValue()",
+    "returnType": "byte",
+    "paramTypes": []
+  },
   "public_boolean_java_lang_String_isEmpty__.json": {
     "owner": "java.lang.String",
     "name": "isEmpty",
@@ -1562,6 +1859,27 @@
       "long"
     ]
   },
+  "public_int_java_lang_Byte_intValue__.json": {
+    "owner": "java.lang.Byte",
+    "name": "intValue",
+    "genericString": "public int java.lang.Byte.intValue()",
+    "returnType": "int",
+    "paramTypes": []
+  },
+  "public_int_java_lang_Long_intValue__.json": {
+    "owner": "java.lang.Long",
+    "name": "intValue",
+    "genericString": "public int java.lang.Long.intValue()",
+    "returnType": "int",
+    "paramTypes": []
+  },
+  "public_boolean_java_lang_Float_isNaN__.json": {
+    "owner": "java.lang.Float",
+    "name": "isNaN",
+    "genericString": "public boolean java.lang.Float.isNaN()",
+    "returnType": "boolean",
+    "paramTypes": []
+  },
   "public_static_boolean_java_lang_Character_isLetterOrDigit_char_.json": {
     "owner": "java.lang.Character",
     "name": "isLetterOrDigit",
@@ -1579,6 +1897,13 @@
     "paramTypes": [
       "java.lang.String"
     ]
+  },
+  "public_byte_java_lang_Long_byteValue__.json": {
+    "owner": "java.lang.Long",
+    "name": "byteValue",
+    "genericString": "public byte java.lang.Long.byteValue()",
+    "returnType": "byte",
+    "paramTypes": []
   },
   "public_static_long_java_lang_Long_rotateRight_long_int_.json": {
     "owner": "java.lang.Long",
@@ -1618,13 +1943,6 @@
       "long",
       "long"
     ]
-  },
-  "public_java_lang_String_java_lang_String_translateEscapes__.json": {
-    "owner": "java.lang.String",
-    "name": "translateEscapes",
-    "genericString": "public java.lang.String java.lang.String.translateEscapes()",
-    "returnType": "java.lang.String",
-    "paramTypes": []
   },
   "public_int_java_util_ArrayList_hashCode__.json": {
     "owner": "java.util.ArrayList",
@@ -1677,6 +1995,20 @@
     "paramTypes": [
       "float"
     ]
+  },
+  "public_byte_java_lang_Byte_byteValue__.json": {
+    "owner": "java.lang.Byte",
+    "name": "byteValue",
+    "genericString": "public byte java.lang.Byte.byteValue()",
+    "returnType": "byte",
+    "paramTypes": []
+  },
+  "public_int_java_lang_Integer_intValue__.json": {
+    "owner": "java.lang.Integer",
+    "name": "intValue",
+    "genericString": "public int java.lang.Integer.intValue()",
+    "returnType": "int",
+    "paramTypes": []
   },
   "public_static_long_java_lang_Long_reverseBytes_long_.json": {
     "owner": "java.lang.Long",
@@ -1792,6 +2124,13 @@
       "long"
     ]
   },
+  "public_java_lang_String_java_lang_Character_toString__.json": {
+    "owner": "java.lang.Character",
+    "name": "toString",
+    "genericString": "public java.lang.String java.lang.Character.toString()",
+    "returnType": "java.lang.String",
+    "paramTypes": []
+  },
   "public_static_java_lang_String_java_lang_Integer_toUnsignedString_int_int_.json": {
     "owner": "java.lang.Integer",
     "name": "toUnsignedString",
@@ -1809,6 +2148,22 @@
     "returnType": "int",
     "paramTypes": [
       "int"
+    ]
+  },
+  "public_java_lang_String_java_lang_Float_toString__.json": {
+    "owner": "java.lang.Float",
+    "name": "toString",
+    "genericString": "public java.lang.String java.lang.Float.toString()",
+    "returnType": "java.lang.String",
+    "paramTypes": []
+  },
+  "public_int_java_lang_Integer_compareTo_java_lang_Integer_.json": {
+    "owner": "java.lang.Integer",
+    "name": "compareTo",
+    "genericString": "public int java.lang.Integer.compareTo(java.lang.Integer)",
+    "returnType": "int",
+    "paramTypes": [
+      "java.lang.Integer"
     ]
   },
   "public_static_int_java_lang_Math_abs_int_.json": {
@@ -1843,6 +2198,13 @@
     "returnType": "int",
     "paramTypes": []
   },
+  "public_short_java_lang_Double_shortValue__.json": {
+    "owner": "java.lang.Double",
+    "name": "shortValue",
+    "genericString": "public short java.lang.Double.shortValue()",
+    "returnType": "short",
+    "paramTypes": []
+  },
   "public_static_boolean_java_lang_Character_isLowerCase_char_.json": {
     "owner": "java.lang.Character",
     "name": "isLowerCase",
@@ -1850,6 +2212,22 @@
     "returnType": "boolean",
     "paramTypes": [
       "char"
+    ]
+  },
+  "public_long_java_lang_Short_longValue__.json": {
+    "owner": "java.lang.Short",
+    "name": "longValue",
+    "genericString": "public long java.lang.Short.longValue()",
+    "returnType": "long",
+    "paramTypes": []
+  },
+  "public_int_java_lang_Float_compareTo_java_lang_Float_.json": {
+    "owner": "java.lang.Float",
+    "name": "compareTo",
+    "genericString": "public int java.lang.Float.compareTo(java.lang.Float)",
+    "returnType": "int",
+    "paramTypes": [
+      "java.lang.Float"
     ]
   },
   "public_static_int_java_lang_Float_compare_float_float_.json": {
@@ -2001,6 +2379,13 @@
       "char"
     ]
   },
+  "public_double_java_lang_Byte_doubleValue__.json": {
+    "owner": "java.lang.Byte",
+    "name": "doubleValue",
+    "genericString": "public double java.lang.Byte.doubleValue()",
+    "returnType": "double",
+    "paramTypes": []
+  },
   "public_static_int_java_lang_Byte_toUnsignedInt_byte_.json": {
     "owner": "java.lang.Byte",
     "name": "toUnsignedInt",
@@ -2083,6 +2468,13 @@
       "int"
     ]
   },
+  "public_long_java_lang_Double_longValue__.json": {
+    "owner": "java.lang.Double",
+    "name": "longValue",
+    "genericString": "public long java.lang.Double.longValue()",
+    "returnType": "long",
+    "paramTypes": []
+  },
   "public_static_boolean_java_lang_Boolean_getBoolean_java_lang_String_.json": {
     "owner": "java.lang.Boolean",
     "name": "getBoolean",
@@ -2099,6 +2491,15 @@
     "returnType": "java.lang.String",
     "paramTypes": []
   },
+  "public_int_java_lang_Double_compareTo_java_lang_Double_.json": {
+    "owner": "java.lang.Double",
+    "name": "compareTo",
+    "genericString": "public int java.lang.Double.compareTo(java.lang.Double)",
+    "returnType": "int",
+    "paramTypes": [
+      "java.lang.Double"
+    ]
+  },
   "public_static_boolean_java_lang_Character_isUpperCase_int_.json": {
     "owner": "java.lang.Character",
     "name": "isUpperCase",
@@ -2107,6 +2508,13 @@
     "paramTypes": [
       "int"
     ]
+  },
+  "public_int_java_lang_Double_hashCode__.json": {
+    "owner": "java.lang.Double",
+    "name": "hashCode",
+    "genericString": "public int java.lang.Double.hashCode()",
+    "returnType": "int",
+    "paramTypes": []
   },
   "public_static_boolean_java_lang_Character_isSpaceChar_char_.json": {
     "owner": "java.lang.Character",
@@ -2135,6 +2543,20 @@
       "char"
     ]
   },
+  "public_short_java_lang_Byte_shortValue__.json": {
+    "owner": "java.lang.Byte",
+    "name": "shortValue",
+    "genericString": "public short java.lang.Byte.shortValue()",
+    "returnType": "short",
+    "paramTypes": []
+  },
+  "public_boolean_java_lang_Double_isNaN__.json": {
+    "owner": "java.lang.Double",
+    "name": "isNaN",
+    "genericString": "public boolean java.lang.Double.isNaN()",
+    "returnType": "boolean",
+    "paramTypes": []
+  },
   "public_static_int_java_lang_Character_getType_char_.json": {
     "owner": "java.lang.Character",
     "name": "getType",
@@ -2143,6 +2565,13 @@
     "paramTypes": [
       "char"
     ]
+  },
+  "public_java_lang_String_java_lang_Double_toString__.json": {
+    "owner": "java.lang.Double",
+    "name": "toString",
+    "genericString": "public java.lang.String java.lang.Double.toString()",
+    "returnType": "java.lang.String",
+    "paramTypes": []
   },
   "public_static_java_lang_String_java_lang_Long_toString_long_int_.json": {
     "owner": "java.lang.Long",
@@ -2298,6 +2727,20 @@
     "name": "clone",
     "genericString": "public java.lang.Object java.util.ArrayList.clone()",
     "returnType": "java.lang.Object",
+    "paramTypes": []
+  },
+  "public_byte_java_lang_Double_byteValue__.json": {
+    "owner": "java.lang.Double",
+    "name": "byteValue",
+    "genericString": "public byte java.lang.Double.byteValue()",
+    "returnType": "byte",
+    "paramTypes": []
+  },
+  "public_java_lang_String_java_lang_Byte_toString__.json": {
+    "owner": "java.lang.Byte",
+    "name": "toString",
+    "genericString": "public java.lang.String java.lang.Byte.toString()",
+    "returnType": "java.lang.String",
     "paramTypes": []
   }
 }
