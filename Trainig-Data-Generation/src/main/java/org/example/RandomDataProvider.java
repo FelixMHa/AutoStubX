@@ -1,16 +1,21 @@
 package org.example;
 
 import java.lang.reflect.Method;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableSet;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class RandomDataProvider {
 
@@ -157,26 +162,32 @@ public class RandomDataProvider {
             return list;
         }
 
-        else if (type.equals(Object.class)) {
-            return randomPrimitiveOrString();
-        }
 
-        // Collections
+        // Collections & Lists, Sets, Queues, Deques, etc.
         else if (Collection.class.isAssignableFrom(type)) {
             GenerateTrainingDataPerClass.statistics_data_diversity_list++;
-            List<Object> list = new ArrayList<>();
-            for (int i = 0; i < 3 + random.nextInt(3); i++) {
-                list.add(randomPrimitiveOrString());
+
+            List<Object> values = new ArrayList<>();
+            int length = 2 + random.nextInt(4); // 2–5 items
+            for (int i = 0; i < length; i++) {
+                values.add(randomPrimitiveOrString());
             }
 
-            if (List.class.isAssignableFrom(type))
-                return list;
-            if (Set.class.isAssignableFrom(type))
-                return new HashSet<>(list);
-            if (Queue.class.isAssignableFrom(type))
-                return new LinkedList<>(list);
-
-            return list; // Fallback for raw Collection
+            if (List.class.isAssignableFrom(type)) {
+                return new ArrayList<>(values);
+            } else if (Set.class.isAssignableFrom(type)) {
+                return new HashSet<>(values);
+            } else if (Queue.class.isAssignableFrom(type)) {
+                return new LinkedList<>(values);
+            } else if (Deque.class.isAssignableFrom(type)) {
+                return new ArrayDeque<>(values);
+            } else if (SortedSet.class.isAssignableFrom(type)) {
+                return new TreeSet<>(values);
+            } else if (NavigableSet.class.isAssignableFrom(type)) {
+                return new TreeSet<>(values);
+            } else {
+                return values; // fallback raw collection
+            }
         }
 
         // Maps
@@ -195,9 +206,15 @@ public class RandomDataProvider {
             return (java.util.function.Function<Object, Object>) o -> randomPrimitiveOrString();
         } else if (java.util.function.Consumer.class.isAssignableFrom(type)) {
             return (java.util.function.Consumer<Object>) o -> {
-            };
+                /* no-op */ };
         } else if (java.util.function.Supplier.class.isAssignableFrom(type)) {
             return (java.util.function.Supplier<Object>) RandomDataProvider::randomPrimitiveOrString;
+        } else if (java.util.function.BiFunction.class.isAssignableFrom(type)) {
+            return (java.util.function.BiFunction<Object, Object, Object>) (k, v) -> v;
+        }
+        // Generic Object (fallback for generic types)
+        else if (type.equals(Object.class)) {
+            return randomPrimitiveOrString();
         }
 
         throw new IllegalArgumentException("Type " + type + " not supported");

@@ -189,7 +189,7 @@ public class GenerateTrainingDataPerClass {
                             continue;
                         }
                         SequenceTreeBuilder builder = new SequenceTreeBuilder(method.getDeclaringClass());
-                        builder.buildRandomState(2 + new Random().nextInt(3));
+                        builder.buildRandomState(0 + new Random().nextInt(3));
 
                         SequenceInputOutputPair<Object[], Object> sample = builder.applyTargetAndCollect(method);
                         if (sample != null) {
