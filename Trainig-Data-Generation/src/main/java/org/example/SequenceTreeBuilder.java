@@ -15,7 +15,7 @@ public class SequenceTreeBuilder {
     private final List<String> methodSequence;
     private final List<Method> appliedMutators;
     private static final List<String> mutatorPrefixes = List.of(
-            "add", "put", "insert", "append", "push", "offer", "set", "remove", "clear");
+            "add", "put", "insert", "append", "push", "pop", "offer", "set", "remove", "clear");
 
     public SequenceTreeBuilder(Class<?> clazz) {
         this.clazz = clazz;
@@ -99,7 +99,7 @@ public class SequenceTreeBuilder {
     public SequenceInputOutputPair<Object[], Object> applyTargetAndCollect(Method targetMethod) {
         try {
             Object[] targetArgs = RandomDataProvider.generateRandomArgs(targetMethod);
-            targetMethod.setAccessible(true);
+    
             Object output = targetMethod.invoke(baseObject, targetArgs);
 
             // Skip NaN/Infinite outputs
@@ -114,7 +114,7 @@ public class SequenceTreeBuilder {
             return new SequenceInputOutputPair<>(methodSequence, fullInput.toArray(), output);
 
         } catch (Exception e) {
-            return null; // Silent fail
+            return null;
         }
     }
 }

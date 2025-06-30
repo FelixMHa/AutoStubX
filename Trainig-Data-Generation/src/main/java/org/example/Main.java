@@ -37,7 +37,21 @@ public class Main {
                 "java.lang.Long",
                 "java.lang.Math",
                 "java.lang.StrictMath",
-                "java.util.ArrayList"
+                "java.util.ArrayList",
+                "java.util.Map",
+                "java.util.HashMap",
+                "java.util.LinkedList",
+                "java.util.List",
+                "java.util.Set",
+                "java.util.HashSet",
+                "java.util.TreeSet",
+                "java.util.LinkedHashSet",
+                "java.util.Queue",
+                "java.util.Deque",
+                "java.util.Stack",
+                "java.util.Vector",
+                "java.util.Arrays",
+                "java.util.Collections"
         };
 
         // generate training data for each class

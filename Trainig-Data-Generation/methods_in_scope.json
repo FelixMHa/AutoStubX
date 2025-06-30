@@ -272,6 +272,15 @@
       "double"
     ]
   },
+  "public_boolean_java_util_LinkedList_add_E_.json": {
+    "owner": "java.util.LinkedList",
+    "name": "add",
+    "genericString": "public boolean java.util.LinkedList.add(E)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
   "public_static_java_lang_Integer_java_lang_Integer_getInteger_java_lang_String_.json": {
     "owner": "java.lang.Integer",
     "name": "getInteger",
@@ -346,6 +355,13 @@
       "char"
     ]
   },
+  "public_java_lang_Object_java_util_LinkedList_clone__.json": {
+    "owner": "java.util.LinkedList",
+    "name": "clone",
+    "genericString": "public java.lang.Object java.util.LinkedList.clone()",
+    "returnType": "java.lang.Object",
+    "paramTypes": []
+  },
   "public_static_char_java_lang_Character_forDigit_int_int_.json": {
     "owner": "java.lang.Character",
     "name": "forDigit",
@@ -382,6 +398,15 @@
     "returnType": "int",
     "paramTypes": [
       "java.lang.String"
+    ]
+  },
+  "public_boolean_java_util_HashMap_containsKey_java_lang_Object_.json": {
+    "owner": "java.util.HashMap",
+    "name": "containsKey",
+    "genericString": "public boolean java.util.HashMap.containsKey(java.lang.Object)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
     ]
   },
   "public_int_java_lang_String_length__.json": {
@@ -737,6 +762,15 @@
       "double"
     ]
   },
+  "public_boolean_java_util_LinkedList_addAll_java_util_Collection___extends_E__.json": {
+    "owner": "java.util.LinkedList",
+    "name": "addAll",
+    "genericString": "public boolean java.util.LinkedList.addAll(java.util.Collection\u003c? extends E\u003e)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.util.Collection"
+    ]
+  },
   "public_static_long_java_lang_Long_lowestOneBit_long_.json": {
     "owner": "java.lang.Long",
     "name": "lowestOneBit",
@@ -893,6 +927,17 @@
       "java.util.Collection"
     ]
   },
+  "public_boolean_java_util_HashMap_replace_K_V_V_.json": {
+    "owner": "java.util.HashMap",
+    "name": "replace",
+    "genericString": "public boolean java.util.HashMap.replace(K,V,V)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object",
+      "java.lang.Object",
+      "java.lang.Object"
+    ]
+  },
   "public_static_int_java_lang_Character_compare_char_char_.json": {
     "owner": "java.lang.Character",
     "name": "compare",
@@ -911,6 +956,13 @@
     "paramTypes": [
       "char"
     ]
+  },
+  "public_java_util_Set_java_util_Map_Entry_K__V___java_util_HashMap_entrySet__.json": {
+    "owner": "java.util.HashMap",
+    "name": "entrySet",
+    "genericString": "public java.util.Set\u003cjava.util.Map$Entry\u003cK, V\u003e\u003e java.util.HashMap.entrySet()",
+    "returnType": "java.util.Set",
+    "paramTypes": []
   },
   "public_boolean_java_util_ArrayList_equals_java_lang_Object_.json": {
     "owner": "java.util.ArrayList",
@@ -982,6 +1034,22 @@
       "java.lang.Object"
     ]
   },
+  "public_int_java_util_LinkedList_lastIndexOf_java_lang_Object_.json": {
+    "owner": "java.util.LinkedList",
+    "name": "lastIndexOf",
+    "genericString": "public int java.util.LinkedList.lastIndexOf(java.lang.Object)",
+    "returnType": "int",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
+  "public_boolean_java_util_Stack_empty__.json": {
+    "owner": "java.util.Stack",
+    "name": "empty",
+    "genericString": "public boolean java.util.Stack.empty()",
+    "returnType": "boolean",
+    "paramTypes": []
+  },
   "public_static_int_java_lang_Integer_compare_int_int_.json": {
     "owner": "java.lang.Integer",
     "name": "compare",
@@ -1018,6 +1086,15 @@
     "returnType": "java.lang.String",
     "paramTypes": [
       "int"
+    ]
+  },
+  "public_V_java_util_HashMap_get_java_lang_Object_.json": {
+    "owner": "java.util.HashMap",
+    "name": "get",
+    "genericString": "public V java.util.HashMap.get(java.lang.Object)",
+    "returnType": "java.lang.Object",
+    "paramTypes": [
+      "java.lang.Object"
     ]
   },
   "public_boolean_java_lang_String_startsWith_java_lang_String_int_.json": {
@@ -1095,6 +1172,13 @@
       "double"
     ]
   },
+  "public_java_lang_Object_java_util_HashMap_clone__.json": {
+    "owner": "java.util.HashMap",
+    "name": "clone",
+    "genericString": "public java.lang.Object java.util.HashMap.clone()",
+    "returnType": "java.lang.Object",
+    "paramTypes": []
+  },
   "public_boolean_java_lang_String_endsWith_java_lang_String_.json": {
     "owner": "java.lang.String",
     "name": "endsWith",
@@ -1112,6 +1196,13 @@
     "paramTypes": [
       "char"
     ]
+  },
+  "public_java_util_Deque_java_util_LinkedList_reversed__.json": {
+    "owner": "java.util.LinkedList",
+    "name": "reversed",
+    "genericString": "public java.util.Deque java.util.LinkedList.reversed()",
+    "returnType": "java.util.Deque",
+    "paramTypes": []
   },
   "public_static_boolean_java_lang_Character_isUpperCase_char_.json": {
     "owner": "java.lang.Character",
@@ -1267,6 +1358,13 @@
       "java.lang.String"
     ]
   },
+  "public_boolean_java_util_HashMap_isEmpty__.json": {
+    "owner": "java.util.HashMap",
+    "name": "isEmpty",
+    "genericString": "public boolean java.util.HashMap.isEmpty()",
+    "returnType": "boolean",
+    "paramTypes": []
+  },
   "public_static_long_java_lang_Byte_toUnsignedLong_byte_.json": {
     "owner": "java.lang.Byte",
     "name": "toUnsignedLong",
@@ -1301,6 +1399,13 @@
       "java.lang.String"
     ]
   },
+  "public_int_java_util_HashMap_size__.json": {
+    "owner": "java.util.HashMap",
+    "name": "size",
+    "genericString": "public int java.util.HashMap.size()",
+    "returnType": "int",
+    "paramTypes": []
+  },
   "public_static_byte_java_lang_Character_getDirectionality_char_.json": {
     "owner": "java.lang.Character",
     "name": "getDirectionality",
@@ -1333,6 +1438,15 @@
     "returnType": "java.lang.String",
     "paramTypes": []
   },
+  "public_boolean_java_util_HashMap_containsValue_java_lang_Object_.json": {
+    "owner": "java.util.HashMap",
+    "name": "containsValue",
+    "genericString": "public boolean java.util.HashMap.containsValue(java.lang.Object)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
   "public_static_java_lang_String_java_lang_String_valueOf_long_.json": {
     "owner": "java.lang.String",
     "name": "valueOf",
@@ -1341,6 +1455,13 @@
     "paramTypes": [
       "long"
     ]
+  },
+  "public_java_util_Collection_V__java_util_HashMap_values__.json": {
+    "owner": "java.util.HashMap",
+    "name": "values",
+    "genericString": "public java.util.Collection\u003cV\u003e java.util.HashMap.values()",
+    "returnType": "java.util.Collection",
+    "paramTypes": []
   },
   "public_static_java_lang_Long_java_lang_Long_valueOf_long_.json": {
     "owner": "java.lang.Long",
@@ -1429,6 +1550,15 @@
       "java.lang.Object"
     ]
   },
+  "public_boolean_java_util_LinkedList_offerLast_E_.json": {
+    "owner": "java.util.LinkedList",
+    "name": "offerLast",
+    "genericString": "public boolean java.util.LinkedList.offerLast(E)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
   "public_static_boolean_java_lang_Character_isJavaIdentifierPart_char_.json": {
     "owner": "java.lang.Character",
     "name": "isJavaIdentifierPart",
@@ -1466,6 +1596,15 @@
       "int"
     ]
   },
+  "public_int_java_util_LinkedList_indexOf_java_lang_Object_.json": {
+    "owner": "java.util.LinkedList",
+    "name": "indexOf",
+    "genericString": "public int java.util.LinkedList.indexOf(java.lang.Object)",
+    "returnType": "int",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
   "public_static_int_java_lang_Integer_hashCode_int_.json": {
     "owner": "java.lang.Integer",
     "name": "hashCode",
@@ -1481,6 +1620,16 @@
     "genericString": "public int java.util.ArrayList.lastIndexOf(java.lang.Object)",
     "returnType": "int",
     "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
+  "public_V_java_util_HashMap_replace_K_V_.json": {
+    "owner": "java.util.HashMap",
+    "name": "replace",
+    "genericString": "public V java.util.HashMap.replace(K,V)",
+    "returnType": "java.lang.Object",
+    "paramTypes": [
+      "java.lang.Object",
       "java.lang.Object"
     ]
   },
@@ -1667,6 +1816,13 @@
       "int"
     ]
   },
+  "public_int_java_util_LinkedList_size__.json": {
+    "owner": "java.util.LinkedList",
+    "name": "size",
+    "genericString": "public int java.util.LinkedList.size()",
+    "returnType": "int",
+    "paramTypes": []
+  },
   "public_static_boolean_java_lang_Character_isBmpCodePoint_int_.json": {
     "owner": "java.lang.Character",
     "name": "isBmpCodePoint",
@@ -1777,6 +1933,13 @@
       "long"
     ]
   },
+  "public_boolean_java_util_HashSet_isEmpty__.json": {
+    "owner": "java.util.HashSet",
+    "name": "isEmpty",
+    "genericString": "public boolean java.util.HashSet.isEmpty()",
+    "returnType": "boolean",
+    "paramTypes": []
+  },
   "public_static_boolean_java_lang_Character_isUnicodeIdentifierPart_int_.json": {
     "owner": "java.lang.Character",
     "name": "isUnicodeIdentifierPart",
@@ -1866,12 +2029,28 @@
     "returnType": "int",
     "paramTypes": []
   },
+  "public_java_util_SequencedCollection_java_util_LinkedList_reversed__.json": {
+    "owner": "java.util.LinkedList",
+    "name": "reversed",
+    "genericString": "public java.util.SequencedCollection java.util.LinkedList.reversed()",
+    "returnType": "java.util.SequencedCollection",
+    "paramTypes": []
+  },
   "public_int_java_lang_Long_intValue__.json": {
     "owner": "java.lang.Long",
     "name": "intValue",
     "genericString": "public int java.lang.Long.intValue()",
     "returnType": "int",
     "paramTypes": []
+  },
+  "public_boolean_java_util_LinkedList_removeFirstOccurrence_java_lang_Object_.json": {
+    "owner": "java.util.LinkedList",
+    "name": "removeFirstOccurrence",
+    "genericString": "public boolean java.util.LinkedList.removeFirstOccurrence(java.lang.Object)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
   },
   "public_boolean_java_lang_Float_isNaN__.json": {
     "owner": "java.lang.Float",
@@ -1951,6 +2130,15 @@
     "returnType": "int",
     "paramTypes": []
   },
+  "public_boolean_java_util_LinkedList_remove_java_lang_Object_.json": {
+    "owner": "java.util.LinkedList",
+    "name": "remove",
+    "genericString": "public boolean java.util.LinkedList.remove(java.lang.Object)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
   "public_static_java_lang_String_java_lang_Short_toString_short_.json": {
     "owner": "java.lang.Short",
     "name": "toString",
@@ -1959,6 +2147,13 @@
     "paramTypes": [
       "short"
     ]
+  },
+  "public_java_lang_Object_java_util_HashSet_clone__.json": {
+    "owner": "java.util.HashSet",
+    "name": "clone",
+    "genericString": "public java.lang.Object java.util.HashSet.clone()",
+    "returnType": "java.lang.Object",
+    "paramTypes": []
   },
   "public_static_boolean_java_lang_Character_isValidCodePoint_int_.json": {
     "owner": "java.lang.Character",
@@ -1976,6 +2171,16 @@
     "returnType": "long",
     "paramTypes": [
       "short"
+    ]
+  },
+  "public_boolean_java_util_HashMap_remove_java_lang_Object_java_lang_Object_.json": {
+    "owner": "java.util.HashMap",
+    "name": "remove",
+    "genericString": "public boolean java.util.HashMap.remove(java.lang.Object,java.lang.Object)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object",
+      "java.lang.Object"
     ]
   },
   "public_static_boolean_java_lang_Double_isNaN_double_.json": {
@@ -2046,6 +2251,24 @@
       "int"
     ]
   },
+  "public_boolean_java_util_HashSet_remove_java_lang_Object_.json": {
+    "owner": "java.util.HashSet",
+    "name": "remove",
+    "genericString": "public boolean java.util.HashSet.remove(java.lang.Object)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
+  "public_boolean_java_util_HashSet_add_E_.json": {
+    "owner": "java.util.HashSet",
+    "name": "add",
+    "genericString": "public boolean java.util.HashSet.add(E)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
   "public_static_int_java_lang_StrictMath_getExponent_double_.json": {
     "owner": "java.lang.StrictMath",
     "name": "getExponent",
@@ -2091,6 +2314,15 @@
     "paramTypes": [
       "char",
       "char"
+    ]
+  },
+  "public_boolean_java_util_HashSet_contains_java_lang_Object_.json": {
+    "owner": "java.util.HashSet",
+    "name": "contains",
+    "genericString": "public boolean java.util.HashSet.contains(java.lang.Object)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
     ]
   },
   "public_static_java_lang_String_java_lang_Integer_toHexString_int_.json": {
@@ -2157,6 +2389,13 @@
     "returnType": "java.lang.String",
     "paramTypes": []
   },
+  "public_java_util_Set_K__java_util_HashMap_keySet__.json": {
+    "owner": "java.util.HashMap",
+    "name": "keySet",
+    "genericString": "public java.util.Set\u003cK\u003e java.util.HashMap.keySet()",
+    "returnType": "java.util.Set",
+    "paramTypes": []
+  },
   "public_int_java_lang_Integer_compareTo_java_lang_Integer_.json": {
     "owner": "java.lang.Integer",
     "name": "compareTo",
@@ -2189,6 +2428,13 @@
     "name": "isEmpty",
     "genericString": "public boolean java.util.ArrayList.isEmpty()",
     "returnType": "boolean",
+    "paramTypes": []
+  },
+  "public_java_util_List_java_util_LinkedList_reversed__.json": {
+    "owner": "java.util.LinkedList",
+    "name": "reversed",
+    "genericString": "public java.util.List java.util.LinkedList.reversed()",
+    "returnType": "java.util.List",
     "paramTypes": []
   },
   "public_int_java_lang_String_hashCode__.json": {
@@ -2284,6 +2530,15 @@
     "paramTypes": [
       "int",
       "int"
+    ]
+  },
+  "public_V_java_util_HashMap_remove_java_lang_Object_.json": {
+    "owner": "java.util.HashMap",
+    "name": "remove",
+    "genericString": "public V java.util.HashMap.remove(java.lang.Object)",
+    "returnType": "java.lang.Object",
+    "paramTypes": [
+      "java.lang.Object"
     ]
   },
   "public_static_java_lang_Integer_java_lang_Integer_getInteger_java_lang_String_int_.json": {
@@ -2404,6 +2659,15 @@
       "char"
     ]
   },
+  "public_boolean_java_util_LinkedList_contains_java_lang_Object_.json": {
+    "owner": "java.util.LinkedList",
+    "name": "contains",
+    "genericString": "public boolean java.util.LinkedList.contains(java.lang.Object)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
   "public_static_int_java_lang_Character_toLowerCase_int_.json": {
     "owner": "java.lang.Character",
     "name": "toLowerCase",
@@ -2516,6 +2780,24 @@
     "returnType": "int",
     "paramTypes": []
   },
+  "public_boolean_java_util_LinkedList_offer_E_.json": {
+    "owner": "java.util.LinkedList",
+    "name": "offer",
+    "genericString": "public boolean java.util.LinkedList.offer(E)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
+  "public_boolean_java_util_LinkedList_removeLastOccurrence_java_lang_Object_.json": {
+    "owner": "java.util.LinkedList",
+    "name": "removeLastOccurrence",
+    "genericString": "public boolean java.util.LinkedList.removeLastOccurrence(java.lang.Object)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
   "public_static_boolean_java_lang_Character_isSpaceChar_char_.json": {
     "owner": "java.lang.Character",
     "name": "isSpaceChar",
@@ -2534,6 +2816,15 @@
       "byte"
     ]
   },
+  "public_boolean_java_util_LinkedList_offerFirst_E_.json": {
+    "owner": "java.util.LinkedList",
+    "name": "offerFirst",
+    "genericString": "public boolean java.util.LinkedList.offerFirst(E)",
+    "returnType": "boolean",
+    "paramTypes": [
+      "java.lang.Object"
+    ]
+  },
   "public_static_boolean_java_lang_Character_isISOControl_char_.json": {
     "owner": "java.lang.Character",
     "name": "isISOControl",
@@ -2541,6 +2832,15 @@
     "returnType": "boolean",
     "paramTypes": [
       "char"
+    ]
+  },
+  "public_synchronized_int_java_util_Stack_search_java_lang_Object_.json": {
+    "owner": "java.util.Stack",
+    "name": "search",
+    "genericString": "public synchronized int java.util.Stack.search(java.lang.Object)",
+    "returnType": "int",
+    "paramTypes": [
+      "java.lang.Object"
     ]
   },
   "public_short_java_lang_Byte_shortValue__.json": {
@@ -2600,6 +2900,13 @@
     "paramTypes": [
       "double"
     ]
+  },
+  "public_int_java_util_HashSet_size__.json": {
+    "owner": "java.util.HashSet",
+    "name": "size",
+    "genericString": "public int java.util.HashSet.size()",
+    "returnType": "int",
+    "paramTypes": []
   },
   "public_static_int_java_lang_StrictMath_max_int_int_.json": {
     "owner": "java.lang.StrictMath",
@@ -2702,6 +3009,13 @@
       "char",
       "char"
     ]
+  },
+  "public_java_util_LinkedList_E__java_util_LinkedList_reversed__.json": {
+    "owner": "java.util.LinkedList",
+    "name": "reversed",
+    "genericString": "public java.util.LinkedList\u003cE\u003e java.util.LinkedList.reversed()",
+    "returnType": "java.util.LinkedList",
+    "paramTypes": []
   },
   "public_static_boolean_java_lang_Character_isJavaIdentifierPart_int_.json": {
     "owner": "java.lang.Character",
