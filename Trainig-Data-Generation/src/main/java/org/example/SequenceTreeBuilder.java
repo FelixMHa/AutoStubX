@@ -46,7 +46,6 @@ public class SequenceTreeBuilder {
 
             try {
                 Object[] args = RandomDataProvider.generateRandomArgs(mutator);
-                mutator.setAccessible(true);
                 mutator.invoke(baseObject, args);
 
                 methodSequence.add(formatMethodCall(mutator, args));
@@ -101,7 +100,8 @@ public class SequenceTreeBuilder {
             Object[] targetArgs = RandomDataProvider.generateRandomArgs(targetMethod);
     
             Object output = targetMethod.invoke(baseObject, targetArgs);
-
+            methodSequence.add(formatMethodCall(targetMethod,targetArgs));
+            appliedMutators.add(targetMethod);
             // Skip NaN/Infinite outputs
             if (output instanceof Double d && (Double.isNaN(d) || Double.isInfinite(d))) return null;
             if (output instanceof Float f && (Float.isNaN(f) || Float.isInfinite(f))) return null;
