@@ -136,12 +136,23 @@ public class GenerateTrainingDataPerClass {
     }
 
     private static boolean isStateful(String className) {
-        return className.equals("java.util.ArrayList") ||
+        return className.equals("java.util.Stack") ||
+                className.equals("java.util.ArrayList") ||
+                className.equals("java.util.Map") ||
                 className.equals("java.util.HashMap") ||
-                className.equals("java.lang.StringBuilder") ||
                 className.equals("java.util.LinkedList") ||
+                className.equals("java.util.List") ||
+                className.equals("java.util.Set") ||
                 className.equals("java.util.HashSet") ||
-                className.equals("java.util.Stack");
+                className.equals("java.util.TreeSet") ||
+                className.equals("java.util.LinkedHashSet") ||
+                className.equals("java.util.Queue") ||
+                className.equals("java.util.Deque") ||
+                className.equals("java.util.Stack") ||
+                className.equals("java.util.Vector") ||
+                className.equals("java.util.Arrays") ||
+                className.equals("java.util.Collections") ||
+                className.equals("java.lang.StringBuilder");
     }
 
     private static void generateTrainingDataForMethod(Method method, boolean isStatic, boolean isStateful)
@@ -180,23 +191,24 @@ public class GenerateTrainingDataPerClass {
                 if (!isStatic) {
 
                     if (isStateful) {
-                        try {
-                            baseObject = method.getDeclaringClass().getDeclaredConstructor().newInstance();
-
-                        } catch (Exception e) {
-                            System.out.println(
-                                    "Could not instantiate base object for " + method.getDeclaringClass().getName());
-                            continue;
-                        }
                         SequenceTreeBuilder builder = new SequenceTreeBuilder(method.getDeclaringClass());
-                        builder.buildRandomState(0 + new Random().nextInt(3));
-
+                        builder.buildRandomState(10);
                         SequenceInputOutputPair<Object[], Object> sample = builder.applyTargetAndCollect(method);
+                        baseObject = builder.getBaseObject();
+                        sequence = builder.getSequence();
                         if (sample != null) {
                             trainingData.add(sample);
+                            continue;
+                        } else {
+                            // Fallback: instantiate a new object of the class
+                            try {
+                                baseObject = method.getDeclaringClass().getDeclaredConstructor().newInstance();
+                            } catch (Exception e) {
+                                System.out.println("Could not instantiate fallback base object for "
+                                        + method.getDeclaringClass().getName());
+                                continue;
+                            }
                         }
-
-                        continue;
                     } else {
                         baseObject = RandomDataProvider.randomValueForType(method.getDeclaringClass());
                     }
@@ -267,6 +279,9 @@ public class GenerateTrainingDataPerClass {
 
                 successfulMethods.put(trainingDataFile.getFileName().toString(), javaFunctionExport);
             }
+            else {
+                System.out.println("Not enough samples for " + method.getName() + ", skipping.");
+            }   
         } catch (Exception e) {
             System.out.println("Error while writing training data to file " + trainingDataFile);
             e.printStackTrace();
