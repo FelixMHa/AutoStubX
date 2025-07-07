@@ -37,8 +37,8 @@ public class Main {
                 "java.lang.Long",
                 "java.lang.Math",
                 "java.lang.StrictMath",
-                "java.util.ArrayList",
-                "java.util.Map",
+                "java.util.ArrayList"/*,
+                 "java.util.Map",
                 "java.util.HashMap",
                 "java.util.LinkedList",
                 "java.util.List",
@@ -51,7 +51,7 @@ public class Main {
                 "java.util.Stack",
                 "java.util.Vector",
                 "java.util.Arrays",
-                "java.util.Collections"
+                "java.util.Collections"*/
         };
 
         // generate training data for each class
