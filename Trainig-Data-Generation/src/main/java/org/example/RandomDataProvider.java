@@ -151,17 +151,62 @@ public class RandomDataProvider {
                 sb.append((char) random.nextInt(256));
             }
             return sb.toString();
-        } else if (List.class.isAssignableFrom(type)) {
-            GenerateTrainingDataPerClass.statistics_data_diversity_list++;
-            int length = random.nextInt(5); // Shorter to reduce exceptions
-
-            ArrayList<Object> list = new ArrayList<>();
-            for (int i = 0; i < length; i++) {
-                list.add(randomPrimitiveOrString());
-            }
-            return list;
         }
+        // Primitive arrays like int[], double[], etc.
+        else if (type.isArray()) {
+            Class<?> component = type.getComponentType();
+            int len = 2 + random.nextInt(3);
 
+            if (component.isPrimitive()) {
+                if (component == int.class) {
+                    int[] arr = new int[len];
+                    for (int i = 0; i < len; i++)
+                        arr[i] = random.nextInt(100);
+                    return arr;
+                } else if (component == double.class) {
+                    double[] arr = new double[len];
+                    for (int i = 0; i < len; i++)
+                        arr[i] = random.nextDouble() * 100;
+                    return arr;
+                } else if (component == boolean.class) {
+                    boolean[] arr = new boolean[len];
+                    for (int i = 0; i < len; i++)
+                        arr[i] = random.nextBoolean();
+                    return arr;
+                } else if (component == long.class) {
+                    long[] arr = new long[len];
+                    for (int i = 0; i < len; i++)
+                        arr[i] = random.nextLong();
+                    return arr;
+                } else if (component == float.class) {
+                    float[] arr = new float[len];
+                    for (int i = 0; i < len; i++)
+                        arr[i] = random.nextFloat();
+                    return arr;
+                } else if (component == char.class) {
+                    char[] arr = new char[len];
+                    for (int i = 0; i < len; i++)
+                        arr[i] = (char) (random.nextInt(26) + 'a');
+                    return arr;
+                } else if (component == short.class) {
+                    short[] arr = new short[len];
+                    for (int i = 0; i < len; i++)
+                        arr[i] = (short) random.nextInt(Short.MAX_VALUE);
+                    return arr;
+                } else if (component == byte.class) {
+                    byte[] arr = new byte[len];
+                    random.nextBytes(arr);
+                    return arr;
+                }
+            } else {
+                // Object arrays (e.g. String[], Object[])
+                Object[] array = (Object[]) java.lang.reflect.Array.newInstance(component, len);
+                for (int i = 0; i < len; i++) {
+                    array[i] = randomPrimitiveOrString(); // You could use recursive generation here too
+                }
+                return array;
+            }
+        }
 
         // Collections & Lists, Sets, Queues, Deques, etc.
         else if (Collection.class.isAssignableFrom(type)) {
@@ -170,7 +215,7 @@ public class RandomDataProvider {
             List<Object> values = new ArrayList<>();
             int length = 2 + random.nextInt(4); // 2–5 items
             for (int i = 0; i < length; i++) {
-                values.add(randomPrimitiveOrString());
+                values.add(randomValueForType(Object.class));
             }
 
             if (List.class.isAssignableFrom(type)) {
@@ -215,6 +260,23 @@ public class RandomDataProvider {
         // Generic Object (fallback for generic types)
         else if (type.equals(Object.class)) {
             return randomPrimitiveOrString();
+        } else if (java.util.Comparator.class.isAssignableFrom(type)) {
+            // Return a comparator that randomly returns -1, 0, or 1
+            return (java.util.Comparator<Object>) (o1, o2) -> {
+                int[] results = { -1, 0, 1 };
+                return results[random.nextInt(3)];
+            };
+        } else if (type.equals(Class.class)) {
+            // Return a random class, sometimes an array class
+            Class<?>[] baseClasses = { String.class, Integer.class, Double.class, Boolean.class, Object.class };
+            if (random.nextBoolean()) {
+                // Return a base class
+                return baseClasses[random.nextInt(baseClasses.length)];
+            } else {
+                // Return an array class
+                Class<?> base = baseClasses[random.nextInt(baseClasses.length)];
+                return java.lang.reflect.Array.newInstance(base, 0).getClass();
+            }
         }
 
         throw new IllegalArgumentException("Type " + type + " not supported");
