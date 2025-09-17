@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,6 +17,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.Vector;
 
 public class RandomDataProvider {
 
@@ -256,6 +258,12 @@ public class RandomDataProvider {
             return (java.util.function.Supplier<Object>) RandomDataProvider::randomPrimitiveOrString;
         } else if (java.util.function.BiFunction.class.isAssignableFrom(type)) {
             return (java.util.function.BiFunction<Object, Object, Object>) (k, v) -> v;
+        } else if (java.util.Enumeration.class.isAssignableFrom(type)) {
+            List<Object> list = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                list.add(randomPrimitiveOrString());
+            }
+            return Collections.enumeration(list); // convert to Enumeration
         }
         // Generic Object (fallback for generic types)
         else if (type.equals(Object.class)) {

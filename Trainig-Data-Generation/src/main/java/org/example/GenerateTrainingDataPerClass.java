@@ -150,7 +150,6 @@ public class GenerateTrainingDataPerClass {
                 className.equals("java.util.Deque") ||
                 className.equals("java.util.Stack") ||
                 className.equals("java.util.Vector") ||
-                className.equals("java.util.Arrays") ||
                 className.equals("java.util.Collections") ||
                 className.equals("java.lang.StringBuilder");
     }
@@ -173,7 +172,7 @@ public class GenerateTrainingDataPerClass {
             return;
         if (fileName.contains("public_java_lang_String_java_lang_String_indent_int"))
             return;
-        if (method.getName().equals("toArray") || method.getName().equals("subList")) {
+        if (method.getName().equals("toArray") || method.getName().equals("subList") || method.getName().startsWith("copyOf") ) {
             return; // skip known problematic methods
         }
 
@@ -183,16 +182,16 @@ public class GenerateTrainingDataPerClass {
         statistics_samples_per_method = Main.MAX_SAMPLES * multiplier;
         for (int i = 0; i < Main.MAX_SAMPLES * multiplier; i++) {
             Object[] args = RandomDataProvider.generateRandomArgs(method);
-
+            List<String> sequence = Collections.emptyList();
             try {
                 Object baseObject = null;
                 String stringRepresentation = null;
-                List<String> sequence = Collections.emptyList();
+                
                 if (!isStatic) {
 
                     if (isStateful) {
                         SequenceTreeBuilder builder = new SequenceTreeBuilder(method.getDeclaringClass());
-                        builder.buildRandomState(10);
+                        builder.buildRandomState(6);
                         SequenceInputOutputPair<Object[], Object> sample = builder.applyTargetAndCollect(method);
                         baseObject = builder.getBaseObject();
                         sequence = builder.getSequence();
@@ -224,20 +223,20 @@ public class GenerateTrainingDataPerClass {
                 if (output instanceof Float && (Float.isNaN((Float) output) || Float.isInfinite((Float) output)))
                     continue;
 
-                // prepend baseObject as first argument for non-static methods
-                if (!isStatic) {
-                    ArrayList<Object> list = new ArrayList<>();
-                    list.add(baseObject);
-                    list.addAll(Arrays.asList(args));
-                    args = list.toArray();
-                }
-
-                trainingData.add(new SequenceInputOutputPair<>(sequence, args, output));
+                // Always wrap into a per-step sequence of length 1
+                sequence = Collections.singletonList(method.getName());
+                Object[][] inputsPerStep = new Object[][] { args };
+                Object[] outputsPerStep = new Object[] { output };
+                trainingData.add(new SequenceInputOutputPair<>(sequence, inputsPerStep, outputsPerStep));
             } catch (Exception e) {
                 if (!printedError) {
                     printedError = true;
                     System.out.println("Error while invoking method " + method.getName() + ": " + e.getMessage());
                 }
+                sequence = Collections.singletonList(method.getName());
+                Object[][] inputsPerStep = new Object[][] { args };
+                Object[] outputsPerStep = new Object[] { "error" };
+                trainingData.add(new SequenceInputOutputPair<>(sequence, inputsPerStep, outputsPerStep));
             }
         }
 

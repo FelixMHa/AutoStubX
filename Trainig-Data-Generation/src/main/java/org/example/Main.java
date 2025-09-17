@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Main {
 
-    public static int MAX_SAMPLES = 10000;
+    public static int MAX_SAMPLES = 1000;
     public static final boolean EXTENDED = false;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -26,32 +26,32 @@ public class Main {
         List<String> data = gson.fromJson(reader, List.class);
 
         String[] classesInScope = new String[]{
-                "java.lang.Boolean",
-                "java.lang.Double",
-                "java.lang.Float",
-                "java.lang.String",
-                "java.lang.Byte",
-                "java.lang.Short",
-                "java.lang.Character",
-                "java.lang.Integer",
-                "java.lang.Long",
-                "java.lang.Math",
-                "java.lang.StrictMath",
-                "java.util.ArrayList"/*,
-                 "java.util.Map",
-                "java.util.HashMap",
+                //"java.lang.Boolean",
+                //"java.lang.Double",
+                //"java.lang.Float",
+                //"java.lang.String",
+                //"java.lang.Byte",
+                //"java.lang.Short",
+                //"java.lang.Character",
+                //"java.lang.Integer",
+                //"java.lang.Long",
+                //"java.lang.Math",
+                //"java.lang.StrictMath",
+                "java.util.ArrayList",
+                //"java.util.Map",
+                //"java.util.HashMap",
                 "java.util.LinkedList",
-                "java.util.List",
-                "java.util.Set",
-                "java.util.HashSet",
-                "java.util.TreeSet",
-                "java.util.LinkedHashSet",
+                //"java.util.List",
+                //"java.util.Set",
+                //"java.util.HashSet",
+                //"java.util.TreeSet",
+                //"java.util.LinkedHashSet",
                 "java.util.Queue",
                 "java.util.Deque",
                 "java.util.Stack",
-                "java.util.Vector",
-                "java.util.Arrays",
-                "java.util.Collections"*/
+                //"java.util.Vector",
+                //"java.util.Arrays",
+                //"java.util.Collections"
         };
 
         // generate training data for each class
