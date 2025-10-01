@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Main {
 
-    public static int MAX_SAMPLES = 1000;
+    public static int MAX_SAMPLES = 10000;
     public static final boolean EXTENDED = false;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {

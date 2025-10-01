@@ -2,7 +2,6 @@ package org.example;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -14,11 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.IntSummaryStatistics;
-import java.util.List;
-import java.util.Random;
 
-import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
+import java.util.List;
 
 public class GenerateTrainingDataPerClass {
 
@@ -47,6 +43,32 @@ public class GenerateTrainingDataPerClass {
 
         statistics_total_classes++;
         boolean isStateful = isStateful(targetClass.getName());
+
+        if (isStateful) {
+            generateStatefulTrainingDataForClass(targetClass);
+        } else {
+            generateStatelessTrainingDataForClass(targetClass);
+        }
+
+    }
+
+    private static void generateStatefulTrainingDataForClass(Class<?> targetClass) throws  IOException {
+        List<SequenceInputOutputPair<Object[], Object>> trainingData = new ArrayList<>();
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < Main.MAX_SAMPLES/10; i++) {
+            
+            RecursiveSequenceTreeBuilder builder = new RecursiveSequenceTreeBuilder(targetClass);
+            SequenceInputOutputPair<Object[], Object> sample = builder.buildSequence(8);
+            if (sample != null) {
+                trainingData.add(sample);
+            }
+        }
+        String fileName = targetClass.toGenericString().replaceAll("[^A-Za-z0-9]", "_") + ".json";
+        Path trainingDataFile = Paths.get("./symbolic-regression-data/training/" + fileName);
+        writeTrainingDataToFile(trainingDataFile, trainingData, startTime);
+    }
+
+    private static void generateStatelessTrainingDataForClass(Class<?> targetClass) throws IOException {
         Method[] methods = targetClass.getDeclaredMethods();
         for (Method method : methods) {
             statistics_total_methods++;
@@ -76,7 +98,7 @@ public class GenerateTrainingDataPerClass {
             boolean isDisallowedReturnType = returnType.equals(Void.TYPE)
                     || returnType.equals(Void.class)
                     || disallowedReturnTypePrefixes.stream().anyMatch(returnTypeName::startsWith)
-                    || !(isPrimitive(returnType) || returnType.equals(String.class) || isStateful);
+                    || !(isPrimitive(returnType) || returnType.equals(String.class));
 
             if (isDisallowedReturnType) {
                 continue;
@@ -85,15 +107,15 @@ public class GenerateTrainingDataPerClass {
             // extract parameter types
             Class<?>[] paramTypes = method.getParameterTypes();
 
-            // check if all parameter types are primitives or strings or lists
+            // check if all parameter types are primitives or strings
             boolean isStatic = Modifier.isStatic(method.getModifiers());
             if (isStatic &&
                     Arrays.stream(paramTypes)
-                            .filter(p -> !isPrimitive(p) && !p.equals(String.class) && !isStateful)
+                            .filter(p -> !isPrimitive(p) && !p.equals(String.class))
                             .count() == 0 // only primitives or strings
                     && paramTypes.length > 0 // at least one parameter
                     || !isStatic && (Arrays.stream(paramTypes)
-                            .filter(p -> !isPrimitive(p) && !p.equals(String.class) && !isStateful)
+                            .filter(p -> !isPrimitive(p) && !p.equals(String.class))
                             .count() == 0 // If not static, then all parameters are primitives or strings
                             || paramTypes.length == 0 // or no parameters
                     )) {
@@ -101,7 +123,7 @@ public class GenerateTrainingDataPerClass {
                 System.out.println("Parameter types: " + Arrays.toString(paramTypes));
                 System.out.println("Return type: " + method.getReturnType());
                 try {
-                    generateTrainingDataForMethod(method, isStatic, isStateful);
+                    generateTrainingDataForMethod(method, isStatic, targetClass.getName());
                 } catch (OutOfMemoryError x) {
                     System.out.println("Out of memory error while generating training data for " + method.getName());
                 }
@@ -110,7 +132,7 @@ public class GenerateTrainingDataPerClass {
         }
     }
 
-    private static boolean isPrimitive(Class c) {
+    private static boolean isPrimitive(Class<?> c) {
         if (c.isPrimitive())
             return true;
 
@@ -154,13 +176,13 @@ public class GenerateTrainingDataPerClass {
                 className.equals("java.lang.StringBuilder");
     }
 
-    private static void generateTrainingDataForMethod(Method method, boolean isStatic, boolean isStateful)
+    private static void generateTrainingDataForMethod(Method method, boolean isStatic, String className)
             throws IOException {
 
         List<SequenceInputOutputPair<Object[], Object>> trainingData = new ArrayList<>();
         String extended = Main.EXTENDED ? ".extended." : "";
         String fileName = method.toGenericString().replaceAll("[^A-Za-z0-9]", "_") + extended + ".json";
-        Path trainingDataFile = Paths.get("./symbolic-regression-data/training/" + fileName);
+        Path trainingDataFile = Paths.get("./symbolic-regression-data/training/" + className + "/" + fileName);
 
         // create folders if they don't exist
         if (!Files.exists(trainingDataFile.getParent())) {
@@ -172,9 +194,7 @@ public class GenerateTrainingDataPerClass {
             return;
         if (fileName.contains("public_java_lang_String_java_lang_String_indent_int"))
             return;
-        if (method.getName().equals("toArray") || method.getName().equals("subList") || method.getName().startsWith("copyOf") ) {
-            return; // skip known problematic methods
-        }
+       
 
         boolean printedError = false;
         int multiplier = Main.EXTENDED ? 100 : 1;
@@ -186,37 +206,15 @@ public class GenerateTrainingDataPerClass {
             try {
                 Object baseObject = null;
                 String stringRepresentation = null;
-                
-                if (!isStatic) {
 
-                    if (isStateful) {
-                        SequenceTreeBuilder builder = new SequenceTreeBuilder(method.getDeclaringClass());
-                        builder.buildRandomState(6);
-                        SequenceInputOutputPair<Object[], Object> sample = builder.applyTargetAndCollect(method);
-                        baseObject = builder.getBaseObject();
-                        sequence = builder.getSequence();
-                        if (sample != null) {
-                            trainingData.add(sample);
-                            continue;
-                        } else {
-                            // Fallback: instantiate a new object of the class
-                            try {
-                                baseObject = method.getDeclaringClass().getDeclaredConstructor().newInstance();
-                            } catch (Exception e) {
-                                System.out.println("Could not instantiate fallback base object for "
-                                        + method.getDeclaringClass().getName());
-                                continue;
-                            }
-                        }
-                    } else {
-                        baseObject = RandomDataProvider.randomValueForType(method.getDeclaringClass());
-                    }
+                if (!isStatic) {
+                    baseObject = RandomDataProvider.randomValueForType(method.getDeclaringClass());
                 }
                 stringRepresentation = String.valueOf(baseObject);
                 Object output = method.invoke(baseObject, args);
 
                 // skip invalid outputs
-                if (!isStatic && !isStateful && !stringRepresentation.equals(String.valueOf(baseObject)))
+                if (!isStatic && !stringRepresentation.equals(String.valueOf(baseObject)))
                     continue;
                 if (output instanceof Double && (Double.isNaN((Double) output) || Double.isInfinite((Double) output)))
                     continue;
@@ -239,31 +237,10 @@ public class GenerateTrainingDataPerClass {
                 trainingData.add(new SequenceInputOutputPair<>(sequence, inputsPerStep, outputsPerStep));
             }
         }
-
-        if (trainingData.isEmpty())
-            return;
-
-        // write training data to file, replace all non-alphanumeric characters in
-        // method name
-        System.out.println("Writing training data to " + fileName);
-
-        try {
-            Gson gson = new GsonBuilder()
-                    .serializeSpecialFloatingPointValues()
-                    .setPrettyPrinting()
-                    .create();
-            String json = gson.toJson(trainingData);
-
-            // Check if it was successful
-            if (trainingData.size() == Main.MAX_SAMPLES * multiplier) {
+        if (trainingData.size() == Main.MAX_SAMPLES * multiplier) {
                 statistics_successful_methods++;
-                long timeDelta = System.currentTimeMillis() - startTime;
-                statistics_total_time += timeDelta;
-
-                // Only save if it was successful
-                Files.writeString(trainingDataFile, json);
-
-                String owner = method.getDeclaringClass().getName();
+        writeTrainingDataToFile(trainingDataFile, trainingData, startTime);
+        String owner = method.getDeclaringClass().getName();
                 String name = method.getName();
                 String genericString = method.toGenericString();
                 String returnType = method.getReturnType().getTypeName();
@@ -277,12 +254,40 @@ public class GenerateTrainingDataPerClass {
                         paramTypes);
 
                 successfulMethods.put(trainingDataFile.getFileName().toString(), javaFunctionExport);
-            }
-            else {
+        }else {
                 System.out.println("Not enough samples for " + method.getName() + ", skipping.");
-            }   
+            }
+    }
+
+    private static void writeTrainingDataToFile(Path file, List<SequenceInputOutputPair<Object[], Object>> trainingData, long startTime)
+            throws IOException {
+        // create folders if they don't exist
+        if (!Files.exists(file.getParent())) {
+            Files.createDirectories(file.getParent());
+        }
+        if (trainingData.isEmpty())
+            return;
+
+        // write training data to file, replace all non-alphanumeric characters in
+        // method name
+        System.out.println("Writing training data to " + file.getFileName().toString());
+
+        try {
+            Gson gson = new GsonBuilder()
+                    .serializeSpecialFloatingPointValues()
+                    .setPrettyPrinting()
+                    .create();
+            String json = gson.toJson(trainingData);
+
+
+                long timeDelta = System.currentTimeMillis() - startTime;
+                statistics_total_time += timeDelta;
+
+                // Only save if it was successful
+                Files.writeString(file, json);
+            
         } catch (Exception e) {
-            System.out.println("Error while writing training data to file " + trainingDataFile);
+            System.out.println("Error while writing training data to file " + file);
             e.printStackTrace();
         }
     }
