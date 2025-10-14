@@ -201,7 +201,7 @@ public class GenerateTrainingDataPerClass {
         long startTime = System.currentTimeMillis();
         statistics_samples_per_method = Main.MAX_SAMPLES * multiplier;
         for (int i = 0; i < Main.MAX_SAMPLES * multiplier; i++) {
-            Object[] args = RandomDataProvider.generateRandomArgs(method);
+            Object[] args = RandomDataProvider.generateRandomArgs(method, null);
             List<String> sequence = Collections.emptyList();
             try {
                 Object baseObject = null;
