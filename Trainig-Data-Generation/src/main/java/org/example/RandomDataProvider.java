@@ -3,6 +3,7 @@ package org.example;
 import java.lang.reflect.Method;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
@@ -290,16 +291,56 @@ public class RandomDataProvider {
         throw new IllegalArgumentException("Type " + type + " not supported");
     }
 
-    public static Object[] generateRandomArgs(Method method) {
+    public static Object[] generateRandomArgs(Method method, Object baseObject) {
         Class<?>[] paramTypes = method.getParameterTypes();
         Object[] args = new Object[paramTypes.length];
+        boolean methodNeedsIndex = needsIndex(method);
+
+        int size = getSizeIfPossible(baseObject);
+
         for (int i = 0; i < paramTypes.length; i++) {
-            args[i] = randomValueForType(paramTypes[i]);
+            Class<?> paramType = paramTypes[i];
+
+            if (paramType.equals(int.class) && methodNeedsIndex && size > 0) {
+                args[i] = random.nextInt(size);
+            } else {
+                args[i] = randomValueForType(paramType);
+            }
         }
+
         return args;
     }
 
-    private static Object randomPrimitiveOrString() {
+    private static boolean needsIndex(Method m) {
+        String name = m.getName().toLowerCase();
+        if (Arrays.stream(m.getParameterTypes()).noneMatch(p -> p.equals(int.class)))
+            return false;
+
+        return name.contains("get")
+                || name.contains("set")
+                || name.contains("add")
+                || name.contains("remove")
+                || name.contains("insert")
+                || name.contains("element")
+                || name.contains("sublist");
+    }
+
+    /** Returns the number of elements if the object is indexable, else 0 */
+    private static int getSizeIfPossible(Object baseObject) {
+        if (baseObject == null)
+            return 0;
+
+        if (baseObject instanceof Collection<?> c)
+            return c.size();
+        if (baseObject instanceof Map<?, ?> m)
+            return m.size();
+        if (baseObject.getClass().isArray())
+            return java.lang.reflect.Array.getLength(baseObject);
+
+        return 0;
+    }
+
+    public static Object randomPrimitiveOrString() {
         int pick = random.nextInt(4);
         switch (pick) {
             case 0:

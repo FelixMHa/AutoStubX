@@ -55,7 +55,7 @@ public class MethodCallTreeSampler {
             if (method.getParameterCount() > 2) continue;
 
             try {
-                Object[] args = RandomDataProvider.generateRandomArgs(method);
+                Object[] args = RandomDataProvider.generateRandomArgs(method, baseObject);
                 method.invoke(baseObject, args);
 
                 TreeNode child = new TreeNode(method, args);
@@ -85,7 +85,7 @@ public class MethodCallTreeSampler {
     private boolean dfsFindPath(TreeNode node, Method target, Object baseObject, List<TreeNode> path) {
         path.add(node);
         try {
-            Object[] args = RandomDataProvider.generateRandomArgs(target);
+            Object[] args = RandomDataProvider.generateRandomArgs(target, baseObject);
             target.invoke(baseObject, args);
             path.add(new TreeNode(target, args));
             return true;
