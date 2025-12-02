@@ -1,0 +1,156 @@
+[
+  {
+    "sequence": ["add", "push", "peekLast", "size"],
+    "input": [[2], [4], [], []],
+    "output": [true, true, 4, 2],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"], [], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "add", "add", "add", "get", "get", "get", "size"],
+    "input": [[2], [40000], [20], [100], [0], [1], [2], []],
+    "output": [true, true, true, true, 2, 40000, 20, 4],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"], ["java.lang.Integer"], ["java.lang.Integer"], ["java.lang.Integer"], ["java.lang.Integer"], ["java.lang.Integer"], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer", "java.lang.Integer", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "peekLast", "add", "add", "peekLast"],
+    "input": [[100], [], [200], [300], []],
+    "output": [true, 100, true, true, 300],
+    "typeInput": [["java.lang.Integer"], [], ["java.lang.Integer"], ["java.lang.Integer"], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Integer", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "peekLast", "add", "push", "add", "peekLast", "size", "size"],
+    "input": [[100], [], [200], [2000], [300], [], [], []],
+    "output": [true, 100, true, true, true, 300, 4, 4],
+    "typeInput": [["java.lang.Integer"], [], ["java.lang.Integer"], ["java.lang.Integer"], ["java.lang.Integer"], [], [], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Integer", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "peekLast", "add", "add", "peekLast", "size", "size", "pop"],
+    "input": [[100], [], [200], [300], [], [], [], []],
+    "output": [true, 100, true, true, 300, 3, 3, 300],
+    "typeInput": [["java.lang.Integer"], [], ["java.lang.Integer"], ["java.lang.Integer"], [], [], [], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Integer", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer", "java.lang.Integer", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "peekLast", "add", "add", "peekLast", "size", "size", "pop", "pop"],
+    "input": [[100], [], [200], [300], [], [], [], [], []],
+    "output": [true, 100, true, true, 300, 3, 3, 300, 200],
+    "typeInput": [["java.lang.Integer"], [], ["java.lang.Integer"], ["java.lang.Integer"], [], [], [], [], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Integer", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer", "java.lang.Integer", "java.lang.Integer", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "peekLast", "add", "add", "peekLast", "size"],
+    "input": [[100], [], [200], [300], [], []],
+    "output": [true, 100, true, true, 300, 3],
+    "typeInput": [["java.lang.Integer"], [], ["java.lang.Integer"], ["java.lang.Integer"], [], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Integer", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "clear", "add", "peekLast"],
+    "input": [[5], [], [10], []],
+    "output": [true, null, true, 10],
+    "typeInput": [["java.lang.Integer"], [], ["java.lang.Integer"], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "add", "add", "peekLast"],
+    "input": [[10], [20], ["Hello"], []],
+    "output": [true, true, true, "Hello"],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"], ["java.lang.String"], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.String"]
+  },
+  {
+    "sequence": ["add", "peekLast"],
+    "input": [["test"], []],
+    "output": [true, "test"],
+    "typeInput": [["java.lang.String"], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.String"]
+  },
+  {
+    "sequence": ["add", "peekLast", "add", "add", "peekLast"],
+    "input": [[10], [], [20], ["20000"], []],
+    "output": [true, 10, true, true, 20000],
+    "typeInput": [["java.lang.Integer"], [], ["java.lang.Integer"], ["java.lang.String"], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Integer", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "add", "peekLast", "add", "peekLast", "size"],
+    "input": [[10], [20], [], ["Hello"], [], []],
+    "output": [true, true, 20, true, "Hello", 3],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"], [], ["java.lang.String"], [], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer", "java.lang.Boolean", "java.lang.String", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["peekLast", "add", "add", "add", "peekLast", "add", "peekLast", "size", "get", "get", "get"],
+    "input": [[], [10], [20], [20000], [], ["Hello"], [], [], [0], [1], [2]],
+    "output": [null, true, true, true, 20000, true, "Hello", 4, 10, 20, 20000],
+    "typeInput": [[], ["java.lang.Integer"], ["java.lang.Integer"], ["java.lang.String"], [], ["java.lang.String"], [], []],
+    "typeOutput": ["null", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer", "java.lang.Boolean", "java.lang.String", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "add", "size"],
+    "input": [[10], [20], []],
+    "output": [true, true, 2],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "add", "add", "add", "add", "add", "add", "add", "add", "add", "size"],
+    "input": [[10], [20], ["Hello"], ["Hello"], ["Hello"], ["Hello"], ["Hello"], ["Hello"], ["Hello"], ["Hello"], []],
+    "output": [true, true, true, true, true, true, true, true, true, true, 10],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "add", "add", "add", "add", "add", "add", "add", "add", "add", "size", "clear", "size"],
+    "input": [[10], [20], ["Hello"], ["Hello"], ["Hello"], ["Hello"], ["Hello"], ["Hello"], ["Hello"], ["Hello"], [], [], []],
+    "output": [true, true, true, true, true, true, true, true, true, true, 10, null, 0],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], [], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "add", "add", "add", "clear", "add", "add", "add", "add", "add", "add", "size"],
+    "input": [[10], [20], ["Hello"], ["Hello"], [], ["Hello"], ["Hello"], ["Hello"], ["Hello"], ["Hello"], ["Hello"], []],
+    "output": [true, true, true, true, null, true, true, true, true, true, true, 6],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"], ["java.lang.String"], ["java.lang.String"], [], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], ["java.lang.String"], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["add", "add"],
+    "input": [[10], [20]],
+    "output": [true, true],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"]],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean"]
+  },
+  {
+    "sequence": ["add", "add", "size", "peekLast"],
+    "input": [[10], [20], [], []],
+    "output": [true, true, 2, 20],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"], [], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["push", "push", "size", "peekLast"],
+    "input": [[10], [20], [], []],
+    "output": [true, true, 2, 20],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"], [], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["push", "push", "push", "size", "peekLast", "peekLast"],
+    "input": [[10], [20], [30], [], [], []],
+    "output": [true, true, true, 3, 30, 30],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"], ["java.lang.Integer"], [], [], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer", "java.lang.Integer"]
+  },
+  {
+    "sequence": ["push", "push", "size", "peekLast"],
+    "input": [[10], [20], [], []],
+    "output": [true, true, 2, 20],
+    "typeInput": [["java.lang.Integer"], ["java.lang.Integer"], [], []],
+    "typeOutput": ["java.lang.Boolean", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"]
+  }
+]
