@@ -277,6 +277,34 @@ class FLOAT_GREATER(PushInstruction):
             a = state.float_stack.pop()
             state.boolean_stack.append(a > b)
 
+# Float/Double predicate Instructions
+class FLOAT_IS_NAN(PushInstruction):
+    def __init__(self):
+        super().__init__("FLOAT.IS_NAN")
+
+    def execute(self, state: PushState):
+        if state.float_stack:
+            a = state.float_stack.pop()
+            state.boolean_stack.append(math.isnan(a))
+
+class FLOAT_IS_INF(PushInstruction):
+    def __init__(self):
+        super().__init__("FLOAT.IS_INF")
+
+    def execute(self, state: PushState):
+        if state.float_stack:
+            a = state.float_stack.pop()
+            state.boolean_stack.append(math.isinf(a))
+
+class FLOAT_IS_FINITE(PushInstruction):
+    def __init__(self):
+        super().__init__("FLOAT.IS_FINITE")
+
+    def execute(self, state: PushState):
+        if state.float_stack:
+            a = state.float_stack.pop()
+            state.boolean_stack.append(math.isfinite(a))
+
 #Boolean Instructions
 class BOOLEAN_CONSTANT(PushInstruction):
     def __init__(self, value: bool):
@@ -321,7 +349,7 @@ class BOOLEAN_NOT(PushInstruction):
 
 class BOOLEAN_XOR(PushInstruction):
     def __init__(self):
-        super().__init__("BOOLEAN.EQUALS")
+        super().__init__("BOOLEAN.XOR")
 
     def execute(self, state: PushState):
         if len(state.boolean_stack) >= 2:
@@ -329,7 +357,264 @@ class BOOLEAN_XOR(PushInstruction):
             a = state.boolean_stack.pop()
             state.boolean_stack.append(a ^ b)
 
+class BOOLEAN_TO_INT(PushInstruction):
+    def __init__(self):
+        super().__init__("BOOLEAN.TO.INT")
+
+    def execute(self, state: PushState):
+        if state.boolean_stack:
+            b = state.boolean_stack.pop()
+            state.integer_stack.append(1 if b else 0)
+
+class BOOLEAN_HASH(PushInstruction):
+    def __init__(self):
+        super().__init__("BOOLEAN.HASH")
+
+    def execute(self, state: PushState):
+        if state.boolean_stack:
+            b = state.boolean_stack.pop()
+            state.integer_stack.append(1231 if b else 1237)
+
 #String Instructions
+
+class STRING_TO_LOWER(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.TO_LOWER")
+
+    def execute(self, state: PushState):
+        if state.string_stack:
+            s = state.string_stack.pop()
+            state.string_stack.append(s.lower())
+
+class STRING_TO_UPPER(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.TO_UPPER")
+
+    def execute(self, state: PushState):
+        if state.string_stack:
+            s = state.string_stack.pop()
+            state.string_stack.append(s.upper())
+
+class STRING_TRIM(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.TRIM")
+
+    def execute(self, state: PushState):
+        if state.string_stack:
+            s = state.string_stack.pop()
+            state.string_stack.append(s.strip())
+
+class STRING_STRIP_LEADING(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.STRIP.LEADING")
+
+    def execute(self, state: PushState):
+        if state.string_stack:
+            s = state.string_stack.pop()
+            state.string_stack.append(s.lstrip())
+
+class STRING_STRIP_TRAILING(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.STRIP.TRAILING")
+
+    def execute(self, state: PushState):
+        if state.string_stack:
+            s = state.string_stack.pop()
+            state.string_stack.append(s.rstrip())
+
+class STRING_IS_BLANK(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.IS_BLANK")
+
+    def execute(self, state: PushState):
+        if state.string_stack:
+            s = state.string_stack.pop()
+            state.boolean_stack.append(len(s.strip()) == 0)
+
+class STRING_EQUALS_IGNORE_CASE(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.EQUALS.IGNORE_CASE")
+
+    def execute(self, state: PushState):
+        if len(state.string_stack) >= 2:
+            b = state.string_stack.pop()
+            a = state.string_stack.pop()
+            state.boolean_stack.append(a.lower() == b.lower())
+
+class STRING_STARTS_WITH(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.STARTS_WITH")
+
+    def execute(self, state: PushState):
+        if len(state.string_stack) >= 2:
+            needle = state.string_stack.pop()
+            hay = state.string_stack.pop()
+            state.boolean_stack.append(hay.startswith(needle))
+
+class STRING_STARTS_WITH_AT(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.STARTS_WITH.AT")
+
+    def execute(self, state: PushState):
+        if len(state.string_stack) >= 2 and state.integer_stack:
+            offset = state.integer_stack.pop()
+            needle = state.string_stack.pop()
+            hay = state.string_stack.pop()
+            try:
+                state.boolean_stack.append(hay.startswith(needle, max(0, offset)))
+            except Exception:
+                state.boolean_stack.append(False)
+
+class STRING_ENDS_WITH(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.ENDS_WITH")
+
+    def execute(self, state: PushState):
+        if len(state.string_stack) >= 2:
+            needle = state.string_stack.pop()
+            hay = state.string_stack.pop()
+            state.boolean_stack.append(hay.endswith(needle))
+
+class STRING_INDEX_OF_CHAR(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.INDEX_OF.CHAR")
+
+    def execute(self, state: PushState):
+        if state.integer_stack and state.string_stack:
+            code = state.integer_stack.pop()
+            hay = state.string_stack.pop()
+            ch = chr(code) if isinstance(code, int) else str(code)[0]
+            state.integer_stack.append(hay.find(ch))
+
+class STRING_INDEX_OF_CHAR_FROM(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.INDEX_OF.CHAR.FROM")
+
+    def execute(self, state: PushState):
+        if len(state.integer_stack) >= 2 and state.string_stack:
+            start = state.integer_stack.pop()
+            code = state.integer_stack.pop()
+            hay = state.string_stack.pop()
+            ch = chr(code) if isinstance(code, int) else str(code)[0]
+            state.integer_stack.append(hay.find(ch, max(0, start)))
+
+class STRING_INDEX_OF_STR(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.INDEX_OF.STR")
+
+    def execute(self, state: PushState):
+        if len(state.string_stack) >= 2:
+            needle = state.string_stack.pop()
+            hay = state.string_stack.pop()
+            state.integer_stack.append(hay.find(needle))
+
+class STRING_INDEX_OF_STR_FROM(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.INDEX_OF.STR.FROM")
+
+    def execute(self, state: PushState):
+        if state.integer_stack and len(state.string_stack) >= 2:
+            start = state.integer_stack.pop()
+            needle = state.string_stack.pop()
+            hay = state.string_stack.pop()
+            state.integer_stack.append(hay.find(needle, max(0, start)))
+
+class STRING_LAST_INDEX_OF_CHAR(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.LAST_INDEX_OF.CHAR")
+
+    def execute(self, state: PushState):
+        if state.integer_stack and state.string_stack:
+            code = state.integer_stack.pop()
+            hay = state.string_stack.pop()
+            ch = chr(code) if isinstance(code, int) else str(code)[0]
+            state.integer_stack.append(hay.rfind(ch))
+
+class STRING_LAST_INDEX_OF_CHAR_FROM(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.LAST_INDEX_OF.CHAR.FROM")
+
+    def execute(self, state: PushState):
+        if len(state.integer_stack) >= 2 and state.string_stack:
+            start = state.integer_stack.pop()
+            code = state.integer_stack.pop()
+            hay = state.string_stack.pop()
+            ch = chr(code) if isinstance(code, int) else str(code)[0]
+            # Java lastIndexOf with fromIndex: search [0, start]
+            idx = hay.rfind(ch, 0, max(0, start) + 1)
+            state.integer_stack.append(idx)
+
+class STRING_LAST_INDEX_OF_STR(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.LAST_INDEX_OF.STR")
+
+    def execute(self, state: PushState):
+        if len(state.string_stack) >= 2:
+            needle = state.string_stack.pop()
+            hay = state.string_stack.pop()
+            state.integer_stack.append(hay.rfind(needle))
+
+class STRING_LAST_INDEX_OF_STR_FROM(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.LAST_INDEX_OF.STR.FROM")
+
+    def execute(self, state: PushState):
+        if state.integer_stack and len(state.string_stack) >= 2:
+            start = state.integer_stack.pop()
+            needle = state.string_stack.pop()
+            hay = state.string_stack.pop()
+            idx = hay.rfind(needle, 0, max(0, start) + 1)
+            state.integer_stack.append(idx)
+
+class STRING_COMPARE(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.COMPARE")
+
+    def execute(self, state: PushState):
+        if len(state.string_stack) >= 2:
+            b = state.string_stack.pop()
+            a = state.string_stack.pop()
+            cmp_val = (a > b) - (a < b)
+            state.integer_stack.append(cmp_val)
+
+class STRING_COMPARE_IGNORE_CASE(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.COMPARE.IGNORE_CASE")
+
+    def execute(self, state: PushState):
+        if len(state.string_stack) >= 2:
+            b = state.string_stack.pop().lower()
+            a = state.string_stack.pop().lower()
+            cmp_val = (a > b) - (a < b)
+            state.integer_stack.append(cmp_val)
+
+class STRING_REGION_MATCHES(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.REGION_MATCHES")
+
+    def execute(self, state: PushState):
+        # Pops: len:int, ooffset:int, other:str, toffset:int, ignore:bool, hay:str
+        if len(state.integer_stack) >= 3 and len(state.string_stack) >= 2 and state.boolean_stack:
+            length = state.integer_stack.pop()
+            ooffset = state.integer_stack.pop()
+            other = state.string_stack.pop()
+            toffset = state.integer_stack.pop()
+            ignore = state.boolean_stack.pop()
+            hay = state.string_stack.pop()
+            ok = False
+            try:
+                if length < 0 or toffset < 0 or ooffset < 0:
+                    ok = False
+                else:
+                    a = hay[toffset: toffset + length]
+                    b = other[ooffset: ooffset + length]
+                    if ignore:
+                        a = a.lower()
+                        b = b.lower()
+                    ok = len(a) == len(b) and a == b
+            except Exception:
+                ok = False
+            state.boolean_stack.append(ok)
 
 class STRING_CONCAT(PushInstruction):
     def __init__(self):
@@ -495,6 +780,9 @@ class DS_GET_INDEX(PushInstruction):
             if 0 <= index < len(state.data_structure_stack):
                 element = state.data_structure_stack[index]
                 state.push_to_appropriate_stack(element)
+            else:
+                # Emit explicit error token when out of bounds
+                state.string_stack.append("error")
 
 
 class DS_SET_INDEX(PushInstruction):
@@ -506,7 +794,12 @@ class DS_SET_INDEX(PushInstruction):
             index = state.integer_stack.pop()
             value = state.pop_from_any_stack()
             if value is not None and 0 <= index < len(state.data_structure_stack):
+                old = state.data_structure_stack[index]
                 state.data_structure_stack[index] = value
+                # Return old value like Java List.set
+                state.push_to_appropriate_stack(old)
+            else:
+                state.string_stack.append("error")
 
 
 class DS_INSERT_AT_INDEX(PushInstruction):
@@ -518,9 +811,13 @@ class DS_INSERT_AT_INDEX(PushInstruction):
             index = state.integer_stack.pop()
             value = state.pop_from_any_stack()
             if value is not None:
-                # Clamp index into [0, len]
-                if -1 < index < len(state.data_structure_stack):
+                # Allow insert at end like Java add(index, element)
+                if 0 <= index <= len(state.data_structure_stack):
                     state.data_structure_stack.insert(index, value)
+                    # Return True to mimic add semantics where applicable
+                    state.boolean_stack.append(True)
+                else:
+                    state.string_stack.append("error")
 
 
 class DS_REMOVE_INDEX(PushInstruction):
@@ -533,6 +830,31 @@ class DS_REMOVE_INDEX(PushInstruction):
             if 0 <= index < len(state.data_structure_stack):
                 element = state.data_structure_stack.pop(index)
                 state.push_to_appropriate_stack(element)
+            else:
+                state.string_stack.append("error")
+
+
+class DS_PEEK_LAST(PushInstruction):
+    def __init__(self):
+        super().__init__("DS.PEEK.LAST")
+
+    def execute(self, state: PushState):
+        if state.data_structure_stack:
+            element = state.data_structure_stack[-1]
+            state.push_to_appropriate_stack(element)
+
+
+class DS_POP_LAST(PushInstruction):
+    def __init__(self):
+        super().__init__("DS.POP.LAST")
+
+    def execute(self, state: PushState):
+        if state.data_structure_stack:
+            element = state.data_structure_stack.pop()
+            state.push_to_appropriate_stack(element)
+        else:
+            # Align with expected null semantics when empty
+            state.string_stack.append("error")
 
 
 class DS_LAST_INDEX(PushInstruction):
@@ -666,67 +988,92 @@ class MAP_VALUES(PushInstruction):
         state.push_to_appropriate_stack(values)
             
 
-def create__pushgp_instruction_set():
-    """Create comprehensive PushGP instruction set"""
+def create__pushgp_instruction_set(profile: str = 'primitives_full'):
+    """Create PushGP instruction set by profile.
+
+    Profiles:
+    - 'ds_smt_minimal': minimal, SMT-friendly set for data-structure stubs.
+    - 'primitives_full': integer/float/boolean/string primitives for symbolic regression.
+    """
+    profile = (profile or 'primitives_full').lower()
+
+    if profile == 'ds_smt_minimal':
+        instructions = []
+        # Integers (linear ops and comparisons only)
+        instructions.extend([
+            INTEGER_ADD(),
+            INTEGER_SUB(),
+            INTEGER_EQUALS(),
+            INTEGER_GREATER(),
+        ])
+        for i in range(-2, 4):
+            instructions.append(INTEGER_CONSTANT(i))
+        # Booleans
+        instructions.extend([
+            BOOLEAN_AND(), BOOLEAN_OR(), BOOLEAN_NOT(),
+            BOOLEAN_CONSTANT(True), BOOLEAN_CONSTANT(False),
+        ])
+        # Utility
+        instructions.extend([DUP_ANY(), POP_ANY()])
+        # Data structure operations
+        instructions.extend([
+            DS_SIZE(), DS_IS_EMPTY(), DS_CLEAR(),
+            DS_GET_INDEX(), DS_SET_INDEX(),
+            DS_INSERT_AT_INDEX(), DS_REMOVE_INDEX(),
+            DS_LAST_INDEX(), DS_FIRST_INDEX(),
+            DS_CONTAINS(), DS_PEEK_LAST(), DS_POP_LAST(),
+        ])
+        return {instr.name: instr for instr in instructions}
+
+    # Default: primitives_full
     instructions = []
 
-    # Core Push language - integers
+    # Core integers (include linear + multiplicative ops for regression)
     instructions.extend([
         INTEGER_ADD(), INTEGER_SUB(), INTEGER_MULT(), INTEGER_DIV(),
         INTEGER_EQUALS(), INTEGER_GREATER(),
     ])
-    # Integer constants
-    for i in range(-2, 6):
+    for i in range(-4, 7):
         instructions.append(INTEGER_CONSTANT(i))
 
-    # Core Push language - floats
+    # Floats
     instructions.extend([
         FLOAT_ADD(), FLOAT_SUB(), FLOAT_MULT(), FLOAT_DIV(),
         FLOAT_EQUALS(), FLOAT_GREATER(),
     ])
-    # Example float constants
-    for f in [0.0, 1.0, -1.0]:
+    for f in [0.0, 1.0, -1.0, 2.0, 0.5]:
         instructions.append(FLOAT_CONSTANT(f))
 
-    # Core Push language - booleans
+    # Booleans
     instructions.extend([
-        BOOLEAN_AND(), BOOLEAN_OR(), BOOLEAN_NOT(),
-        BOOLEAN_XOR(),
+        BOOLEAN_AND(), BOOLEAN_OR(), BOOLEAN_NOT(), BOOLEAN_XOR(),
+        BOOLEAN_TO_INT(), BOOLEAN_HASH(),
         BOOLEAN_CONSTANT(True), BOOLEAN_CONSTANT(False),
     ])
 
-    # Core Push language - strings
+    # Floats/Double predicates
     instructions.extend([
-        STRING_CONCAT(), STRING_EQUALS(),
-        STRING_LENGTH(), STRING_GET_CHAR(), STRING_SUBSTRING(),
+        FLOAT_IS_NAN(), FLOAT_IS_INF(), FLOAT_IS_FINITE(),
     ])
 
-    # Execution control
+    # Strings (extended)
     instructions.extend([
-        EXEC_IF(), EXEC_DO_TIMES(),
+        STRING_CONCAT(), STRING_EQUALS(), STRING_LENGTH(),
+        STRING_GET_CHAR(), STRING_SUBSTRING(),
+        STRING_TO_LOWER(), STRING_TO_UPPER(), STRING_TRIM(),
+        STRING_STRIP_LEADING(), STRING_STRIP_TRAILING(), STRING_IS_BLANK(),
+        STRING_EQUALS_IGNORE_CASE(),
+        STRING_STARTS_WITH(), STRING_STARTS_WITH_AT(), STRING_ENDS_WITH(),
+        STRING_INDEX_OF_CHAR(), STRING_INDEX_OF_CHAR_FROM(),
+        STRING_INDEX_OF_STR(), STRING_INDEX_OF_STR_FROM(),
+        STRING_LAST_INDEX_OF_CHAR(), STRING_LAST_INDEX_OF_CHAR_FROM(),
+        STRING_LAST_INDEX_OF_STR(), STRING_LAST_INDEX_OF_STR_FROM(),
+        STRING_COMPARE(), STRING_COMPARE_IGNORE_CASE(),
+        STRING_REGION_MATCHES(),
     ])
 
-    # Utility
-    instructions.extend([
-        DUP_ANY(), SWAP_ANY(), POP_ANY(),
-    ])
-
-    # Data structure operations
-    instructions.extend([
-        DS_SIZE(), DS_IS_EMPTY(), DS_CLEAR(),
-        DS_GET_INDEX(), DS_SET_INDEX(),
-        DS_INSERT_AT_INDEX(), DS_REMOVE_INDEX(),
-        DS_LAST_INDEX(), DS_FIRST_INDEX(),
-        DS_CONTAINS(),
-    ])
-
-    # Map operations
-    instructions.extend([
-        MAP_SIZE(), MAP_IS_EMPTY(), MAP_CLEAR(),
-        MAP_PUT(), MAP_GET(), MAP_REMOVE(),
-        MAP_CONTAINS_KEY(), MAP_CONTAINS_VALUE(),
-        MAP_KEY_SET(), MAP_VALUES(),
-    ])
+    # Utilities helpful for expression building
+    instructions.extend([DUP_ANY(), SWAP_ANY(), POP_ANY()])
 
     return {instr.name: instr for instr in instructions}
 
@@ -757,10 +1104,8 @@ class PushProgram:
                         state.exec_stack.append(instr)
                 
                 state.step_count += 1
-            except Exception as e:
-                # Log problematic instructions for debugging
-                if hasattr(instruction, 'name'):
-                    print(f"Warning: Instruction {instruction.name} failed with error: {str(e)}")
+            except Exception:
+                # Suppress instruction errors during GP evaluation to avoid noise
                 continue
         
         return state
@@ -811,8 +1156,9 @@ class PushGPGenome:
 class PushGPInterpreter:
     """ interpreter with better method execution"""
     
-    def __init__(self):
-        self.instruction_set = create__pushgp_instruction_set()
+    def __init__(self, profile: str = 'primitives_full'):
+        self.profile = profile
+        self.instruction_set = create__pushgp_instruction_set(profile)
         self.instruction_list = list(self.instruction_set.values())
     
     
@@ -820,14 +1166,29 @@ class PushGPInterpreter:
         # If type metadata is available, use it; otherwise infer from Python types
         if types:
             for arg, type_str in zip(args, types):
-                if type_str == "java.lang.Integer":
-                    state.integer_stack.append(arg)
-                elif type_str == "java.lang.Float":
-                    state.float_stack.append(arg)
-                elif type_str == "java.lang.Boolean":
-                    state.boolean_stack.append(arg)
-                elif type_str == "java.lang.String":
-                    state.string_stack.append(arg)
+                t = (type_str or "").lower()
+                if t in {"int", "java.lang.integer", "byte", "java.lang.byte", "short", "java.lang.short", "long", "java.lang.long"}:
+                    state.integer_stack.append(int(arg))
+                elif t in {"float", "java.lang.float", "double", "java.lang.double"}:
+                    state.float_stack.append(float(arg))
+                elif t in {"boolean", "java.lang.boolean"}:
+                    state.boolean_stack.append(bool(arg))
+                elif t in {"char", "java.lang.character"}:
+                    # represent char as 1-length string
+                    sval = arg if isinstance(arg, str) else (chr(int(arg)) if isinstance(arg, (int, float)) else str(arg))
+                    state.string_stack.append(sval[:1])
+                elif t in {"java.lang.string", "string"}:
+                    state.string_stack.append(str(arg))
+                else:
+                    # Fallback by python type
+                    if isinstance(arg, bool):
+                        state.boolean_stack.append(arg)
+                    elif isinstance(arg, int):
+                        state.integer_stack.append(arg)
+                    elif isinstance(arg, float):
+                        state.float_stack.append(arg)
+                    elif isinstance(arg, str):
+                        state.string_stack.append(arg)
         else:
             for arg in args:
                 if isinstance(arg, bool):
@@ -846,6 +1207,7 @@ class PushGPInterpreter:
         step_results = []
         ds_states =  []
         ds_states.append([])
+        used_inputs = []
         for i, method_name in enumerate(example.sequence):
             args = example.input_args[i] if i < len(example.input_args) else []
             arg_types = example.type_inputs[i] if i < len(example.type_inputs) else []
@@ -863,6 +1225,12 @@ class PushGPInterpreter:
             # Push arguments
             self.push_args_to_stacks(state, args, arg_types)
 
+            # Snapshot initial argument stacks to detect usage
+            init_int = state.integer_stack.copy()
+            init_bool = state.boolean_stack.copy()
+            init_str = state.string_stack.copy()
+            init_float = state.float_stack.copy()
+
             # Execute method program (if learned)
             if method_name in genome.methods:
                 program = genome.methods[method_name]
@@ -872,29 +1240,70 @@ class PushGPInterpreter:
             result = self._extract_result_from_state(state, expected_type)
             step_results.append(result)
             ds_states.append(copy.deepcopy(state.data_structure_stack))
-        return step_results, ds_states
+
+            # Determine if any initial arguments were consumed (prefix check)
+            def _prefix_preserved(init, after):
+                return len(init) == 0 or (len(after) >= len(init) and after[:len(init)] == init)
+            used = not (
+                _prefix_preserved(init_int, state.integer_stack)
+                and _prefix_preserved(init_bool, state.boolean_stack)
+                and _prefix_preserved(init_str, state.string_stack)
+                and _prefix_preserved(init_float, state.float_stack)
+            )
+            # If no inputs existed at all, mark as used to avoid penalizing
+            if not (init_int or init_bool or init_str or init_float):
+                used = True
+            used_inputs.append(used)
+        return step_results, ds_states, used_inputs
 
 
     def _extract_result_from_state(self, state: "PushState", expected_type: str):
-        """Return the top of the appropriate stack based on expected type."""
-        if expected_type is None or expected_type == "null" or expected_type == "error":
+        """Return strictly typed results; treat error/null explicitly."""
+        if expected_type is None:
+            return None
+        if expected_type == "null":
+            return None
+        if expected_type == "error":
+            if state.string_stack and state.string_stack[-1] == "error":
+                return "error"
             return None
 
         type_map = {
-            "java.lang.Integer": state.integer_stack,
-            "java.lang.String": state.string_stack,
-            "java.lang.Float": state.float_stack,
-            "java.lang.Boolean": state.boolean_stack,
+            # Integers family
+            "int": state.integer_stack,
+            "java.lang.integer": state.integer_stack,
+            "byte": state.integer_stack,
+            "java.lang.byte": state.integer_stack,
+            "short": state.integer_stack,
+            "java.lang.short": state.integer_stack,
+            "long": state.integer_stack,
+            "java.lang.long": state.integer_stack,
+            # Floats family (float/double)
+            "float": state.float_stack,
+            "java.lang.float": state.float_stack,
+            "double": state.float_stack,
+            "java.lang.double": state.float_stack,
+            # Booleans
+            "boolean": state.boolean_stack,
+            "java.lang.boolean": state.boolean_stack,
+            # Strings/Chars
+            "java.lang.string": state.string_stack,
+            "string": state.string_stack,
+            "char": state.string_stack,
+            "java.lang.character": state.string_stack,
         }
-
+        # normalize expected_type for lookup
+        if isinstance(expected_type, str):
+            key = expected_type.lower()
+        else:
+            key = None
+        stack = type_map.get(key)
+        if stack and len(stack) > 0:
+            return stack[-1]
+        return None
         stack = type_map.get(expected_type)
         if stack and len(stack) > 0:
             return stack[-1]
-
-        # fallback: pick any non-empty stack
-        for s in [state.integer_stack, state.string_stack, state.float_stack, state.boolean_stack]:
-            if s:
-                return s[-1]
         return None
 
 
@@ -921,28 +1330,44 @@ class PushGPInterpreter:
     
     def create_smart_initial_program(self, method_name: str) -> List:
         """Create smarter initial programs based on method name"""
-        
-        if method_name == 'add':
-            # Encourage composite solution: size - 1 then get(index)
+        m = method_name.lower()
+        if m == 'add':
+            # Append at end: size -> index, then insert(value) at index
             return [
-                self.instruction_set['DS.LAST.INDEX'],
-                self.instruction_set['DS.INSERT.AT.INDEX'],
-                self.instruction_set['BOOLEAN.CONSTANT.True']
+                self.instruction_set['DS.SIZE'],
+                self.instruction_set['DS.INSERT.AT.INDEX']
             ]
-        elif method_name == 'get':
-            # Encourage composite solution: size - 1 then get(index)
-            return [
-                self.instruction_set['DS.GET.INDEX']
-            ]
-        elif method_name == 'peek':
-            # Encourage composite solution: size - 1 then get(index)
-            return [
-                self.instruction_set['DS.LAST.INDEX'],
-                self.instruction_set['DS.GET.INDEX']
-            ]
-        else:
-            # Random for unknown methods
-            return self.random_program(max_depth=2, max_length=5)
+        if m == 'get':
+            return [self.instruction_set['DS.GET.INDEX']]
+        if m == 'peeklast':
+            # Prefer non-mutating peek
+            if 'DS.PEEK.LAST' in self.instruction_set:
+                return [self.instruction_set['DS.PEEK.LAST']]
+            else:
+                return [self.instruction_set['DS.LAST.INDEX'], self.instruction_set['DS.GET.INDEX']]
+        if m == 'pop':
+            if 'DS.POP.LAST' in self.instruction_set:
+                return [self.instruction_set['DS.POP.LAST']]
+            else:
+                return [self.instruction_set['DS.LAST.INDEX'], self.instruction_set['DS.REMOVE.INDEX']]
+        if m == 'remove':
+            return [self.instruction_set['DS.REMOVE.INDEX']]
+        if m == 'set':
+            return [self.instruction_set['DS.SET.INDEX']]
+        if m == 'size':
+            return [self.instruction_set['DS.SIZE']]
+        if m == 'isempty':
+            return [self.instruction_set['DS.IS_EMPTY']]
+        if m == 'clear':
+            return [self.instruction_set['DS.CLEAR']]
+        if m == 'contains':
+            return [self.instruction_set['DS.CONTAINS']]
+        if m == 'indexof':
+            # No direct instruction; fall back to random small program
+            return self.random_program(max_depth=1, max_length=2)
+        if m == 'lastindexof':
+            return self.random_program(max_depth=1, max_length=2)
+        return self.random_program(max_depth=2, max_length=5)
     
 
 def _validate_evolution_params(training_data: List[TrainingExample], population_size: int, generations: int):
@@ -1015,12 +1440,16 @@ def serialize_program(code):
 def run_pushgp_evolution(training_data: List[TrainingExample],
                         population_size: int = 100,
                         generations: int = 300,
-                        no_improve_generations: int = 500) -> PushGPGenome:
-    """Run PushGP evolution with improved state-based fitness"""
+                        no_improve_generations: int = 500,
+                        profile: str = 'primitives_full') -> PushGPGenome:
+    """Run PushGP evolution with improved state-based fitness.
+
+    profile: selects the instruction set, e.g., 'primitives_full' or 'ds_smt_minimal'.
+    """
     
     _validate_evolution_params(training_data, population_size, generations)
 
-    interpreter = PushGPInterpreter()
+    interpreter = PushGPInterpreter(profile=profile)
     method_names = _extract_method_names(training_data)
     mutators = get_mutators(training_data)
     
@@ -1032,7 +1461,7 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
         genome = PushGPGenome()
         for method_name in method_names:
             # Use smart initialization (70% smart, 30% random)
-            if random.random() < 0.7:
+            if random.random() < 0:
                 program_code = interpreter.create_smart_initial_program(method_name)
             else:
                 program_code = interpreter.random_program(max_depth=2, max_length=5)
@@ -1124,14 +1553,22 @@ def evaluate_genome(genome: PushGPGenome, training_data, interpreter, mutators):
     
     for example in training_data:
         try:
-            predicted_outputs, ds_states = interpreter.execute_sequence(genome, example)
+            predicted_outputs, ds_states, used_inputs = interpreter.execute_sequence(genome, example)
             genome_error = aggregate_genome_error(example.sequence, predicted_outputs, example.expected_outputs)
+
+            # Invariant and empty-case penalties
+            inv_pen = compute_invariant_penalty(example.sequence, predicted_outputs, example.expected_outputs, ds_states)
+            empty_pen = compute_empty_case_penalty(example.sequence, predicted_outputs, example.expected_outputs)
+            unused_pen = compute_arg_unused_penalty(example.sequence, used_inputs, example.input_args)
+
             mutator_bonus = compute_mutator_bonus(example.sequence, predicted_outputs, example.expected_outputs, mutators, ds_states=ds_states)
 
-            fitness_error = (1.0 - mutator_bonus) * genome_error
+            raw_error = min(1.0, genome_error + inv_pen + empty_pen + unused_pen)
+            fitness_error = raw_error * (1.0 - mutator_bonus)
+
             total_error += fitness_error
             total_examples += 1
-            if genome_error < 0.01:
+            if genome_error < 0.01 and inv_pen < 1e-6 and empty_pen < 1e-6:
                 correct_predictions += 1
         except Exception:
             total_error += 1
@@ -1349,6 +1786,56 @@ def aggregate_genome_error(sequence: List[str],
 
     # Final bounded error
     return float(max(0.0, min(1.0, call_mean)))
+
+
+def compute_invariant_penalty(sequence: List[str], predicted: List[Any], expected: List[Any], ds_states: List[List[Any]]) -> float:
+    """Penalize mutations for methods that must be pure (peekLast/get/size)."""
+    if not ds_states:
+        return 0.0
+    penalty = 0.0
+    violations = 0
+    pure_methods = {"peekLast", "get", "size"}
+    for i, method in enumerate(sequence):
+        if method in pure_methods and i < len(ds_states) - 1:
+            before, after = ds_states[i], ds_states[i + 1]
+            if before != after:
+                violations += 1
+    if violations > 0:
+        # Each violation adds a fraction; cap at 1.0
+        penalty = min(1.0, violations / max(1, len(sequence)))
+    return penalty
+
+
+def compute_empty_case_penalty(sequence: List[str], predicted: List[Any], expected: List[Any]) -> float:
+    """Increase penalty for empty-case failures for peekLast/pop."""
+    weight = 0.5  # extra penalty weight distributed across sequence
+    misses = 0
+    for m, p, e in zip_longest(sequence, predicted, expected, fillvalue=None):
+        if m in {"peekLast", "pop"} and e is None:
+            if p is not None:
+                misses += 1
+    if misses == 0:
+        return 0.0
+    return min(1.0, weight * misses / max(1, len(sequence)))
+
+def compute_arg_unused_penalty(sequence: List[str], used_inputs: List[bool], input_args: List[List[Any]]) -> float:
+    """Penalize calls that ignore all of their input arguments.
+    Returns value in [0..1]. Weight applied per unused call.
+    """
+    if not sequence or not used_inputs:
+        return 0.0
+    # weight controls strength of penalty per unused call
+    weight = 0.3
+    misses = 0
+    total = 0
+    for used, args in zip_longest(used_inputs, input_args, fillvalue=[]):
+        if args:  # only penalize when arguments exist
+            total += 1
+            if not used:
+                misses += 1
+    if total == 0 or misses == 0:
+        return 0.0
+    return min(1.0, weight * misses / max(1, len(sequence)))
 
 def compute_mutator_bonus(sequence, predicted, expected, mutator_methods, ds_states=None):
     """

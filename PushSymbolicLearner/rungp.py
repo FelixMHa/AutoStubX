@@ -157,6 +157,8 @@ def main():
                        help="Output file for learned genome")
     parser.add_argument("--test-examples", type=int, default=15,
                        help="Number of examples to test on")
+    parser.add_argument("--profile", type=str, default="primitives_full",
+                       help="Number of examples to test on")
     
     args = parser.parse_args()
 
@@ -164,7 +166,8 @@ def main():
     best_genome = run_pushgp_evolution(
         training_data = loadtrainingdata(args.data_directory, 10000), 
         population_size=args.population,
-        generations=args.generations
+        generations=args.generations,
+        profile=args.profile
     )
     evolution_time = time.time() - start_time
     print(f"Evolution completed in {evolution_time:.2f} seconds")
