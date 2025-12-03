@@ -1,0 +1,17 @@
+{
+  "fitness": 0.015,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "methods": {
+    "compareTo": {
+      "program": [
+        "BOOLEAN.TO.INT",
+        "BOOLEAN.TO.INT",
+        "INTEGER.SUB"
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}
