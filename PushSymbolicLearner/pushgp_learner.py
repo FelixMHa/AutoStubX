@@ -201,6 +201,45 @@ class INTEGER_GREATER(PushInstruction):
             a = state.integer_stack.pop()
             state.boolean_stack.append(a > b)
 
+class INTEGER_LESS(PushInstruction):
+    def __init__(self):
+        super().__init__("INTEGER.LESS")
+
+    def execute(self, state: PushState):
+        if len(state.integer_stack) >= 2:
+            b = state.integer_stack.pop()
+            a = state.integer_stack.pop()
+            state.boolean_stack.append(a < b)
+
+class INTEGER_NEG(PushInstruction):
+    def __init__(self):
+        super().__init__("INTEGER.NEG")
+
+    def execute(self, state: PushState):
+        if state.integer_stack:
+            a = state.integer_stack.pop()
+            state.integer_stack.append(-a)
+
+class INTEGER_ABS(PushInstruction):
+    def __init__(self):
+        super().__init__("INTEGER.ABS")
+
+    def execute(self, state: PushState):
+        if state.integer_stack:
+            a = state.integer_stack.pop()
+            state.integer_stack.append(abs(a))
+
+class INTEGER_SELECT(PushInstruction):
+    def __init__(self):
+        super().__init__("INTEGER.SELECT")
+
+    def execute(self, state: PushState):
+        if state.boolean_stack and len(state.integer_stack) >= 2:
+            false_val = state.integer_stack.pop()
+            true_val = state.integer_stack.pop()
+            cond = state.boolean_stack.pop()
+            state.integer_stack.append(true_val if cond else false_val)
+
 # Float instructions
 class FLOAT_CONSTANT(PushInstruction):
     def __init__(self, value: float):
@@ -304,6 +343,84 @@ class FLOAT_IS_FINITE(PushInstruction):
         if state.float_stack:
             a = state.float_stack.pop()
             state.boolean_stack.append(math.isfinite(a))
+
+class FLOAT_LESS(PushInstruction):
+    def __init__(self):
+        super().__init__("FLOAT.LESS")
+
+    def execute(self, state: PushState):
+        if len(state.float_stack) >= 2:
+            b = state.float_stack.pop()
+            a = state.float_stack.pop()
+            state.boolean_stack.append(a < b)
+
+class FLOAT_NEG(PushInstruction):
+    def __init__(self):
+        super().__init__("FLOAT.NEG")
+
+    def execute(self, state: PushState):
+        if state.float_stack:
+            a = state.float_stack.pop()
+            state.float_stack.append(-a)
+
+class FLOAT_ABS(PushInstruction):
+    def __init__(self):
+        super().__init__("FLOAT.ABS")
+
+    def execute(self, state: PushState):
+        if state.float_stack:
+            a = state.float_stack.pop()
+            state.float_stack.append(abs(a))
+
+class FLOAT_FLOOR(PushInstruction):
+    def __init__(self):
+        super().__init__("FLOAT.FLOOR")
+
+    def execute(self, state: PushState):
+        if state.float_stack:
+            a = state.float_stack.pop()
+            state.float_stack.append(math.floor(a))
+
+class FLOAT_COS(PushInstruction):
+    def __init__(self):
+        super().__init__("FLOAT.COS")
+
+    def execute(self, state: PushState):
+        if state.float_stack:
+            a = state.float_stack.pop()
+            state.float_stack.append(math.cos(a))
+
+class FLOAT_SELECT(PushInstruction):
+    def __init__(self):
+        super().__init__("FLOAT.SELECT")
+
+    def execute(self, state: PushState):
+        if state.boolean_stack and len(state.float_stack) >= 2:
+            false_val = state.float_stack.pop()
+            true_val = state.float_stack.pop()
+            cond = state.boolean_stack.pop()
+            state.float_stack.append(true_val if cond else false_val)
+
+class FLOAT_TO_STRING(PushInstruction):
+    def __init__(self):
+        super().__init__("FLOAT.TO.STRING")
+
+    def execute(self, state: PushState):
+        if state.float_stack:
+            a = state.float_stack.pop()
+            state.string_stack.append(str(a))
+
+class STRING_TO_FLOAT(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.TO.FLOAT")
+
+    def execute(self, state: PushState):
+        if state.string_stack:
+            s = state.string_stack.pop()
+            try:
+                state.float_stack.append(float(s))
+            except Exception:
+                state.float_stack.append(0.0)
 
 #Boolean Instructions
 class BOOLEAN_CONSTANT(PushInstruction):
@@ -672,6 +789,114 @@ class STRING_SUBSTRING(PushInstruction):
             if 0 <= start <= end <= len(s):
                 state.string_stack.append(s[start:end])
 
+class STRING_CONTAINS(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.CONTAINS")
+
+    def execute(self, state: PushState):
+        if len(state.string_stack) >= 2:
+            needle = state.string_stack.pop()
+            hay = state.string_stack.pop()
+            state.boolean_stack.append(needle in hay)
+
+class STRING_REPLACE(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.REPLACE")
+
+    def execute(self, state: PushState):
+        if len(state.string_stack) >= 3:
+            new = state.string_stack.pop()
+            old = state.string_stack.pop()
+            s = state.string_stack.pop()
+            state.string_stack.append(s.replace(old, new))
+
+class STRING_REPLACE_ALL(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.REPLACE.ALL")
+
+    def execute(self, state: PushState):
+        if len(state.string_stack) >= 3:
+            new = state.string_stack.pop()
+            old = state.string_stack.pop()
+            s = state.string_stack.pop()
+            state.string_stack.append(s.replace(old, new))
+
+class STRING_REPLACE_CHAR(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.REPLACE.CHAR")
+
+    def execute(self, state: PushState):
+        if len(state.string_stack) >= 3:
+            new = state.string_stack.pop()
+            old = state.string_stack.pop()
+            s = state.string_stack.pop()
+            newc = new[0] if new else ''
+            oldc = old[0] if old else ''
+            state.string_stack.append(s.replace(oldc, newc))
+
+class STRING_FROM_INT(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.FROM.INT")
+
+    def execute(self, state: PushState):
+        if state.integer_stack:
+            a = state.integer_stack.pop()
+            state.string_stack.append(str(int(a)))
+
+class STRING_FROM_ASCII(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.FROM.ASCII")
+
+    def execute(self, state: PushState):
+        if state.integer_stack:
+            code = state.integer_stack.pop()
+            try:
+                state.string_stack.append(chr(max(0, int(code)) % 1114112))
+            except Exception:
+                state.string_stack.append("")
+
+class STRING_TO_ASCII(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.TO.ASCII")
+
+    def execute(self, state: PushState):
+        if state.string_stack:
+            s = state.string_stack.pop()
+            state.integer_stack.append(ord(s[0]) if s else -1)
+
+class STRING_TO_INT(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.TO.INT")
+
+    def execute(self, state: PushState):
+        if state.string_stack:
+            s = state.string_stack.pop()
+            try:
+                state.integer_stack.append(int(s))
+            except Exception:
+                state.integer_stack.append(0)
+
+class STRING_INTERN(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.INTERN")
+
+    def execute(self, state: PushState):
+        # No-op for value-based learning
+        if state.string_stack:
+            s = state.string_stack.pop()
+            state.string_stack.append(s)
+
+class STRING_SELECT(PushInstruction):
+    def __init__(self):
+        super().__init__("STRING.SELECT")
+
+    def execute(self, state: PushState):
+        if state.boolean_stack and len(state.string_stack) >= 2:
+            false_val = state.string_stack.pop()
+            true_val = state.string_stack.pop()
+            cond = state.boolean_stack.pop()
+            state.string_stack.append(true_val if cond else false_val)
+
 
 #  Execution Control
 class EXEC_IF(PushInstruction):
@@ -1031,7 +1256,8 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
     # Core integers (include linear + multiplicative ops for regression)
     instructions.extend([
         INTEGER_ADD(), INTEGER_SUB(), INTEGER_MULT(), INTEGER_DIV(),
-        INTEGER_EQUALS(), INTEGER_GREATER(),
+        INTEGER_EQUALS(), INTEGER_GREATER(), INTEGER_LESS(),
+        INTEGER_NEG(), INTEGER_ABS(), INTEGER_SELECT(),
     ])
     for i in range(-4, 7):
         instructions.append(INTEGER_CONSTANT(i))
@@ -1039,7 +1265,9 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
     # Floats
     instructions.extend([
         FLOAT_ADD(), FLOAT_SUB(), FLOAT_MULT(), FLOAT_DIV(),
-        FLOAT_EQUALS(), FLOAT_GREATER(),
+        FLOAT_EQUALS(), FLOAT_GREATER(), FLOAT_LESS(),
+        FLOAT_NEG(), FLOAT_ABS(), FLOAT_FLOOR(), FLOAT_COS(), FLOAT_SELECT(),
+        FLOAT_TO_STRING(),
     ])
     for f in [0.0, 1.0, -1.0, 2.0, 0.5]:
         instructions.append(FLOAT_CONSTANT(f))
@@ -1051,25 +1279,23 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
         BOOLEAN_CONSTANT(True), BOOLEAN_CONSTANT(False),
     ])
 
-    # Floats/Double predicates
+    # Floats/Double predicates and conversions
     instructions.extend([
         FLOAT_IS_NAN(), FLOAT_IS_INF(), FLOAT_IS_FINITE(),
+        STRING_TO_FLOAT(),
     ])
 
-    # Strings (extended)
+    # Strings (minimal core)
     instructions.extend([
         STRING_CONCAT(), STRING_EQUALS(), STRING_LENGTH(),
-        STRING_GET_CHAR(), STRING_SUBSTRING(),
-        STRING_TO_LOWER(), STRING_TO_UPPER(), STRING_TRIM(),
-        STRING_STRIP_LEADING(), STRING_STRIP_TRAILING(), STRING_IS_BLANK(),
-        STRING_EQUALS_IGNORE_CASE(),
-        STRING_STARTS_WITH(), STRING_STARTS_WITH_AT(), STRING_ENDS_WITH(),
-        STRING_INDEX_OF_CHAR(), STRING_INDEX_OF_CHAR_FROM(),
-        STRING_INDEX_OF_STR(), STRING_INDEX_OF_STR_FROM(),
-        STRING_LAST_INDEX_OF_CHAR(), STRING_LAST_INDEX_OF_CHAR_FROM(),
-        STRING_LAST_INDEX_OF_STR(), STRING_LAST_INDEX_OF_STR_FROM(),
-        STRING_COMPARE(), STRING_COMPARE_IGNORE_CASE(),
-        STRING_REGION_MATCHES(),
+        STRING_SUBSTRING(),
+        STRING_CONTAINS(), STRING_INDEX_OF_STR(),
+        STRING_REPLACE(), STRING_REPLACE_ALL(),
+        STRING_FROM_INT(), STRING_TO_INT(),
+        STRING_FROM_ASCII(), STRING_TO_ASCII(),
+        STRING_COMPARE(), STRING_SELECT(),
+        STRING_TO_LOWER(), STRING_TRIM(),
+        FLOAT_TO_STRING(), STRING_TO_FLOAT(),
     ])
 
     # Utilities helpful for expression building
