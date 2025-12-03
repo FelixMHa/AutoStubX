@@ -18,37 +18,39 @@ public class Main {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-
         // generate training data for all classes in java_classes.json
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader("java_classes.json"));
         List<String> data = gson.fromJson(reader, List.class);
 
-        String[] classesInScope = new String[]{
-                "java.lang.Boolean",
-                "java.lang.Double",
-                "java.lang.Float",
-                "java.lang.String",
-                "java.lang.Byte",
-                "java.lang.Short",
-                "java.lang.Character",
-                "java.lang.Integer",
-                "java.lang.Long",
-                "java.lang.Math",
-                "java.lang.StrictMath",
-                //Stateful classes
+        String[] classesInScope = new String[] {
+                /*
+                 * "java.lang.Boolean",
+                 * "java.lang.Double",
+                 * "java.lang.Float",
+                 * "java.lang.String",
+                 * "java.lang.Byte",
+                 * "java.lang.Short",
+                 * "java.lang.Character",
+                 * "java.lang.Integer",
+                 * "java.lang.Long",
+                 * "java.lang.Math",
+                 * "java.lang.StrictMath",
+                 */
+                // Stateful classes
+                "java.util.ArrayDeque",
                 "java.util.ArrayList",
-                "java.util.Map",
                 "java.util.HashMap",
-                "java.util.LinkedList",
-                "java.util.List",
-                "java.util.Set",
                 "java.util.HashSet",
-                "java.util.LinkedHashSet",
-                "java.util.Queue",
-                "java.util.Deque",
+                "java.util.Hashtable",
+                "java.util.IdentityHashMap",
+                "java.util.LinkedHashMap",
+                "java.util.LinkedList",
+                "java.util.Properties",
+                "java.util.Random",
                 "java.util.Stack",
-                "java.util.Vector"
+                "java.util.Vector",
+                "java.util.Date"
         };
 
         // generate training data for each class
@@ -63,15 +65,14 @@ public class Main {
                 if (!inScope)
                     continue;
 
-                
                 GenerateTrainingDataPerClass.generateTrainingData(clazz);
             } catch (IllegalArgumentException e) {
                 System.out.println("Illegal Argument Exception while generating training data for " + className);
                 e.printStackTrace();
                 System.exit(1);
             } catch (Exception e) {
-                //System.out.println("Error while generating training data for " + className);
-                //e.printStackTrace();
+                // System.out.println("Error while generating training data for " + className);
+                // e.printStackTrace();
             }
         }
 
@@ -83,21 +84,30 @@ public class Main {
         Files.write(Paths.get("methods_in_scope.json"), json.getBytes());
     }
 
-
     static void printStatistics() {
-        double avg_time = (double) GenerateTrainingDataPerClass.statistics_total_time / GenerateTrainingDataPerClass.statistics_successful_methods;
-        int total_params = GenerateTrainingDataPerClass.statistics_data_diversity_integer + GenerateTrainingDataPerClass.statistics_data_diversity_decimal + GenerateTrainingDataPerClass.statistics_data_diversity_boolean + GenerateTrainingDataPerClass.statistics_data_diversity_string;
-        double data_diversity_integer = (double) GenerateTrainingDataPerClass.statistics_data_diversity_integer / total_params * 100;
-        double data_diversity_decimal = (double) GenerateTrainingDataPerClass.statistics_data_diversity_decimal / total_params * 100;
-        double data_diversity_boolean = (double) GenerateTrainingDataPerClass.statistics_data_diversity_boolean / total_params * 100;
-        double data_diversity_string = (double) GenerateTrainingDataPerClass.statistics_data_diversity_string / total_params * 100;
-        double data_diversity_list = (double) GenerateTrainingDataPerClass.statistics_data_diversity_list / total_params * 100;
+        double avg_time = (double) GenerateTrainingDataPerClass.statistics_total_time
+                / GenerateTrainingDataPerClass.statistics_successful_methods;
+        int total_params = GenerateTrainingDataPerClass.statistics_data_diversity_integer
+                + GenerateTrainingDataPerClass.statistics_data_diversity_decimal
+                + GenerateTrainingDataPerClass.statistics_data_diversity_boolean
+                + GenerateTrainingDataPerClass.statistics_data_diversity_string;
+        double data_diversity_integer = (double) GenerateTrainingDataPerClass.statistics_data_diversity_integer
+                / total_params * 100;
+        double data_diversity_decimal = (double) GenerateTrainingDataPerClass.statistics_data_diversity_decimal
+                / total_params * 100;
+        double data_diversity_boolean = (double) GenerateTrainingDataPerClass.statistics_data_diversity_boolean
+                / total_params * 100;
+        double data_diversity_string = (double) GenerateTrainingDataPerClass.statistics_data_diversity_string
+                / total_params * 100;
+        double data_diversity_list = (double) GenerateTrainingDataPerClass.statistics_data_diversity_list / total_params
+                * 100;
 
         System.out.println("----------");
         System.out.println("Total classes & " + GenerateTrainingDataPerClass.statistics_total_classes + "\\\\");
         System.out.println("Total methods & " + GenerateTrainingDataPerClass.statistics_total_methods + "\\\\");
         System.out.println("Methods in scope & " + GenerateTrainingDataPerClass.statistics_successful_methods + "\\\\");
-        System.out.println("Avg. time per method (" + GenerateTrainingDataPerClass.statistics_samples_per_method + " samples) & " + String.format("%.0f", avg_time) + "ms \\\\");
+        System.out.println("Avg. time per method (" + GenerateTrainingDataPerClass.statistics_samples_per_method
+                + " samples) & " + String.format("%.0f", avg_time) + "ms \\\\");
         System.out.println("Data diversity & " + String.format("%.0f", data_diversity_integer) + "\\% Integer \\\\\n" +
                 "& " + String.format("%.0f", data_diversity_decimal) + "\\% Decimal \\\\\n" +
                 "& " + String.format("%.0f", data_diversity_boolean) + "\\% Boolean \\\\\n" +
