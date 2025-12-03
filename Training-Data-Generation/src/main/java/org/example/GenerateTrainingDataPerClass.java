@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-
+import java.util.Random;
 import java.util.List;
 
 public class GenerateTrainingDataPerClass {
@@ -55,10 +55,19 @@ public class GenerateTrainingDataPerClass {
     private static void generateStatefulTrainingDataForClass(Class<?> targetClass) throws  IOException {
         List<SequenceInputOutputPair<Object[], Object>> trainingData = new ArrayList<>();
         long startTime = System.currentTimeMillis();
+        int groupSize = Main.MAX_SAMPLES / 30;
+        int steps=8;
+        Random rand = new Random();
         for (int i = 0; i < Main.MAX_SAMPLES/10; i++) {
-            
+            if (i<groupSize){
+                steps=1+rand.nextInt(4);
+            }else if (i < 2 * groupSize) {
+                steps=5+rand.nextInt(2);
+            } else {
+                steps=7+rand.nextInt(2);
+            }
             SequenceTreeBuilder builder = new SequenceTreeBuilder(targetClass);
-            SequenceInputOutputPair<Object[], Object> sample = builder.buildSequence(8);
+            SequenceInputOutputPair<Object[], Object> sample = builder.buildSequence(steps);
             if (sample != null) {
                 trainingData.add(sample);
             }
@@ -158,23 +167,31 @@ public class GenerateTrainingDataPerClass {
     }
 
     private static boolean isStateful(String className) {
-        return className.equals("java.util.Stack") ||
-                className.equals("java.util.ArrayList") ||
-                className.equals("java.util.Map") ||
-                className.equals("java.util.HashMap") ||
-                className.equals("java.util.LinkedList") ||
-                className.equals("java.util.List") ||
-                className.equals("java.util.Set") ||
-                className.equals("java.util.HashSet") ||
-                className.equals("java.util.TreeSet") ||
-                className.equals("java.util.LinkedHashSet") ||
-                className.equals("java.util.Queue") ||
-                className.equals("java.util.Deque") ||
-                className.equals("java.util.Stack") ||
-                className.equals("java.util.Vector") ||
-                className.equals("java.util.Collections") ||
-                className.equals("java.lang.StringBuilder");
-    }
+    return className.equals("java.util.ArrayDeque") ||
+           className.equals("java.util.ArrayList") ||
+           className.equals("java.util.BitSet") ||
+           className.equals("java.util.Calendar") ||
+           className.equals("java.util.GregorianCalendar") ||
+           className.equals("java.util.HashMap") ||
+           className.equals("java.util.HashSet") ||
+           className.equals("java.util.Hashtable") ||
+           className.equals("java.util.IdentityHashMap") ||
+           className.equals("java.util.LinkedHashMap") ||
+           className.equals("java.util.LinkedHashSet") ||
+           className.equals("java.util.LinkedList") ||
+           className.equals("java.util.PriorityQueue") ||
+           className.equals("java.util.Properties") ||
+           className.equals("java.util.Random") ||
+           className.equals("java.util.Scanner") ||
+           className.equals("java.util.Stack") ||
+           className.equals("java.util.TreeMap") ||
+           className.equals("java.util.TreeSet") ||
+           className.equals("java.util.Vector") ||
+           className.equals("java.util.EnumMap") ||
+           className.equals("java.util.EnumSet") ||
+           className.equals("java.util.Date") ||
+           className.equals("java.util.WeakHashMap"); // optional, covers reference-sensitive maps
+}
 
     private static void generateTrainingDataForMethod(Method method, boolean isStatic, String className)
             throws IOException {
@@ -202,6 +219,7 @@ public class GenerateTrainingDataPerClass {
         statistics_samples_per_method = Main.MAX_SAMPLES * multiplier;
         for (int i = 0; i < Main.MAX_SAMPLES * multiplier; i++) {
             Object[] args = RandomDataProvider.generateRandomArgs(method, null);
+            Object[] fullArgs = Arrays.copyOf(args, args.length + 1);
             List<String> sequence = Collections.emptyList();
             try {
                 Object baseObject = null;
@@ -209,6 +227,7 @@ public class GenerateTrainingDataPerClass {
 
                 if (!isStatic) {
                     baseObject = RandomDataProvider.randomValueForType(method.getDeclaringClass());
+                    fullArgs[args.length] = baseObject;
                 }
                 stringRepresentation = String.valueOf(baseObject);
                 Object output = method.invoke(baseObject, args);
@@ -223,7 +242,7 @@ public class GenerateTrainingDataPerClass {
 
                 // Always wrap into a per-step sequence of length 1
                 sequence = Collections.singletonList(method.getName());
-                Object[][] inputsPerStep = new Object[][] { args };
+                Object[][] inputsPerStep = new Object[][] { fullArgs };
                 Object[] outputsPerStep = new Object[] { output };
                 trainingData.add(new SequenceInputOutputPair<>(sequence, inputsPerStep, outputsPerStep));
             } catch (Exception e) {
@@ -232,7 +251,7 @@ public class GenerateTrainingDataPerClass {
                     System.out.println("Error while invoking method " + method.getName() + ": " + e.getMessage());
                 }
                 sequence = Collections.singletonList(method.getName());
-                Object[][] inputsPerStep = new Object[][] { args };
+                Object[][] inputsPerStep = new Object[][] { fullArgs };
                 Object[] outputsPerStep = new Object[] { "error" };
                 trainingData.add(new SequenceInputOutputPair<>(sequence, inputsPerStep, outputsPerStep));
             }

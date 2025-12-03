@@ -302,7 +302,12 @@ public class RandomDataProvider {
             Class<?> paramType = paramTypes[i];
 
             if (paramType.equals(int.class) && methodNeedsIndex && size > 0) {
-                args[i] = random.nextInt(size);
+                if (size==0) {
+                    args[i] = 0;
+                }
+                 else {
+                    args[i] = random.nextInt(size);
+                 }
             } else {
                 args[i] = randomValueForType(paramType);
             }

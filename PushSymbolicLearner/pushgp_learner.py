@@ -71,18 +71,6 @@ class PushState:
         new_state.max_steps = self.max_steps
         return new_state
     
-    def get_final_result(self, expected_type=None):
-
-        if expected_type == 'java.lang.Integer':
-            return self.integer_stack[-1] if self.integer_stack else None
-        if expected_type == 'java.lang.String':
-            return self.string_stack[-1] if self.string_stack else None
-        if expected_type == 'java.lang.Float':
-            return self.float_stack[-1] if self.float_stack else None
-        if expected_type == 'java.lang.Boolean':
-            return self.boolean_stack[-1] if self.boolean_stack else None
-        if expected_type == 'null':
-            return None
      
     def pop_from_any_stack(self):
         if self.string_stack:
@@ -531,11 +519,8 @@ class DS_INSERT_AT_INDEX(PushInstruction):
             value = state.pop_from_any_stack()
             if value is not None:
                 # Clamp index into [0, len]
-                if index < 0:
-                    index = 0
-                if index > len(state.data_structure_stack):
-                    index = len(state.data_structure_stack)
-                state.data_structure_stack.insert(index, value)
+                if -1 < index < len(state.data_structure_stack):
+                    state.data_structure_stack.insert(index, value)
 
 
 class DS_REMOVE_INDEX(PushInstruction):
@@ -892,7 +877,7 @@ class PushGPInterpreter:
 
     def _extract_result_from_state(self, state: "PushState", expected_type: str):
         """Return the top of the appropriate stack based on expected type."""
-        if expected_type is None or expected_type == "null":
+        if expected_type is None or expected_type == "null" or expected_type == "error":
             return None
 
         type_map = {
