@@ -1477,7 +1477,7 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
     
     for generation in range(generations):
     # Parallel evaluation of population
-        with ProcessPoolExecutor(max_workers=8) as executor:  # adjust workers
+        with ProcessPoolExecutor(max_workers=90) as executor:  # adjust workers
             population = list(executor.map(
                 evaluate_wrapper,
                 [(g, training_data, interpreter, mutators) for g in population]
