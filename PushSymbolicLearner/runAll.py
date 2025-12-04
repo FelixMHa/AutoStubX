@@ -20,9 +20,9 @@ def startRun(mainfolder, folder):
                 ])
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("data_directory", nargs='?', default="../Training-Data-Generation/symbolic-regression-data/training",
+    parser.add_argument("--data_directory", nargs='?', default="../Training-Data-Generation/symbolic-regression-data/training",
                         help="Path to the main data directory containing subfolders")
-    parser.add_argument("includefilesInMain", default=False, nargs='?', type=bool,
+    parser.add_argument("--includefilesInMain", default=False, nargs='?', type=bool,
                         help="Whether to include files in the main directory")
     args = parser.parse_args()
     mainfolder = args.data_directory
