@@ -16,7 +16,8 @@ def startRun(mainfolder, folder):
                     "python", "rungp.py", filepath,
                     "--population", "200",
                     "--generations", "200",
-                    "--output", f"{filename}_genome.json"
+                    "--output", f"{filename}_genome.json",
+                    "--fast"
                 ])
 def main():
     parser = argparse.ArgumentParser()

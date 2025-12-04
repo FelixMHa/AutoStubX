@@ -1563,7 +1563,7 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
     # Resolve fast-mode defaults and resources
     if fast_mode:
         if max_steps is None:
-            max_steps = 80
+            max_steps = 20
         if processes is None:
             try:
                 processes = os.cpu_count() or 2
@@ -1580,7 +1580,7 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
             except Exception:
                 processes = min(population_size, 2)
         if max_steps is None:
-            max_steps = 150
+            max_steps = 80
 
     interpreter = PushGPInterpreter(profile=profile, max_steps=max_steps)
     method_names = _extract_method_names(training_data)
