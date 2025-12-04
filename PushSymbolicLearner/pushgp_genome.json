@@ -1,17 +1,15 @@
 {
-  "fitness": 0.015,
+  "fitness": 0.005,
   "accuracy": 1.0,
-  "complexity_penalty": 0.015,
+  "complexity_penalty": 0.005,
   "method_accuracies": {},
   "methods": {
-    "compareTo": {
+    "hashCode": {
       "program": [
-        "BOOLEAN.TO.INT",
-        "BOOLEAN.TO.INT",
-        "INTEGER.SUB"
+        "BOOLEAN.HASH"
       ],
       "accuracy": 0.0,
-      "complexity": 3
+      "complexity": 1
     }
   }
 }
