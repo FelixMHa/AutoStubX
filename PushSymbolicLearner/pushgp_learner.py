@@ -1541,7 +1541,7 @@ def serialize_program(code):
 def run_pushgp_evolution(training_data: List[TrainingExample],
                         population_size: int = 100,
                         generations: int = 300,
-                        no_improve_generations: int = 500,
+                        no_improve_generations: int = 50,
                         profile: str = 'primitives_full',
                         fast_mode: bool = False,
                         case_fraction: float = 1.0,
