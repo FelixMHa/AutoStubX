@@ -189,7 +189,7 @@ def main():
     evolution_time = time.time() - start_time
     print(f"Evolution completed in {evolution_time:.2f} seconds")
 
-    save_genome(best_genome, args.output)
+    save_genome(best_genome, args.output, evolution_time)
     print(f"Best genome saved to {args.output}")
 if __name__ == "__main__":
     main()
