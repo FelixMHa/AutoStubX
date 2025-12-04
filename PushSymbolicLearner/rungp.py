@@ -76,17 +76,22 @@ def loadtrainingdata(data_directory: str, max_samples_per_file: int = 1000, file
     
     return training_examples
 
-def save_genome(genome, output_file: str):
-    """Save the best genome to a JSON file."""
+def save_simple_genome(genome, output_file: str, execution_time: float):
+    """Save a generic genome to a JSON file with execution time."""
     output_path = Path(output_file)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
+    genome_data = {
+        'genome': genome,
+        'execution_time': execution_time
+    }
+
     with open(output_path, 'w') as f:
-        json.dump(genome, f, indent=4)
+        json.dump(genome_data, f, indent=4)
 
     print(f"Genome saved to {output_file}")
 
-def save_genome(genome, output_path: str):
+def save_genome(genome, output_path: str, executionTime: float):
     """Save improved PushGP genome"""
     
     def serialize_program(code):
@@ -106,6 +111,7 @@ def save_genome(genome, output_path: str):
         'accuracy': genome.accuracy,
         'complexity_penalty': genome.complexity_penalty,
         'method_accuracies': genome.method_accuracies,
+        'executionTime': executionTime,
         'methods': {}
     }
     
