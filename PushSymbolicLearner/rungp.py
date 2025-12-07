@@ -165,9 +165,7 @@ def main():
                        help="Number of examples to test on")
     parser.add_argument("--profile", type=str, default="primitives_full",
                        help="Number of examples to test on")
-    # Fast-mode and performance tuning
-    parser.add_argument("--fast", action="store_true", help="Enable fast mode (rotating case subsets, tuned workers, lower max steps)")
-    parser.add_argument("--case-fraction", type=float, default=1.0, help="Fraction of training cases to use per generation (0<frac<=1)")
+
     parser.add_argument("--processes", type=int, default=None, help="Number of parallel worker processes (defaults to CPU count)")
     parser.add_argument("--log-every", type=int, default=25, help="Log progress every N generations")
     parser.add_argument("--max-steps", type=int, default=None, help="Max interpreter steps per program execution")
@@ -180,8 +178,6 @@ def main():
         population_size=args.population,
         generations=args.generations,
         profile=args.profile,
-        fast_mode=args.fast,
-        case_fraction=args.case_fraction,
         processes=args.processes,
         log_every=args.log_every,
         max_steps=args.max_steps
