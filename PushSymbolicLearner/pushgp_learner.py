@@ -44,7 +44,7 @@ class PushState:
         self.string_stack = []
         self.float_stack = []
         self.exec_stack = []
-        
+        self.error_stack = []
         # Domain-specific stacks
         self.data_structure_stack = []
         self.result = None
@@ -421,7 +421,7 @@ class STR_TO_FLOAT(PushInstruction):
             try:
                 state.float_stack.append(float(s))
             except Exception:
-                state.float_stack.append(0.0)
+                state.string_stack.append("error")
 
 class ITE_FLOAT(PushInstruction):
     def __init__(self):
@@ -880,8 +880,8 @@ class DS_GET_INDEX(PushInstruction):
                 element = state.data_structure_stack[index]
                 state.push_to_appropriate_stack(element)
             else:
-                # Emit explicit error token when out of bounds
-                state.string_stack.append("error")
+                state.error_stack.append("error")
+
 
 
 class DS_SET_INDEX(PushInstruction):
@@ -897,8 +897,6 @@ class DS_SET_INDEX(PushInstruction):
                 state.data_structure_stack[index] = value
                 # Return old value like Java List.set
                 state.push_to_appropriate_stack(old)
-            else:
-                state.string_stack.append("error")
 
 
 class DS_INSERT_AT_INDEX(PushInstruction):
@@ -916,7 +914,8 @@ class DS_INSERT_AT_INDEX(PushInstruction):
                     # Return True to mimic add semantics where applicable
                     state.boolean_stack.append(True)
                 else:
-                    state.string_stack.append("error")
+                    state.error_stack.append("error")
+
 
 
 class DS_REMOVE_INDEX(PushInstruction):
@@ -930,7 +929,8 @@ class DS_REMOVE_INDEX(PushInstruction):
                 element = state.data_structure_stack.pop(index)
                 state.push_to_appropriate_stack(element)
             else:
-                state.string_stack.append("error")
+                state.error_stack.append("error")
+
 
 
 class DS_PEEK_LAST(PushInstruction):
@@ -941,6 +941,9 @@ class DS_PEEK_LAST(PushInstruction):
         if state.data_structure_stack:
             element = state.data_structure_stack[-1]
             state.push_to_appropriate_stack(element)
+        else:
+            state.error_stack.append("error")
+
 
 
 class DS_POP_LAST(PushInstruction):
@@ -952,8 +955,7 @@ class DS_POP_LAST(PushInstruction):
             element = state.data_structure_stack.pop()
             state.push_to_appropriate_stack(element)
         else:
-            # Align with expected null semantics when empty
-            state.string_stack.append("error")
+            state.error_stack.append("error")
 
 
 class DS_LAST_INDEX(PushInstruction):
@@ -1365,7 +1367,7 @@ class PushGPInterpreter:
         if expected_type == "null":
             return None
         if expected_type == "error":
-            if state.string_stack and state.string_stack[-1] == "error":
+            if state.error_stack and state.error_stack[-1] == "error":
                 return "error"
             return None
 
@@ -1436,38 +1438,33 @@ class PushGPInterpreter:
             # Append at end: size -> index, then insert(value) at index
             return [
                 self.instruction_set['DS.SIZE'],
-                self.instruction_set['DS.INSERT.AT.INDEX']
+                self.instruction_set['DS.INSERT.AT.INDEX'],
+                self.instruction_set['BOOL.CONST.True']
             ]
-        if m == 'get':
-            return [self.instruction_set['DS.GET.INDEX']]
-        if m == 'peeklast':
-            # Prefer non-mutating peek
-            if 'DS.PEEK.LAST' in self.instruction_set:
-                return [self.instruction_set['DS.PEEK.LAST']]
-            else:
-                return [self.instruction_set['DS.LAST.INDEX'], self.instruction_set['DS.GET.INDEX']]
+        if m == 'empty':
+            # Append at end: size -> index, then insert(value) at index
+            return [
+                self.instruction_set['DS.IS_EMPTY'],
+            ]
+        if m == 'peek':
+            # Append at end: size -> index, then insert(value) at index
+            return [
+                self.instruction_set['DS.PEEK.LAST'],
+            ]
         if m == 'pop':
-            if 'DS.POP.LAST' in self.instruction_set:
-                return [self.instruction_set['DS.POP.LAST']]
-            else:
-                return [self.instruction_set['DS.LAST.INDEX'], self.instruction_set['DS.REMOVE.INDEX']]
-        if m == 'remove':
-            return [self.instruction_set['DS.REMOVE.INDEX']]
-        if m == 'set':
-            return [self.instruction_set['DS.SET.INDEX']]
-        if m == 'size':
-            return [self.instruction_set['DS.SIZE']]
-        if m == 'isempty':
-            return [self.instruction_set['DS.IS_EMPTY']]
-        if m == 'clear':
-            return [self.instruction_set['DS.CLEAR']]
-        if m == 'contains':
-            return [self.instruction_set['DS.CONTAINS']]
-        if m == 'indexof':
-            # No direct instruction; fall back to random small program
-            return self.random_program(max_depth=1, max_length=2)
-        if m == 'lastindexof':
-            return self.random_program(max_depth=1, max_length=2)
+            # Append at end: size -> index, then insert(value) at index
+            return [
+                self.instruction_set['DS.POP.LAST'],
+            ]
+        if m == 'push':
+            # Append at end: size -> index, then insert(value) at index
+            return [
+                self.instruction_set['DS.SIZE'],
+                self.instruction_set['DS.INSERT.AT.INDEX'],
+                self.instruction_set['DS.PEEK.LAST']
+            ]
+        
+        
         return self.random_program(max_depth=2, max_length=5)
     
 
@@ -1541,53 +1538,27 @@ def serialize_program(code):
 def run_pushgp_evolution(training_data: List[TrainingExample],
                         population_size: int = 100,
                         generations: int = 300,
-                        no_improve_generations: int = 50,
+                        no_improve_generations: int = 100,
                         profile: str = 'primitives_full',
-                        fast_mode: bool = False,
-                        case_fraction: float = 1.0,
                         processes: Optional[int] = None,
                         log_every: int = 25,
                         max_steps: Optional[int] = None) -> PushGPGenome:
-    """Run PushGP evolution with improved state-based fitness.
-
-    profile: selects the instruction set, e.g., 'primitives_full' or 'ds_smt_minimal'.
-    fast_mode: enables defaults tuned for speed (rotating case subsets, lower max steps, auto CPU workers).
-    case_fraction: fraction of training cases to evaluate per generation (rotating window).
-    processes: number of worker processes for parallel evaluation (defaults to CPU count or population size).
-    log_every: generations between progress logs.
-    max_steps: interpreter step cap per program execution.
-    """
     
     _validate_evolution_params(training_data, population_size, generations)
 
-    # Resolve fast-mode defaults and resources
-    if fast_mode:
-        if max_steps is None:
-            max_steps = 20
-        if processes is None:
-            try:
-                processes = os.cpu_count() or 2
-            except Exception:
-                processes = 2
-        if case_fraction >= 1.0:
-            case_fraction = 0.33
-        if log_every == 25:
-            log_every = 5
-    else:
-        if processes is None:
-            try:
-                processes = min(population_size, os.cpu_count() or 2)
-            except Exception:
-                processes = min(population_size, 2)
-        if max_steps is None:
-            max_steps = 80
+    if processes is None:
+        try:
+            processes = min(population_size, os.cpu_count() or 2)
+        except Exception:
+            processes = min(population_size, 2)
+    if max_steps is None:
+        max_steps = 80
 
     interpreter = PushGPInterpreter(profile=profile, max_steps=max_steps)
     method_names = _extract_method_names(training_data)
     mutators = get_mutators(training_data)
     
     print(f"Learning PushGP programs for {len(method_names)} methods: {method_names}")
-    print(f"Workers={processes}, max_steps={max_steps}, case_fraction={case_fraction:.2f}, fast_mode={fast_mode}")
     
     # Create initial population with smarter initialization
     population = []
@@ -1595,7 +1566,7 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
         genome = PushGPGenome()
         for method_name in method_names:
             # Use smart initialization (70% smart, 30% random)
-            if random.random() < 0.7:
+            if random.random() < 0:
                 program_code = interpreter.create_smart_initial_program(method_name)
             else:
                 program_code = interpreter.random_program(max_depth=2, max_length=5)
@@ -1610,15 +1581,7 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
     stall_count = 0
     
     for generation in range(generations):
-        # Select subset of training data for this generation if requested (rotating window)
-        if case_fraction < 1.0:
-            n = len(training_data)
-            k = max(1, int(math.ceil(case_fraction * n)))
-            start = (generation * k) % n
-            idxs = [(start + i) % n for i in range(k)]
-            selected_data = [training_data[i] for i in idxs]
-        else:
-            selected_data = training_data
+    
 
         # Early-abort threshold based on previous best (ignore complexity for bound)
         early_threshold = None if best_genome is None else best_fitness
@@ -1627,12 +1590,12 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
         with ProcessPoolExecutor(max_workers=max(1, min(processes, population_size))) as executor:
             population = list(executor.map(
                 evaluate_wrapper,
-                [(g, selected_data, interpreter, mutators, early_threshold) for g in population]
+                [(g, training_data, interpreter, mutators, early_threshold) for g in population]
             ))
         
         # Track best genome
         population.sort(key=lambda x: x.fitness)
-        if population[0].fitness < best_fitness - 1e-9:
+        if population[0].fitness < best_fitness:
             best_fitness = population[0].fitness
             best_genome = population[0].copy()
             stall_count = 0
@@ -1650,9 +1613,11 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
                 print(f"{method_name}: {serialized}")
         
         # Early stopping
-        if best_fitness < 0.01:
-            print(f"Early stopping at generation {generation}")
-            break
+        if population[0].accuracy == 1.0:
+            if best_fitness < 0.02:
+                print(f"Early stopping at generation {generation}")
+                break
+        
         if stall_count >= no_improve_generations:
             print(f"No improvement for {no_improve_generations} generations. Stopping at generation {generation}.")
             break
@@ -1669,7 +1634,7 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
             if random.random() < 0.7:  # Crossover
                 parent1 = tournament_selection(population, 3)
                 parent2 = tournament_selection(population, 3)
-                offspring = crossover_genomes(parent1, parent2, interpreter)
+                offspring = crossover_genomes(parent1, parent2)
             else:  # Mutation only
                 parent = tournament_selection(population, 3)
                 offspring = parent.copy()
@@ -1707,23 +1672,20 @@ def evaluate_genome(genome: PushGPGenome, training_data, interpreter, mutators, 
 
             # Invariant and empty-case penalties
             inv_pen = compute_invariant_penalty(example.sequence, predicted_outputs, example.expected_outputs, ds_states)
-            empty_pen = compute_empty_case_penalty(example.sequence, predicted_outputs, example.expected_outputs)
             unused_pen = compute_arg_unused_penalty(example.sequence, used_inputs, example.input_args)
 
-            mutator_bonus = compute_mutator_bonus(example.sequence, predicted_outputs, example.expected_outputs, mutators, ds_states=ds_states)
-
-            raw_error = min(1.0, genome_error + inv_pen + empty_pen + unused_pen)
-            fitness_error = raw_error * (1.0 - mutator_bonus)
+            #mutator_bonus = compute_mutator_bonus(example.sequence, predicted_outputs, example.expected_outputs, mutators, ds_states=ds_states)
+            fitness_error = min(1.0, genome_error + inv_pen + unused_pen)
 
             total_error += fitness_error
             total_examples += 1
-            if genome_error < 0.01 and inv_pen < 1e-6 and empty_pen < 1e-6:
+            if genome_error < 0.01:
                 correct_predictions += 1
 
             # Early abort: even if remaining examples were perfect, the mean can't drop below threshold
             if abort_sum is not None and total_error > abort_sum:
                 # Assign poor fitness and stop evaluation early for this genome
-                genome.fitness = 1e6
+                genome.fitness = 1e5
                 genome.accuracy = correct_predictions / total_examples if total_examples > 0 else 0.0
                 genome.complexity_penalty = genome.get_complexity_penalty()
                 return genome
@@ -1745,8 +1707,7 @@ def tournament_selection(population: List[PushGPGenome], tournament_size: int) -
     tournament = random.sample(population, min(tournament_size, len(population)))
     return min(tournament, key=lambda x: x.fitness)
 
-def crossover_genomes(parent1: PushGPGenome, parent2: PushGPGenome, 
-                     interpreter: PushGPInterpreter) -> PushGPGenome:
+def crossover_genomes(parent1: PushGPGenome, parent2: PushGPGenome) -> PushGPGenome:
     """ crossover"""
     offspring = PushGPGenome()
     
@@ -1828,7 +1789,7 @@ def mutate_program(program: List, interpreter: PushGPInterpreter,
                         prog[i] = random.choice(interpreter.instruction_list)
                     else:
                         # Replace with small subprogram
-                        subprog = interpreter.random_program(max_depth=2, max_length=3)
+                        subprog = interpreter.random_program(max_depth=1, max_length=3)
                         prog[i] = subprog
             elif isinstance(item, list):
                 mutate_recursive(item)
@@ -1891,20 +1852,6 @@ def _rec_error(pred: Any, exp: Any) -> float:
     if isinstance(exp, str) and isinstance(pred, str):
         return _string_error(pred, exp)
 
-    # Sequences (list/tuple) - element-wise average (zip_longest)
-    if isinstance(exp, (list, tuple)) and isinstance(pred, (list, tuple)):
-        if len(exp) == 0 and len(pred) == 0:
-            return 0.0
-        errs = []
-        for p, e in zip_longest(pred, exp, fillvalue=None):
-            errs.append(_rec_error(p, e))
-        return sum(errs) / len(errs)
-
-    # Dicts - union of keys
-    if isinstance(exp, dict) and isinstance(pred, dict):
-        keys = set(exp.keys()) | set(pred.keys())
-        errs = [_rec_error(pred.get(k), exp.get(k)) for k in keys]
-        return sum(errs) / len(errs)
 
     # Fallback to exact string equality
     try:
@@ -1929,51 +1876,50 @@ def aggregate_genome_error(sequence: List[str],
 
     per_call = calculate_per_call_errors(sequence, predicted, expected)
 
-    # Single call → direct error
-    if len(sequence) == 1:
-        return float(per_call[0])
+    # Group errors by call name
+    grouped = defaultdict(list)
+    for name, err in zip(sequence, per_call):
+        grouped[name].append(err)
 
-    # Temporal decay weighting
+    # Average error per unique call
+    unique_errors = [sum(errs)/len(errs) for errs in grouped.values()]
+
+    # Apply decay weighting across unique calls
     if decay == 1.0:
-        call_mean = sum(per_call) / len(per_call)
+        call_mean = sum(unique_errors) / len(unique_errors)
     else:
-        weights = [decay ** i for i in range(len(per_call))]
+        weights = [decay ** i for i in range(len(unique_errors))]
         total_w = sum(weights)
-        call_mean = sum(e * w for e, w in zip(per_call, weights)) / total_w
+        call_mean = sum(e * w for e, w in zip(unique_errors, weights)) / total_w
 
-    # Final bounded error
     return float(max(0.0, min(1.0, call_mean)))
 
 
 def compute_invariant_penalty(sequence: List[str], predicted: List[Any], expected: List[Any], ds_states: List[List[Any]]) -> float:
     """Penalize mutations for methods that must be pure (peekLast/get/size)."""
-    if not ds_states:
-        return 0.0
-    penalty = 0.0
     violations = 0
-    pure_methods = {"peekLast", "get", "size"}
+
     for i, method in enumerate(sequence):
-        if method in pure_methods and i < len(ds_states) - 1:
-            before, after = ds_states[i], ds_states[i + 1]
-            if before != after:
+        state = ds_states[i]
+
+
+        if method == "size":
+            reported = predicted[i]
+            actual = len(state)
+            if reported != actual:
                 violations += 1
-    if violations > 0:
-        # Each violation adds a fraction; cap at 1.0
-        penalty = min(1.0, violations / max(1, len(sequence)))
+
+        if method == "get":
+            idx = expected[i] if i < len(expected) else None
+            if idx is not None and (idx < 0 or idx >= len(state)):
+                violations += 1
+
+        
+
+    # Normalize penalty: fraction of violations, capped at 1.0
+    penalty = min(1.0, violations / max(1, len(sequence)))
     return penalty
 
-
-def compute_empty_case_penalty(sequence: List[str], predicted: List[Any], expected: List[Any]) -> float:
-    """Increase penalty for empty-case failures for peekLast/pop."""
-    weight = 0.5  # extra penalty weight distributed across sequence
-    misses = 0
-    for m, p, e in zip_longest(sequence, predicted, expected, fillvalue=None):
-        if m in {"peekLast", "pop"} and e is None:
-            if p is not None:
-                misses += 1
-    if misses == 0:
-        return 0.0
-    return min(1.0, weight * misses / max(1, len(sequence)))
 
 def compute_arg_unused_penalty(sequence: List[str], used_inputs: List[bool], input_args: List[List[Any]]) -> float:
     """Penalize calls that ignore all of their input arguments.
