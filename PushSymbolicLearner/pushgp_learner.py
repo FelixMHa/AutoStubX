@@ -460,7 +460,7 @@ class ITE_FLOAT(PushInstruction):
 #ERCs
 class ERC_INT(PushInstruction):
     def __init__(self):
-        value = random.randint(-10, 10)
+        value = int(random.uniform(-10, 256))
         super().__init__(f"ERC.INT.{value}")
         self.value = value
 
@@ -469,7 +469,10 @@ class ERC_INT(PushInstruction):
         
 class ERC_FLOAT(PushInstruction):
     def __init__(self):
-        value = random.uniform(-10.0, 10.0)
+        if random.random() < 0.5:
+            value = float(random.uniform(-256, 256))
+        else:
+            value = float(random.uniform(-1, 1))
         super().__init__(f"ERC.FLOAT.{value:.2f}")
         self.value = value
 
@@ -1513,13 +1516,23 @@ class PushGPInterpreter:
         
         for _ in range(length):
             if random.random() < 0.7:  # Favor single instructions
-                program.append(random.choice(self.instruction_list))
+                program.append(self._get_random_instruction())
             else:
                 # Add subprogram
                 subprogram = self.random_program(max_depth - 1, max_length // 2)
                 program.append(subprogram)
         
         return program
+
+    def _get_random_instruction(self):
+        """Get a random instruction, creating new ERCs when selected"""
+        instr = random.choice(self.instruction_list)
+    
+        # If it's an ERC class, create a new instance with a new random value
+        if isinstance(instr, (ERC_INT, ERC_FLOAT)):
+            return instr.__class__()  # Create fresh instance
+    
+        return instr
     
     def create_smart_initial_program(self, method_name: str) -> List:
         """Create smarter initial programs based on method name"""
