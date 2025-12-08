@@ -14,8 +14,8 @@ def startRun(mainfolder, folder):
 
                 subprocess.run([
                     "python", "rungp.py", filepath,
-                    "--population", "90",
-                    "--generations", "300",
+                    "--population", "1000",
+                    "--generations", "400",
                     "--output", f"genomes/{filename}_genome.json",
                 ])
 def main():
