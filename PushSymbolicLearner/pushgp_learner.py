@@ -1739,7 +1739,7 @@ def evaluate_genome(genome: PushGPGenome, training_data, interpreter, early_stop
     total_error = 0.0
     total_examples = 0
     correct_predictions = 0
-
+    method_stats = defaultdict(lambda: {'correct': 0, 'total': 0, 'downstream_correct': 0, 'downstream_total': 0})
     abort_sum = None
     if early_stop_threshold is not None:
         abort_sum = early_stop_threshold * len(training_data)
@@ -1747,7 +1747,25 @@ def evaluate_genome(genome: PushGPGenome, training_data, interpreter, early_stop
     for example in training_data:
         try:
             predicted_outputs, used_inputs = interpreter.execute_sequence(genome, example)
+            # Calculate per-call correctness
+            call_correct = []
+            for pred, exp in zip_longest(predicted_outputs, example.expected_outputs, fillvalue=None):
+                is_correct = _rec_error(pred, exp) < 0.01
+                call_correct.append(is_correct)
             
+            # Update method stats
+            for i, method_name in enumerate(example.sequence):
+                is_correct = call_correct[i] if i < len(call_correct) else False
+                
+                # Direct accuracy
+                method_stats[method_name]['correct'] += int(is_correct)
+                method_stats[method_name]['total'] += 1
+                
+                # Downstream accuracy: if this call is correct, how many later calls are correct?
+                if is_correct and i + 1 < len(call_correct):
+                    downstream_calls = call_correct[i + 1:]
+                    method_stats[method_name]['downstream_correct'] += sum(downstream_calls)
+                    method_stats[method_name]['downstream_total'] += len(downstream_calls)
      
             genome_error = aggregate_genome_error(
                 example.sequence, predicted_outputs, example.expected_outputs
@@ -1773,6 +1791,8 @@ def evaluate_genome(genome: PushGPGenome, training_data, interpreter, early_stop
         except Exception:
             total_error += 1
             total_examples += 1
+            for method_name in example.sequence:
+                method_stats[method_name]['total'] += 1
     
     base_fitness = total_error / total_examples if total_examples > 0 else 1.0
     complexity_penalty = genome.get_complexity_penalty()
@@ -1782,6 +1802,24 @@ def evaluate_genome(genome: PushGPGenome, training_data, interpreter, early_stop
     genome.accuracy = correct_predictions / total_examples if total_examples > 0 else 0.0
     genome.complexity_penalty = complexity_penalty
     
+    #method accuracies
+    method_accuracies = {}
+    for method_name, stats in method_stats.items():
+        # Direct accuracy
+        direct_acc = stats['correct'] / max(1, stats['total'])
+        
+        # Downstream accuracy (how enabling is this method?)
+        if stats['downstream_total'] > 0:
+            downstream_acc = stats['downstream_correct'] / stats['downstream_total']
+        else:
+            downstream_acc = direct_acc  # No downstream calls, use direct
+        
+        # Weighted combination: direct accuracy is primary, downstream is a bonus
+        # This rewards methods that are both correct AND enable correct behavior
+        combined_acc = 0.7 * direct_acc + 0.3 * downstream_acc
+        method_accuracies[method_name] = combined_acc
+    genome.method_accuracies = method_accuracies
+
     return genome
 
 
