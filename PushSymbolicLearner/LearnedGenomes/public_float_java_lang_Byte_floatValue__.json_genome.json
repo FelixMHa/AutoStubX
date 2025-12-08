@@ -1,0 +1,19 @@
+{
+  "fitness": 0.01,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 226.06112384796143,
+  "methods": {
+    "floatValue": {
+      "program": [
+        [
+          "INT_TO_STR",
+          "STR.TO.FLOAT"
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

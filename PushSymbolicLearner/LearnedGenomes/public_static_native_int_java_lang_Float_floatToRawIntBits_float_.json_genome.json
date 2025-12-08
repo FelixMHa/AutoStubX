@@ -1,0 +1,18 @@
+{
+  "fitness": 0.9994848484848489,
+  "accuracy": 0.00787878787878788,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 131.1437177658081,
+  "methods": {
+    "floatToRawIntBits": {
+      "program": [
+        [
+          "INT.CONST.0"
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

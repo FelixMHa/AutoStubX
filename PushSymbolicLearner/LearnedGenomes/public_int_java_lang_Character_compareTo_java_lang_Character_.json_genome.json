@@ -1,0 +1,18 @@
+{
+  "fitness": 0.015,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 556.6479876041412,
+  "methods": {
+    "compareTo": {
+      "program": [
+        "STR_TO_ASCII",
+        "STR_TO_ASCII",
+        "INT.SUB"
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

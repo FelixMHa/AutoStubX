@@ -1,0 +1,22 @@
+{
+  "fitness": 0.015,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 247.49005007743835,
+  "methods": {
+    "booleanValue": {
+      "program": [
+        [
+          [
+            "BOOL.NOT"
+          ]
+        ],
+        "DUP.ANY",
+        "BOOL.NOT"
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

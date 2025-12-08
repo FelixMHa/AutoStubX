@@ -1,0 +1,22 @@
+{
+  "fitness": 0.4371784494857176,
+  "accuracy": 0.14606060606060606,
+  "complexity_penalty": 0.035,
+  "method_accuracies": {},
+  "executionTime": 1096.1801669597626,
+  "methods": {
+    "bitCount": {
+      "program": [
+        "INT_TO_STR",
+        "STR_LEN",
+        "DUP.ANY",
+        "DUP.ANY",
+        "INT.CONST.-2",
+        "INT.ADD",
+        "INT.ADD"
+      ],
+      "accuracy": 0.0,
+      "complexity": 7
+    }
+  }
+}

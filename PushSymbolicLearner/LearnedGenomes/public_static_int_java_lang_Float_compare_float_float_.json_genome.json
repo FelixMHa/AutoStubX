@@ -1,0 +1,19 @@
+{
+  "fitness": 0.4881818181818182,
+  "accuracy": 0.5218181818181818,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 203.43819451332092,
+  "methods": {
+    "compare": {
+      "program": [
+        [
+          "INT.CONST.1"
+        ],
+        "FLOAT.COS"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

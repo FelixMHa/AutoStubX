@@ -1,0 +1,16 @@
+{
+  "fitness": 0.2949291183662689,
+  "accuracy": 0.9151515151515152,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 173.83826160430908,
+  "methods": {
+    "intern": {
+      "program": [
+        "STR_TRIM"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

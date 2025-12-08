@@ -1,0 +1,20 @@
+{
+  "fitness": 0.8086310637214599,
+  "accuracy": 0.15848484848484848,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 508.8137209415436,
+  "methods": {
+    "hashCode": {
+      "program": [
+        "STR_TO_ASCII",
+        [
+          "BIT.NOT"
+        ],
+        "INT.NEG"
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

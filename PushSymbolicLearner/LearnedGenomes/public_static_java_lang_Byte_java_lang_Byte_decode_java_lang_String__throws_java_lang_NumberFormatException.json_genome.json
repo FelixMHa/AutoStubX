@@ -1,0 +1,16 @@
+{
+  "fitness": 0.9872521031157409,
+  "accuracy": 0.0,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 325.99358892440796,
+  "methods": {
+    "decode": {
+      "program": [
+        "STR_TO_LOWER"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

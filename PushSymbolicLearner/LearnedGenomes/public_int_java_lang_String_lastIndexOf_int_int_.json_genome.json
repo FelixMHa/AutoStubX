@@ -1,0 +1,19 @@
+{
+  "fitness": 0.010606060606060607,
+  "accuracy": 0.9993939393939394,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 487.4006130695343,
+  "methods": {
+    "lastIndexOf": {
+      "program": [
+        "INT.GT",
+        [
+          "INT.CONST.-1"
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

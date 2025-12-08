@@ -1,0 +1,18 @@
+{
+  "fitness": 0.015,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 180.79231357574463,
+  "methods": {
+    "compareTo": {
+      "program": [
+        "BOOL.TO.INT",
+        "BOOL.TO.INT",
+        "INT.SUB"
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

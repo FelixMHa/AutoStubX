@@ -1,0 +1,17 @@
+{
+  "fitness": 0.04727272727272727,
+  "accuracy": 0.9627272727272728,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 378.8069725036621,
+  "methods": {
+    "indexOf": {
+      "program": [
+        "SWAP.ANY",
+        "STR_INDEX_OF"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

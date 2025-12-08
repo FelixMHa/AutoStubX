@@ -1,0 +1,24 @@
+{
+  "fitness": 0.31525784209280294,
+  "accuracy": 0.566969696969697,
+  "complexity_penalty": 0.025,
+  "method_accuracies": {},
+  "executionTime": 607.0665137767792,
+  "methods": {
+    "lowestOneBit": {
+      "program": [
+        "INT.CONST.0",
+        "INT.EQ",
+        "INT.CONST.3",
+        [
+          "BOOL.NOT",
+          [
+            "BOOL.TO.INT"
+          ]
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 5
+    }
+  }
+}

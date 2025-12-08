@@ -24,19 +24,19 @@ public class Main {
         List<String> data = gson.fromJson(reader, List.class);
 
         String[] classesInScope = new String[] {
-                /*
-                 * "java.lang.Boolean",
-                 * "java.lang.Double",
-                 * "java.lang.Float",
-                 * "java.lang.String",
-                 * "java.lang.Byte",
-                 * "java.lang.Short",
-                 * "java.lang.Character",
-                 * "java.lang.Integer",
-                 * "java.lang.Long",
-                 * "java.lang.Math",
-                 * "java.lang.StrictMath",
-                 */
+                
+                "java.lang.Boolean",
+                "java.lang.Double",
+                "java.lang.Float",
+                "java.lang.String",
+                "java.lang.Byte",
+                "java.lang.Short",
+                "java.lang.Character",
+                "java.lang.Integer",
+                "java.lang.Long",
+                "java.lang.Math",
+                "java.lang.StrictMath",
+                
                 // Stateful classes
                 "java.util.ArrayDeque",
                 "java.util.ArrayList",

@@ -1,0 +1,17 @@
+{
+  "fitness": 0.03212121212121212,
+  "accuracy": 0.9778787878787879,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 190.96437573432922,
+  "methods": {
+    "isUpperCase": {
+      "program": [
+        "BOOL.CONST.False",
+        "BIT.NOT"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

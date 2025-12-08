@@ -1,0 +1,14 @@
+{
+  "fitness": 1.0,
+  "accuracy": 0.0,
+  "complexity_penalty": 0.0,
+  "method_accuracies": {},
+  "executionTime": 49.78200888633728,
+  "methods": {
+    "hashCode": {
+      "program": [],
+      "accuracy": 0.0,
+      "complexity": 0
+    }
+  }
+}

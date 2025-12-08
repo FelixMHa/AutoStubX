@@ -1,0 +1,20 @@
+{
+  "fitness": 0.1251233533128255,
+  "accuracy": 0.1391,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 70.92747926712036,
+  "methods": {
+    "toString": {
+      "program": [
+        [
+          [
+            "FLOAT.TO.STR"
+          ]
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

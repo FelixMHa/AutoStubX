@@ -1,0 +1,16 @@
+{
+  "fitness": 0.9986363636363641,
+  "accuracy": 0.00909090909090909,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 128.87720561027527,
+  "methods": {
+    "doubleToLongBits": {
+      "program": [
+        "INT.CONST.0"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "fitness": 0.13090909090909092,
+  "accuracy": 0.8790909090909091,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 129.50477409362793,
+  "methods": {
+    "isAlphabetic": {
+      "program": [
+        [
+          "BOOL.CONST.False",
+          "INT_TO_STR"
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

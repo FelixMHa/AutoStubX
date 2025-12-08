@@ -1,0 +1,19 @@
+{
+  "fitness": 0.48363636363636364,
+  "accuracy": 0.5263636363636364,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 287.9707238674164,
+  "methods": {
+    "compareTo": {
+      "program": [
+        "INT.CONST.-1",
+        [
+          "FLOAT.ADD"
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

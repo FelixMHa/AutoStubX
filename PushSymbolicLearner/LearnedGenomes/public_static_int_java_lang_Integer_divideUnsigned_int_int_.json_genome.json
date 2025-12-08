@@ -1,0 +1,17 @@
+{
+  "fitness": 0.4993939393939394,
+  "accuracy": 0.5106060606060606,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 3036.406741142273,
+  "methods": {
+    "divideUnsigned": {
+      "program": [
+        "BIT.XOR",
+        "INT.CONST.0"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

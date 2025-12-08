@@ -1,0 +1,23 @@
+{
+  "fitness": 0.02,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.02,
+  "method_accuracies": {},
+  "executionTime": 177.10833191871643,
+  "methods": {
+    "valueOf": {
+      "program": [
+        "DUP.ANY",
+        [
+          [
+            "BOOL.NOT"
+          ],
+          "INT.CONST.6",
+          "SWAP.ANY"
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 4
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "fitness": 0.015,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 1.4901671409606934,
+  "methods": {
+    "isNaN": {
+      "program": [
+        [
+          "FLOAT.IS_NAN",
+          "INT.SUB",
+          "STR_SUBSTRING"
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

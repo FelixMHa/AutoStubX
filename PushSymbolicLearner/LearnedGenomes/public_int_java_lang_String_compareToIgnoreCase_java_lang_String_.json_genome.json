@@ -1,0 +1,22 @@
+{
+  "fitness": 0.8117412023994828,
+  "accuracy": 0.019696969696969695,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 263.42294359207153,
+  "methods": {
+    "compareToIgnoreCase": {
+      "program": [
+        "INT.CONST.-4",
+        [
+          "STR_TO_ASCII"
+        ],
+        [
+          "INT.ADD"
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

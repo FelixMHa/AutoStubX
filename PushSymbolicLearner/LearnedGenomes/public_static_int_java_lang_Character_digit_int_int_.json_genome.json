@@ -1,0 +1,17 @@
+{
+  "fitness": 0.01,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 1216.2624125480652,
+  "methods": {
+    "digit": {
+      "program": [
+        "BIT.XOR",
+        "INT.CONST.-1"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "fitness": 0.02015151515151515,
+  "accuracy": 0.9948484848484849,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 425.07895708084106,
+  "methods": {
+    "forDigit": {
+      "program": [
+        "INT.CONST.-3",
+        "ASCII_TO_STR",
+        "INT.ADD"
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

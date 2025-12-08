@@ -1,0 +1,20 @@
+{
+  "fitness": 0.8004467203256269,
+  "accuracy": 0.0,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 747.8434512615204,
+  "methods": {
+    "toBinaryString": {
+      "program": [
+        [
+          "BIT.NOT",
+          "FLOAT.CONST.1.0"
+        ],
+        "FLOAT.TO.STR"
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

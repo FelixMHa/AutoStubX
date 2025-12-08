@@ -1,0 +1,18 @@
+{
+  "fitness": 0.028075167256985438,
+  "accuracy": 0.9860606060606061,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 377.95997285842896,
+  "methods": {
+    "translateEscapes": {
+      "program": [
+        "INT.CONST.-4",
+        "INT_TO_STR",
+        "SWAP.ANY"
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

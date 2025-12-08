@@ -1,0 +1,17 @@
+{
+  "fitness": 0.5236363636363637,
+  "accuracy": 0.4863636363636364,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 386.72667717933655,
+  "methods": {
+    "numberOfTrailingZeros": {
+      "program": [
+        "POP.ANY",
+        "INT.CONST.0"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

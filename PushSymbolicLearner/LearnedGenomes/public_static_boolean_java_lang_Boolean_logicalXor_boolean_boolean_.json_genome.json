@@ -1,0 +1,16 @@
+{
+  "fitness": 0.005,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 2.3915252685546875,
+  "methods": {
+    "logicalXor": {
+      "program": [
+        "BOOL.XOR"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

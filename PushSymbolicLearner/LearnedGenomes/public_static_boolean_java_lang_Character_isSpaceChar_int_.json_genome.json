@@ -1,0 +1,21 @@
+{
+  "fitness": 0.01,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 156.0358407497406,
+  "methods": {
+    "isSpaceChar": {
+      "program": [
+        "POP.ANY",
+        [
+          [
+            "BOOL.CONST.False"
+          ]
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

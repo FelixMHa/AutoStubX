@@ -1,0 +1,20 @@
+{
+  "fitness": 0.015606060606060606,
+  "accuracy": 0.9993939393939394,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 183.00871348381042,
+  "methods": {
+    "isBlank": {
+      "program": [
+        "STR_LEN",
+        [
+          "INT.CONST.1"
+        ],
+        "INT.LT"
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

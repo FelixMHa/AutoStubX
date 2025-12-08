@@ -1,0 +1,19 @@
+{
+  "fitness": 0.11348484848484848,
+  "accuracy": 0.7930303030303031,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 261.38513255119324,
+  "methods": {
+    "charCount": {
+      "program": [
+        [
+          "BIT.NOT"
+        ],
+        "INT.CONST.1"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

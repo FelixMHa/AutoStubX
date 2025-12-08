@@ -1,0 +1,21 @@
+{
+  "fitness": 0.02,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.02,
+  "method_accuracies": {},
+  "executionTime": 274.05373764038086,
+  "methods": {
+    "valueOf": {
+      "program": [
+        [
+          "FLOAT.CONST.1.0",
+          "FLOAT.TO.STR",
+          "BIT.OR"
+        ],
+        "SWAP.ANY"
+      ],
+      "accuracy": 0.0,
+      "complexity": 4
+    }
+  }
+}
