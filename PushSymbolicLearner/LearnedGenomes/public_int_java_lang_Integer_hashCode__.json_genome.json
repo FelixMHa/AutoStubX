@@ -1,0 +1,17 @@
+{
+  "fitness": 0.010545454545454545,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 241.45434498786926,
+  "methods": {
+    "hashCode": {
+      "program": [
+        "INT.CONST.-3",
+        "SWAP.ANY"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

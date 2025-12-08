@@ -1,0 +1,27 @@
+{
+  "fitness": 0.08545454545454545,
+  "accuracy": 0.9745454545454545,
+  "complexity_penalty": 0.06,
+  "method_accuracies": {},
+  "executionTime": 414.5433406829834,
+  "methods": {
+    "isISOControl": {
+      "program": [
+        "STR_TRIM",
+        "INT.CONST.6",
+        "STR_TO_ASCII",
+        "INT.CONST.5",
+        "INT.SUB",
+        "INT.CONST.5",
+        "INT.SUB",
+        "INT.CONST.5",
+        "INT.SUB",
+        "INT.CONST.5",
+        "INT.SUB",
+        "INT.GT"
+      ],
+      "accuracy": 0.0,
+      "complexity": 12
+    }
+  }
+}

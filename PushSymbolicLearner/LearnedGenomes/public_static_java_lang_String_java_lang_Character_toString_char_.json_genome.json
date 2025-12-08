@@ -1,0 +1,22 @@
+{
+  "fitness": 0.015,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 305.95371103286743,
+  "methods": {
+    "toString": {
+      "program": [
+        "INT.CONST.-1",
+        [
+          "INT_TO_STR",
+          [
+            "SWAP.ANY"
+          ]
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

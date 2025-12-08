@@ -1,0 +1,16 @@
+{
+  "fitness": 0.005,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 3.7363789081573486,
+  "methods": {
+    "getLong": {
+      "program": [
+        "STR.TO.FLOAT"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

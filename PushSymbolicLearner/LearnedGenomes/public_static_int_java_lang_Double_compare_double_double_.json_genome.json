@@ -1,0 +1,21 @@
+{
+  "fitness": 0.023333333333333334,
+  "accuracy": 0.9966666666666667,
+  "complexity_penalty": 0.02,
+  "method_accuracies": {},
+  "executionTime": 348.3861753940582,
+  "methods": {
+    "compare": {
+      "program": [
+        [
+          "INT.CONST.-1"
+        ],
+        "FLOAT.LT",
+        "INT.CONST.1",
+        "INT.ITE"
+      ],
+      "accuracy": 0.0,
+      "complexity": 4
+    }
+  }
+}

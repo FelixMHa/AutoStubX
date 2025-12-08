@@ -1,0 +1,21 @@
+{
+  "fitness": 0.08272727272727272,
+  "accuracy": 0.9272727272727272,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 319.9522821903229,
+  "methods": {
+    "isISOControl": {
+      "program": [
+        [
+          [
+            "INT.CONST.0"
+          ]
+        ],
+        "INT.EQ"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

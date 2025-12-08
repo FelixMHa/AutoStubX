@@ -219,7 +219,8 @@ public class GenerateTrainingDataPerClass {
         statistics_samples_per_method = Main.MAX_SAMPLES * multiplier;
         for (int i = 0; i < Main.MAX_SAMPLES * multiplier; i++) {
             Object[] args = RandomDataProvider.generateRandomArgs(method, null);
-            Object[] fullArgs = Arrays.copyOf(args, args.length + 1);
+            Object[] fullArgs = isStatic ? args : Arrays.copyOf(args, args.length + 1);
+
             List<String> sequence = Collections.emptyList();
             try {
                 Object baseObject = null;
@@ -250,10 +251,10 @@ public class GenerateTrainingDataPerClass {
                     printedError = true;
                     System.out.println("Error while invoking method " + method.getName() + ": " + e.getMessage());
                 }
-                sequence = Collections.singletonList(method.getName());
+                /*sequence = Collections.singletonList(method.getName());
                 Object[][] inputsPerStep = new Object[][] { fullArgs };
                 Object[] outputsPerStep = new Object[] { "error" };
-                trainingData.add(new SequenceInputOutputPair<>(sequence, inputsPerStep, outputsPerStep));
+                trainingData.add(new SequenceInputOutputPair<>(sequence, inputsPerStep, outputsPerStep));*/
             }
         }
         if (trainingData.size() == Main.MAX_SAMPLES * multiplier) {

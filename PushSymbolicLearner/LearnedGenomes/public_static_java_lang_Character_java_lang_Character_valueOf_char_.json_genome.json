@@ -1,0 +1,20 @@
+{
+  "fitness": 0.015,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 317.78884840011597,
+  "methods": {
+    "valueOf": {
+      "program": [
+        "INT.CONST.-2",
+        [
+          "INT_TO_STR"
+        ],
+        "SWAP.ANY"
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

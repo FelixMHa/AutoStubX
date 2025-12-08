@@ -1,0 +1,19 @@
+{
+  "fitness": 0.5111929661247842,
+  "accuracy": 0.35818181818181816,
+  "complexity_penalty": 0.02,
+  "method_accuracies": {},
+  "executionTime": 573.3312935829163,
+  "methods": {
+    "getDirectionality": {
+      "program": [
+        "STR_LEN",
+        "INT.CONST.3",
+        "INT.CONST.3",
+        "INT.MUL"
+      ],
+      "accuracy": 0.0,
+      "complexity": 4
+    }
+  }
+}

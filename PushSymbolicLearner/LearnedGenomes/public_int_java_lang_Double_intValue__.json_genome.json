@@ -1,0 +1,17 @@
+{
+  "fitness": 0.5072727272727272,
+  "accuracy": 0.5027272727272727,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 257.3984200954437,
+  "methods": {
+    "intValue": {
+      "program": [
+        "FLOAT.IS_FINITE",
+        "INT.CONST.0"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

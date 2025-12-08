@@ -1,0 +1,21 @@
+{
+  "fitness": 0.7638425622799473,
+  "accuracy": 0.004545454545454545,
+  "complexity_penalty": 0.02,
+  "method_accuracies": {},
+  "executionTime": 369.42366790771484,
+  "methods": {
+    "getExponent": {
+      "program": [
+        "FLOAT.TO.STR",
+        [
+          "INT.CONST.4"
+        ],
+        "INT.CONST.6",
+        "BIT.SHL"
+      ],
+      "accuracy": 0.0,
+      "complexity": 4
+    }
+  }
+}

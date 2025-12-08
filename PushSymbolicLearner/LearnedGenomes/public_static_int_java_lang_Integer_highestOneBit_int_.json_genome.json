@@ -1,0 +1,25 @@
+{
+  "fitness": 0.6016375500631749,
+  "accuracy": 0.10272727272727272,
+  "complexity_penalty": 0.02,
+  "method_accuracies": {},
+  "executionTime": 620.172201871872,
+  "methods": {
+    "highestOneBit": {
+      "program": [
+        [
+          [
+            "INT.CONST.1",
+            [
+              "INT.ADD"
+            ]
+          ]
+        ],
+        "INT.CONST.1",
+        "BIT.SHR"
+      ],
+      "accuracy": 0.0,
+      "complexity": 4
+    }
+  }
+}

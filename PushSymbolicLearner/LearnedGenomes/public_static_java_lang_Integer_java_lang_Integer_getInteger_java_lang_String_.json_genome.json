@@ -1,0 +1,16 @@
+{
+  "fitness": 0.005,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 3.4454026222229004,
+  "methods": {
+    "getInteger": {
+      "program": [
+        "STR_TO_INT"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

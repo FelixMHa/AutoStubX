@@ -1,0 +1,17 @@
+{
+  "fitness": 0.980314493587221,
+  "accuracy": 0.01,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 1665.924864768982,
+  "methods": {
+    "offsetByCodePoints": {
+      "program": [
+        "STR_TO_LOWER",
+        "INT.ADD"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

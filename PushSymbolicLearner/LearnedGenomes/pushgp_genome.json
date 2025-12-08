@@ -1,0 +1,15 @@
+{
+  "fitness": 0.005,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "methods": {
+    "hashCode": {
+      "program": [
+        "BOOLEAN.HASH"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

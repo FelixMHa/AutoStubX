@@ -1,0 +1,17 @@
+{
+  "fitness": 0.6284236248617409,
+  "accuracy": 0.044848484848484846,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 291.1241102218628,
+  "methods": {
+    "getType": {
+      "program": [
+        "STR_LEN",
+        "INT.CONST.6"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

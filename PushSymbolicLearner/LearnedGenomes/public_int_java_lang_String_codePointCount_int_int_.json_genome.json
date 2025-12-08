@@ -1,0 +1,17 @@
+{
+  "fitness": 0.9837347870984239,
+  "accuracy": 0.005454545454545455,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 1024.2541906833649,
+  "methods": {
+    "codePointCount": {
+      "program": [
+        "STR_TO_LOWER",
+        "BIT.XOR"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

@@ -126,7 +126,8 @@ public class SequenceTreeBuilder {
                     "ensureCapacity",
                     "trimToSize",
                     "clone",
-                    "hashCode"
+                    "hashCode",
+                    "equals"
 
                 );
 

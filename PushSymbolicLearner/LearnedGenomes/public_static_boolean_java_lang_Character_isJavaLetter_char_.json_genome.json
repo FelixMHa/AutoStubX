@@ -1,0 +1,19 @@
+{
+  "fitness": 0.37393939393939396,
+  "accuracy": 0.6360606060606061,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 223.82533407211304,
+  "methods": {
+    "isJavaLetter": {
+      "program": [
+        [
+          "STR_LEN"
+        ],
+        "BOOL.CONST.False"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

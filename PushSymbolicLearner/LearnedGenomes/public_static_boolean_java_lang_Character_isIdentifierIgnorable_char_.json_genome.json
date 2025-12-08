@@ -1,0 +1,20 @@
+{
+  "fitness": 0.10227272727272727,
+  "accuracy": 0.9227272727272727,
+  "complexity_penalty": 0.025,
+  "method_accuracies": {},
+  "executionTime": 632.1683166027069,
+  "methods": {
+    "isIdentifierIgnorable": {
+      "program": [
+        "STR_TO_ASCII",
+        "INT.CONST.3",
+        "BIT.SHR",
+        "INT.CONST.3",
+        "INT.LT"
+      ],
+      "accuracy": 0.0,
+      "complexity": 5
+    }
+  }
+}

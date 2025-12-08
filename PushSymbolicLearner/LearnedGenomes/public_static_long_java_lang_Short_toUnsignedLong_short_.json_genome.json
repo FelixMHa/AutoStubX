@@ -1,0 +1,19 @@
+{
+  "fitness": 0.4675757575757576,
+  "accuracy": 0.5424242424242425,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 222.6446394920349,
+  "methods": {
+    "toUnsignedLong": {
+      "program": [
+        [
+          "INT.CONST.-3"
+        ],
+        "SWAP.ANY"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

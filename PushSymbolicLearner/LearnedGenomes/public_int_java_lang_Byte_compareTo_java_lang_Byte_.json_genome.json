@@ -1,0 +1,19 @@
+{
+  "fitness": 0.01,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 191.14682626724243,
+  "methods": {
+    "compareTo": {
+      "program": [
+        [
+          "SWAP.ANY"
+        ],
+        "INT.SUB"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

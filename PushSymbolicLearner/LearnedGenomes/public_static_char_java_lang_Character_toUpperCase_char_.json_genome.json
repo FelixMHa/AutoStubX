@@ -1,0 +1,19 @@
+{
+  "fitness": 0.021515151515151515,
+  "accuracy": 0.9984848484848485,
+  "complexity_penalty": 0.02,
+  "method_accuracies": {},
+  "executionTime": 420.77698850631714,
+  "methods": {
+    "toUpperCase": {
+      "program": [
+        "INT.CONST.-3",
+        "INT_TO_STR",
+        "SWAP.ANY",
+        "STR_TO_UPPER"
+      ],
+      "accuracy": 0.0,
+      "complexity": 4
+    }
+  }
+}

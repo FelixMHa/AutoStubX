@@ -1,0 +1,23 @@
+{
+  "fitness": 0.04959265041751684,
+  "accuracy": 0.8496969696969697,
+  "complexity_penalty": 0.02,
+  "method_accuracies": {},
+  "executionTime": 441.2811748981476,
+  "methods": {
+    "trim": {
+      "program": [
+        [
+          "STR_TRIM"
+        ],
+        "FLOAT.CONST.2.0",
+        [
+          "FLOAT.TO.STR"
+        ],
+        "SWAP.ANY"
+      ],
+      "accuracy": 0.0,
+      "complexity": 4
+    }
+  }
+}

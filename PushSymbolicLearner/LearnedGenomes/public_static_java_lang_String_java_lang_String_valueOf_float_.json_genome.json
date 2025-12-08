@@ -1,0 +1,17 @@
+{
+  "fitness": 0.07090464926920043,
+  "accuracy": 0.5093939393939394,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 118.96304130554199,
+  "methods": {
+    "valueOf": {
+      "program": [
+        "FLOAT.TO.STR",
+        "STR_TO_UPPER"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

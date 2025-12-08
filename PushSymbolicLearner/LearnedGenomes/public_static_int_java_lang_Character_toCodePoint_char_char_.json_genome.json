@@ -1,0 +1,14 @@
+{
+  "fitness": 1.0,
+  "accuracy": 0.0,
+  "complexity_penalty": 0.0,
+  "method_accuracies": {},
+  "executionTime": 121.21518445014954,
+  "methods": {
+    "toCodePoint": {
+      "program": [],
+      "accuracy": 0.0,
+      "complexity": 0
+    }
+  }
+}

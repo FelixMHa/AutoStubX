@@ -1,0 +1,3759 @@
+[
+    {
+        "fileName": "public_boolean_java_lang_Boolean_booleanValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 2.6692293,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_boolean_java_lang_Double_isInfinite___best_individual.json",
+        "formula": "real_less_than(ARG0, ARG0)",
+        "relativeError": 0.012714,
+        "absoluteError": 12714.0,
+        "complexity": 2,
+        "generationTime": 95.90637,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 987286,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_boolean_java_lang_Double_isNaN___best_individual.json",
+        "formula": "logic_not(real_less_than(FLOAT(-1.0), real_abs(ARG0)))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 5,
+        "generationTime": 431.41095,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_boolean_java_lang_Float_isInfinite___best_individual.json",
+        "formula": "logic_xor(real_less_than(FLOAT(-1.0), real_cos(ARG0)), real_less_than(FLOAT(-1.0), real_abs(ARG0)))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 8,
+        "generationTime": 879.91113,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_boolean_java_lang_Float_isNaN___best_individual.json",
+        "formula": "logic_xor(BOOL(True), real_less_than(FLOAT(-132.7833709716797), real_abs(ARG0)))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 6,
+        "generationTime": 461.06747,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_boolean_java_lang_String_endsWith_java_lang_String__best_individual.json",
+        "formula": "str_compare(STRING(''), ARG1)",
+        "relativeError": 0.000355,
+        "absoluteError": 355.0,
+        "complexity": 3,
+        "generationTime": 205.61873,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 999645,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_boolean_java_lang_String_equalsIgnoreCase_java_lang_String__best_individual.json",
+        "formula": "str_compare(ARG0, ARG1)",
+        "relativeError": 1.5e-05,
+        "absoluteError": 15.0,
+        "complexity": 2,
+        "generationTime": 204.20525,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 999985,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_boolean_java_lang_String_isBlank___best_individual.json",
+        "formula": "int_compare(int_add(INT(16), string_index_of(STRING(' '), ARG0)), INT(16))",
+        "relativeError": 0.003685,
+        "absoluteError": 3685.0,
+        "complexity": 7,
+        "generationTime": 115.06953,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 996315,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_boolean_java_lang_String_isEmpty___best_individual.json",
+        "formula": "str_compare(STRING(''), ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 3,
+        "generationTime": 184.11844,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_boolean_java_lang_String_regionMatches_boolean_int_java_lang_String_int_int__best_individual.json",
+        "formula": "logic_and(int_less_than(ARG5, int_neg(int_add(ARG2, ARG4))), int_compare_range(INT(0), int_neg(ARG4), ARG2))",
+        "relativeError": 0.00122,
+        "absoluteError": 1220.0,
+        "complexity": 8,
+        "generationTime": 902.95416,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 998780,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_boolean_java_lang_String_regionMatches_int_java_lang_String_int_int__best_individual.json",
+        "formula": "logic_and(int_compare_range(ARG3, INT(0), int_abs(ARG4)), int_compare_range(int_neg(ARG1), ARG4, ARG1))",
+        "relativeError": 0.000529,
+        "absoluteError": 529.0,
+        "complexity": 7,
+        "generationTime": 721.6651,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 999471,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_boolean_java_lang_String_startsWith_java_lang_String__best_individual.json",
+        "formula": "str_compare(ARG1, STRING(''))",
+        "relativeError": 0.000351,
+        "absoluteError": 351.0,
+        "complexity": 3,
+        "generationTime": 106.43923,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 999649,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_boolean_java_lang_String_startsWith_java_lang_String_int__best_individual.json",
+        "formula": "int_compare(int_sub(ARG2, string_index_of(ARG0, ARG1)), int_mul(ARG2, INT(24)))",
+        "relativeError": 0.003539,
+        "absoluteError": 3539.0,
+        "complexity": 6,
+        "generationTime": 240.78032,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 996461,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_byte_java_lang_Byte_byteValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.6347017,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_byte_java_lang_Double_byteValue___best_individual.json",
+        "formula": "int_if_then_else(real_less_than(ARG0, FLOAT(-211.5286102294922)), INT(0), INT(201))",
+        "relativeError": 0.6033731176470588,
+        "absoluteError": 153860145.0,
+        "complexity": 6,
+        "generationTime": 151.66612,
+        "biggestError": 329.0,
+        "biggestErrorInput": [
+            4224.014490119505
+        ],
+        "biggestErrorOutput": -128.0,
+        "correctCount": 228403,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_byte_java_lang_Float_byteValue___best_individual.json",
+        "formula": "int_if_then_else(real_less_than(ARG0, FLOAT(-1.0)), INT(0), INT(8))",
+        "relativeError": 0.04690361176470588,
+        "absoluteError": 11960421.0,
+        "complexity": 6,
+        "generationTime": 151.52646,
+        "biggestError": 136.0,
+        "biggestErrorInput": [
+            199677824.0
+        ],
+        "biggestErrorOutput": -128.0,
+        "correctCount": 188710,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_byte_java_lang_Integer_byteValue___best_individual.json",
+        "formula": "int_sub(int_abs(int_sub(INT(134), ARG0)), int_abs(int_sub(INT(130), ARG0)))",
+        "relativeError": 0.2004629176470588,
+        "absoluteError": 51118044.0,
+        "complexity": 8,
+        "generationTime": 662.88116,
+        "biggestError": 132.0,
+        "biggestErrorInput": [
+            128
+        ],
+        "biggestErrorOutput": -128.0,
+        "correctCount": 7139,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_byte_java_lang_Long_byteValue___best_individual.json",
+        "formula": "int_sub(int_abs(int_sub(INT(2), int_abs(int_sub(ARG0, INT(-3))))), int_abs(int_add(ARG0, INT(-1))))",
+        "relativeError": 0.2187044862745098,
+        "absoluteError": 55769644.0,
+        "complexity": 11,
+        "generationTime": 1133.0068,
+        "biggestError": 133.0,
+        "biggestErrorInput": [
+            -385
+        ],
+        "biggestErrorOutput": 127.0,
+        "correctCount": 39558,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_byte_java_lang_Short_byteValue___best_individual.json",
+        "formula": "int_sub(int_sub(int_abs(int_sub(int_sub(INT(-8), ARG0), INT(-3))), INT(4)), int_abs(int_sub(int_sub(int_abs(int_sub(INT(3), ARG0)), INT(-1)), INT(4))))",
+        "relativeError": 0.152019831372549,
+        "absoluteError": 38765057.0,
+        "complexity": 17,
+        "generationTime": 1494.8904,
+        "biggestError": 136.0,
+        "biggestErrorInput": [
+            -7553
+        ],
+        "biggestErrorOutput": 127.0,
+        "correctCount": 104550,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_char_java_lang_Character_charValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 964.27765,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_double_java_lang_Byte_doubleValue___best_individual.json",
+        "formula": "int_div(ARG0, INT(1))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 3,
+        "generationTime": 12.109662,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_double_java_lang_Integer_doubleValue___best_individual.json",
+        "formula": "int_div(ARG0, INT(1))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 3,
+        "generationTime": 14.164692,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_double_java_lang_Long_doubleValue___best_individual.json",
+        "formula": "int_div(ARG0, INT(1))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 3,
+        "generationTime": 19.170782,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_double_java_lang_Short_doubleValue___best_individual.json",
+        "formula": "int_div(ARG0, INT(1))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 3,
+        "generationTime": 12.101673,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_float_java_lang_Byte_floatValue___best_individual.json",
+        "formula": "int_div(ARG0, INT(1))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 3,
+        "generationTime": 12.041355,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_float_java_lang_Integer_floatValue___best_individual.json",
+        "formula": "int_div(ARG0, INT(1))",
+        "relativeError": 3.150152039574318e-10,
+        "absoluteError": 1352980.0,
+        "complexity": 3,
+        "generationTime": 11.520116,
+        "biggestError": 68.0,
+        "biggestErrorInput": [
+            -1700990912
+        ],
+        "biggestErrorOutput": -1700990980.0,
+        "correctCount": 825244,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_float_java_lang_Long_floatValue___best_individual.json",
+        "formula": "int_div(ARG0, INT(1))",
+        "relativeError": 1.9004002652466567e-10,
+        "absoluteError": 3505619719053717.0,
+        "complexity": 3,
+        "generationTime": 13.644767,
+        "biggestError": 324491159552.0,
+        "biggestErrorInput": [
+            -6750988475508840341
+        ],
+        "biggestErrorOutput": -6.7509888e+18,
+        "correctCount": 422152,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_float_java_lang_Short_floatValue___best_individual.json",
+        "formula": "int_div(ARG0, INT(1))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 3,
+        "generationTime": 19.737286,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Boolean_compareTo_java_lang_Boolean__best_individual.json",
+        "formula": "int_if_then_else(ARG1, INT(0), INT(124))",
+        "relativeError": 30.946355,
+        "absoluteError": 61892710.0,
+        "complexity": 4,
+        "generationTime": 191.30742,
+        "biggestError": 124.0,
+        "biggestErrorInput": [
+            false,
+            false
+        ],
+        "biggestErrorOutput": 0.0,
+        "correctCount": 249815,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Boolean_hashCode___best_individual.json",
+        "formula": "int_if_then_else(ARG0, int_sub(int_mul(INT(123), INT(10)), INT(-4)), INT(206))",
+        "relativeError": 86.047076,
+        "absoluteError": 516282456.0,
+        "complexity": 8,
+        "generationTime": 789.08154,
+        "biggestError": 1031.0,
+        "biggestErrorInput": [
+            false
+        ],
+        "biggestErrorOutput": 1237.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Byte_compareTo_java_lang_Byte__best_individual.json",
+        "formula": "int_sub(ARG0, ARG1)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 6.6840253,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Byte_hashCode___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.6404634,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Byte_intValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.5525155,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Character_compareTo_java_lang_Character__best_individual.json",
+        "formula": "int_sub(int_if_then_else(BOOL(False), INT(123), INT(163)), string_to_ascii(ARG1))",
+        "relativeError": 0.03331976638994018,
+        "absoluteError": 2183377652.0,
+        "complexity": 7,
+        "generationTime": 294.293,
+        "biggestError": 32604.0,
+        "biggestErrorInput": [
+            "\u7fff",
+            "\u0013"
+        ],
+        "biggestErrorOutput": 32748.0,
+        "correctCount": 534,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Character_hashCode___best_individual.json",
+        "formula": "string_to_ascii(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 271.62552,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Double_compareTo_java_lang_Double__best_individual.json",
+        "formula": "int_if_then_else(real_less_than(FLOAT(-55.400352478027344), ARG0), INT(0), INT(110))",
+        "relativeError": 14.037417,
+        "absoluteError": 28074834.0,
+        "complexity": 6,
+        "generationTime": 278.74185,
+        "biggestError": 111.0,
+        "biggestErrorInput": [
+            -1.7697562899283234e+65,
+            -6.259642604116356e-20
+        ],
+        "biggestErrorOutput": -1.0,
+        "correctCount": 244,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Double_hashCode___best_individual.json",
+        "formula": "int_mul(int_sub(int_add(int_if_then_else(BOOL(False), int_mul(int_if_then_else(BOOL(False), INT(94), INT(237)), int_add(INT(101), INT(137))), int_if_then_else(BOOL(False), INT(3), INT(89))), int_if_then_else(BOOL(False), int_mul(INT(73), int_abs(INT(137))), int_add(INT(0), int_abs(INT(89))))), int_if_then_else(real_less_than(real_div(ARG0, real_floor(real_add(FLOAT(0.8720657229423523), ARG0))), FLOAT(1.0)), int_add(int_mul(INT(149), INT(179)), int_mul(int_neg(INT(16)), INT(-9))), INT(83))), int_sub(int_add(int_if_then_else(BOOL(False), int_mul(INT(73), INT(156)), int_add(INT(58), INT(207))), int_if_then_else(BOOL(False), int_neg(int_add(int_add(INT(80), INT(15)), int_neg(INT(143)))), int_add(INT(0), int_add(INT(130), INT(83))))), int_if_then_else(real_less_than(real_div(ARG0, real_floor(real_add(ARG0, ARG0))), FLOAT(1.0)), int_add(int_mul(int_abs(INT(137)), INT(89)), int_sub(int_abs(int_add(INT(156), INT(91))), INT(137))), INT(83))))",
+        "relativeError": 0.2514302444685669,
+        "absoluteError": 1079882290641899.0,
+        "complexity": 86,
+        "generationTime": 3639.7898,
+        "biggestError": 2462461195.0,
+        "biggestErrorInput": [
+            -1.5383145597871568e-34
+        ],
+        "biggestErrorOutput": -2147478670.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Double_intValue___best_individual.json",
+        "formula": "int_if_then_else(BOOL(False), int_add(INT(11), int_if_then_else(real_compare_as_int(real_div(FLOAT(-1.0), real_floor(real_div(ARG0, FLOAT(90.15509033203125)))), FLOAT(1.0)), INT(157), INT(129))), INT(155))",
+        "relativeError": 0.23261573389305074,
+        "absoluteError": 999076969373076.0,
+        "complexity": 16,
+        "generationTime": 1945.9131,
+        "biggestError": 2147483803.0,
+        "biggestErrorInput": [
+            -4.2249727897539417e+96
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 2,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Float_compareTo_java_lang_Float__best_individual.json",
+        "formula": "int_if_then_else(real_less_than(FLOAT(-0.20979677140712738), ARG0), INT(0), INT(173))",
+        "relativeError": 22.8498695,
+        "absoluteError": 45699739.0,
+        "complexity": 6,
+        "generationTime": 172.52632,
+        "biggestError": 174.0,
+        "biggestErrorInput": [
+            -665146.0,
+            -5.2645908e-05
+        ],
+        "biggestErrorOutput": -1.0,
+        "correctCount": 198,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Float_hashCode___best_individual.json",
+        "formula": "int_mul(int_add(int_add(int_mul(int_mul(INT(138), INT(222)), INT(214)), int_add(int_sub(int_mul(INT(23), INT(43)), int_sub(INT(89), int_mul(INT(68), INT(43)))), int_mul(int_mul(INT(139), INT(61)), int_neg(INT(116))))), int_if_then_else(real_compare_as_int(real_div(ARG0, real_floor(real_mul(FLOAT(0.17063872516155243), ARG0))), ARG0), int_add(int_add(int_mul(int_mul(INT(148), INT(89)), INT(23)), int_mul(INT(230), INT(222))), int_neg(int_add(int_if_then_else(BOOL(True), INT(189), INT(189)), int_neg(INT(84))))), INT(116))), INT(189))",
+        "relativeError": 0.31332461682621215,
+        "absoluteError": 1344404591799219.0,
+        "complexity": 51,
+        "generationTime": 3607.7703,
+        "biggestError": 3268304947.0,
+        "biggestErrorInput": [
+            -9.47e-43
+        ],
+        "biggestErrorOutput": -2147482972.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Float_intValue___best_individual.json",
+        "formula": "int_add(INT(14), int_if_then_else(real_compare_as_int(FLOAT(-0.1691184937953949), real_div(FLOAT(0.023176686838269234), real_floor(real_mul(int_div(INT(35), INT(77)), real_mul(ARG0, FLOAT(0.023176686838269234)))))), INT(160), INT(14)))",
+        "relativeError": 0.19038247548127138,
+        "absoluteError": 817686505733200.0,
+        "complexity": 17,
+        "generationTime": 2928.6543,
+        "biggestError": 2147483822.0,
+        "biggestErrorInput": [
+            -4.5072599e+18
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 108,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Integer_compareTo_java_lang_Integer__best_individual.json",
+        "formula": "int_sub(ARG1, ARG1)",
+        "relativeError": 0.4976045,
+        "absoluteError": 995209.0,
+        "complexity": 2,
+        "generationTime": 189.40498,
+        "biggestError": 1.0,
+        "biggestErrorInput": [
+            323,
+            -29696
+        ],
+        "biggestErrorOutput": 1.0,
+        "correctCount": 4791,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Integer_hashCode___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.943085,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Integer_intValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 7.066483,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Long_compareTo_java_lang_Long__best_individual.json",
+        "formula": "int_sub(ARG1, ARG1)",
+        "relativeError": 0.499218,
+        "absoluteError": 998436.0,
+        "complexity": 2,
+        "generationTime": 192.21555,
+        "biggestError": 1.0,
+        "biggestErrorInput": [
+            -47339360300430,
+            -2654922694
+        ],
+        "biggestErrorOutput": -1.0,
+        "correctCount": 1564,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Long_hashCode___best_individual.json",
+        "formula": "int_abs(ARG0)",
+        "relativeError": 75141514.24008586,
+        "absoluteError": 3.227302514044961e+23,
+        "complexity": 2,
+        "generationTime": 112.415245,
+        "biggestError": 9.22337203900226e+18,
+        "biggestErrorInput": [
+            9223372036854775807
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 268556,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Long_intValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 75462534.30141786,
+        "absoluteError": 3.2410760915643255e+23,
+        "complexity": 1,
+        "generationTime": 138.70975,
+        "biggestError": 9.223372036854776e+18,
+        "biggestErrorInput": [
+            9223372036854775807
+        ],
+        "biggestErrorOutput": -1.0,
+        "correctCount": 512485,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Short_compareTo_java_lang_Short__best_individual.json",
+        "formula": "int_sub(ARG0, ARG1)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 6.9468184,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Short_hashCode___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.6698437,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_Short_intValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.660592,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_String_hashCode___best_individual.json",
+        "formula": "int_mul(INT(84), int_add(int_add(INT(229), int_mul(INT(231), int_mul(INT(81), INT(21)))), string_length(ARG0)))",
+        "relativeError": 0.10781481847800829,
+        "absoluteError": 463058708647881.0,
+        "complexity": 12,
+        "generationTime": 1024.3508,
+        "biggestError": 2180493132.0,
+        "biggestErrorInput": [
+            "I\u00a3\u00ae\u00a2\u00c9P\u00a4\u0083"
+        ],
+        "biggestErrorOutput": -2147467020.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_String_indexOf_int__best_individual.json",
+        "formula": "string_index_of(int_to_string(int_sub(int_sub(INT(-3), INT(-1)), INT(184))), string_replace_all(str_if_then_else(int_compare_range(INT(137), ARG1, ARG1), STRING(''), str_if_then_else(int_compare(INT(235), ARG1), int_to_string(INT(86)), int_to_string(ARG1))), int_to_string(ARG1), str_if_then_else(int_compare_range(INT(148), ARG1, ARG1), STRING(''), str_if_then_else(int_compare(INT(86), ARG1), int_to_string(INT(6)), str_if_then_else(int_compare_range(INT(129), ARG1, ARG1), int_to_string(INT(86)), STRING(' '))))))",
+        "relativeError": 0.0014991111111111112,
+        "absoluteError": 13492.0,
+        "complexity": 35,
+        "generationTime": 2140.2297,
+        "biggestError": 9.0,
+        "biggestErrorInput": [
+            "\u00f4\u00fckNzQ\u00ae4\u0000",
+            0
+        ],
+        "biggestErrorOutput": 8.0,
+        "correctCount": 996132,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_String_indexOf_int_int__best_individual.json",
+        "formula": "string_index_of(int_to_string(ARG2), str_if_then_else(int_compare(ARG1, INT(15)), int_to_string(INT(6)), STRING(' ')))",
+        "relativeError": 0.0009183333333333333,
+        "absoluteError": 8265.0,
+        "complexity": 9,
+        "generationTime": 156.63005,
+        "biggestError": 10.0,
+        "biggestErrorInput": [
+            "~",
+            15,
+            -117750446
+        ],
+        "biggestErrorOutput": -1.0,
+        "correctCount": 997796,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_String_indexOf_java_lang_String__best_individual.json",
+        "formula": "string_index_of(ARG0, ARG1)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 152.23366,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_String_indexOf_java_lang_String_int__best_individual.json",
+        "formula": "string_index_of(ARG0, ARG1)",
+        "relativeError": 0.0202581,
+        "absoluteError": 202581.0,
+        "complexity": 2,
+        "generationTime": 251.25764,
+        "biggestError": 9.0,
+        "biggestErrorInput": [
+            "\u0007\u00fe\u0086\u0001q\u00e5!\u00f1\u00b7",
+            "",
+            3775
+        ],
+        "biggestErrorOutput": 9.0,
+        "correctCount": 957030,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_String_lastIndexOf_int__best_individual.json",
+        "formula": "string_index_of(int_to_string(INT(19)), int_to_string(int_sub(ARG1, INT(107))))",
+        "relativeError": 0.0014288888888888888,
+        "absoluteError": 12860.0,
+        "complexity": 7,
+        "generationTime": 110.97993,
+        "biggestError": 9.0,
+        "biggestErrorInput": [
+            "\u00ae\u00c2D\u0004]9O\u00c1\u0014",
+            20
+        ],
+        "biggestErrorOutput": 8.0,
+        "correctCount": 996043,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_String_lastIndexOf_int_int__best_individual.json",
+        "formula": "string_index_of(int_to_string(int_neg(int_mul(INT(162), ARG1))), int_to_string(int_add(int_mul(ARG2, int_abs(int_sub(INT(4), ARG1))), int_neg(INT(66)))))",
+        "relativeError": 0.000696,
+        "absoluteError": 6264.0,
+        "complexity": 14,
+        "generationTime": 1060.5385,
+        "biggestError": 9.0,
+        "biggestErrorInput": [
+            "\u0013`\u00b8]\u00b8c\u009d\u008b\r",
+            13,
+            3845
+        ],
+        "biggestErrorOutput": 8.0,
+        "correctCount": 997940,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_String_lastIndexOf_java_lang_String__best_individual.json",
+        "formula": "string_index_of(ARG0, ARG1)",
+        "relativeError": 0.0450216,
+        "absoluteError": 450216.0,
+        "complexity": 2,
+        "generationTime": 161.58688,
+        "biggestError": 9.0,
+        "biggestErrorInput": [
+            "\t\u0084GV\u00d5\u0081\u00d3#1",
+            ""
+        ],
+        "biggestErrorOutput": 9.0,
+        "correctCount": 909831,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_String_lastIndexOf_java_lang_String_int__best_individual.json",
+        "formula": "string_index_of(str_if_then_else(int_compare_range(ARG2, INT(27), INT(33)), int_to_string(int_neg(INT(162))), str_if_then_else(int_less_than(int_mul(INT(140), INT(131)), ARG2), int_to_string(int_neg(int_add(INT(140), ARG2))), str_if_then_else(int_less_than(int_mul(INT(71), INT(86)), ARG2), int_to_string(int_sub(int_add(INT(85), INT(215)), int_mul(INT(62), ARG2))), str_if_then_else(int_less_than(INT(71), ARG2), int_to_string(int_mul(INT(62), ARG2)), STRING(' '))))), int_to_string(INT(62)))",
+        "relativeError": 0.034162700000000004,
+        "absoluteError": 341627.0,
+        "complexity": 39,
+        "generationTime": 2872.9033,
+        "biggestError": 10.0,
+        "biggestErrorInput": [
+            "\u00e4\u00a4\u00f7\u00ce\u000b\u00c2\u0088\u00a5e",
+            "",
+            10300660
+        ],
+        "biggestErrorOutput": 9.0,
+        "correctCount": 923646,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_int_java_lang_String_length___best_individual.json",
+        "formula": "string_length(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 160.69824,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_Boolean_toString___best_individual.json",
+        "formula": "string_concat(str_if_then_else(ARG0, string_concat(string_concat(ascii_to_string(INT(116)), ascii_to_string(INT(114))), ascii_to_string(INT(117))), string_concat(string_concat(string_concat(ascii_to_string(INT(102)), ascii_to_string(INT(97))), ascii_to_string(INT(108))), ascii_to_string(INT(115)))), ascii_to_string(INT(101)))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 24,
+        "generationTime": 3624.0225,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_Byte_toString___best_individual.json",
+        "formula": "int_to_string(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 8.019445,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_Character_toString___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 1838.2909,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_Integer_toString___best_individual.json",
+        "formula": "int_to_string(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 7.602419,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_Long_toString___best_individual.json",
+        "formula": "int_to_string(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 7.691058,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_Short_toString___best_individual.json",
+        "formula": "int_to_string(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 7.8564873,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_String_concat_java_lang_String__best_individual.json",
+        "formula": "string_concat(ARG0, ARG1)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 2597.2495,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_String_replace_char_char__best_individual.json",
+        "formula": "string_replace(ARG0, string_replace_all(ARG1, ARG0, ARG1), string_concat(ARG2, STRING('')))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 5,
+        "generationTime": 216.74388,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_String_stripIndent___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.069263,
+        "absoluteError": 69263.0,
+        "complexity": 1,
+        "generationTime": 929.18884,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 930737,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_String_stripLeading___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.035032,
+        "absoluteError": 35032.0,
+        "complexity": 1,
+        "generationTime": 1081.5314,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 964968,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_String_stripTrailing___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.035558,
+        "absoluteError": 35558.0,
+        "complexity": 1,
+        "generationTime": 1553.4508,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 964442,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_String_strip___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.065208,
+        "absoluteError": 65208.0,
+        "complexity": 1,
+        "generationTime": 1039.9579,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 934792,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_String_toLowerCase___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.581458,
+        "absoluteError": 581458.0,
+        "complexity": 1,
+        "generationTime": 1680.7,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 418542,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_String_toString___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 1118.1525,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_String_toUpperCase___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.598534,
+        "absoluteError": 598534.0,
+        "complexity": 1,
+        "generationTime": 1007.47845,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 401466,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_java_lang_String_java_lang_String_trim___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.20562,
+        "absoluteError": 205620.0,
+        "complexity": 1,
+        "generationTime": 964.60944,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 794380,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_long_java_lang_Byte_longValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.584964,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_long_java_lang_Double_longValue___best_individual.json",
+        "formula": "int_sub(INT(14), int_if_then_else(real_compare_as_int(real_div(FLOAT(-1.0), real_floor(real_div(ARG0, FLOAT(96.30340576171875)))), ARG0), int_neg(INT(163)), INT(164)))",
+        "relativeError": 0.21780103642554424,
+        "absoluteError": 4.0177199779307064e+24,
+        "complexity": 13,
+        "generationTime": 1927.5411,
+        "biggestError": 9.223372036854776e+18,
+        "biggestErrorInput": [
+            -1.4102633994905628e+88
+        ],
+        "biggestErrorOutput": -9.223372036854776e+18,
+        "correctCount": 9,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_long_java_lang_Float_longValue___best_individual.json",
+        "formula": "int_add(INT(11), int_if_then_else(real_less_than(ARG0, real_div(ARG0, real_floor(real_div(ARG0, FLOAT(93.9521255493164))))), INT(163), INT(76)))",
+        "relativeError": 0.13104807589482334,
+        "absoluteError": 2.417410317383872e+24,
+        "complexity": 11,
+        "generationTime": 1532.0126,
+        "biggestError": 9.223372036854776e+18,
+        "biggestErrorInput": [
+            4.190122e+19
+        ],
+        "biggestErrorOutput": 9.223372036854776e+18,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_long_java_lang_Integer_longValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 7.1477547,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_long_java_lang_Long_longValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 7.089074,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_long_java_lang_Short_longValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.733973,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_native_java_lang_String_java_lang_String_intern___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 1110.1874,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_short_java_lang_Byte_shortValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.5382175,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_short_java_lang_Double_shortValue___best_individual.json",
+        "formula": "int_if_then_else(real_less_than(ARG0, FLOAT(-1.0)), INT(12), INT(122))",
+        "relativeError": 0.005774951532909094,
+        "absoluteError": 378426799.0,
+        "complexity": 6,
+        "generationTime": 162.1625,
+        "biggestError": 32884.0,
+        "biggestErrorInput": [
+            38436870.318814754
+        ],
+        "biggestErrorOutput": -32762.0,
+        "correctCount": 7,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_short_java_lang_Float_shortValue___best_individual.json",
+        "formula": "int_sub(int_abs(int_add(int_add(INT(152), INT(-3)), int_sub(INT(209), INT(134)))), int_if_then_else(real_less_than(real_div(real_div(ARG0, real_div(FLOAT(-1.0), real_sub(FLOAT(1.0), ARG0))), real_floor(real_div(real_floor(ARG0), real_add(FLOAT(-0.040515296161174774), ARG0)))), real_div(real_div(ARG0, real_floor(real_div(ARG0, FLOAT(-245.7216339111328)))), real_sub(real_add(real_floor(FLOAT(144.36404418945312)), ARG0), real_add(ARG0, FLOAT(134.41468811035156))))), int_add(int_add(int_add(int_add(int_mul(INT(35), INT(156)), INT(245)), INT(245)), INT(156)), INT(245)), INT(156)))",
+        "relativeError": 0.01924073151750973,
+        "absoluteError": 1260941340.0,
+        "complexity": 46,
+        "generationTime": 3640.9153,
+        "biggestError": 32836.0,
+        "biggestErrorInput": [
+            1699250180.0
+        ],
+        "biggestErrorOutput": -32768.0,
+        "correctCount": 33,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_short_java_lang_Integer_shortValue___best_individual.json",
+        "formula": "int_sub(int_abs(int_add(INT(255), ARG0)), int_abs(int_sub(INT(255), ARG0)))",
+        "relativeError": 0.13688231393911648,
+        "absoluteError": 8970582444.0,
+        "complexity": 8,
+        "generationTime": 309.60062,
+        "biggestError": 33278.0,
+        "biggestErrorInput": [
+            1711243264
+        ],
+        "biggestErrorOutput": -32768.0,
+        "correctCount": 59226,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_short_java_lang_Long_shortValue___best_individual.json",
+        "formula": "int_sub(int_abs(int_add(INT(255), ARG0)), int_abs(int_sub(ARG0, INT(255))))",
+        "relativeError": 0.18796368925001908,
+        "absoluteError": 12318200375.0,
+        "complexity": 8,
+        "generationTime": 312.33356,
+        "biggestError": 33278.0,
+        "biggestErrorInput": [
+            32768
+        ],
+        "biggestErrorOutput": -32768.0,
+        "correctCount": 35163,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_short_java_lang_Short_shortValue___best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.6570807,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Boolean_getBoolean_java_lang_String__best_individual.json",
+        "formula": "int_compare(INT(111), int_sub(INT(76), string_length(ARG0)))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 6,
+        "generationTime": 187.37779,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Boolean_logicalAnd_boolean_boolean__best_individual.json",
+        "formula": "logic_and(ARG1, ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 3.4617732,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Boolean_logicalOr_boolean_boolean__best_individual.json",
+        "formula": "logic_or(ARG0, ARG1)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 3.6560383,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Boolean_logicalXor_boolean_boolean__best_individual.json",
+        "formula": "logic_xor(ARG1, ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 3.3790631,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Boolean_parseBoolean_java_lang_String__best_individual.json",
+        "formula": "logic_and(BOOL(False), str_compare(ARG0, STRING(' ')))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 5,
+        "generationTime": 188.72417,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isAlphabetic_int__best_individual.json",
+        "formula": "logic_xor(int_compare_range(ARG0, INT(177), int_mul(INT(236), INT(236))), int_compare_range(int_sub(ARG0, INT(73)), INT(-9), INT(46)))",
+        "relativeError": 0.042816,
+        "absoluteError": 42816.0,
+        "complexity": 12,
+        "generationTime": 302.78085,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 957184,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isBmpCodePoint_int__best_individual.json",
+        "formula": "int_compare_range(int_mul(INT(169), ARG0), ARG0, int_mul(INT(226), int_mul(INT(226), INT(226))))",
+        "relativeError": 0.000618,
+        "absoluteError": 618.0,
+        "complexity": 9,
+        "generationTime": 651.23047,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 999382,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isDefined_char__best_individual.json",
+        "formula": "string_contains(ARG0, STRING(''))",
+        "relativeError": 0.026693,
+        "absoluteError": 26693.0,
+        "complexity": 3,
+        "generationTime": 5.483179,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 973307,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isDefined_int__best_individual.json",
+        "formula": "int_compare_range(int_mul(ARG0, INT(90)), ARG0, int_mul(int_add(INT(192), INT(213)), int_mul(INT(213), INT(213))))",
+        "relativeError": 0.020616,
+        "absoluteError": 20616.0,
+        "complexity": 11,
+        "generationTime": 318.57797,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 979384,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isDigit_int__best_individual.json",
+        "formula": "int_compare_range(ARG0, INT(48), INT(57))",
+        "relativeError": 0.002023,
+        "absoluteError": 2023.0,
+        "complexity": 4,
+        "generationTime": 744.813,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 997977,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isHighSurrogate_char__best_individual.json",
+        "formula": "str_compare(STRING(''), ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 3,
+        "generationTime": 2.4807909,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isISOControl_char__best_individual.json",
+        "formula": "int_less_than(INT(0), int_sub(INT(32), string_to_ascii(ARG0)))",
+        "relativeError": 0.017758,
+        "absoluteError": 17758.0,
+        "complexity": 6,
+        "generationTime": 189.64267,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 982242,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isISOControl_int__best_individual.json",
+        "formula": "logic_or(int_compare_range(ARG0, INT(121), INT(162)), int_compare_range(int_add(ARG0, ARG0), ARG0, INT(65)))",
+        "relativeError": 0.002228,
+        "absoluteError": 2228.0,
+        "complexity": 8,
+        "generationTime": 230.00087,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 997772,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isIdentifierIgnorable_char__best_individual.json",
+        "formula": "int_compare_range(INT(69), int_add(INT(42), string_to_ascii(ARG0)), INT(116))",
+        "relativeError": 0.060435,
+        "absoluteError": 60435.0,
+        "complexity": 7,
+        "generationTime": 226.9559,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 939565,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isIdentifierIgnorable_int__best_individual.json",
+        "formula": "logic_xor(int_compare_range(int_add(ARG0, ARG0), ARG0, INT(54)), logic_or(int_compare_range(int_add(int_mul(ARG0, INT(37)), int_neg(INT(251))), INT(54), INT(251)), int_compare(ARG0, INT(153))))",
+        "relativeError": 0.004115,
+        "absoluteError": 4115.0,
+        "complexity": 16,
+        "generationTime": 1061.8176,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 995885,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isIdeographic_int__best_individual.json",
+        "formula": "logic_xor(int_compare_range(int_mul(INT(165), INT(246)), ARG0, int_mul(ARG0, INT(3))), int_compare_range(int_mul(INT(165), int_mul(INT(200), INT(6))), ARG0, int_sub(int_sub(ARG0, int_neg(int_mul(INT(165), INT(246)))), int_neg(int_mul(INT(165), INT(160))))))",
+        "relativeError": 0.00374,
+        "absoluteError": 3740.0,
+        "complexity": 24,
+        "generationTime": 1791.4595,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 996260,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isJavaIdentifierPart_char__best_individual.json",
+        "formula": "str_compare(string_replace_all(string_replace_all(ARG0, ARG0, ARG0), string_concat(STRING(''), STRING('')), string_replace_all(STRING(''), ARG0, STRING(' '))), string_replace_all(string_concat(ARG0, STRING('')), ascii_to_string(INT(63)), ascii_to_string(INT(77))))",
+        "relativeError": 0.191309,
+        "absoluteError": 191309.0,
+        "complexity": 17,
+        "generationTime": 240.65596,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 808691,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isJavaIdentifierPart_int__best_individual.json",
+        "formula": "logic_and(int_compare_range(ARG0, INT(0), int_mul(INT(210), INT(250))), logic_xor(int_compare_range(INT(8), ARG0, INT(250)), logic_xor(int_compare_range(int_add(ARG0, ARG0), INT(55), INT(98)), logic_xor(int_compare_range(INT(185), ARG0, int_add(ARG0, INT(9))), logic_not(int_less_than(ARG0, INT(14)))))))",
+        "relativeError": 0.040449,
+        "absoluteError": 40449.0,
+        "complexity": 24,
+        "generationTime": 2135.077,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 959551,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isJavaIdentifierStart_char__best_individual.json",
+        "formula": "logic_or(int_less_than(int_if_then_else(logic_not(BOOL(False)), int_sub(INT(215), INT(145)), int_abs(INT(134))), int_add(string_length(STRING('')), string_to_ascii(ARG0))), BOOL(False))",
+        "relativeError": 0.167055,
+        "absoluteError": 167055.0,
+        "complexity": 16,
+        "generationTime": 358.2922,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 832945,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isJavaIdentifierStart_int__best_individual.json",
+        "formula": "logic_xor(int_compare_range(ARG0, INT(190), int_mul(INT(223), INT(235))), logic_xor(int_compare_range(int_mul(int_add(INT(123), int_neg(ARG0)), int_mul(INT(101), INT(20))), INT(235), int_mul(INT(235), INT(235))), int_compare_range(int_mul(int_add(INT(89), int_neg(ARG0)), int_mul(int_sub(INT(156), ARG0), INT(20))), INT(235), int_mul(INT(190), INT(190)))))",
+        "relativeError": 0.049131,
+        "absoluteError": 49131.0,
+        "complexity": 33,
+        "generationTime": 2789.13,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 950869,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isJavaLetterOrDigit_char__best_individual.json",
+        "formula": "logic_not(string_contains(ARG0, STRING(' ')))",
+        "relativeError": 0.192269,
+        "absoluteError": 192269.0,
+        "complexity": 4,
+        "generationTime": 259.73853,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 807731,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isJavaLetter_char__best_individual.json",
+        "formula": "logic_xor(int_less_than(INT(248), int_add(int_if_then_else(BOOL(True), INT(182), INT(77)), string_to_ascii(ARG0))), string_contains(STRING(''), STRING(' ')))",
+        "relativeError": 0.163102,
+        "absoluteError": 163102.0,
+        "complexity": 13,
+        "generationTime": 279.90228,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 836898,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isLetterOrDigit_char__best_individual.json",
+        "formula": "int_less_than(INT(224), int_add(INT(173), string_to_ascii(ARG0)))",
+        "relativeError": 0.176379,
+        "absoluteError": 176379.0,
+        "complexity": 6,
+        "generationTime": 290.42703,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 823621,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isLetterOrDigit_int__best_individual.json",
+        "formula": "logic_xor(int_compare_range(ARG0, INT(48), int_mul(INT(223), INT(247))), logic_or(logic_or(int_compare(INT(92), ARG0), int_compare(INT(60), ARG0)), logic_or(int_compare_range(int_add(INT(21), ARG0), INT(144), INT(213)), int_compare(ARG0, INT(215)))))",
+        "relativeError": 0.045642,
+        "absoluteError": 45642.0,
+        "complexity": 21,
+        "generationTime": 1255.3091,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 954358,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isLetter_char__best_individual.json",
+        "formula": "int_less_than(INT(219), int_add(int_if_then_else(BOOL(False), INT(160), INT(68)), string_to_ascii(ARG0)))",
+        "relativeError": 0.193652,
+        "absoluteError": 193652.0,
+        "complexity": 9,
+        "generationTime": 316.44586,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 806348,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isLetter_int__best_individual.json",
+        "formula": "logic_or(int_compare_range(ARG0, INT(190), int_mul(INT(240), INT(229))), int_compare_range(ARG0, INT(67), INT(120)))",
+        "relativeError": 0.04638,
+        "absoluteError": 46380.0,
+        "complexity": 10,
+        "generationTime": 381.376,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 953620,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isLowSurrogate_char__best_individual.json",
+        "formula": "string_contains(STRING(''), ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 3,
+        "generationTime": 2.8131056,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isLowerCase_char__best_individual.json",
+        "formula": "int_compare_range(int_add(int_sub(INT(139), INT(231)), string_to_ascii(ARG0)), INT(4), INT(30))",
+        "relativeError": 0.099247,
+        "absoluteError": 99247.0,
+        "complexity": 9,
+        "generationTime": 143.59715,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 900753,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isLowerCase_int__best_individual.json",
+        "formula": "logic_xor(logic_xor(int_compare(INT(181), ARG0), logic_xor(int_compare(INT(170), ARG0), logic_xor(int_compare(INT(247), ARG0), logic_xor(int_compare(INT(186), ARG0), int_compare_range(int_sub(ARG0, INT(6)), INT(217), INT(251)))))), int_compare_range(ARG0, INT(97), INT(122)))",
+        "relativeError": 0.01912,
+        "absoluteError": 19120.0,
+        "complexity": 22,
+        "generationTime": 2747.8835,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 980880,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isMirrored_char__best_individual.json",
+        "formula": "int_compare(INT(219), int_add(INT(157), string_to_ascii(ARG0)))",
+        "relativeError": 0.014828,
+        "absoluteError": 14828.0,
+        "complexity": 6,
+        "generationTime": 150.4165,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 985172,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isMirrored_int__best_individual.json",
+        "formula": "logic_or(logic_or(int_compare(ARG0, INT(40)), int_compare(INT(187), ARG0)), logic_or(logic_or(int_compare(INT(62), ARG0), logic_or(logic_or(int_compare(ARG0, INT(60)), logic_or(int_compare(ARG0, INT(41)), int_compare(INT(125), ARG0))), int_compare(INT(171), ARG0))), logic_or(int_compare(ARG0, INT(123)), int_compare(INT(91), ARG0))))",
+        "relativeError": 0.001245,
+        "absoluteError": 1245.0,
+        "complexity": 27,
+        "generationTime": 1466.0339,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 998755,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isSpaceChar_char__best_individual.json",
+        "formula": "str_compare(ARG0, STRING(' '))",
+        "relativeError": 0.00065,
+        "absoluteError": 650.0,
+        "complexity": 3,
+        "generationTime": 182.87212,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 999350,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isSpaceChar_int__best_individual.json",
+        "formula": "logic_xor(int_compare(INT(160), ARG0), int_compare(INT(32), ARG0))",
+        "relativeError": 3.6e-05,
+        "absoluteError": 36.0,
+        "complexity": 6,
+        "generationTime": 295.81937,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 999964,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isSpace_char__best_individual.json",
+        "formula": "int_compare_range(INT(149), int_sub(INT(158), string_to_ascii(ARG0)), int_sub(INT(162), string_to_ascii(ARG0)))",
+        "relativeError": 0.010469,
+        "absoluteError": 10469.0,
+        "complexity": 9,
+        "generationTime": 208.9081,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 989531,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isSupplementaryCodePoint_int__best_individual.json",
+        "formula": "int_compare_range(int_mul(INT(116), int_mul(INT(51), INT(198))), ARG0, int_mul(ARG0, INT(18)))",
+        "relativeError": 0.001125,
+        "absoluteError": 1125.0,
+        "complexity": 9,
+        "generationTime": 340.97147,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 998875,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isSurrogatePair_char_char__best_individual.json",
+        "formula": "str_compare(ARG1, STRING(''))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 3,
+        "generationTime": 0.9791863,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isSurrogate_char__best_individual.json",
+        "formula": "str_compare(ARG0, STRING(''))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 3,
+        "generationTime": 1.5134809,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isTitleCase_char__best_individual.json",
+        "formula": "int_compare(int_neg(INT(211)), int_sub(INT(245), string_to_ascii(ARG0)))",
+        "relativeError": 0.001117,
+        "absoluteError": 1117.0,
+        "complexity": 7,
+        "generationTime": 159.71799,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 998883,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isTitleCase_int__best_individual.json",
+        "formula": "int_less_than(ARG0, ARG0)",
+        "relativeError": 0.000334,
+        "absoluteError": 334.0,
+        "complexity": 2,
+        "generationTime": 5.568021,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 999666,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isUnicodeIdentifierPart_char__best_individual.json",
+        "formula": "logic_xor(int_compare(int_sub(int_sub(INT(193), INT(28)), string_to_ascii(ARG0)), INT(118)), logic_not(BOOL(False)))",
+        "relativeError": 0.195635,
+        "absoluteError": 195635.0,
+        "complexity": 11,
+        "generationTime": 220.92769,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 804365,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isUnicodeIdentifierPart_int__best_individual.json",
+        "formula": "logic_xor(int_compare_range(int_add(ARG0, ARG0), INT(58), INT(128)), int_compare_range(ARG0, INT(0), int_mul(INT(232), INT(232))))",
+        "relativeError": 0.053092,
+        "absoluteError": 53092.0,
+        "complexity": 11,
+        "generationTime": 408.1967,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 946908,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isUnicodeIdentifierStart_char__best_individual.json",
+        "formula": "int_compare_range(INT(24), int_sub(INT(89), string_to_ascii(ARG0)), INT(89))",
+        "relativeError": 0.162806,
+        "absoluteError": 162806.0,
+        "complexity": 7,
+        "generationTime": 209.61292,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 837194,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isUnicodeIdentifierStart_int__best_individual.json",
+        "formula": "logic_xor(logic_xor(logic_xor(logic_xor(int_compare(int_add(INT(94), ARG0), INT(187)), int_compare_range(int_neg(int_mul(INT(149), INT(95))), int_sub(int_neg(ARG0), ARG0), int_neg(ARG0))), logic_xor(int_compare_range(int_neg(int_mul(INT(115), INT(32))), int_add(int_sub(INT(187), ARG0), int_neg(ARG0)), int_sub(int_neg(INT(55)), ARG0)), int_compare_range(int_neg(int_mul(INT(250), INT(32))), int_sub(int_neg(ARG0), ARG0), int_neg(ARG0)))), int_compare_range(int_neg(INT(250)), int_sub(int_neg(ARG0), ARG0), int_sub(int_mul(INT(239), INT(229)), ARG0))), int_compare_range(ARG0, INT(64), INT(197)))",
+        "relativeError": 0.045958,
+        "absoluteError": 45958.0,
+        "complexity": 50,
+        "generationTime": 2425.74,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 954042,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isUpperCase_char__best_individual.json",
+        "formula": "int_compare_range(int_sub(INT(133), string_to_ascii(ARG0)), INT(43), INT(67))",
+        "relativeError": 0.080167,
+        "absoluteError": 80167.0,
+        "complexity": 7,
+        "generationTime": 147.12386,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 919833,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isUpperCase_int__best_individual.json",
+        "formula": "logic_xor(int_compare_range(int_add(int_sub(ARG0, INT(215)), ARG0), INT(169), INT(227)), logic_or(int_compare(ARG0, INT(215)), logic_xor(int_less_than(INT(82), int_sub(ARG0, INT(8))), int_less_than(INT(63), ARG0))))",
+        "relativeError": 0.015752,
+        "absoluteError": 15752.0,
+        "complexity": 18,
+        "generationTime": 1250.7322,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 984248,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isValidCodePoint_int__best_individual.json",
+        "formula": "int_compare_range(ARG0, INT(0), int_mul(int_mul(INT(185), INT(43)), INT(143)))",
+        "relativeError": 0.000345,
+        "absoluteError": 345.0,
+        "complexity": 8,
+        "generationTime": 278.77988,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 999655,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isWhitespace_char__best_individual.json",
+        "formula": "int_compare(INT(233), int_add(INT(223), string_to_ascii(ARG0)))",
+        "relativeError": 0.052091,
+        "absoluteError": 52091.0,
+        "complexity": 6,
+        "generationTime": 153.70126,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 947909,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Character_isWhitespace_int__best_individual.json",
+        "formula": "logic_xor(int_compare_range(int_sub(INT(116), ARG0), INT(84), INT(88)), int_compare_range(ARG0, INT(9), INT(13)))",
+        "relativeError": 3.2e-05,
+        "absoluteError": 32.0,
+        "complexity": 10,
+        "generationTime": 329.6021,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 999968,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Double_isFinite_double__best_individual.json",
+        "formula": "real_less_than(FLOAT(-1.0), real_abs(ARG0))",
+        "relativeError": 0.012633,
+        "absoluteError": 12633.0,
+        "complexity": 4,
+        "generationTime": 84.356224,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 987367,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Double_isInfinite_double__best_individual.json",
+        "formula": "real_less_than(ARG0, ARG0)",
+        "relativeError": 0.01253,
+        "absoluteError": 12530.0,
+        "complexity": 2,
+        "generationTime": 95.68597,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 987470,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Double_isNaN_double__best_individual.json",
+        "formula": "logic_not(real_less_than(FLOAT(-1.0), real_abs(ARG0)))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 5,
+        "generationTime": 371.1587,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Float_isFinite_float__best_individual.json",
+        "formula": "real_less_than(FLOAT(-216.608154296875), real_cos(ARG0))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 4,
+        "generationTime": 193.24144,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Float_isInfinite_float__best_individual.json",
+        "formula": "logic_xor(real_less_than(real_cos(ARG0), FLOAT(50.3170280456543)), real_less_than(FLOAT(-1.0), real_abs(ARG0)))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 8,
+        "generationTime": 929.076,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_boolean_java_lang_Float_isNaN_float__best_individual.json",
+        "formula": "logic_xor(logic_not(real_less_than(FLOAT(0.7997596263885498), ARG0)), real_less_than(ARG0, FLOAT(0.7997596263885498)))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 7,
+        "generationTime": 382.7846,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_byte_java_lang_Character_getDirectionality_char__best_individual.json",
+        "formula": "int_mul(int_if_then_else(logic_xor(BOOL(False), BOOL(True)), string_index_of(STRING(''), STRING(' ')), int_neg(INT(125))), int_add(int_if_then_else(BOOL(True), INT(-6), INT(92)), string_length(ARG0)))",
+        "relativeError": 0.2019564347826087,
+        "absoluteError": 4644998.0,
+        "complexity": 17,
+        "generationTime": 232.18102,
+        "biggestError": 17.0,
+        "biggestErrorInput": [
+            "\u2069"
+        ],
+        "biggestErrorOutput": 22.0,
+        "correctCount": 10021,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_byte_java_lang_Character_getDirectionality_int__best_individual.json",
+        "formula": "int_sub(int_add(int_abs(int_add(ARG0, INT(2))), INT(1)), int_abs(ARG0))",
+        "relativeError": 0.1050547391304348,
+        "absoluteError": 2416259.0,
+        "complexity": 8,
+        "generationTime": 1122.1388,
+        "biggestError": 19.0,
+        "biggestErrorInput": [
+            8297
+        ],
+        "biggestErrorOutput": 22.0,
+        "correctCount": 456066,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_char_java_lang_Character_forDigit_int_int__best_individual.json",
+        "formula": "ascii_to_string(int_sub(ARG1, ARG1))",
+        "relativeError": 0.006399,
+        "absoluteError": 6399.0,
+        "complexity": 3,
+        "generationTime": 301.69943,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 993601,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_char_java_lang_Character_toLowerCase_char__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.107029,
+        "absoluteError": 107029.0,
+        "complexity": 1,
+        "generationTime": 1131.1002,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 892971,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_char_java_lang_Character_toTitleCase_char__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.106848,
+        "absoluteError": 106848.0,
+        "complexity": 1,
+        "generationTime": 906.3205,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 893152,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_char_java_lang_Character_toUpperCase_char__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.107775,
+        "absoluteError": 107775.0,
+        "complexity": 1,
+        "generationTime": 1351.6746,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 892225,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Boolean_compare_boolean_boolean__best_individual.json",
+        "formula": "int_if_then_else(ARG1, INT(0), INT(240))",
+        "relativeError": 60.0835975,
+        "absoluteError": 120167195.0,
+        "complexity": 4,
+        "generationTime": 203.435,
+        "biggestError": 240.0,
+        "biggestErrorInput": [
+            false,
+            false
+        ],
+        "biggestErrorOutput": 0.0,
+        "correctCount": 249157,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Boolean_hashCode_boolean__best_individual.json",
+        "formula": "int_add(int_mul(INT(12), int_if_then_else(ARG0, INT(101), INT(67))), INT(22))",
+        "relativeError": 34.543656,
+        "absoluteError": 207261936.0,
+        "complexity": 8,
+        "generationTime": 956.10675,
+        "biggestError": 411.0,
+        "biggestErrorInput": [
+            false
+        ],
+        "biggestErrorOutput": 1237.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Byte_compareUnsigned_byte_byte__best_individual.json",
+        "formula": "int_sub(int_abs(int_sub(INT(54), ARG0)), int_abs(int_sub(ARG1, INT(52))))",
+        "relativeError": 0.22369261960784315,
+        "absoluteError": 114083236.0,
+        "complexity": 8,
+        "generationTime": 435.17844,
+        "biggestError": 256.0,
+        "biggestErrorInput": [
+            0,
+            -1
+        ],
+        "biggestErrorOutput": -255.0,
+        "correctCount": 24380,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Byte_compare_byte_byte__best_individual.json",
+        "formula": "int_sub(ARG0, ARG1)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 6.4445505,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Byte_hashCode_byte__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.377553,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Byte_toUnsignedInt_byte__best_individual.json",
+        "formula": "int_abs(int_sub(int_abs(int_sub(int_add(INT(111), int_abs(int_add(INT(9), ARG0))), int_sub(INT(160), int_add(int_mul(INT(3), ARG0), int_mul(INT(21), ARG0))))), int_add(int_add(int_sub(INT(110), INT(229)), int_abs(int_add(INT(12), int_add(ARG0, ARG0)))), int_abs(int_add(int_mul(ARG0, INT(18)), int_add(int_add(INT(67), ARG0), int_mul(INT(3), ARG0)))))))",
+        "relativeError": 0.1087041725490196,
+        "absoluteError": 27719564.0,
+        "complexity": 35,
+        "generationTime": 3611.8533,
+        "biggestError": 126.0,
+        "biggestErrorInput": [
+            -1
+        ],
+        "biggestErrorOutput": 255.0,
+        "correctCount": 559828,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_charCount_int__best_individual.json",
+        "formula": "int_if_then_else(BOOL(True), INT(1), ARG0)",
+        "relativeError": 0.223917,
+        "absoluteError": 223917.0,
+        "complexity": 4,
+        "generationTime": 383.9162,
+        "biggestError": 1.0,
+        "biggestErrorInput": [
+            498123
+        ],
+        "biggestErrorOutput": 2.0,
+        "correctCount": 776083,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_compare_char_char__best_individual.json",
+        "formula": "int_sub(int_if_then_else(BOOL(True), INT(123), int_abs(INT(189))), string_to_ascii(ARG1))",
+        "relativeError": 0.03297186276574638,
+        "absoluteError": 2160415364.0,
+        "complexity": 8,
+        "generationTime": 396.76154,
+        "biggestError": 32644.0,
+        "biggestErrorInput": [
+            "\u7fff",
+            "\u018d"
+        ],
+        "biggestErrorOutput": 32370.0,
+        "correctCount": 1061,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_digit_char_int__best_individual.json",
+        "formula": "string_index_of(string_replace_all(int_to_string(INT(192)), STRING(''), int_to_string(INT(200))), int_to_string(int_sub(INT(38), ARG1)))",
+        "relativeError": 0.0014272857142857143,
+        "absoluteError": 49955.0,
+        "complexity": 11,
+        "generationTime": 212.95161,
+        "biggestError": 35.0,
+        "biggestErrorInput": [
+            "y",
+            35
+        ],
+        "biggestErrorOutput": 34.0,
+        "correctCount": 991944,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_digit_int_int__best_individual.json",
+        "formula": "int_if_then_else(BOOL(True), INT(-1), ARG0)",
+        "relativeError": 0.0001178125,
+        "absoluteError": 3770.0,
+        "complexity": 4,
+        "generationTime": 435.32953,
+        "biggestError": 32.0,
+        "biggestErrorInput": [
+            118,
+            33
+        ],
+        "biggestErrorOutput": 31.0,
+        "correctCount": 999579,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_getNumericValue_char__best_individual.json",
+        "formula": "int_sub(INT(3), string_index_of(int_to_string(INT(120)), ARG0))",
+        "relativeError": 6.832786344273114e-05,
+        "absoluteError": 6832923.0,
+        "complexity": 6,
+        "generationTime": 168.0973,
+        "biggestError": 99996.0,
+        "biggestErrorInput": [
+            "\u2188"
+        ],
+        "biggestErrorOutput": 100000.0,
+        "correctCount": 5034,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_getNumericValue_int__best_individual.json",
+        "formula": "int_sub(int_add(INT(-1), ARG0), ARG0)",
+        "relativeError": 4.273824931928766e-06,
+        "absoluteError": 2991686.0,
+        "complexity": 4,
+        "generationTime": 429.29993,
+        "biggestError": 700001.0,
+        "biggestErrorInput": [
+            68083
+        ],
+        "biggestErrorOutput": 700000.0,
+        "correctCount": 978848,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_getType_char__best_individual.json",
+        "formula": "int_add(INT(12), string_index_of(ARG0, STRING(' ')))",
+        "relativeError": 0.22417703333333333,
+        "absoluteError": 6725311.0,
+        "complexity": 5,
+        "generationTime": 237.23854,
+        "biggestError": 19.0,
+        "biggestErrorInput": [
+            "\u00bb"
+        ],
+        "biggestErrorOutput": 30.0,
+        "correctCount": 8268,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_getType_int__best_individual.json",
+        "formula": "int_sub(int_abs(int_sub(INT(-3), ARG0)), int_add(int_abs(ARG0), INT(-3)))",
+        "relativeError": 0.12021556666666666,
+        "absoluteError": 3606467.0,
+        "complexity": 8,
+        "generationTime": 207.06331,
+        "biggestError": 24.0,
+        "biggestErrorInput": [
+            187
+        ],
+        "biggestErrorOutput": 30.0,
+        "correctCount": 451407,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_hashCode_char__best_individual.json",
+        "formula": "string_to_ascii(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 210.53175,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_toCodePoint_char_char__best_individual.json",
+        "formula": "int_sub(int_sub(INT(119), int_mul(int_add(INT(75), int_mul(INT(221), INT(120))), int_mul(INT(9), INT(236)))), string_length(ARG1))",
+        "relativeError": 0.06597419257113563,
+        "absoluteError": 2214641950305.0,
+        "complexity": 14,
+        "generationTime": 1723.4098,
+        "biggestError": 33442081.0,
+        "biggestErrorInput": [
+            "\u7ff6",
+            "\u5e33"
+        ],
+        "biggestErrorOutput": -23045581.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_toLowerCase_int__best_individual.json",
+        "formula": "int_sub(ARG0, INT(-1))",
+        "relativeError": 3.812324955084437e-09,
+        "absoluteError": 16373811.0,
+        "complexity": 3,
+        "generationTime": 203.1033,
+        "biggestError": 42320.0,
+        "biggestErrorInput": [
+            42923
+        ],
+        "biggestErrorOutput": 604.0,
+        "correctCount": 9636,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_toTitleCase_int__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 4.33678622458521e-09,
+        "absoluteError": 18626355.0,
+        "complexity": 1,
+        "generationTime": 151.57594,
+        "biggestError": 42319.0,
+        "biggestErrorInput": [
+            604
+        ],
+        "biggestErrorOutput": 42923.0,
+        "correctCount": 975011,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Character_toUpperCase_int__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 4.156687297894779e-09,
+        "absoluteError": 17852836.0,
+        "complexity": 1,
+        "generationTime": 150.61688,
+        "biggestError": 42319.0,
+        "biggestErrorInput": [
+            604
+        ],
+        "biggestErrorOutput": 42923.0,
+        "correctCount": 974809,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Double_compare_double_double__best_individual.json",
+        "formula": "int_if_then_else(real_less_than(FLOAT(0.8188558220863342), ARG1), INT(0), INT(240))",
+        "relativeError": 89.289644,
+        "absoluteError": 178579288.0,
+        "complexity": 6,
+        "generationTime": 288.85217,
+        "biggestError": 241.0,
+        "biggestErrorInput": [
+            -71759575914.323,
+            9.527775238010837e-31
+        ],
+        "biggestErrorOutput": -1.0,
+        "correctCount": 104,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Double_hashCode_double__best_individual.json",
+        "formula": "int_add(int_mul(int_sub(int_sub(INT(62), INT(89)), int_mul(INT(222), int_add(INT(4), int_add(INT(231), INT(222))))), int_add(int_add(INT(191), INT(218)), INT(11))), int_if_then_else(real_less_than(real_div(ARG0, real_floor(real_mul(real_sub(ARG0, FLOAT(-0.5928340554237366)), real_cos(ARG0)))), real_div(ARG0, real_floor(real_mul(FLOAT(-0.5928340554237366), real_cos(ARG0))))), int_add(int_mul(int_mul(int_add(INT(231), int_add(INT(105), INT(217))), INT(-6)), int_mul(INT(239), int_add(INT(105), INT(217)))), int_mul(INT(239), int_add(INT(164), INT(251)))), int_if_then_else(real_less_than(ARG0, real_div(ARG0, real_floor(real_mul(ARG0, FLOAT(0.07170574367046356))))), int_add(INT(-8), INT(222)), INT(90))))",
+        "relativeError": 0.2523849902897858,
+        "absoluteError": 1083983599926182.0,
+        "complexity": 61,
+        "generationTime": 3623.8843,
+        "biggestError": 2445333304.0,
+        "biggestErrorInput": [
+            -1.825260860637826e+109
+        ],
+        "biggestErrorOutput": 2147463825.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Float_compare_float_float__best_individual.json",
+        "formula": "int_if_then_else(real_less_than(FLOAT(0.3299314081668854), ARG0), INT(0), INT(167))",
+        "relativeError": 62.201344,
+        "absoluteError": 124402688.0,
+        "complexity": 6,
+        "generationTime": 167.87433,
+        "biggestError": 168.0,
+        "biggestErrorInput": [
+            0.0632704,
+            Infinity
+        ],
+        "biggestErrorOutput": -1.0,
+        "correctCount": 125,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Float_floatToIntBits_float__best_individual.json",
+        "formula": "int_add(int_sub(int_mul(int_abs(INT(222)), int_mul(int_add(int_mul(INT(150), int_add(INT(184), INT(57))), int_sub(int_neg(INT(250)), int_add(INT(192), INT(250)))), INT(133))), int_if_then_else(real_compare_as_int(real_div(real_abs(ARG0), real_floor(ARG0)), real_abs(FLOAT(35.344810485839844))), int_if_then_else(BOOL(True), int_mul(int_if_then_else(BOOL(False), INT(97), INT(156)), int_mul(int_neg(INT(41)), int_mul(INT(133), INT(118)))), int_sub(int_add(int_abs(INT(209)), int_sub(INT(202), INT(179))), int_neg(int_if_then_else(BOOL(False), INT(97), INT(156))))), INT(12))), int_if_then_else(real_compare_as_int(real_div(real_abs(real_add(real_add(ARG0, FLOAT(-1.0)), real_abs(FLOAT(229.22296142578125)))), real_mul(real_cos(FLOAT(35.344810485839844)), real_floor(real_sub(ARG0, FLOAT(-0.5117020606994629))))), ARG0), int_abs(int_mul(int_sub(int_abs(INT(156)), int_mul(INT(133), INT(125))), int_add(int_abs(INT(209)), int_sub(int_mul(INT(22), INT(36)), int_add(INT(156), INT(130)))))), INT(67)))",
+        "relativeError": 0.3084860447268595,
+        "absoluteError": 1323643151072729.0,
+        "complexity": 87,
+        "generationTime": 3629.0098,
+        "biggestError": 3194415191.0,
+        "biggestErrorInput": [
+            -1.99e-42
+        ],
+        "biggestErrorOutput": -2147482228.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Float_hashCode_float__best_individual.json",
+        "formula": "int_add(int_mul(int_add(int_mul(INT(245), INT(166)), int_neg(INT(114))), int_mul(INT(250), INT(104))), int_if_then_else(real_compare_as_int(FLOAT(-1.0), real_div(FLOAT(-1.0), real_floor(real_mul(int_div(INT(234), INT(213)), real_mul(FLOAT(0.13940338790416718), ARG0))))), int_mul(int_mul(INT(204), int_mul(INT(18), INT(222))), INT(82)), INT(7)))",
+        "relativeError": 0.309634860948964,
+        "absoluteError": 1328572547615558.0,
+        "complexity": 32,
+        "generationTime": 3614.202,
+        "biggestError": 3201938521.0,
+        "biggestErrorInput": [
+            -1.589e-42
+        ],
+        "biggestErrorOutput": -2147482514.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_bitCount_int__best_individual.json",
+        "formula": "int_abs(int_sub(int_abs(int_sub(INT(16), int_add(ARG0, ARG0))), int_abs(int_add(INT(-4), int_add(int_abs(ARG0), int_add(int_abs(ARG0), INT(-3)))))))",
+        "relativeError": 0.155103,
+        "absoluteError": 4963296.0,
+        "complexity": 15,
+        "generationTime": 581.6885,
+        "biggestError": 22.0,
+        "biggestErrorInput": [
+            -2147483648
+        ],
+        "biggestErrorOutput": 1.0,
+        "correctCount": 61097,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_compareUnsigned_int_int__best_individual.json",
+        "formula": "int_sub(ARG0, ARG0)",
+        "relativeError": 0.497533,
+        "absoluteError": 995066.0,
+        "complexity": 2,
+        "generationTime": 188.53592,
+        "biggestError": 1.0,
+        "biggestErrorInput": [
+            -216,
+            6
+        ],
+        "biggestErrorOutput": 1.0,
+        "correctCount": 4934,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_compare_int_int__best_individual.json",
+        "formula": "int_sub(ARG1, ARG1)",
+        "relativeError": 0.497621,
+        "absoluteError": 995242.0,
+        "complexity": 2,
+        "generationTime": 188.67438,
+        "biggestError": 1.0,
+        "biggestErrorInput": [
+            200,
+            218
+        ],
+        "biggestErrorOutput": -1.0,
+        "correctCount": 4758,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_hashCode_int__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.646701,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_highestOneBit_int__best_individual.json",
+        "formula": "int_add(int_mul(int_mul(int_mul(INT(92), INT(193)), INT(214)), int_sub(int_abs(int_add(int_add(INT(66), ARG0), INT(214))), int_add(INT(193), int_abs(ARG0)))), int_mul(int_mul(INT(75), INT(214)), int_sub(int_abs(int_add(int_add(int_add(INT(39), ARG0), INT(214)), INT(216))), int_add(int_mul(int_neg(INT(34)), INT(46)), int_abs(int_sub(int_mul(INT(92), INT(250)), int_add(INT(113), ARG0)))))))",
+        "relativeError": 0.1235201016335475,
+        "absoluteError": 397886097686012.0,
+        "complexity": 41,
+        "generationTime": 3629.3657,
+        "biggestError": 2135726488.0,
+        "biggestErrorInput": [
+            -1
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_lowestOneBit_int__best_individual.json",
+        "formula": "int_if_then_else(BOOL(False), INT(4), ARG0)",
+        "relativeError": 0.04053258148890556,
+        "absoluteError": 87053681331694.0,
+        "complexity": 4,
+        "generationTime": 223.27443,
+        "biggestError": 2147483646.0,
+        "biggestErrorInput": [
+            2147483647
+        ],
+        "biggestErrorOutput": 1.0,
+        "correctCount": 106200,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_max_int_int__best_individual.json",
+        "formula": "int_abs(int_sub(int_abs(ARG0), int_abs(ARG1)))",
+        "relativeError": 0.024804527045840755,
+        "absoluteError": 106534632429829.0,
+        "complexity": 5,
+        "generationTime": 262.07166,
+        "biggestError": 2147483648.0,
+        "biggestErrorInput": [
+            -223206,
+            -2147483648
+        ],
+        "biggestErrorOutput": -223206.0,
+        "correctCount": 60015,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_min_int_int__best_individual.json",
+        "formula": "int_sub(int_add(int_add(int_add(ARG1, int_mul(INT(251), INT(236))), int_mul(INT(216), int_mul(INT(150), INT(128)))), int_mul(INT(119), int_mul(INT(205), int_mul(INT(155), INT(119))))), int_abs(int_sub(int_abs(int_sub(int_sub(int_sub(ARG0, ARG1), int_mul(INT(253), INT(253))), int_mul(int_mul(INT(119), INT(232)), int_mul(INT(220), INT(224))))), int_mul(int_mul(INT(205), int_mul(INT(150), INT(119))), INT(242)))))",
+        "relativeError": 0.010960583036070127,
+        "absoluteError": 47075345674053.0,
+        "complexity": 43,
+        "generationTime": 3617.9783,
+        "biggestError": 1594670335.0,
+        "biggestErrorInput": [
+            2147483647,
+            -2147483648
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_numberOfLeadingZeros_int__best_individual.json",
+        "formula": "int_sub(int_abs(int_add(int_neg(int_abs(int_add(int_add(ARG0, ARG0), ARG0))), int_add(int_add(int_add(int_add(INT(9), ARG0), ARG0), int_add(int_add(ARG0, ARG0), ARG0)), int_abs(int_add(int_add(INT(9), ARG0), int_add(ARG0, ARG0)))))), int_abs(int_mul(ARG0, INT(-5))))",
+        "relativeError": 0.14381740625,
+        "absoluteError": 4602157.0,
+        "complexity": 23,
+        "generationTime": 1770.74,
+        "biggestError": 17.0,
+        "biggestErrorInput": [
+            1935957202
+        ],
+        "biggestErrorOutput": 1.0,
+        "correctCount": 457272,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_numberOfTrailingZeros_int__best_individual.json",
+        "formula": "int_if_then_else(BOOL(False), INT(1), ARG0)",
+        "relativeError": 3397741.1598198437,
+        "absoluteError": 108727717114235.0,
+        "complexity": 4,
+        "generationTime": 375.06216,
+        "biggestError": 2147483679.0,
+        "biggestErrorInput": [
+            -2147483648
+        ],
+        "biggestErrorOutput": 31.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_reverseBytes_int__best_individual.json",
+        "formula": "int_mul(int_add(int_add(INT(39), INT(71)), INT(213)), int_if_then_else(BOOL(False), int_mul(INT(232), INT(213)), ARG0))",
+        "relativeError": 8.274814737577339,
+        "absoluteError": 3.554005867007867e+16,
+        "complexity": 12,
+        "generationTime": 352.6261,
+        "biggestError": 695299285997.0,
+        "biggestErrorInput": [
+            -2146749583
+        ],
+        "biggestErrorOutput": 1899170688.0,
+        "correctCount": 59281,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_reverse_int__best_individual.json",
+        "formula": "int_mul(int_neg(int_sub(int_sub(int_abs(int_sub(INT(34), int_abs(ARG0))), int_abs(int_sub(int_add(INT(238), INT(254)), int_abs(ARG0)))), int_add(INT(241), int_abs(int_abs(int_if_then_else(BOOL(True), INT(125), ARG0)))))), int_sub(int_mul(int_abs(int_sub(int_abs(ARG0), int_abs(int_sub(INT(42), ARG0)))), int_mul(INT(34), int_sub(int_abs(int_abs(ARG0)), int_abs(int_sub(INT(42), ARG0))))), int_mul(int_sub(int_sub(int_abs(int_sub(INT(34), ARG0)), int_abs(int_sub(INT(201), ARG0))), int_if_then_else(BOOL(True), int_mul(INT(102), INT(189)), ARG0)), int_sub(int_abs(int_sub(INT(34), ARG0)), int_abs(int_sub(ARG0, int_if_then_else(BOOL(True), INT(46), ARG0)))))))",
+        "relativeError": 0.23783062785391781,
+        "absoluteError": 1021474768381893.0,
+        "complexity": 61,
+        "generationTime": 3620.7217,
+        "biggestError": 2389176031.0,
+        "biggestErrorInput": [
+            -2
+        ],
+        "biggestErrorOutput": 2147483647.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_rotateLeft_int_int__best_individual.json",
+        "formula": "int_add(int_mul(int_mul(int_sub(int_abs(int_sub(INT(255), ARG0)), int_abs(int_sub(INT(227), ARG0))), int_add(int_add(int_mul(INT(23), int_add(INT(255), INT(255))), int_add(INT(255), INT(215))), int_add(int_neg(int_mul(INT(-7), INT(255))), INT(255)))), int_abs(int_add(INT(150), int_sub(int_abs(ARG0), int_abs(int_sub(INT(215), ARG0)))))), int_mul(int_neg(INT(18)), int_mul(int_mul(INT(215), int_add(INT(167), INT(38))), INT(75))))",
+        "relativeError": 0.13576726878795103,
+        "absoluteError": 583115979175724.0,
+        "complexity": 45,
+        "generationTime": 3627.466,
+        "biggestError": 2352517697.0,
+        "biggestErrorInput": [
+            2147483647,
+            0
+        ],
+        "biggestErrorOutput": 2147483647.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_rotateRight_int_int__best_individual.json",
+        "formula": "int_mul(int_sub(int_sub(int_sub(int_if_then_else(BOOL(False), int_abs(int_add(INT(4), ARG0)), int_sub(ARG0, ARG1)), int_abs(int_sub(INT(172), ARG0))), int_neg(int_add(INT(105), INT(206)))), int_neg(int_sub(int_abs(int_abs(int_sub(ARG1, INT(102)))), int_abs(int_sub(int_sub(ARG1, INT(204)), INT(218)))))), int_mul(int_sub(int_sub(int_abs(int_sub(int_add(INT(105), INT(157)), ARG0)), int_abs(int_sub(int_add(INT(105), INT(226)), int_abs(ARG0)))), int_neg(int_add(int_add(INT(157), INT(206)), int_neg(int_neg(INT(189)))))), int_sub(int_sub(int_abs(int_abs(int_sub(ARG0, INT(212)))), int_abs(int_sub(INT(157), int_abs(ARG0)))), int_neg(int_sub(INT(157), int_neg(int_if_then_else(BOOL(False), INT(19), ARG1)))))))",
+        "relativeError": 192537995.22417504,
+        "absoluteError": 8.269443925326979e+23,
+        "complexity": 68,
+        "generationTime": 3624.9414,
+        "biggestError": 9.22330237657765e+18,
+        "biggestErrorInput": [
+            -2,
+            364107237
+        ],
+        "biggestErrorOutput": -134217729.0,
+        "correctCount": 26,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_signum_int__best_individual.json",
+        "formula": "int_sub(int_abs(int_add(ARG0, INT(1))), int_abs(ARG0))",
+        "relativeError": 0.029659,
+        "absoluteError": 59318.0,
+        "complexity": 6,
+        "generationTime": 171.18788,
+        "biggestError": 1.0,
+        "biggestErrorInput": [
+            0
+        ],
+        "biggestErrorOutput": 0.0,
+        "correctCount": 940682,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Integer_sum_int_int__best_individual.json",
+        "formula": "int_sub(int_add(int_sub(ARG1, int_sub(ARG0, int_neg(int_mul(INT(48), int_neg(INT(158)))))), int_add(int_mul(int_mul(INT(205), INT(235)), int_add(INT(95), INT(204))), int_abs(int_sub(int_abs(int_sub(ARG0, INT(255))), int_sub(int_sub(ARG1, INT(255)), int_add(ARG0, INT(255))))))), int_abs(int_sub(int_abs(int_sub(int_abs(int_add(ARG0, INT(255))), int_sub(int_sub(ARG0, INT(255)), int_add(ARG1, INT(255))))), int_mul(int_mul(INT(205), INT(235)), int_add(INT(78), INT(223))))))",
+        "relativeError": 0.021290215040233502,
+        "absoluteError": 91440777301320.0,
+        "complexity": 47,
+        "generationTime": 3621.2498,
+        "biggestError": 4323878348.0,
+        "biggestErrorInput": [
+            1,
+            2147483647
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Long_bitCount_long__best_individual.json",
+        "formula": "int_sub(int_add(INT(33), int_abs(ARG0)), int_abs(int_add(ARG0, INT(21))))",
+        "relativeError": 0.168846171875,
+        "absoluteError": 10806155.0,
+        "complexity": 8,
+        "generationTime": 227.978,
+        "biggestError": 53.0,
+        "biggestErrorInput": [
+            -9223372036854775808
+        ],
+        "biggestErrorOutput": 1.0,
+        "correctCount": 30006,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Long_compareUnsigned_long_long__best_individual.json",
+        "formula": "int_sub(ARG1, ARG1)",
+        "relativeError": 0.4992305,
+        "absoluteError": 998461.0,
+        "complexity": 2,
+        "generationTime": 194.14172,
+        "biggestError": 1.0,
+        "biggestErrorInput": [
+            -133517011354112,
+            11840330385744
+        ],
+        "biggestErrorOutput": 1.0,
+        "correctCount": 1539,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Long_compare_long_long__best_individual.json",
+        "formula": "int_sub(int_abs(ARG1), int_abs(int_sub(INT(-1), ARG1)))",
+        "relativeError": 0.25034,
+        "absoluteError": 500680.0,
+        "complexity": 6,
+        "generationTime": 121.94272,
+        "biggestError": 2.0,
+        "biggestErrorInput": [
+            -3864,
+            -1
+        ],
+        "biggestErrorOutput": -1.0,
+        "correctCount": 748857,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Long_hashCode_long__best_individual.json",
+        "formula": "int_abs(ARG0)",
+        "relativeError": 75397634.76667172,
+        "absoluteError": 3.238302820255405e+23,
+        "complexity": 2,
+        "generationTime": 112.87742,
+        "biggestError": 9.22337203900226e+18,
+        "biggestErrorInput": [
+            9223372036854775807
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 268632,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Long_numberOfLeadingZeros_long__best_individual.json",
+        "formula": "int_sub(int_abs(int_add(INT(22), ARG0)), int_sub(int_abs(ARG0), INT(22)))",
+        "relativeError": 0.16258921875,
+        "absoluteError": 10405710.0,
+        "complexity": 8,
+        "generationTime": 284.61804,
+        "biggestError": 43.0,
+        "biggestErrorInput": [
+            8049333089089800129
+        ],
+        "biggestErrorOutput": 1.0,
+        "correctCount": 452204,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Long_numberOfTrailingZeros_long__best_individual.json",
+        "formula": "int_sub(ARG0, int_add(INT(-3), ARG0))",
+        "relativeError": 0.067867203125,
+        "absoluteError": 4343501.0,
+        "complexity": 4,
+        "generationTime": 335.5256,
+        "biggestError": 61.0,
+        "biggestErrorInput": [
+            0
+        ],
+        "biggestErrorOutput": 64.0,
+        "correctCount": 56453,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Long_signum_long__best_individual.json",
+        "formula": "int_sub(int_abs(int_add(INT(1), ARG0)), int_abs(ARG0))",
+        "relativeError": 0.012557,
+        "absoluteError": 25114.0,
+        "complexity": 6,
+        "generationTime": 449.88626,
+        "biggestError": 1.0,
+        "biggestErrorInput": [
+            0
+        ],
+        "biggestErrorOutput": 0.0,
+        "correctCount": 974886,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Math_abs_int__best_individual.json",
+        "formula": "int_abs(ARG0)",
+        "relativeError": 0.009887000002301997,
+        "absoluteError": 42464341655552.0,
+        "complexity": 2,
+        "generationTime": 6.5372286,
+        "biggestError": 4294967296.0,
+        "biggestErrorInput": [
+            -2147483648
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 990113,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Math_getExponent_double__best_individual.json",
+        "formula": "int_if_then_else(real_less_than(ARG0, FLOAT(0.0)), INT(18), INT(209))",
+        "relativeError": 0.14764484855886661,
+        "absoluteError": 302229005.0,
+        "complexity": 6,
+        "generationTime": 203.54669,
+        "biggestError": 1232.0,
+        "biggestErrorInput": [
+            0.0
+        ],
+        "biggestErrorOutput": -1023.0,
+        "correctCount": 924,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Math_getExponent_float__best_individual.json",
+        "formula": "int_if_then_else(real_compare_as_int(ARG0, ARG0), INT(2), INT(223))",
+        "relativeError": 0.25700992156862745,
+        "absoluteError": 65537530.0,
+        "complexity": 5,
+        "generationTime": 331.08875,
+        "biggestError": 129.0,
+        "biggestErrorInput": [
+            1.4e-45
+        ],
+        "biggestErrorOutput": -127.0,
+        "correctCount": 3720,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Math_max_int_int__best_individual.json",
+        "formula": "int_sub(int_abs(int_sub(int_abs(int_sub(int_sub(int_sub(ARG0, ARG1), int_mul(INT(253), INT(253))), int_mul(int_mul(INT(184), INT(206)), int_mul(INT(202), INT(194))))), int_abs(int_neg(int_mul(int_mul(INT(159), INT(184)), int_mul(INT(200), INT(159))))))), int_sub(int_mul(int_mul(int_mul(INT(64), INT(159)), INT(237)), INT(204)), int_add(int_mul(int_neg(int_add(INT(204), INT(250))), int_mul(INT(184), INT(194))), int_add(int_mul(int_neg(INT(184)), int_mul(INT(184), INT(206))), int_sub(int_sub(int_sub(ARG0, INT(237)), int_add(INT(250), INT(250))), int_add(int_add(INT(204), INT(250)), INT(250)))))))",
+        "relativeError": 0.014205136472226617,
+        "absoluteError": 61010596569225.0,
+        "complexity": 63,
+        "generationTime": 3629.842,
+        "biggestError": 1364009525.0,
+        "biggestErrorInput": [
+            2147483647,
+            -2147483648
+        ],
+        "biggestErrorOutput": 2147483647.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Math_min_int_int__best_individual.json",
+        "formula": "int_sub(int_abs(int_add(ARG0, ARG1)), int_add(int_abs(ARG0), int_abs(ARG1)))",
+        "relativeError": 0.02463073202568845,
+        "absoluteError": 105788188502241.0,
+        "complexity": 7,
+        "generationTime": 394.30206,
+        "biggestError": 2147483648.0,
+        "biggestErrorInput": [
+            -32267,
+            -2147483648
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 59631,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Math_round_float__best_individual.json",
+        "formula": "int_add(INT(11), int_if_then_else(real_compare_as_int(real_div(FLOAT(-1.0), real_floor(real_div(ARG0, FLOAT(90.63884735107422)))), ARG0), INT(160), INT(11)))",
+        "relativeError": 0.1902022200296021,
+        "absoluteError": 816912314463535.0,
+        "complexity": 12,
+        "generationTime": 3122.5356,
+        "biggestError": 2147483670.0,
+        "biggestErrorInput": [
+            -12557557800.0
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 93,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Short_compareUnsigned_short_short__best_individual.json",
+        "formula": "int_sub(int_sub(int_abs(int_abs(int_sub(INT(142), ARG0))), int_abs(int_sub(int_add(int_sub(int_add(INT(246), INT(206)), ARG0), int_abs(int_sub(INT(142), ARG0))), int_mul(INT(45), int_add(INT(206), INT(206)))))), int_sub(int_sub(int_add(int_add(int_mul(int_if_then_else(BOOL(True), INT(11), ARG1), int_add(INT(227), INT(251))), int_add(int_add(INT(227), INT(227)), int_add(INT(206), INT(206)))), int_neg(int_neg(int_add(ARG0, ARG1)))), int_mul(INT(30), int_sub(int_abs(int_add(ARG1, INT(235))), int_abs(ARG1)))), int_mul(int_if_then_else(BOOL(True), int_abs(INT(125)), INT(-7)), int_sub(int_abs(int_add(INT(206), ARG1)), int_abs(ARG1)))))",
+        "relativeError": 0.22883932909895474,
+        "absoluteError": 29993970865.0,
+        "complexity": 61,
+        "generationTime": 3631.7104,
+        "biggestError": 77222.0,
+        "biggestErrorInput": [
+            -32768,
+            -1
+        ],
+        "biggestErrorOutput": -32767.0,
+        "correctCount": 2,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Short_compare_short_short__best_individual.json",
+        "formula": "int_sub(ARG0, ARG1)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 6.599078,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Short_hashCode_short__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.4656253,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_Short_toUnsignedInt_short__best_individual.json",
+        "formula": "int_abs(int_add(int_mul(int_sub(int_mul(INT(-3), INT(99)), INT(48)), int_sub(int_abs(int_add(INT(95), ARG0)), int_abs(ARG0))), int_sub(int_abs(int_sub(int_neg(ARG0), int_mul(INT(134), INT(246)))), INT(193))))",
+        "relativeError": 0.17242466019684138,
+        "absoluteError": 11299850106.0,
+        "complexity": 22,
+        "generationTime": 3621.9775,
+        "biggestError": 64850.0,
+        "biggestErrorInput": [
+            -1
+        ],
+        "biggestErrorOutput": 65535.0,
+        "correctCount": 15981,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_StrictMath_abs_int__best_individual.json",
+        "formula": "int_abs(ARG0)",
+        "relativeError": 0.010049000002339716,
+        "absoluteError": 43160126357504.0,
+        "complexity": 2,
+        "generationTime": 6.825807,
+        "biggestError": 4294967296.0,
+        "biggestErrorInput": [
+            -2147483648
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 989951,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_StrictMath_getExponent_double__best_individual.json",
+        "formula": "int_if_then_else(real_less_than(FLOAT(-1.0), ARG0), INT(7), INT(9))",
+        "relativeError": 0.13748613336590132,
+        "absoluteError": 281434115.0,
+        "complexity": 6,
+        "generationTime": 177.07637,
+        "biggestError": 1030.0,
+        "biggestErrorInput": [
+            0.0
+        ],
+        "biggestErrorOutput": -1023.0,
+        "correctCount": 978,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_StrictMath_getExponent_float__best_individual.json",
+        "formula": "int_if_then_else(real_less_than(ARG0, FLOAT(0.0)), INT(0), INT(147))",
+        "relativeError": 0.4178725176470588,
+        "absoluteError": 106557492.0,
+        "complexity": 6,
+        "generationTime": 151.78204,
+        "biggestError": 274.0,
+        "biggestErrorInput": [
+            1.4e-45
+        ],
+        "biggestErrorOutput": -127.0,
+        "correctCount": 7977,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_StrictMath_max_int_int__best_individual.json",
+        "formula": "int_add(int_abs(int_sub(int_abs(int_sub(int_add(int_sub(ARG0, ARG1), int_neg(INT(248))), int_mul(int_mul(INT(230), INT(255)), int_mul(INT(135), INT(178))))), int_mul(int_abs(int_mul(int_abs(INT(227)), int_mul(INT(229), INT(229)))), int_if_then_else(BOOL(False), INT(76), INT(0))))), int_if_then_else(BOOL(True), int_sub(int_sub(ARG0, int_mul(int_mul(int_add(INT(175), INT(229)), INT(230)), INT(248))), int_mul(int_mul(INT(255), INT(254)), int_if_then_else(BOOL(False), int_if_then_else(BOOL(False), int_mul(INT(135), INT(52)), INT(177)), INT(230)))), INT(52)))",
+        "relativeError": 0.3038463061846854,
+        "absoluteError": 1305009947769780.0,
+        "complexity": 54,
+        "generationTime": 3624.6782,
+        "biggestError": 2847666287.0,
+        "biggestErrorInput": [
+            2147483647,
+            -2147483648
+        ],
+        "biggestErrorOutput": 2147483647.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_StrictMath_min_int_int__best_individual.json",
+        "formula": "int_neg(int_abs(int_sub(int_abs(int_add(int_mul(int_mul(INT(221), INT(157)), int_mul(INT(214), INT(122))), int_sub(int_sub(ARG1, INT(255)), int_abs(ARG1)))), int_abs(int_sub(int_mul(int_mul(INT(221), INT(157)), int_mul(INT(214), INT(122))), int_sub(int_abs(ARG0), int_sub(ARG0, INT(255))))))))",
+        "relativeError": 0.010539362412172454,
+        "absoluteError": 45266216870433.0,
+        "complexity": 30,
+        "generationTime": 3624.7312,
+        "biggestError": 2147483648.0,
+        "biggestErrorInput": [
+            -2147483648,
+            -2147483648
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 59907,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_int_java_lang_StrictMath_round_float__best_individual.json",
+        "formula": "int_add(INT(13), int_if_then_else(real_compare_as_int(FLOAT(-0.31542348861694336), real_div(FLOAT(-0.31542348861694336), real_floor(real_mul(real_floor(ARG0), FLOAT(0.011188974604010582))))), INT(156), INT(124)))",
+        "relativeError": 0.19059285383475266,
+        "absoluteError": 818590073880978.0,
+        "complexity": 14,
+        "generationTime": 2022.8033,
+        "biggestError": 2147483817.0,
+        "biggestErrorInput": [
+            -7.104996e+25
+        ],
+        "biggestErrorOutput": -2147483648.0,
+        "correctCount": 15,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_Boolean_java_lang_Boolean_valueOf_boolean__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 2.7036896,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_Boolean_java_lang_Boolean_valueOf_java_lang_String__best_individual.json",
+        "formula": "str_compare(ARG0, STRING(' '))",
+        "relativeError": 0.000393,
+        "absoluteError": 393.0,
+        "complexity": 3,
+        "generationTime": 1.4126785,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 999607,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_Byte_java_lang_Byte_valueOf_byte__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.528872,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_Character_java_lang_Character_valueOf_char__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 1214.4268,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_Integer_java_lang_Integer_getInteger_java_lang_String_int__best_individual.json",
+        "formula": "ARG1",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 3.3739958,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_Integer_java_lang_Integer_getInteger_java_lang_String_java_lang_Integer__best_individual.json",
+        "formula": "ARG1",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 3.2506428,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_Integer_java_lang_Integer_valueOf_int__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 7.0785494,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_Long_java_lang_Long_getLong_java_lang_String_java_lang_Long__best_individual.json",
+        "formula": "ARG1",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 3.3277879,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_Long_java_lang_Long_getLong_java_lang_String_long__best_individual.json",
+        "formula": "ARG1",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 3.3812847,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_Long_java_lang_Long_valueOf_long__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.884121,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_Short_java_lang_Short_valueOf_short__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 6.6079817,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Boolean_toString_boolean__best_individual.json",
+        "formula": "str_if_then_else(ARG0, string_concat(ascii_to_string(INT(116)), string_concat(ascii_to_string(INT(117)), ascii_to_string(INT(101)))), string_concat(ascii_to_string(INT(102)), string_concat(ascii_to_string(INT(97)), string_concat(ascii_to_string(INT(108)), string_concat(ascii_to_string(INT(115)), ascii_to_string(INT(101)))))))",
+        "relativeError": 0.499446,
+        "absoluteError": 499446.0,
+        "complexity": 24,
+        "generationTime": 3629.2285,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 500554,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Byte_toString_byte__best_individual.json",
+        "formula": "int_to_string(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 7.727779,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Character_toString_char__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 1200.9868,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Double_toHexString_double__best_individual.json",
+        "formula": "string_replace(string_concat(string_concat(ascii_to_string(INT(120)), float_to_string(real_add(FLOAT(0.2260742485523224), real_add(FLOAT(0.2260742485523224), int_div(INT(63), INT(96)))))), float_to_string(real_floor(real_div(real_add(FLOAT(-1.0), ARG0), real_add(FLOAT(0.2260742485523224), ARG0))))), STRING(''), float_to_string(FLOAT(0.0)))",
+        "relativeError": 1.0,
+        "absoluteError": 1000000.0,
+        "complexity": 24,
+        "generationTime": 3671.2803,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Float_toHexString_float__best_individual.json",
+        "formula": "str_if_then_else(real_less_than(FLOAT(-1.0), ARG0), string_replace(str_if_then_else(real_less_than(real_add(real_div(FLOAT(230.36972045898438), ARG0), real_mul(FLOAT(-1.0), FLOAT(-1.0))), ARG0), int_to_string(int_mul(int_if_then_else(BOOL(False), INT(77), INT(123)), string_length(STRING(' ')))), float_to_string(real_floor(real_mul(int_div(INT(253), INT(113)), real_add(FLOAT(-1.0), ARG0))))), STRING(''), string_replace(int_to_string(INT(42)), STRING(''), string_replace(string_replace(float_to_string(int_div(INT(48), INT(32))), STRING(''), ascii_to_string(INT(120))), STRING(''), ascii_to_string(INT(48))))), ascii_to_string(INT(48)))",
+        "relativeError": 1.0,
+        "absoluteError": 1000000.0,
+        "complexity": 48,
+        "generationTime": 3733.7617,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Integer_toBinaryString_int__best_individual.json",
+        "formula": "string_replace_all(str_if_then_else(int_less_than(ARG0, INT(246)), int_to_string(INT(110)), string_replace_all(STRING(' '), STRING(''), STRING(' '))), str_if_then_else(int_less_than(ARG0, INT(0)), STRING(''), STRING(' ')), string_concat(int_to_string(INT(111)), int_to_string(INT(101))))",
+        "relativeError": 0.99589,
+        "absoluteError": 995890.0,
+        "complexity": 21,
+        "generationTime": 574.64246,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 4110,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Integer_toHexString_int__best_individual.json",
+        "formula": "str_if_then_else(int_compare_range(INT(0), INT(0), ARG0), str_if_then_else(int_compare_range(ARG0, ARG0, INT(249)), int_to_string(INT(1)), int_to_string(INT(120))), string_replace_all(int_to_string(INT(232)), STRING(''), ascii_to_string(INT(102))))",
+        "relativeError": 0.980633,
+        "absoluteError": 980633.0,
+        "complexity": 18,
+        "generationTime": 741.7506,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 19367,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Integer_toOctalString_int__best_individual.json",
+        "formula": "string_replace(string_replace_all(string_replace(STRING(' '), str_if_then_else(int_compare_range(ARG0, INT(0), ARG0), int_to_string(INT(77)), STRING('')), string_replace(string_replace(int_to_string(INT(6)), STRING(''), string_replace(int_to_string(INT(77)), STRING(''), int_to_string(INT(77)))), STRING(''), int_to_string(INT(77)))), STRING(' '), int_to_string(INT(50))), str_if_then_else(int_compare_range(ARG0, int_mul(int_add(int_mul(INT(67), INT(67)), ARG0), int_neg(ARG0)), int_mul(INT(67), INT(110))), int_to_string(INT(77)), STRING('')), int_to_string(INT(37)))",
+        "relativeError": 0.999551,
+        "absoluteError": 999551.0,
+        "complexity": 44,
+        "generationTime": 3611.5317,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 449,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Integer_toString_int__best_individual.json",
+        "formula": "int_to_string(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 7.4518523,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Integer_toString_int_int__best_individual.json",
+        "formula": "str_if_then_else(int_compare_range(INT(36), int_add(ARG1, string_to_ascii(ascii_to_string(int_sub(INT(249), ARG0)))), int_add(int_add(INT(68), ARG1), int_neg(INT(43)))), int_to_string(int_neg(int_add(int_mul(INT(43), int_mul(INT(33), INT(45))), int_if_then_else(logic_or(BOOL(False), BOOL(False)), int_if_then_else(BOOL(False), ARG1, ARG0), string_index_of(STRING(''), STRING(' ')))))), int_to_string(ARG0))",
+        "relativeError": 0.050045,
+        "absoluteError": 50045.0,
+        "complexity": 32,
+        "generationTime": 3718.748,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 949955,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Integer_toUnsignedString_int__best_individual.json",
+        "formula": "str_if_then_else(int_less_than(ARG0, INT(0)), int_to_string(int_mul(INT(225), INT(191))), int_to_string(ARG0))",
+        "relativeError": 0.470775,
+        "absoluteError": 470775.0,
+        "complexity": 9,
+        "generationTime": 398.54745,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 529225,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Integer_toUnsignedString_int_int__best_individual.json",
+        "formula": "str_if_then_else(int_compare_range(ARG0, INT(0), ARG0), int_to_string(ARG0), string_replace(int_to_string(INT(149)), STRING(''), int_to_string(INT(42))))",
+        "relativeError": 0.494737,
+        "absoluteError": 494737.0,
+        "complexity": 11,
+        "generationTime": 519.7338,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 505263,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Long_toBinaryString_long__best_individual.json",
+        "formula": "string_replace_all(string_concat(string_replace_all(str_if_then_else(int_less_than(int_mul(int_mul(INT(83), INT(71)), int_mul(INT(143), ARG0)), int_mul(ARG0, ARG0)), int_to_string(int_add(INT(83), INT(27))), STRING('')), STRING(''), str_if_then_else(int_less_than(int_if_then_else(BOOL(True), ARG0, INT(27)), string_length(STRING(''))), int_to_string(INT(111)), str_if_then_else(int_less_than(INT(253), int_mul(ARG0, ARG0)), int_to_string(INT(100)), STRING('')))), string_replace(string_replace_all(str_if_then_else(int_less_than(int_mul(INT(253), ARG0), int_mul(ARG0, ARG0)), int_to_string(INT(100)), STRING('')), STRING(''), str_if_then_else(int_less_than(ARG0, string_length(STRING(''))), int_to_string(INT(100)), int_to_string(string_index_of(STRING(' '), STRING(' '))))), STRING(''), int_to_string(string_length(STRING(''))))), STRING(''), str_if_then_else(int_less_than(int_mul(INT(253), int_mul(int_mul(INT(71), INT(71)), int_mul(INT(253), int_mul(INT(253), ARG0)))), int_mul(ARG0, ARG0)), int_to_string(string_length(ascii_to_string(INT(253)))), STRING('')))",
+        "relativeError": 0.999774,
+        "absoluteError": 999774.0,
+        "complexity": 79,
+        "generationTime": 3658.5818,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 226,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Long_toHexString_long__best_individual.json",
+        "formula": "str_if_then_else(int_compare_range(ARG0, int_neg(INT(235)), int_mul(INT(142), INT(228))), string_concat(STRING(''), int_to_string(string_length(str_if_then_else(logic_not(BOOL(False)), string_replace(STRING(' '), STRING(' '), STRING(' ')), string_replace_all(STRING(' '), STRING(''), STRING(' ')))))), string_concat(string_concat(int_to_string(INT(239)), int_to_string(int_mul(string_to_ascii(string_replace(STRING(' '), STRING(''), STRING(''))), int_abs(INT(240))))), int_to_string(INT(253))))",
+        "relativeError": 0.982727,
+        "absoluteError": 982727.0,
+        "complexity": 38,
+        "generationTime": 3807.7266,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 17273,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Long_toOctalString_long__best_individual.json",
+        "formula": "string_replace(string_replace_all(string_concat(string_replace(string_replace(int_to_string(INT(60)), int_to_string(int_mul(ARG0, INT(20))), STRING(' ')), int_to_string(INT(6)), string_replace_all(string_concat(STRING(' '), STRING(' ')), STRING(''), STRING(' '))), string_concat(str_if_then_else(int_less_than(int_mul(INT(254), INT(254)), int_abs(ARG0)), int_to_string(INT(254)), string_concat(STRING(' '), STRING(' '))), str_if_then_else(int_less_than(int_mul(INT(221), INT(175)), int_abs(ARG0)), int_to_string(INT(160)), string_replace_all(STRING(' '), STRING(''), STRING(' '))))), STRING(' '), str_if_then_else(int_less_than(ARG0, INT(0)), int_to_string(INT(77)), STRING(''))), STRING(''), int_to_string(INT(17)))",
+        "relativeError": 0.999998,
+        "absoluteError": 999998.0,
+        "complexity": 54,
+        "generationTime": 3657.7817,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 2,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Long_toString_long__best_individual.json",
+        "formula": "int_to_string(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 7.88505,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Long_toString_long_int__best_individual.json",
+        "formula": "string_replace(string_replace_all(string_replace_all(int_to_string(ARG0), int_to_string(int_add(ARG1, string_to_ascii(ascii_to_string(ARG1)))), string_replace(string_replace(int_to_string(string_length(STRING(' '))), int_to_string(ARG1), int_to_string(int_add(ARG1, ARG1))), int_to_string(int_add(string_length(STRING(' ')), ARG1)), int_to_string(int_add(ARG1, ARG1)))), int_to_string(ARG1), int_to_string(int_mul(ARG1, INT(5)))), int_to_string(int_mul(int_add(INT(-2), ARG1), INT(164))), string_replace_all(string_concat(int_to_string(INT(10)), int_to_string(string_length(int_to_string(int_abs(ARG0))))), STRING(''), string_concat(int_to_string(INT(110)), int_to_string(INT(100)))))",
+        "relativeError": 0.07519,
+        "absoluteError": 75190.0,
+        "complexity": 46,
+        "generationTime": 3635.0337,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 924810,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_Short_toString_short__best_individual.json",
+        "formula": "int_to_string(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 7.687352,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_String_valueOf_boolean__best_individual.json",
+        "formula": "str_if_then_else(ARG0, string_concat(ascii_to_string(INT(116)), string_concat(ascii_to_string(INT(114)), string_concat(ascii_to_string(INT(117)), ascii_to_string(INT(101))))), string_concat(string_concat(string_concat(ascii_to_string(INT(102)), string_concat(ascii_to_string(INT(97)), ascii_to_string(INT(108)))), ascii_to_string(INT(115))), ascii_to_string(INT(101))))",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 27,
+        "generationTime": 3617.7642,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_String_valueOf_char__best_individual.json",
+        "formula": "ARG0",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 1,
+        "generationTime": 959.25183,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_String_valueOf_double__best_individual.json",
+        "formula": "float_to_string(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 20.388632,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_String_valueOf_int__best_individual.json",
+        "formula": "int_to_string(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 8.019438,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_java_lang_String_java_lang_String_valueOf_long__best_individual.json",
+        "formula": "int_to_string(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 7.7461267,
+        "biggestError": -1.0,
+        "biggestErrorInput": "N/A",
+        "biggestErrorOutput": "N/A",
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Byte_toUnsignedLong_byte__best_individual.json",
+        "formula": "int_add(int_abs(int_sub(int_add(int_add(int_add(int_add(ARG0, ARG0), int_add(ARG0, ARG0)), int_add(ARG0, int_add(ARG0, ARG0))), int_add(ARG0, int_add(ARG0, ARG0))), int_sub(INT(91), int_abs(int_sub(ARG0, int_neg(INT(26))))))), int_sub(INT(103), int_abs(int_sub(int_add(int_add(int_add(ARG0, ARG0), int_add(ARG0, ARG0)), int_add(int_add(ARG0, ARG0), int_add(ARG0, ARG0))), int_neg(int_sub(int_add(ARG0, ARG0), int_neg(INT(38))))))))",
+        "relativeError": 0.1991894980392157,
+        "absoluteError": 50793322.0,
+        "complexity": 35,
+        "generationTime": 3115.8333,
+        "biggestError": 130.0,
+        "biggestErrorInput": [
+            0
+        ],
+        "biggestErrorOutput": 0.0,
+        "correctCount": 255472,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Double_doubleToLongBits_double__best_individual.json",
+        "formula": "int_neg(int_mul(int_mul(int_sub(int_neg(int_mul(int_add(INT(116), INT(58)), int_if_then_else(BOOL(False), INT(245), INT(159)))), int_mul(int_mul(int_abs(INT(77)), int_sub(INT(244), INT(203))), int_mul(int_if_then_else(BOOL(True), INT(145), INT(229)), int_add(INT(216), INT(113))))), int_mul(int_mul(int_abs(INT(77)), int_sub(INT(244), INT(203))), int_mul(INT(157), int_add(INT(216), INT(113))))), int_if_then_else(real_less_than(ARG0, FLOAT(-1.0)), int_add(INT(25), int_add(INT(0), INT(163))), int_add(INT(84), INT(30)))))",
+        "relativeError": 0.31388907300729096,
+        "absoluteError": 5.080570010904984e+24,
+        "complexity": 52,
+        "generationTime": 3244.9126,
+        "biggestError": 9.764984024108184e+18,
+        "biggestErrorInput": [
+            -1.1022007720133858e-157
+        ],
+        "biggestErrorOutput": -6.964757029183377e+18,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Integer_toUnsignedLong_int__best_individual.json",
+        "formula": "int_abs(int_sub(int_mul(int_mul(int_add(INT(238), int_sub(INT(117), int_mul(INT(254), INT(178)))), INT(237)), int_add(INT(202), int_sub(int_abs(ARG0), int_abs(int_add(ARG0, INT(202)))))), int_sub(int_sub(int_sub(ARG0, INT(192)), INT(178)), int_sub(int_abs(ARG0), int_abs(int_add(int_add(ARG0, INT(192)), INT(178)))))))",
+        "relativeError": 0.09603473660385534,
+        "absoluteError": 412466052897498.0,
+        "complexity": 32,
+        "generationTime": 3633.2732,
+        "biggestError": 4273705080.0,
+        "biggestErrorInput": [
+            -1
+        ],
+        "biggestErrorOutput": 4294967295.0,
+        "correctCount": 869522,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Long_highestOneBit_long__best_individual.json",
+        "formula": "int_add(int_mul(int_neg(int_abs(INT(143))), int_mul(int_add(int_mul(INT(-2), int_mul(int_sub(INT(11), INT(6)), int_mul(INT(183), INT(120)))), int_mul(int_mul(INT(108), INT(120)), int_mul(int_sub(INT(11), INT(6)), int_mul(INT(148), INT(105))))), int_mul(int_add(INT(120), INT(183)), int_mul(int_neg(INT(193)), int_neg(INT(183)))))), int_add(int_mul(int_mul(int_mul(INT(183), INT(120)), INT(6)), int_mul(int_add(INT(120), INT(183)), int_mul(INT(148), INT(105)))), ARG0))",
+        "relativeError": 0.3309698681773098,
+        "absoluteError": 4.5789873407821656e+24,
+        "complexity": 51,
+        "generationTime": 1848.2491,
+        "biggestError": 1.8445185997788457e+19,
+        "biggestErrorInput": [
+            -7684229728216689188
+        ],
+        "biggestErrorOutput": -9.223372036854776e+18,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Long_lowestOneBit_long__best_individual.json",
+        "formula": "int_if_then_else(BOOL(True), INT(4), ARG0)",
+        "relativeError": 0.009898999999999719,
+        "absoluteError": 9.130215979282543e+22,
+        "complexity": 4,
+        "generationTime": 179.31323,
+        "biggestError": 9.223372036854776e+18,
+        "biggestErrorInput": [
+            -9223372036854775808
+        ],
+        "biggestErrorOutput": -9.223372036854776e+18,
+        "correctCount": 115093,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Long_max_long_long__best_individual.json",
+        "formula": "int_abs(int_sub(int_abs(ARG1), int_abs(ARG0)))",
+        "relativeError": 0.017305081038836937,
+        "absoluteError": 3.192224010982288e+23,
+        "complexity": 5,
+        "generationTime": 158.943,
+        "biggestError": 9.223372036854776e+18,
+        "biggestErrorInput": [
+            0,
+            -9223372036854775808
+        ],
+        "biggestErrorOutput": 0.0,
+        "correctCount": 38743,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Long_min_long_long__best_individual.json",
+        "formula": "int_sub(int_add(int_mul(int_mul(int_mul(INT(252), INT(252)), int_add(INT(252), INT(211))), int_mul(int_mul(int_add(INT(252), INT(211)), INT(252)), int_mul(INT(220), INT(252)))), int_sub(ARG1, INT(186))), int_abs(int_add(int_abs(int_add(ARG0, int_sub(int_neg(ARG1), int_abs(ARG1)))), int_sub(int_mul(int_mul(int_mul(INT(252), INT(252)), int_add(INT(252), INT(252))), int_mul(int_mul(INT(231), INT(252)), int_mul(INT(220), INT(252)))), int_abs(int_abs(ARG1))))))",
+        "relativeError": 0.022263472567174567,
+        "absoluteError": 4.106885806387226e+23,
+        "complexity": 47,
+        "generationTime": 1954.3773,
+        "biggestError": 1.843314387101068e+19,
+        "biggestErrorInput": [
+            -9223372036854775808,
+            9069831042042804463
+        ],
+        "biggestErrorOutput": -9.223372036854776e+18,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Long_reverseBytes_long__best_individual.json",
+        "formula": "int_mul(int_mul(INT(164), INT(186)), int_if_then_else(BOOL(False), int_mul(int_mul(int_mul(int_mul(INT(163), INT(32)), int_abs(INT(106))), INT(164)), int_mul(INT(188), INT(62))), int_if_then_else(logic_or(BOOL(False), BOOL(True)), int_neg(ARG0), int_mul(ARG0, ARG0))))",
+        "relativeError": 0.2385033827184958,
+        "absoluteError": 4.3996108617220933e+24,
+        "complexity": 25,
+        "generationTime": 2912.9329,
+        "biggestError": 1.8409583052072325e+19,
+        "biggestErrorInput": [
+            -125481474816714880
+        ],
+        "biggestErrorOutput": -9.19869850087881e+18,
+        "correctCount": 24901,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Long_reverse_long__best_individual.json",
+        "formula": "int_mul(INT(99), int_if_then_else(int_compare_range(INT(117), INT(156), ARG0), int_sub(int_mul(int_mul(int_if_then_else(int_compare_range(INT(117), INT(156), ARG0), int_abs(INT(251)), int_abs(INT(78))), int_mul(int_add(INT(235), INT(149)), int_mul(INT(175), INT(235)))), int_mul(int_add(INT(235), INT(149)), int_mul(INT(175), INT(13)))), int_mul(int_if_then_else(int_compare_range(INT(117), INT(156), ARG0), int_abs(INT(175)), int_abs(INT(78))), int_mul(int_mul(int_add(INT(235), INT(175)), int_mul(INT(175), INT(13))), int_mul(INT(175), INT(235))))), int_if_then_else(BOOL(True), int_abs(INT(78)), ARG0)))",
+        "relativeError": 0.23990088565765624,
+        "absoluteError": 4.425390240783043e+24,
+        "complexity": 56,
+        "generationTime": 2583.7886,
+        "biggestError": 9.223372036854784e+18,
+        "biggestErrorInput": [
+            1
+        ],
+        "biggestErrorOutput": -9.223372036854776e+18,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Long_rotateLeft_long_int__best_individual.json",
+        "formula": "int_mul(int_if_then_else(int_compare(ARG0, ARG1), int_if_then_else(BOOL(False), int_sub(int_sub(int_add(ARG1, INT(251)), int_abs(int_add(ARG1, INT(251)))), int_mul(int_mul(int_if_then_else(BOOL(False), INT(94), ARG0), int_if_then_else(BOOL(False), INT(204), ARG1)), int_if_then_else(int_compare(ARG0, ARG1), int_mul(INT(94), INT(213)), int_if_then_else(BOOL(True), INT(40), ARG0)))), int_sub(int_sub(ARG0, int_mul(int_abs(INT(19)), int_sub(ARG1, ARG1))), int_abs(ARG0))), int_mul(int_if_then_else(BOOL(False), ARG1, INT(66)), int_mul(ARG0, INT(36)))), int_mul(int_mul(int_mul(INT(94), int_if_then_else(BOOL(True), INT(169), ARG1)), int_if_then_else(BOOL(False), INT(160), int_mul(int_abs(ARG0), ARG0))), INT(73)))",
+        "relativeError": 0.24317768876402918,
+        "absoluteError": 4.485836589066241e+24,
+        "complexity": 55,
+        "generationTime": 2173.0303,
+        "biggestError": 1.8443201381379031e+19,
+        "biggestErrorInput": [
+            90297,
+            -1
+        ],
+        "biggestErrorOutput": -9.223372036854731e+18,
+        "correctCount": 24984,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Long_rotateRight_long_int__best_individual.json",
+        "formula": "int_neg(int_abs(int_mul(int_if_then_else(BOOL(False), INT(230), ARG0), int_mul(int_add(int_abs(int_mul(INT(110), ARG1)), int_mul(int_sub(ARG1, INT(203)), int_if_then_else(BOOL(False), INT(214), ARG0))), int_sub(INT(10), int_abs(int_mul(INT(87), INT(30))))))))",
+        "relativeError": 0.22044180799640148,
+        "absoluteError": 4.066433615255438e+24,
+        "complexity": 24,
+        "generationTime": 1677.6519,
+        "biggestError": 1.844635459986531e+19,
+        "biggestErrorInput": [
+            -4190572,
+            1
+        ],
+        "biggestErrorOutput": 9.223372036852681e+18,
+        "correctCount": 25151,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Long_sum_long_long__best_individual.json",
+        "formula": "int_add(ARG0, ARG1)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 122.71582,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Math_abs_long__best_individual.json",
+        "formula": "int_abs(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 6.9193892,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Math_max_long_long__best_individual.json",
+        "formula": "int_abs(int_sub(int_if_then_else(BOOL(False), int_add(int_abs(int_abs(ARG1)), int_mul(int_mul(int_mul(INT(244), INT(244)), int_mul(INT(165), INT(244))), int_mul(int_mul(INT(56), INT(219)), int_mul(INT(186), INT(243))))), int_add(ARG0, int_neg(ARG1))), int_abs(int_neg(int_add(int_sub(int_sub(ARG0, ARG1), int_abs(ARG1)), int_abs(int_add(ARG0, ARG1)))))))",
+        "relativeError": 0.017155334407812296,
+        "absoluteError": 3.1646006331981706e+23,
+        "complexity": 33,
+        "generationTime": 1751.979,
+        "biggestError": 1.84264254703913e+19,
+        "biggestErrorInput": [
+            -9218292386025213057,
+            -9223372036854775808
+        ],
+        "biggestErrorOutput": -9.218292386025213e+18,
+        "correctCount": 264413,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Math_min_long_long__best_individual.json",
+        "formula": "int_sub(ARG0, int_add(int_add(int_neg(ARG1), int_abs(int_add(int_sub(ARG1, ARG0), int_abs(ARG1)))), int_sub(int_sub(int_mul(int_mul(int_neg(INT(242)), int_mul(INT(155), INT(234))), int_mul(int_neg(INT(242)), int_mul(INT(155), INT(234)))), int_neg(int_if_then_else(logic_and(BOOL(True), BOOL(False)), ARG0, ARG1))), int_abs(int_abs(ARG1)))))",
+        "relativeError": 0.034773261206689735,
+        "absoluteError": 6.414534500880581e+23,
+        "complexity": 31,
+        "generationTime": 2325.6147,
+        "biggestError": 1.8446667032012075e+19,
+        "biggestErrorInput": [
+            1447134890,
+            -9223372036854775808
+        ],
+        "biggestErrorOutput": -9.223372036854776e+18,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Math_multiplyFull_int_int__best_individual.json",
+        "formula": "int_mul(ARG1, ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 7.39532,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Math_multiplyHigh_long_long__best_individual.json",
+        "formula": "int_sub(ARG0, ARG0)",
+        "relativeError": 0.0006162739481447721,
+        "absoluteError": 5.684123900360581e+21,
+        "complexity": 2,
+        "generationTime": 122.11373,
+        "biggestError": 4.611686018427388e+18,
+        "biggestErrorInput": [
+            -9223372036854775808,
+            -9223372036854775808
+        ],
+        "biggestErrorOutput": 4.611686018427388e+18,
+        "correctCount": 302105,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Math_round_double__best_individual.json",
+        "formula": "int_add(INT(13), int_if_then_else(real_less_than(FLOAT(-1.0), real_div(FLOAT(-1.0), real_floor(real_div(FLOAT(108.7055892944336), real_sub(FLOAT(203.1002655029297), ARG0))))), INT(162), INT(178)))",
+        "relativeError": 0.21707297478473583,
+        "absoluteError": 4.0042896111728285e+24,
+        "complexity": 15,
+        "generationTime": 1510.186,
+        "biggestError": 9.223372036854776e+18,
+        "biggestErrorInput": [
+            4.357517816620567e+48
+        ],
+        "biggestErrorOutput": 9.223372036854776e+18,
+        "correctCount": 3,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_Short_toUnsignedLong_short__best_individual.json",
+        "formula": "int_add(int_add(int_add(ARG0, int_sub(int_add(int_abs(int_sub(ARG0, INT(101))), INT(52)), int_abs(int_add(ARG0, INT(52))))), int_sub(int_add(int_abs(int_sub(ARG0, INT(108))), INT(229)), int_abs(int_add(int_sub(int_add(INT(221), ARG0), INT(253)), INT(52))))), int_mul(int_sub(int_add(int_add(INT(108), INT(162)), int_add(INT(121), int_abs(int_add(ARG0, INT(66))))), int_neg(int_add(ARG0, INT(199)))), int_sub(int_add(int_abs(ARG0), INT(62)), int_abs(int_add(ARG0, INT(62))))))",
+        "relativeError": 0.14819519725337604,
+        "absoluteError": 9711972252.0,
+        "complexity": 47,
+        "generationTime": 3624.6934,
+        "biggestError": 63806.0,
+        "biggestErrorInput": [
+            -1
+        ],
+        "biggestErrorOutput": 65535.0,
+        "correctCount": 241407,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_StrictMath_abs_long__best_individual.json",
+        "formula": "int_abs(ARG0)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 6.938324,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_StrictMath_max_long_long__best_individual.json",
+        "formula": "int_abs(int_sub(int_abs(int_if_then_else(logic_and(logic_or(BOOL(False), BOOL(True)), int_compare(INT(32), ARG1)), int_add(ARG1, int_sub(int_abs(ARG1), int_abs(ARG0))), ARG0)), int_abs(int_sub(int_sub(int_abs(ARG1), int_abs(ARG0)), int_abs(ARG0)))))",
+        "relativeError": 0.017366468043864956,
+        "absoluteError": 3.203547914694322e+23,
+        "complexity": 21,
+        "generationTime": 1892.4318,
+        "biggestError": 9.223372036854776e+18,
+        "biggestErrorInput": [
+            -9223372036854775808,
+            -22477
+        ],
+        "biggestErrorOutput": -22477.0,
+        "correctCount": 36437,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_StrictMath_min_long_long__best_individual.json",
+        "formula": "int_sub(int_add(int_add(int_mul(int_mul(INT(228), INT(203)), int_mul(int_neg(INT(236)), int_mul(int_mul(INT(228), INT(255)), int_mul(INT(227), INT(235))))), ARG1), int_abs(ARG1)), int_abs(int_sub(int_sub(int_mul(int_neg(int_mul(INT(255), INT(255))), int_mul(int_mul(INT(228), INT(255)), int_mul(INT(255), INT(235)))), int_sub(ARG1, ARG0)), int_abs(ARG1))))",
+        "relativeError": 0.029002039795608864,
+        "absoluteError": 5.349932057251364e+23,
+        "complexity": 36,
+        "generationTime": 1734.152,
+        "biggestError": 1.8446633858793091e+19,
+        "biggestErrorInput": [
+            -9223372036854775808,
+            8385189330357434
+        ],
+        "biggestErrorOutput": -9.223372036854776e+18,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_StrictMath_multiplyFull_int_int__best_individual.json",
+        "formula": "int_mul(ARG0, ARG1)",
+        "relativeError": 0.0,
+        "absoluteError": 0.0,
+        "complexity": 2,
+        "generationTime": 7.4515285,
+        "biggestError": 0.0,
+        "correctCount": 1000000,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_StrictMath_multiplyHigh_long_long__best_individual.json",
+        "formula": "int_sub(ARG0, ARG0)",
+        "relativeError": 0.0006202244035505339,
+        "absoluteError": 5.720560420282926e+21,
+        "complexity": 2,
+        "generationTime": 121.414566,
+        "biggestError": 4.611686018427388e+18,
+        "biggestErrorInput": [
+            -9223372036854775808,
+            -9223372036854775808
+        ],
+        "biggestErrorOutput": 4.611686018427388e+18,
+        "correctCount": 299813,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_long_java_lang_StrictMath_round_double__best_individual.json",
+        "formula": "int_add(INT(15), int_if_then_else(real_less_than(ARG0, real_div(FLOAT(0.01018357090651989), real_floor(real_mul(real_add(ARG0, FLOAT(3.032597303390503)), FLOAT(0.01018357090651989))))), INT(160), INT(187)))",
+        "relativeError": 0.21728121059120248,
+        "absoluteError": 4.0081308838017015e+24,
+        "complexity": 14,
+        "generationTime": 3435.3926,
+        "biggestError": 9.223372036854776e+18,
+        "biggestErrorInput": [
+            1.810352641715019e+82
+        ],
+        "biggestErrorOutput": 9.223372036854776e+18,
+        "correctCount": 5,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_native_int_java_lang_Float_floatToRawIntBits_float__best_individual.json",
+        "formula": "int_mul(int_sub(int_add(int_mul(INT(221), INT(207)), int_mul(INT(13), int_neg(INT(72)))), int_if_then_else(real_less_than(FLOAT(-0.015405227430164814), real_div(FLOAT(0.28167077898979187), real_floor(real_mul(ARG0, FLOAT(0.19178295135498047))))), int_add(int_neg(int_add(INT(25), INT(251))), int_neg(int_mul(INT(29), INT(90)))), INT(239))), int_mul(INT(123), INT(191)))",
+        "relativeError": 0.31268125586163337,
+        "absoluteError": 1341643811229504.0,
+        "complexity": 32,
+        "generationTime": 3613.896,
+        "biggestError": 3194612120.0,
+        "biggestErrorInput": [
+            -2.136e-42
+        ],
+        "biggestErrorOutput": -2147482124.0,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_native_long_java_lang_Double_doubleToRawLongBits_double__best_individual.json",
+        "formula": "int_mul(int_mul(int_add(int_add(int_abs(int_add(int_mul(INT(57), INT(27)), int_mul(INT(131), INT(195)))), int_add(int_add(INT(33), INT(168)), int_neg(INT(30)))), int_mul(INT(183), int_mul(INT(255), INT(200)))), int_mul(INT(255), INT(207))), int_abs(int_if_then_else(real_less_than(ARG0, FLOAT(0.5862815380096436)), int_mul(int_abs(int_mul(INT(137), INT(249))), int_if_then_else(BOOL(True), int_add(INT(67), INT(207)), int_if_then_else(BOOL(True), INT(90), INT(150)))), INT(67))))",
+        "relativeError": 0.393697429249786,
+        "absoluteError": 6.37543846978718e+24,
+        "complexity": 46,
+        "generationTime": 3618.4048,
+        "biggestError": 1.1590788498528635e+19,
+        "biggestErrorInput": [
+            -3.2134417054009133e-158
+        ],
+        "biggestErrorOutput": -6.972631604153197e+18,
+        "correctCount": 0,
+        "totalEvaluated": 1000000
+    },
+    {
+        "fileName": "public_static_short_java_lang_Short_reverseBytes_short__best_individual.json",
+        "formula": "int_add(int_abs(int_sub(int_add(int_abs(int_add(int_add(INT(255), ARG0), int_add(INT(255), ARG0))), int_abs(int_add(INT(198), int_add(INT(222), ARG0)))), int_abs(int_sub(int_sub(int_sub(INT(231), ARG0), int_add(ARG0, ARG0)), int_sub(int_add(ARG0, ARG0), INT(87)))))), int_sub(int_add(int_abs(int_add(INT(87), int_add(INT(87), int_add(ARG0, ARG0)))), int_abs(int_add(int_sub(int_add(ARG0, INT(122)), int_neg(ARG0)), int_add(INT(222), int_add(ARG0, ARG0))))), int_abs(int_sub(int_sub(int_sub(INT(255), int_sub(ARG0, INT(231))), int_add(int_add(ARG0, ARG0), int_add(ARG0, ARG0))), int_add(int_add(ARG0, ARG0), int_sub(ARG0, INT(255)))))))",
+        "relativeError": 0.15454032341496912,
+        "absoluteError": 10127800095.0,
+        "complexity": 56,
+        "generationTime": 3627.3806,
+        "biggestError": 34763.0,
+        "biggestErrorInput": [
+            128
+        ],
+        "biggestErrorOutput": -32768.0,
+        "correctCount": 23,
+        "totalEvaluated": 1000000
+    }
+]

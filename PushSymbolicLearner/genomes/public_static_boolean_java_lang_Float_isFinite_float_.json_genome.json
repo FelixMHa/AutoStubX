@@ -1,0 +1,20 @@
+{
+  "fitness": 0.015,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 4.108205556869507,
+  "methods": {
+    "isFinite": {
+      "program": [
+        [
+          "INT.LT"
+        ],
+        "BIT.AND",
+        "FLOAT.IS_FINITE"
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

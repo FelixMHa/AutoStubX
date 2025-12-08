@@ -1,0 +1,16 @@
+{
+  "fitness": 0.9134848484848485,
+  "accuracy": 0.09151515151515152,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 263.21252059936523,
+  "methods": {
+    "charAt": {
+      "program": [
+        "STR_CHAR_AT"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "fitness": 0.39816016664467657,
+  "accuracy": 0.7298,
+  "complexity_penalty": 0.0,
+  "method_accuracies": {},
+  "executionTime": 54.20420718193054,
+  "methods": {
+    "incrementExact": {
+      "program": [],
+      "accuracy": 0.0,
+      "complexity": 0
+    }
+  }
+}

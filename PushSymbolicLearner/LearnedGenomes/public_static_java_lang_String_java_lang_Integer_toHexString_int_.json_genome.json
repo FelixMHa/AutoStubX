@@ -1,0 +1,16 @@
+{
+  "fitness": 0.7507162847290209,
+  "accuracy": 0.1206060606060606,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 404.6837658882141,
+  "methods": {
+    "toHexString": {
+      "program": [
+        "INT_TO_STR"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

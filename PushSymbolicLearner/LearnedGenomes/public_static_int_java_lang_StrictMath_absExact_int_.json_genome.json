@@ -1,0 +1,17 @@
+{
+  "fitness": 0.46484848484848484,
+  "accuracy": 0.5451515151515152,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 239.35354113578796,
+  "methods": {
+    "absExact": {
+      "program": [
+        "INT.CONST.-1",
+        "SWAP.ANY"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

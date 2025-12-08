@@ -1,0 +1,17 @@
+{
+  "fitness": 0.01290909090909091,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 222.0691797733307,
+  "methods": {
+    "longValue": {
+      "program": [
+        "INT.CONST.5",
+        "SWAP.ANY"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

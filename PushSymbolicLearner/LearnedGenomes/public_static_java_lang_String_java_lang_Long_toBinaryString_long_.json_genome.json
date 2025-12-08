@@ -1,0 +1,18 @@
+{
+  "fitness": 0.8833277965694151,
+  "accuracy": 0.04787878787878788,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 240.9555425643921,
+  "methods": {
+    "toBinaryString": {
+      "program": [
+        [
+          "INT_TO_STR"
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

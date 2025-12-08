@@ -1,0 +1,19 @@
+{
+  "fitness": 0.8974755135772637,
+  "accuracy": 0.08666666666666667,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 392.34490633010864,
+  "methods": {
+    "reverseBytes": {
+      "program": [
+        [
+          "INT.CONST.3"
+        ],
+        "SWAP.ANY"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "fitness": 0.005,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 4.0185706615448,
+  "methods": {
+    "compare": {
+      "program": [
+        "INT.SUB"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}

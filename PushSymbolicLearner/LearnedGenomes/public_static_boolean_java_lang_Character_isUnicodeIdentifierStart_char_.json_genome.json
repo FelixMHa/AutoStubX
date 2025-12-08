@@ -1,0 +1,19 @@
+{
+  "fitness": 0.3615151515151515,
+  "accuracy": 0.6484848484848484,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 211.4284222126007,
+  "methods": {
+    "isUnicodeIdentifierStart": {
+      "program": [
+        "STR.TO.FLOAT",
+        [
+          "FLOAT.IS_INF"
+        ]
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

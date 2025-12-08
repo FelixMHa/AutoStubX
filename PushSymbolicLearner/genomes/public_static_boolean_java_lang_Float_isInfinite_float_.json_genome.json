@@ -1,0 +1,22 @@
+{
+  "fitness": 0.015,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.015,
+  "method_accuracies": {},
+  "executionTime": 5.733920574188232,
+  "methods": {
+    "isInfinite": {
+      "program": [
+        [
+          "STR_TO_ASCII"
+        ],
+        [
+          "FLOAT.IS_INF"
+        ],
+        "INT.GT"
+      ],
+      "accuracy": 0.0,
+      "complexity": 3
+    }
+  }
+}

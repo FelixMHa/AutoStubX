@@ -1,0 +1,17 @@
+{
+  "fitness": 0.37680741720497063,
+  "accuracy": 0.5127272727272727,
+  "complexity_penalty": 0.01,
+  "method_accuracies": {},
+  "executionTime": 765.0307812690735,
+  "methods": {
+    "toUnsignedString": {
+      "program": [
+        "INT_TO_STR",
+        "INT_TO_STR"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    }
+  }
+}

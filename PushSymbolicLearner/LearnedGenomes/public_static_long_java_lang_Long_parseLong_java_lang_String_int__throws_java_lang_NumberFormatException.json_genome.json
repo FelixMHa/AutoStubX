@@ -1,0 +1,16 @@
+{
+  "fitness": 0.9872086802086811,
+  "accuracy": 0.0,
+  "complexity_penalty": 0.005,
+  "method_accuracies": {},
+  "executionTime": 205.06252884864807,
+  "methods": {
+    "parseLong": {
+      "program": [
+        "STR_TO_LOWER"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    }
+  }
+}
