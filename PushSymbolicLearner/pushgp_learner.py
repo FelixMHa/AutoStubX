@@ -236,6 +236,29 @@ class INT_EQ(PushInstruction):
             a = state.integer_stack.pop()
             state.boolean_stack.append(a == b)
 
+class INT_ABS(PushInstruction):
+    def __init__(self):
+        super().__init__("INT.ABS")
+
+    def execute(self, state: PushState):
+        if state.integer_stack:
+            _int=state.integer_stack.pop()
+            if _int<0:
+                state.integer_stack.append(-_int)
+            else:
+                state.integer_stack.append(_int)
+
+
+class INT_COMPARE_RANGE(PushInstruction):
+    def __init__(self):
+        super().__init__("INT.COMPARE_RANGE")
+
+    def execute(self, state: PushState):
+        if len(state.integer_stack) >= 3:
+            upper = state.integer_stack.pop()
+            lower = state.integer_stack.pop()
+            value = state.integer_stack.pop()
+            state.boolean_stack.append(lower <= value <= upper)
 
 class ITE_INT(PushInstruction):
     def __init__(self):
@@ -433,6 +456,25 @@ class ITE_FLOAT(PushInstruction):
             true_val = state.float_stack.pop()
             cond = state.boolean_stack.pop()
             state.float_stack.append(true_val if cond else false_val)
+
+#ERCs
+class ERC_INT(PushInstruction):
+    def __init__(self):
+        value = random.randint(-10, 10)
+        super().__init__(f"ERC.INT.{value}")
+        self.value = value
+
+    def execute(self, state: PushState):
+        state.integer_stack.append(self.value)
+        
+class ERC_FLOAT(PushInstruction):
+    def __init__(self):
+        value = random.uniform(-10.0, 10.0)
+        super().__init__(f"ERC.FLOAT.{value:.2f}")
+        self.value = value
+
+    def execute(self, state: PushState):
+        state.float_stack.append(self.value)
 
 #Boolean Instructions
 class BOOL_CONST(PushInstruction):
@@ -760,9 +802,9 @@ class STR_TRIM(PushInstruction):
             state.string_stack.append(state.string_stack.pop().strip())
 
 
-class STR_IF(PushInstruction):
+class STR_ITE(PushInstruction):
     def __init__(self):
-        super().__init__("STR_IF")
+        super().__init__("STR_ITE")
 
     def execute(self, state: PushState):
         if state.boolean_stack and len(state.string_stack) >= 2:
@@ -771,6 +813,13 @@ class STR_IF(PushInstruction):
             cond = state.boolean_stack.pop()
             state.string_stack.append(true_val if cond else false_val)
 
+class STR_CONST(PushInstruction):
+    def __init__(self, value: str):
+        super().__init__(f"STR.CONST.{value}")
+        self.value = value
+
+    def execute(self, state: PushState):
+        state.string_stack.append(self.value)
 
 #  Execution Control
 class EXEC_IF(PushInstruction):
@@ -897,6 +946,8 @@ class DS_SET_INDEX(PushInstruction):
                 state.data_structure_stack[index] = value
                 # Return old value like Java List.set
                 state.push_to_appropriate_stack(old)
+            else:
+                state.error_stack.append("error")
 
 
 class DS_INSERT_AT_INDEX(PushInstruction):
@@ -1167,8 +1218,9 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
     # Core integers (include linear + multiplicative ops for regression)
     instructions.extend([
         INT_ADD(), INT_SUB(), INT_MUL(), INT_DIV(),
-        INT_EQ(), INT_GT(), INT_LT(),
-        INT_NEG(), INT_MOD(), ITE_INT(),
+        INT_EQ(), INT_LT(),
+        INT_NEG(), INT_ABS(), ITE_INT(),
+        INT_COMPARE_RANGE(),
     ])
     for i in range(-4, 7):
         instructions.append(INT_CONST(i))
@@ -1177,17 +1229,18 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
     instructions.extend([
         FLOAT_ADD(), FLOAT_SUB(), FLOAT_MUL(), FLOAT_DIV(),
         FLOAT_NEG(), FLOAT_ABS(), FLOAT_FLOOR(),
-        FLOAT_COS(), FLOAT_LT(), FLOAT_GT(), FLOAT_EQ(), ITE_FLOAT(),
-        FLOAT_TO_STR(), STR_TO_FLOAT(), FLOAT_IS_NAN(), FLOAT_IS_INF(),
-        FLOAT_IS_FINITE(),
+        FLOAT_COS(), FLOAT_LT(), FLOAT_EQ(), ITE_FLOAT(),
+        FLOAT_TO_STR(), STR_TO_FLOAT(),
+        #FLOAT_IS_NAN(), FLOAT_IS_INF(),
+        #FLOAT_IS_FINITE(),
     ])
-    for f in [0.0, 1.0, -1.0, 2.0, 0.5]:
+    for f in [0.0, 1.0, -1.0]:
         instructions.append(FLOAT_CONST(f))
 
     # Booleans
     instructions.extend([
         BOOL_AND(), BOOL_OR(), BOOL_NOT(), BOOL_XOR(),
-        BOOL_TO_INT(), ITE_BOOL(),
+        #BOOL_TO_INT(), ITE_BOOL(),
     ])
 
     instructions.extend([
@@ -1195,19 +1248,27 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
     ])
 
     # Bit
-    instructions.extend([
+    """instructions.extend([
         BIT_AND(), BIT_OR(), BIT_XOR(),   
         BIT_NOT(), BIT_SHL(), BIT_SHR(),      
-    ])
+    ])"""
 
     # Strings (minimal core)
     instructions.extend([
-        STR_CONCAT(), STR_EQ(), STR_LEN(), STR_CHAR_AT(),    
-        STR_STARTS_WITH(), STR_CONTAINS(), STR_INDEX_OF(),   
-        STR_SUBSTRING(), STR_REPLACE(), STR_REPLACE_ALL(),
-        STR_TO_INT(), INT_TO_STR(), ASCII_TO_STR(), STR_TO_ASCII(),   
-        STR_TO_LOWER(), STR_TO_UPPER(), STR_TRIM(), STR_IF(),         
+        STR_CONCAT(), STR_EQ(), STR_LEN(), STR_CONTAINS(), 
+        STR_INDEX_OF(), STR_SUBSTRING(), STR_REPLACE(), STR_REPLACE_ALL(),
+        STR_TO_INT(), INT_TO_STR(), ASCII_TO_STR(), STR_TO_ASCII(), STR_ITE(),         
     ])
+
+    instructions.extend([
+        STR_CONST(""), STR_CONST(" "),
+    ])
+
+    # ERCS
+    instructions.extend([
+        ERC_INT(),
+        ERC_FLOAT()
+        ])
 
     # Utilities helpful for expression building
     instructions.extend([DUP_ANY(), SWAP_ANY(), POP_ANY()])
@@ -1221,7 +1282,7 @@ class PushProgram:
     def __init__(self, code: List[Union[PushInstruction, List]] = None):
         self.code = code or []
     
-    def execute(self, state: PushState, method_args: List[Any] = None):
+    def execute(self, state: PushState):
         """Execute program with  argument handling"""
         # Initialize execution stack with program
         if self.code:
@@ -1343,8 +1404,6 @@ class PushGPInterpreter:
         """Execute each method Push program in a sequence, preserving DS state."""
         state = PushState(max_steps=self.max_steps)
         step_results = []
-        ds_states =  []
-        ds_states.append([])
         used_inputs = []
         for i, method_name in enumerate(example.sequence):
             args = example.input_args[i] if i < len(example.input_args) else []
@@ -1377,7 +1436,6 @@ class PushGPInterpreter:
             # Read result directly based on expected type
             result = self._extract_result_from_state(state, expected_type)
             step_results.append(result)
-            ds_states.append(copy.deepcopy(state.data_structure_stack))
 
             # Determine if any initial arguments were consumed (prefix check)
             def _prefix_preserved(init, after):
@@ -1392,7 +1450,7 @@ class PushGPInterpreter:
             if not (init_int or init_bool or init_str or init_float):
                 used = True
             used_inputs.append(used)
-        return step_results, ds_states, used_inputs
+        return step_results, used_inputs
 
 
     def _extract_result_from_state(self, state: "PushState", expected_type: str):
@@ -1439,10 +1497,7 @@ class PushGPInterpreter:
         if stack and len(stack) > 0:
             return stack[-1]
         return None
-        stack = type_map.get(expected_type)
-        if stack and len(stack) > 0:
-            return stack[-1]
-        return None
+
 
 
     
@@ -1521,7 +1576,7 @@ def _extract_method_names(training_data: List[TrainingExample]) -> List[str]:
             method_names.add(method_name)
     return list(method_names)
 
-def get_mutators(training_data: List["TrainingExample"]) -> List[str]:
+"""def get_mutators(training_data: List["TrainingExample"]) -> List[str]:
 
     method_inputs = defaultdict(list)
     method_outputs = defaultdict(list)
@@ -1557,7 +1612,7 @@ def get_mutators(training_data: List["TrainingExample"]) -> List[str]:
 
 
     return sorted(set(mutators))
-
+"""
 def serialize_program(code):
         """Convert program to serializable format"""
         result = []
@@ -1580,56 +1635,53 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
                         max_steps: Optional[int] = None) -> PushGPGenome:
     
     _validate_evolution_params(training_data, population_size, generations)
-
+    
     if processes is None:
-        try:
-            processes = min(population_size, os.cpu_count() or 2)
-        except Exception:
-            processes = min(population_size, 2)
+        processes = min(population_size, os.cpu_count() or 2)
     if max_steps is None:
         max_steps = 80
-
+    
     interpreter = PushGPInterpreter(profile=profile, max_steps=max_steps)
     method_names = _extract_method_names(training_data)
-    mutators = get_mutators(training_data)
+
     
     print(f"Learning PushGP programs for {len(method_names)} methods: {method_names}")
     
-    # Create initial population with smarter initialization
+
     population = []
     for _ in range(population_size):
         genome = PushGPGenome()
         for method_name in method_names:
-            # Use smart initialization (70% smart, 30% random)
-            if random.random() < 0.7:
+            if random.random() < 0:  
                 program_code = interpreter.create_smart_initial_program(method_name)
             else:
-                program_code = interpreter.random_program(max_depth=2, max_length=5)
+                program_code = interpreter.random_program(max_depth=2, max_length=4)
             
             program = PushProgram(program_code)
             genome.add_method(method_name, program)
         population.append(genome)
     
-    # Evolution loop
     best_genome = None
     best_fitness = float('inf')
     stall_count = 0
     
     for generation in range(generations):
-    
-
-        # Early-abort threshold based on previous best (ignore complexity for bound)
-        early_threshold = None if best_genome is None else best_fitness
-
-        # Parallel evaluation of population
+        # Parallel evaluation
+        early_threshold = best_fitness if best_genome else None
+        
         with ProcessPoolExecutor(max_workers=max(1, min(processes, population_size))) as executor:
             population = list(executor.map(
                 evaluate_wrapper,
-                [(g, training_data, interpreter, mutators, early_threshold) for g in population]
+                [(g, training_data, interpreter, early_threshold) for g in population]
             ))
         
-        # Track best genome
+        
+        if generation % 10 == 0 and generation > 0:
+            population = maintain_diversity(population, training_data, interpreter)
+        
+        # Sort and track best
         population.sort(key=lambda x: x.fitness)
+        
         if population[0].fitness < best_fitness:
             best_fitness = population[0].fitness
             best_genome = population[0].copy()
@@ -1637,49 +1689,42 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
         else:
             stall_count += 1
         
-        # Progress report
-        if generation % max(1, log_every) == 0:
+        # Progress logging
+        if generation % log_every == 0:
             best = population[0]
-            print(f"Generation {generation}: Best fitness: {best.fitness:.6f}, "
-                  f"accuracy: {best.accuracy:.3f}, complexity: {best.complexity_penalty:.3f}")
-            print("Genome methods:")
+            print(f"Gen {generation}: Fitness={best.fitness:.6f}, "
+                  f"Acc={best.accuracy:.3f}, Complexity={best.complexity_penalty:.3f}")
             for method_name, program in best.methods.items():
-                serialized = serialize_program(program.code)
-                print(f"{method_name}: {serialized}")
+                print(f"  {method_name}: {serialize_program(program.code)}")
         
         # Early stopping
-        if population[0].accuracy == 1.0:
-            if best_fitness < 0.02:
-                print(f"Early stopping at generation {generation}")
-                break
-        
-        if stall_count >= no_improve_generations:
-            print(f"No improvement for {no_improve_generations} generations. Stopping at generation {generation}.")
+        if population[0].accuracy >= 0.99 and population[0].fitness < 0.02:
+            print(f"Solution found at generation {generation}")
             break
         
-        # Create next generation
+        if stall_count >= no_improve_generations:
+            print(f"Stopping after {no_improve_generations} gens without improvement")
+            break
+        
+        
         new_population = []
         
-        # Elitism
-        elite_count = max(1, population_size // 10)
-        new_population.extend([genome.copy() for genome in population[:elite_count]])
+        # Elitism (keep top 15%)
+        elite_count = max(2, population_size // 7)
+        new_population.extend([g.copy() for g in population[:elite_count]])
         
         # Generate offspring
         while len(new_population) < population_size:
-            if random.random() < 0.7:  # Crossover
-                parent1 = tournament_selection(population, 3)
-                parent2 = tournament_selection(population, 3)
+            if random.random() < 0.6:  # Crossover
+                parent1 = tournament_selection(population, 5) 
+                parent2 = tournament_selection(population, 5)
                 offspring = crossover_genomes(parent1, parent2)
-            else:  # Mutation only
-                parent = tournament_selection(population, 3)
+            else:  # Clone + mutate
+                parent = tournament_selection(population, 5)
                 offspring = parent.copy()
             
-            # Mutate with decaying mutation rate
-            base_rate = 0.8
-            min_rate = 0.5
-            frac = generation / max(1, generations - 1)
-            current_mutation_rate = max(min_rate, base_rate * (1.0 - 0.7 * frac))
-            mutate_genome(offspring, interpreter, mutation_rate=current_mutation_rate)
+            
+            adaptive_mutate_genome(offspring, interpreter, generation, generations)
             new_population.append(offspring)
         
         population = new_population
@@ -1687,54 +1732,59 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
     return best_genome
 
 def evaluate_wrapper(args):
-    genome, training_data, interpreter, mutators, early_threshold = args
-    return evaluate_genome(genome, training_data, interpreter, mutators, early_stop_threshold=early_threshold)
+    genome, training_data, interpreter, early_threshold = args
+    return evaluate_genome(genome, training_data, interpreter, early_stop_threshold=early_threshold)
 
-def evaluate_genome(genome: PushGPGenome, training_data, interpreter, mutators, early_stop_threshold: Optional[float] = None):
+def evaluate_genome(genome: PushGPGenome, training_data, interpreter, early_stop_threshold: Optional[float] = None):
     total_error = 0.0
     total_examples = 0
     correct_predictions = 0
 
-    # Precompute abort sum bound if threshold provided
     abort_sum = None
     if early_stop_threshold is not None:
-        abort_sum = early_stop_threshold * max(1, len(training_data))
+        abort_sum = early_stop_threshold * len(training_data)
     
     for example in training_data:
         try:
-            predicted_outputs, ds_states, used_inputs = interpreter.execute_sequence(genome, example)
-            genome_error = aggregate_genome_error(example.sequence, predicted_outputs, example.expected_outputs)
-
-            # Invariant and empty-case penalties
-            #inv_pen = compute_invariant_penalty(example.sequence, predicted_outputs, example.expected_outputs, ds_states)
+            predicted_outputs, used_inputs = interpreter.execute_sequence(genome, example)
+            
+     
+            genome_error = aggregate_genome_error(
+                example.sequence, predicted_outputs, example.expected_outputs
+            )
+            
+            # Penalties
             unused_pen = compute_arg_unused_penalty(example.sequence, used_inputs, example.input_args)
-
-            #mutator_bonus = compute_mutator_bonus(example.sequence, predicted_outputs, example.expected_outputs, mutators, ds_states=ds_states)
-            fitness_error = min(1.0, genome_error + unused_pen)
-
+            fitness_error = min(1.0, genome_error + 0.1 * unused_pen)  
+            
             total_error += fitness_error
             total_examples += 1
+            
             if genome_error < 0.01:
                 correct_predictions += 1
-
-            # Early abort: even if remaining examples were perfect, the mean can't drop below threshold
+            
+            # Early abort
             if abort_sum is not None and total_error > abort_sum:
-                # Assign poor fitness and stop evaluation early for this genome
                 genome.fitness = 1e5
-                genome.accuracy = correct_predictions / total_examples if total_examples > 0 else 0.0
+                genome.accuracy = correct_predictions / total_examples
                 genome.complexity_penalty = genome.get_complexity_penalty()
                 return genome
+                
         except Exception:
             total_error += 1
             total_examples += 1
     
     base_fitness = total_error / total_examples if total_examples > 0 else 1.0
     complexity_penalty = genome.get_complexity_penalty()
-    genome.fitness = base_fitness + complexity_penalty
-    genome.accuracy = correct_predictions / total_examples if total_examples > 0 else 1.0
+    
+ 
+    genome.fitness = base_fitness + 0.5 * complexity_penalty  # Was 1.0x
+    genome.accuracy = correct_predictions / total_examples if total_examples > 0 else 0.0
     genome.complexity_penalty = complexity_penalty
     
     return genome
+
+
 
 
 def tournament_selection(population: List[PushGPGenome], tournament_size: int) -> PushGPGenome:
@@ -1799,15 +1849,71 @@ def crossover_programs(program1: List, program2: List) -> List:
         mid2 = len(program2) // 2
         return program1[:mid1] + program2[mid2:]
 
-def mutate_genome(genome: PushGPGenome, interpreter: PushGPInterpreter, 
-                 mutation_rate: float = 0.5):
-    """ mutation"""
+def adaptive_mutate_genome(genome: PushGPGenome, interpreter: PushGPInterpreter,
+                          generation: int, max_generations: int,
+                          base_rate: float = 0.3):
+    """genome mutation"""
+    # High early exploration, low late refinement
+    progress = generation / max(1, max_generations)
+    mutation_rate = base_rate * (1.0 - 0.8 * progress)  # Drops to 20% of base
+    
     for method_name, program in genome.methods.items():
         if random.random() < mutation_rate:
-            mutate_program(program.code, interpreter, method_name, mutation_rate)
+            # Choose mutation type based on program quality
+            acc = genome.method_accuracies.get(method_name, 0.0)
+            
+            if acc < 0.3:
+                # Poor performance: major changes
+                mutate_program_aggressive(program.code, interpreter)
+            elif acc < 0.7:
+                # Medium performance: moderate changes
+                mutate_program(program.code, interpreter, mutation_rate=0.4)
+            else:
+                # Good performance: minor tweaks only
+                mutate_program_conservative(program.code, interpreter)
 
-def mutate_program(program: List, interpreter: PushGPInterpreter, 
-                  method_name: str, mutation_rate: float = 0.6):
+def mutate_program_aggressive(program: List, interpreter: PushGPInterpreter):
+    """Aggressive mutation for poor performers"""
+    # Replace large chunks
+    if len(program) > 2 and random.random() < 0.5:
+        start = random.randint(0, len(program) - 2)
+        end = random.randint(start + 1, len(program))
+        replacement = interpreter.random_program(max_depth=2, max_length=3)
+        program[start:end] = replacement
+    else:
+        # Replace multiple random instructions
+        for i in range(len(program)):
+            if random.random() < 0.5:
+                program[i] = random.choice(interpreter.instruction_list)
+
+def mutate_program_conservative(program: List, interpreter: PushGPInterpreter):
+    """Conservative mutation for good performers"""
+    if not program:
+        return
+    
+    mutation_type = random.choice(['swap', 'tweak_constant', 'insert'])
+    
+    if mutation_type == 'swap' and len(program) >= 2:
+        # Swap two adjacent instructions
+        i = random.randint(0, len(program) - 2)
+        program[i], program[i+1] = program[i+1], program[i]
+    
+    elif mutation_type == 'tweak_constant':
+        # Modify a constant slightly
+        for i, instr in enumerate(program):
+            if hasattr(instr, 'value') and isinstance(instr.value, int):
+                if random.random() < 0.3:
+                    delta = random.choice([-1, 0, 1])
+                    new_val = instr.value + delta
+                    if hasattr(instr, '__class__'):
+                        program[i] = instr.__class__(new_val)
+    
+    elif mutation_type == 'insert' and len(program) < 10:
+        # Insert single instruction
+        pos = random.randint(0, len(program))
+        program.insert(pos, random.choice(interpreter.instruction_list))
+
+def mutate_program(program: List, interpreter: PushGPInterpreter, mutation_rate: float = 0.4):
     """ program mutation"""
     def mutate_recursive(prog):
         for i, item in enumerate(prog):
@@ -1841,6 +1947,60 @@ def mutate_program(program: List, interpreter: PushGPInterpreter,
     
     mutate_recursive(program)
 
+def _calculate_behavioral_signature(genome: PushGPGenome, 
+                                   training_data: List[TrainingExample],
+                                   interpreter: PushGPInterpreter,
+                                   sample_size: int = 5) -> tuple:
+    """Create behavioral signature for diversity measurement"""
+    signature = []
+    samples = random.sample(training_data, min(sample_size, len(training_data)))
+    
+    for example in samples:
+        try:
+            predicted, _, _ = interpreter.execute_sequence(genome, example)
+            # Hash the outputs
+            sig = tuple(str(p) for p in predicted)
+            signature.append(sig)
+        except:
+            signature.append(None)
+    
+    return tuple(signature)
+
+
+def maintain_diversity(population: List[PushGPGenome],
+                      training_data: List[TrainingExample],
+                      interpreter: PushGPInterpreter,
+                      diversity_threshold: float = 0.3) -> List[PushGPGenome]:
+    """Ensure population maintains behavioral diversity"""
+    if len(population) < 10:
+        return population
+    
+    # Calculate signatures
+    signatures = [_calculate_behavioral_signature(g, training_data, interpreter) 
+                  for g in population]
+    
+    # Keep diverse individuals
+    diverse_pop = [population[0]]  # Keep best
+    diverse_sigs = [signatures[0]]
+    
+    for genome, sig in zip(population[1:], signatures[1:]):
+        # Check if sufficiently different from existing
+        is_diverse = True
+        for existing_sig in diverse_sigs:
+            similarity = sum(1 for a, b in zip(sig, existing_sig) if a == b) / len(sig)
+            if similarity > (1 - diversity_threshold):
+                is_diverse = False
+                break
+        
+        if is_diverse:
+            diverse_pop.append(genome)
+            diverse_sigs.append(sig)
+        elif len(diverse_pop) < len(population) * 0.8:
+            # Still accept some similar ones to maintain population size
+            diverse_pop.append(genome)
+            diverse_sigs.append(sig)
+    
+    return diverse_pop
 
 
 def _string_error(a: str, b: str) -> float:
@@ -1904,34 +2064,32 @@ def calculate_per_call_errors(sequence: List[str], predicted: List[Any], expecte
 
 def aggregate_genome_error(sequence: List[str],
                            predicted: List[Any],
-                           expected: List[Any],
-                           decay: float = 0.9) -> float:
+                           expected: List[Any]) -> float:
     if not sequence:
         return 0.0
 
     per_call = calculate_per_call_errors(sequence, predicted, expected)
-
-    # Group errors by call name
+    
+    # Exponential penalty for errors
+    exp_errors = [err ** 0.5 for err in per_call]  # sqrt makes small errors less costly
+    
+    # Group by method name
     grouped = defaultdict(list)
-    for name, err in zip(sequence, per_call):
+    for name, err in zip(sequence, exp_errors):
         grouped[name].append(err)
-
-    # Average error per unique call
-    unique_errors = [sum(errs)/len(errs) for errs in grouped.values()]
-
-    # Apply decay weighting across unique calls
-    if decay == 1.0:
-        call_mean = sum(unique_errors) / len(unique_errors)
-    else:
-        weights = [decay ** i for i in range(len(unique_errors))]
-        total_w = sum(weights)
-        call_mean = sum(e * w for e, w in zip(unique_errors, weights)) / total_w
-
-    return float(max(0.0, min(1.0, call_mean)))
+    
+    # Average per method
+    method_errors = [sum(errs)/len(errs) for errs in grouped.values()]
+    # Weight recent errors more heavily (they depend on earlier correctness)
+    weights = [1.0 + i * 0.1 for i in range(len(method_errors))]
+    total_w = sum(weights)
+    weighted_mean = sum(e * w for e, w in zip(method_errors, weights)) / total_w
+    
+    return float(max(0.0, min(1.0, weighted_mean)))
 
 
-def compute_invariant_penalty(sequence: List[str], predicted: List[Any], expected: List[Any], ds_states: List[List[Any]]) -> float:
-    """Penalize mutations for methods that must be pure (peekLast/get/size)."""
+"""def compute_invariant_penalty(sequence: List[str], predicted: List[Any], expected: List[Any], ds_states: List[List[Any]]) -> float:
+
     violations = 0
 
     for i, method in enumerate(sequence):
@@ -1954,7 +2112,7 @@ def compute_invariant_penalty(sequence: List[str], predicted: List[Any], expecte
     # Normalize penalty: fraction of violations, capped at 1.0
     penalty = min(1.0, violations / max(1, len(sequence)))
     return penalty
-
+"""
 
 def compute_arg_unused_penalty(sequence: List[str], used_inputs: List[bool], input_args: List[List[Any]]) -> float:
     """Penalize calls that ignore all of their input arguments.
@@ -1975,11 +2133,8 @@ def compute_arg_unused_penalty(sequence: List[str], used_inputs: List[bool], inp
         return 0.0
     return min(1.0, weight * misses / max(1, len(sequence)))
 
-def compute_mutator_bonus(sequence, predicted, expected, mutator_methods, ds_states=None):
-    """
-    Reward mutators whose effect improves later outputs AND changes DS state.
-    Averages per-mutator downstream correctness [0..1].
-    """
+"""def compute_mutator_bonus(sequence, predicted, expected, mutator_methods, ds_states=None):
+
     bonus = 0.0
     mut_count = 0
 
@@ -2007,4 +2162,4 @@ def compute_mutator_bonus(sequence, predicted, expected, mutator_methods, ds_sta
         correct = sum(1 for p, e in zip(later_pred, later_exp) if _rec_error(p, e) < 0.01)
         bonus += correct / len(later_exp)
 
-    return bonus / mut_count if mut_count > 0 else 0.0
+    return bonus / mut_count if mut_count > 0 else 0.0"""

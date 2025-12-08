@@ -1,12 +1,80 @@
 {
-  "fitness": 0.005,
-  "accuracy": 1.0,
-  "complexity_penalty": 0.005,
+  "fitness": 0.06008322440945237,
+  "accuracy": 0.909,
+  "complexity_penalty": 0.065,
   "method_accuracies": {},
+  "executionTime": 1710.2254114151,
   "methods": {
-    "hashCode": {
+    "clear": {
+      "program": [],
+      "accuracy": 0.0,
+      "complexity": 0
+    },
+    "indexOf": {
       "program": [
-        "BOOLEAN.HASH"
+        "DS.INDEX_OF"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    },
+    "contains": {
+      "program": [
+        "DS.CONTAINS"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    },
+    "lastIndexOf": {
+      "program": [
+        "DS.INDEX_OF"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    },
+    "set": {
+      "program": [
+        "DS.SET.INDEX"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    },
+    "remove": {
+      "program": [
+        "BOOL.CONST.False",
+        "DS.REMOVE.INDEX"
+      ],
+      "accuracy": 0.0,
+      "complexity": 2
+    },
+    "add": {
+      "program": [
+        [
+          "DS.SIZE"
+        ],
+        "INT.ADD",
+        "DS.INSERT.AT.INDEX",
+        "BOOL.CONST.True"
+      ],
+      "accuracy": 0.0,
+      "complexity": 4
+    },
+    "isEmpty": {
+      "program": [
+        "DS.IS_EMPTY"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    },
+    "get": {
+      "program": [
+        "DS.GET.INDEX"
+      ],
+      "accuracy": 0.0,
+      "complexity": 1
+    },
+    "size": {
+      "program": [
+        "DS.SIZE"
       ],
       "accuracy": 0.0,
       "complexity": 1
