@@ -980,6 +980,41 @@ class DS_FIRST_INDEX(PushInstruction):
             state.integer_stack.append(-1)
 
 
+class DS_INDEX_OF(PushInstruction):
+    def __init__(self):
+        super().__init__("DS.INDEX_OF")
+
+    def execute(self, state: PushState):
+        value = state.pop_from_any_stack()
+        if value is not None:
+            try:
+                index = state.data_structure_stack.index(value)
+                state.integer_stack.append(index)
+            except ValueError:
+                # Not found
+                state.integer_stack.append(-1)
+        else:
+            state.error_stack.append("error")
+
+
+class DS_LAST_INDEX_OF(PushInstruction):
+    def __init__(self):
+        super().__init__("DS.LAST_INDEX_OF")
+
+    def execute(self, state: PushState):
+        value = state.pop_from_any_stack()
+        if value is not None:
+            try:
+                # Reverse search: find last occurrence
+                index = len(state.data_structure_stack) - 1 - state.data_structure_stack[::-1].index(value)
+                state.integer_stack.append(index)
+            except ValueError:
+                # Not found
+                state.integer_stack.append(-1)
+        else:
+            state.error_stack.append("error")
+
+
 class DS_CONTAINS(PushInstruction):
     def __init__(self):
         super().__init__("DS.CONTAINS")
@@ -1107,7 +1142,7 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
             INT_EQ(),
             INT_GT(),
         ])
-        for i in range(-2, 4):
+        for i in range(-1, 1):
             instructions.append(INT_CONST(i))
         # Booleans
         instructions.extend([
@@ -1121,8 +1156,8 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
             DS_SIZE(), DS_IS_EMPTY(), DS_CLEAR(),
             DS_GET_INDEX(), DS_SET_INDEX(),
             DS_INSERT_AT_INDEX(), DS_REMOVE_INDEX(),
-            DS_LAST_INDEX(), DS_FIRST_INDEX(),
-            DS_CONTAINS(), DS_PEEK_LAST(), DS_POP_LAST(),
+            DS_INDEX_OF(), DS_LAST_INDEX_OF(),
+            DS_CONTAINS(),
         ])
         return {instr.name: instr for instr in instructions}
 
@@ -1441,7 +1476,7 @@ class PushGPInterpreter:
                 self.instruction_set['DS.INSERT.AT.INDEX'],
                 self.instruction_set['BOOL.CONST.True']
             ]
-        if m == 'empty':
+        """if m == 'empty':
             # Append at end: size -> index, then insert(value) at index
             return [
                 self.instruction_set['DS.IS_EMPTY'],
@@ -1456,13 +1491,13 @@ class PushGPInterpreter:
             return [
                 self.instruction_set['DS.POP.LAST'],
             ]
-        if m == 'push':
+        if m == 'p':
             # Append at end: size -> index, then insert(value) at index
             return [
                 self.instruction_set['DS.SIZE'],
                 self.instruction_set['DS.INSERT.AT.INDEX'],
                 self.instruction_set['DS.PEEK.LAST']
-            ]
+            ]"""
         
         
         return self.random_program(max_depth=2, max_length=5)
@@ -1566,7 +1601,7 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
         genome = PushGPGenome()
         for method_name in method_names:
             # Use smart initialization (70% smart, 30% random)
-            if random.random() < 0:
+            if random.random() < 0.7:
                 program_code = interpreter.create_smart_initial_program(method_name)
             else:
                 program_code = interpreter.random_program(max_depth=2, max_length=5)
@@ -1671,11 +1706,11 @@ def evaluate_genome(genome: PushGPGenome, training_data, interpreter, mutators, 
             genome_error = aggregate_genome_error(example.sequence, predicted_outputs, example.expected_outputs)
 
             # Invariant and empty-case penalties
-            inv_pen = compute_invariant_penalty(example.sequence, predicted_outputs, example.expected_outputs, ds_states)
+            #inv_pen = compute_invariant_penalty(example.sequence, predicted_outputs, example.expected_outputs, ds_states)
             unused_pen = compute_arg_unused_penalty(example.sequence, used_inputs, example.input_args)
 
             #mutator_bonus = compute_mutator_bonus(example.sequence, predicted_outputs, example.expected_outputs, mutators, ds_states=ds_states)
-            fitness_error = min(1.0, genome_error + inv_pen + unused_pen)
+            fitness_error = min(1.0, genome_error + unused_pen)
 
             total_error += fitness_error
             total_examples += 1
