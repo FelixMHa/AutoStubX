@@ -22,8 +22,15 @@ try:
 except Exception:
     _levenshtein = None
 
-    
+GLOBAL_TRAINING_DATA = None
+GLOBAL_INTERPRETER = None
 EPS = 1e-9
+def init_worker(training_data, interpreter):
+    """Initialize worker process with shared data"""
+    global GLOBAL_TRAINING_DATA, GLOBAL_INTERPRETER
+    GLOBAL_TRAINING_DATA = training_data
+    GLOBAL_INTERPRETER = interpreter   
+
 @dataclass
 class TrainingExample:
     """Training example with method sequence and expected output"""
@@ -1677,76 +1684,81 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
     best_genome = None
     best_fitness = float('inf')
     stall_count = 0
-    
-    for generation in range(generations):
-        # Parallel evaluation
-        early_threshold = best_fitness if best_genome else None
+    with ProcessPoolExecutor(
+        max_workers=max(1, min(processes, population_size)),
+        initializer=init_worker,
+        initargs=(training_data, interpreter)
+    ) as executor:
         
-        with ProcessPoolExecutor(max_workers=max(1, min(processes, population_size))) as executor:
+        for generation in range(generations):
+            # Parallel evaluation - only pass genome and threshold now
+            early_threshold = best_fitness if best_genome else None
+            
             population = list(executor.map(
                 evaluate_wrapper,
-                [(g, training_data, interpreter, early_threshold) for g in population]
+                [(g, early_threshold) for g in population]
             ))
         
         
-        if generation % 10 == 0 and generation > 0:
-            population = maintain_diversity(population, training_data, interpreter)
-        
-        # Sort and track best
-        population.sort(key=lambda x: x.fitness)
-        
-        if population[0].fitness < best_fitness:
-            best_fitness = population[0].fitness
-            best_genome = population[0].copy()
-            stall_count = 0
-        else:
-            stall_count += 1
-        
-        # Progress logging
-        if generation % log_every == 0:
-            best = population[0]
-            print(f"Gen {generation}: Fitness={best.fitness:.6f}, "
-                  f"Acc={best.accuracy:.3f}, Complexity={best.complexity_penalty:.3f}")
-            for method_name, program in best.methods.items():
-                print(f"  {method_name}: {serialize_program(program.code)}")
-        
-        # Early stopping
-        if population[0].accuracy >= 0.99 and population[0].fitness < 0.02:
-            print(f"Solution found at generation {generation}")
-            break
-        
-        if stall_count >= no_improve_generations:
-            print(f"Stopping after {no_improve_generations} gens without improvement")
-            break
-        
-        
-        new_population = []
-        
-        # Elitism (keep top 15%)
-        elite_count = max(2, population_size // 7)
-        new_population.extend([g.copy() for g in population[:elite_count]])
-        
-        # Generate offspring
-        while len(new_population) < population_size:
-            if random.random() < 0.6:  # Crossover
-                parent1 = tournament_selection(population, 5) 
-                parent2 = tournament_selection(population, 5)
-                offspring = crossover_genomes(parent1, parent2)
-            else:  # Clone + mutate
-                parent = tournament_selection(population, 5)
-                offspring = parent.copy()
+            if generation % 10 == 0 and generation > 0:
+                population = maintain_diversity(population, training_data, interpreter)
+
+            # Sort and track best
+            population.sort(key=lambda x: x.fitness)
+
+            if population[0].fitness < best_fitness:
+                best_fitness = population[0].fitness
+                best_genome = population[0].copy()
+                stall_count = 0
+            else:
+                stall_count += 1
+
+            # Progress logging
+            if generation % log_every == 0:
+                best = population[0]
+                print(f"Gen {generation}: Fitness={best.fitness:.6f}, "
+                      f"Acc={best.accuracy:.3f}, Complexity={best.complexity_penalty:.3f}")
+                for method_name, program in best.methods.items():
+                    print(f"  {method_name}: {serialize_program(program.code)}")
+
+            # Early stopping
+            if population[0].accuracy >= 0.99 and population[0].fitness < 0.02:
+                print(f"Solution found at generation {generation}")
+                break
+            
+            if stall_count >= no_improve_generations:
+                print(f"Stopping after {no_improve_generations} gens without improvement")
+                break
             
             
-            adaptive_mutate_genome(offspring, interpreter, generation, generations)
-            new_population.append(offspring)
-        
-        population = new_population
+            new_population = []
+
+            # Elitism (keep top 15%)
+            elite_count = max(2, population_size // 7)
+            new_population.extend([g.copy() for g in population[:elite_count]])
+
+            # Generate offspring
+            while len(new_population) < population_size:
+                if random.random() < 0.6:  # Crossover
+                    parent1 = tournament_selection(population, 5) 
+                    parent2 = tournament_selection(population, 5)
+                    offspring = crossover_genomes(parent1, parent2)
+                else:  # Clone + mutate
+                    parent = tournament_selection(population, 5)
+                    offspring = parent.copy()
+
+
+                adaptive_mutate_genome(offspring, interpreter, generation, generations)
+                new_population.append(offspring)
+
+            population = new_population
     
     return best_genome
 
 def evaluate_wrapper(args):
-    genome, training_data, interpreter, early_threshold = args
-    return evaluate_genome(genome, training_data, interpreter, early_stop_threshold=early_threshold)
+    global GLOBAL_TRAINING_DATA, GLOBAL_INTERPRETER
+    genome, early_threshold = args 
+    return evaluate_genome(genome, GLOBAL_TRAINING_DATA, GLOBAL_INTERPRETER, early_stop_threshold=early_threshold)
 
 def evaluate_genome(genome: PushGPGenome, training_data, interpreter, early_stop_threshold: Optional[float] = None):
     total_error = 0.0
