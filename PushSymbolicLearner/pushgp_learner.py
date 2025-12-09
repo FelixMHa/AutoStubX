@@ -1693,7 +1693,7 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
                     offspring = parent.copy()
 
 
-                adaptive_mutate_genome(offspring, interpreter, generation, generations)
+                adaptive_mutate_genome(offspring, interpreter, generation, generations, stall_count)
                 new_population.append(offspring)
 
             population = new_population
@@ -1858,18 +1858,25 @@ def crossover_programs(program1: List, program2: List) -> List:
         return program1[:mid1] + program2[mid2:]
 
 def adaptive_mutate_genome(genome: PushGPGenome, interpreter: PushGPInterpreter,
-                          generation: int, max_generations: int,
+                          generation: int, max_generations: int, stall_count: int,
                           base_rate: float = 0.4):
     """genome mutation"""
     # High early exploration, low late refinement
     progress = generation / max(1, max_generations)
     mutation_rate = base_rate * (1.0 - 0.5 * progress)  # Drops to 50% of base
     
+
     for method_name, program in genome.methods.items():
+        if len(program.code) == 0:
+                program.code = interpreter.random_program(max_depth=2, max_length=8)
+                continue
         if random.random() < mutation_rate:
             # Choose mutation type based on program quality
             acc = genome.method_accuracies.get(method_name, 0.0)
-            
+            if stall_count >25 and acc > 0.5:
+                # If stalled, increase mutation aggressiveness
+                mutate_program_aggressive(program.code, interpreter)
+                continue
             if acc < 0.4:
                 # Poor performance: major changes
                 mutate_program_aggressive(program.code, interpreter)
@@ -1886,11 +1893,14 @@ def adaptive_mutate_genome(genome: PushGPGenome, interpreter: PushGPInterpreter,
 def mutate_program_aggressive(program: List, interpreter: PushGPInterpreter):
     """Aggressive mutation for poor performers"""
     # Replace large chunks
-    if len(program) > 2 and random.random() < 0.5:
-        start = random.randint(0, len(program) - 2)
-        end = random.randint(start + 1, len(program))
-        replacement = interpreter.random_program(max_depth=2, max_length=3)
-        program[start:end] = replacement
+    if random.random() < 0.5:
+        replacement = interpreter.random_program(max_depth=2, max_length=5)
+        if len(program) > 2:
+            start = random.randint(0, len(program) - 2)
+            end = random.randint(start + 1, len(program))
+            program[start:end] = replacement
+        else:
+            program[:] = replacement
     else:
         # Replace multiple random instructions
         for i in range(len(program)):
@@ -1926,6 +1936,14 @@ def mutate_program_conservative(program: List, interpreter: PushGPInterpreter):
 
 def mutate_program(program: List, interpreter: PushGPInterpreter, mutation_rate: float = 0.4):
     """ program mutation"""
+
+    if len(program) == 0:
+        if random.random() < 0.8:
+            # Add several instructions
+            num_to_add = random.randint(2, 5)
+            for _ in range(num_to_add):
+                program.append(interpreter._get_random_instruction())
+        return
     def mutate_recursive(prog):
         for i, item in enumerate(prog):
             if random.random() < mutation_rate:
