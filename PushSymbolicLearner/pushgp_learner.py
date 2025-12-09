@@ -1333,7 +1333,7 @@ class PushGPGenome:
         total_complexity = 0
         for program in self.methods.values():
             total_complexity += self._count_instructions(program.code)
-        return total_complexity * 0.0001  # Small penalty to allow complex solutions
+        return total_complexity * 0.0002
     
     def _count_instructions(self, code: List) -> int:
         """Recursively count instructions"""
@@ -1620,7 +1620,7 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
             if random.random() < 0:  
                 program_code = interpreter.create_smart_initial_program(method_name)
             else:
-                program_code = interpreter.random_program(max_depth=2, max_length=4)
+                program_code = interpreter.random_program(max_depth=2, max_length=10)
             
             program = PushProgram(program_code)
             genome.add_method(method_name, program)
@@ -1684,12 +1684,12 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
 
             # Generate offspring
             while len(new_population) < population_size:
-                if random.random() < 0.6:  # Crossover
-                    parent1 = tournament_selection(population, 5) 
-                    parent2 = tournament_selection(population, 5)
+                if random.random() < 0.5:  # Crossover
+                    parent1 = tournament_selection(population, 8) 
+                    parent2 = tournament_selection(population, 8)
                     offspring = crossover_genomes(parent1, parent2)
                 else:  # Clone + mutate
-                    parent = tournament_selection(population, 5)
+                    parent = tournament_selection(population, 8)
                     offspring = parent.copy()
 
 
