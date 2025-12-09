@@ -1258,11 +1258,6 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
         BOOL_CONST(True), BOOL_CONST(False),
     ])
 
-    # Bit
-    """instructions.extend([
-        BIT_AND(), BIT_OR(), BIT_XOR(),   
-        BIT_NOT(), BIT_SHL(), BIT_SHR(),      
-    ])"""
 
     # Strings (minimal core)
     instructions.extend([
@@ -1622,7 +1617,7 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
     for _ in range(population_size):
         genome = PushGPGenome()
         for method_name in method_names:
-            if random.random() < 0.8:  
+            if random.random() < 0:  
                 program_code = interpreter.create_smart_initial_program(method_name)
             else:
                 program_code = interpreter.random_program(max_depth=2, max_length=4)
@@ -1773,7 +1768,7 @@ def evaluate_genome(genome: PushGPGenome, training_data, interpreter, early_stop
     complexity_penalty = genome.get_complexity_penalty()
     
  
-    genome.fitness = base_fitness + 0.5 * complexity_penalty  # Was 1.0x
+    genome.fitness = base_fitness + 0.5 * complexity_penalty  
     genome.accuracy = correct_predictions / total_examples if total_examples > 0 else 0.0
     genome.complexity_penalty = complexity_penalty
     

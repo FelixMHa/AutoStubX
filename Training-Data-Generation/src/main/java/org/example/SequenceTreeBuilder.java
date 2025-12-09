@@ -8,23 +8,20 @@ import java.util.*;
 
 public class SequenceTreeBuilder {
 
-    private final Class<?> clazz;
+
     private final Object baseObject;
     private final List<String> sequence;
     private final List<Object> stepInputs;
     private final List<Object> stepOutputs;
     private final Random random = new Random();
     private final List<Method> validMethods;
-    private final List<Method> mutators;
 
     public SequenceTreeBuilder(Class<?> clazz) {
-        this.clazz = clazz;
         this.sequence = new ArrayList<>();
         this.stepInputs = new ArrayList<>();
         this.stepOutputs = new ArrayList<>();
         this.baseObject = createInstance(clazz);
         this.validMethods = getValidMethods(clazz);
-        this.mutators = getMutatorMethods(validMethods);
     }
 
     private Object createInstance(Class<?> clazz) {
@@ -153,42 +150,7 @@ public class SequenceTreeBuilder {
         return  candidates;
     }
 
-    
-private List<Method> getMutatorMethods(List<Method> validMethods) {
-    List<Method> mutators = new ArrayList<>();
 
-    for (Method m : validMethods) {
-        // skip static methods
-        if (Modifier.isStatic(m.getModifiers())) continue;
-
-        Class<?> ret = m.getReturnType();
-
-        // Heuristic 1: return type often void, boolean, or same class (fluent API)
-        boolean looksLikeMutator =
-                ret.equals(void.class) ||
-                ret.equals(boolean.class);
-
-        // Heuristic 2: parameters look like new data
-        boolean takesData = Arrays.stream(m.getParameterTypes())
-                .anyMatch(pt -> pt.isPrimitive() ||
-                                pt.equals(String.class) ||
-                                pt.equals(Object.class));
-
-        // Heuristic 3: method name hints (optional, fallback)
-        String name = m.getName().toLowerCase();
-        boolean nameSuggestsMutator =
-                name.startsWith("add") || name.startsWith("remove") ||
-                name.startsWith("put") || name.startsWith("set") ||
-                name.startsWith("clear") || name.startsWith("push") ||
-                name.startsWith("pop") || name.startsWith("offer");
-
-        if ((looksLikeMutator && takesData) || nameSuggestsMutator) {
-            mutators.add(m);
-        }
-    }
-
-    return mutators;
-} 
 
     
 }
