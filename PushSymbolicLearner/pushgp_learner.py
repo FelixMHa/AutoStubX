@@ -1333,7 +1333,7 @@ class PushGPGenome:
         total_complexity = 0
         for program in self.methods.values():
             total_complexity += self._count_instructions(program.code)
-        return total_complexity * 0.005  # Small penalty to allow complex solutions
+        return total_complexity * 0.0001  # Small penalty to allow complex solutions
     
     def _count_instructions(self, code: List) -> int:
         """Recursively count instructions"""
@@ -1674,12 +1674,12 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
             if stall_count >= no_improve_generations:
                 print(f"Stopping after {no_improve_generations} gens without improvement")
                 break
-            
+
             
             new_population = []
 
-            # Elitism (keep top 15%)
-            elite_count = max(2, population_size // 7)
+            # Elitism (keep top 10%)
+            elite_count = max(2, population_size // 10)
             new_population.extend([g.copy() for g in population[:elite_count]])
 
             # Generate offspring
@@ -1859,11 +1859,11 @@ def crossover_programs(program1: List, program2: List) -> List:
 
 def adaptive_mutate_genome(genome: PushGPGenome, interpreter: PushGPInterpreter,
                           generation: int, max_generations: int,
-                          base_rate: float = 0.5):
+                          base_rate: float = 0.4):
     """genome mutation"""
     # High early exploration, low late refinement
     progress = generation / max(1, max_generations)
-    mutation_rate = base_rate * (1.0 - 0.8 * progress)  # Drops to 20% of base
+    mutation_rate = base_rate * (1.0 - 0.5 * progress)  # Drops to 50% of base
     
     for method_name, program in genome.methods.items():
         if random.random() < mutation_rate:
@@ -1873,12 +1873,15 @@ def adaptive_mutate_genome(genome: PushGPGenome, interpreter: PushGPInterpreter,
             if acc < 0.4:
                 # Poor performance: major changes
                 mutate_program_aggressive(program.code, interpreter)
-            elif acc < 0.8:
+            elif acc < 0.98:
                 # Medium performance: moderate changes
                 mutate_program(program.code, interpreter, mutation_rate=0.4)
             else:
                 # Good performance: minor tweaks only
-                mutate_program_conservative(program.code, interpreter)
+                if random.random()<0.5:
+                    mutate_program_conservative(program.code, interpreter)
+                else:
+                    mutate_program(program.code, interpreter, mutation_rate=0.2)
 
 def mutate_program_aggressive(program: List, interpreter: PushGPInterpreter):
     """Aggressive mutation for poor performers"""
@@ -1938,7 +1941,7 @@ def mutate_program(program: List, interpreter: PushGPInterpreter, mutation_rate:
                         prog[i] = random.choice(interpreter.instruction_list)
                     else:
                         # Replace with small subprogram
-                        subprog = interpreter.random_program(max_depth=1, max_length=3)
+                        subprog = interpreter.random_program(max_depth=2, max_length=3)
                         prog[i] = subprog
             elif isinstance(item, list):
                 mutate_recursive(item)
