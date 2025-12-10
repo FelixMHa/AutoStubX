@@ -1337,7 +1337,7 @@ class PushGPGenome:
         total_complexity = 0
         for program in self.methods.values():
             total_complexity += self._count_instructions(program.code)
-        return total_complexity * 0.0002
+        return total_complexity
     
     def _count_instructions(self, code: List) -> int:
         """Recursively count instructions"""
@@ -1792,7 +1792,7 @@ def evaluate_genome(genome: PushGPGenome, training_data, interpreter, early_stop
     complexity_penalty = genome.get_complexity_penalty()
     
  
-    genome.fitness = base_fitness + 0.5 * complexity_penalty  
+    genome.fitness = base_fitness + 0.001 * complexity_penalty  
     genome.accuracy = correct_predictions / total_examples if total_examples > 0 else 0.0
     genome.complexity_penalty = complexity_penalty
     
@@ -1990,7 +1990,7 @@ def mutate_program(program: List, interpreter: PushGPInterpreter, mutation_rate:
     
     # Structural mutations
     if random.random() < mutation_rate:
-        if len(program) > 1 and random.random() < 0.5:
+        if len(program) > 1 and random.random() < 0.6:
             # Remove instruction
             program.pop(random.randint(0, len(program) - 1))
         elif len(program) < 8 and random.random() < 0.5:

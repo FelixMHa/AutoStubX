@@ -1,4 +1,142 @@
-/home/felix/AutoStubX/.venv/bin/python: can't open file '/home/felix/AutoStubX/PushSymbolicLearner/evaluation/rungp.py': [Errno 2] No such file or directory
-
-
-Process exited with return code 2
+Loading training data from ../../Training-Data-Generation/symbolic-regression-data/training/public_class_java_util_ArrayList_E_.json
+Max samples per file: 10000
+------------------------------------------------------------
+Loading public_class_java_util_ArrayList_E_.json... (1000 samples)
+------------------------------------------------------------
+Loaded 1000 total samples from 1 files
+Learning PushGP programs for 12 methods: ['isEmpty#0', 'add#int_obj', 'set#int_obj', 'add#obj', 'remove#int', 'indexOf#obj', 'size#0', 'clear#0', 'remove#obj', 'get#int', 'contains#obj', 'lastIndexOf#obj']
+Gen 0: Fitness=0.300262, Acc=0.318, Complexity=0.013
+  isEmpty#0: ['BOOL.CONST.False', 'BOOL.OR', 'BOOL.AND', 'DS.GET.INDEX', 'INT.EQ', 'BOOL.CONST.True']
+  add#int_obj: ['INT.SUB', 'BOOL.AND', 'BOOL.NOT', 'INT.CONST.-1', 'DS.INSERT.AT.INDEX', 'INT.SUB', 'INT.EQ', 'DS.INDEX_OF', 'BOOL.CONST.True']
+  set#int_obj: ['DS.SIZE', 'ITE', 'BOOL.NOT']
+  add#obj: ['BOOL.CONST.True']
+  remove#int: ['BOOL.OR', 'INT.CONST.0', 'DS.SET.INDEX', ['INT.CONST.0', 'BOOL.CONST.True']]
+  indexOf#obj: ['BOOL.OR', 'INT.CONST.1', 'DUP.ANY']
+  size#0: ['DS.CLEAR', 'DS.INSERT.AT.INDEX', 'BOOL.NOT', 'DUP.ANY', 'DS.GET.INDEX', 'DS.LAST_INDEX_OF', 'INT.CONST.0', 'INT.ADD']
+  clear#0: ['DS.SET.INDEX', 'DS.SET.INDEX', 'BOOL.AND', 'DS.INDEX_OF', 'BOOL.AND', 'INT.ADD', 'BOOL.OR']
+  remove#obj: ['DS.INSERT.AT.INDEX', 'INT.CONST.0', 'BOOL.CONST.False', 'DS.SIZE', 'SWAP.ANY', 'INT.CONST.0', 'INT.LT', 'INT.CONST.1']
+  get#int: ['INT.LT', 'BOOL.OR', 'POP.ANY', 'DS.INSERT.AT.INDEX', 'INT.CONST.-1', 'INT.CONST.1', 'SWAP.ANY', 'BOOL.CONST.True', 'BOOL.CONST.False', 'POP.ANY']
+  contains#obj: ['BOOL.AND', 'INT.EQ', 'BOOL.CONST.False', 'POP.ANY']
+  lastIndexOf#obj: ['DS.INDEX_OF']
+Gen 25: Fitness=0.145129, Acc=0.632, Complexity=0.031
+  add#int_obj: ['INT.ADD', 'BOOL.CONST.False', 'INT.CONST.-1', 'DS.INSERT.AT.INDEX', 'DS.CLEAR', 'BOOL.CONST.True', ['DS.CLEAR', 'SWAP.ANY', ['SWAP.ANY', 'INT.CONST.0', 'POP.ANY']], 'INT.EQ', 'BOOL.CONST.False']
+  remove#int: ['BOOL.CONST.True', 'BOOL.AND', 'BOOL.CONST.False', 'ITE', 'BOOL.NOT', 'INT.ADD', ['INT.LT', 'DS.REMOVE.INDEX', 'DUP.ANY', 'INT.SUB'], 'DUP.ANY', 'DS.LAST_INDEX_OF', ['DS.INSERT.AT.INDEX', 'DS.GET.INDEX', 'DUP.ANY', 'INT.EQ'], 'INT.SUB', 'DS.GET.INDEX', 'DS.INDEX_OF', 'POP.ANY', 'DS.CLEAR']
+  indexOf#obj: ['INT.ADD', ['SWAP.ANY'], 'DS.INSERT.AT.INDEX', 'BOOL.CONST.False', 'INT.CONST.1', [['DS.LAST_INDEX_OF'], 'DS.INDEX_OF', 'BOOL.OR'], 'BOOL.CONST.True']
+  clear#0: ['BOOL.NOT', 'INT.EQ', 'INT.EQ', 'DS.SIZE', 'DS.CLEAR', 'INT.LT', 'DS.REMOVE.INDEX', ['DS.INSERT.AT.INDEX', 'INT.ADD', 'INT.CONST.0']]
+  remove#obj: ['DS.INDEX_OF', 'DS.SET.INDEX', 'INT.ADD', 'BOOL.CONST.False', 'INT.CONST.1', 'INT.LT', 'BOOL.CONST.False']
+  lastIndexOf#obj: ['DS.GET.INDEX', 'DS.REMOVE.INDEX', 'BOOL.CONST.False', 'BOOL.CONST.False', 'DS.REMOVE.INDEX', 'SWAP.ANY', 'DS.REMOVE.INDEX', 'DS.REMOVE.INDEX', 'DS.LAST_INDEX_OF']
+  isEmpty#0: ['DUP.ANY', ['INT.CONST.1', 'INT.CONST.-1'], 'INT.ADD', 'INT.CONST.-1', 'POP.ANY', ['DUP.ANY', 'POP.ANY', ['DUP.ANY'], ['DS.SIZE', 'DS.INDEX_OF', 'DS.INDEX_OF', 'DS.INDEX_OF']], 'DS.CLEAR', 'BOOL.CONST.True']
+  set#int_obj: [['DS.LAST_INDEX_OF', 'DS.SIZE'], 'BOOL.CONST.False', 'BOOL.CONST.True', 'INT.ADD', 'INT.EQ', 'INT.CONST.-1', 'DS.INDEX_OF', 'DS.REMOVE.INDEX']
+  add#obj: ['BOOL.CONST.True', 'DS.GET.INDEX', 'DS.REMOVE.INDEX', 'POP.ANY', 'DS.REMOVE.INDEX', 'BOOL.CONST.True', 'DS.SIZE', 'INT.CONST.1', 'BOOL.NOT', 'INT.ADD', 'BOOL.CONST.False', 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'DS.GET.INDEX', ['INT.EQ', 'INT.ADD', 'DS.LAST_INDEX_OF', 'INT.CONST.0'], 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'BOOL.OR', ['INT.ADD', 'INT.LT'], 'BOOL.OR', ['INT.ADD', 'INT.CONST.0', 'DS.INSERT.AT.INDEX'], 'INT.EQ', 'ITE', ['DS.GET.INDEX', 'POP.ANY', 'INT.CONST.1'], 'INT.ADD', ['INT.LT', 'INT.SUB', 'BOOL.CONST.True'], 'DS.SIZE', 'BOOL.CONST.True', 'BOOL.CONST.True', 'POP.ANY']
+  size#0: ['DS.INDEX_OF', 'DS.SIZE', ['DS.CLEAR', 'INT.CONST.0'], ['BOOL.CONST.True', 'INT.ADD']]
+  get#int: [['BOOL.CONST.False', 'INT.LT', 'DS.GET.INDEX'], 'DS.INDEX_OF']
+  contains#obj: ['BOOL.CONST.True', 'DUP.ANY', 'BOOL.CONST.False', 'SWAP.ANY', 'DS.INDEX_OF', 'INT.CONST.1', 'DUP.ANY', 'BOOL.NOT', ['DS.GET.INDEX', 'BOOL.CONST.True', 'DS.SIZE'], 'BOOL.NOT']
+Gen 50: Fitness=0.125109, Acc=0.664, Complexity=0.037
+  add#int_obj: ['INT.ADD', 'BOOL.NOT', 'DS.SIZE', 'INT.CONST.1', 'DS.GET.INDEX', 'DS.REMOVE.INDEX', 'BOOL.OR', 'INT.EQ', 'BOOL.CONST.False', 'DS.INSERT.AT.INDEX', 'INT.EQ', 'POP.ANY', 'BOOL.CONST.True']
+  remove#int: ['ITE', 'DS.SET.INDEX', 'DS.CLEAR', 'INT.CONST.1', 'DS.REMOVE.INDEX', 'INT.EQ', 'INT.SUB', 'DUP.ANY', 'INT.LT', 'BOOL.CONST.False', ['INT.CONST.1'], 'DUP.ANY', 'DS.LAST_INDEX_OF', 'DS.REMOVE.INDEX', 'DS.CLEAR']
+  indexOf#obj: [['DS.INDEX_OF', 'INT.ADD', 'INT.SUB'], 'POP.ANY', 'DS.INSERT.AT.INDEX', 'INT.ADD', 'INT.CONST.-1', 'INT.LT', 'BOOL.NOT', ['SWAP.ANY', 'INT.CONST.-1']]
+  clear#0: ['INT.CONST.0']
+  remove#obj: ['DS.INDEX_OF', ['DS.SIZE'], 'POP.ANY', 'DS.SIZE', 'INT.EQ', 'DS.INSERT.AT.INDEX', 'BOOL.CONST.True', ['BOOL.NOT', 'DS.SET.INDEX', 'INT.SUB']]
+  lastIndexOf#obj: [['ITE', 'BOOL.CONST.False'], [['BOOL.CONST.True'], 'DS.CLEAR'], 'DS.LAST_INDEX_OF', ['INT.SUB'], ['DS.INSERT.AT.INDEX', 'DS.CLEAR', 'DS.LAST_INDEX_OF', 'INT.SUB'], ['INT.CONST.0', 'INT.EQ', 'DS.INSERT.AT.INDEX'], 'DS.CLEAR', 'DS.INDEX_OF', 'BOOL.CONST.True', 'DS.CLEAR', 'BOOL.AND', 'BOOL.OR', 'DS.INDEX_OF', 'BOOL.CONST.True', 'BOOL.OR', 'DS.LAST_INDEX_OF', ['DS.SIZE', 'BOOL.AND', ['DS.LAST_INDEX_OF']]]
+  isEmpty#0: ['INT.CONST.0', 'DS.SIZE', 'BOOL.AND', 'BOOL.AND', 'ITE', 'INT.EQ']
+  set#int_obj: ['BOOL.CONST.False', 'INT.ADD', 'INT.ADD', ['DS.GET.INDEX', 'INT.SUB', 'INT.ADD'], ['DS.INSERT.AT.INDEX', 'DS.LAST_INDEX_OF', 'BOOL.CONST.False'], 'BOOL.OR', ['INT.CONST.1'], 'DS.CLEAR', 'BOOL.NOT', 'BOOL.CONST.False', 'DS.SET.INDEX', 'DUP.ANY', 'INT.SUB', 'DS.GET.INDEX', 'DS.GET.INDEX', 'POP.ANY']
+  add#obj: ['BOOL.CONST.True', 'DS.GET.INDEX', 'DS.REMOVE.INDEX', 'POP.ANY', 'DS.REMOVE.INDEX', 'BOOL.CONST.True', 'DS.SIZE', 'INT.CONST.1', 'BOOL.NOT', 'INT.ADD', 'BOOL.CONST.False', 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'DS.GET.INDEX', ['INT.EQ', 'INT.ADD', 'DS.LAST_INDEX_OF', 'INT.CONST.0'], 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'BOOL.OR', ['INT.ADD', 'INT.LT'], 'BOOL.OR', 'BOOL.OR', ['INT.ADD', 'INT.LT'], 'BOOL.OR', 'BOOL.CONST.False', 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'DS.GET.INDEX', ['INT.EQ', 'INT.ADD', 'DS.LAST_INDEX_OF', 'INT.CONST.0'], 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'BOOL.OR', ['INT.ADD', 'INT.LT'], 'BOOL.OR', ['INT.ADD', 'INT.CONST.0', 'DS.INSERT.AT.INDEX'], 'INT.EQ', 'ITE', ['DS.GET.INDEX', 'POP.ANY', 'INT.CONST.1'], 'INT.ADD', ['INT.LT', 'INT.SUB', 'BOOL.CONST.True'], 'DS.SIZE', 'BOOL.CONST.True', 'BOOL.CONST.True', 'POP.ANY']
+  size#0: ['DS.INDEX_OF', 'DS.SIZE', 'DUP.ANY', 'DUP.ANY', 'DS.SIZE']
+  get#int: [['BOOL.CONST.False', 'BOOL.NOT', 'DS.GET.INDEX'], 'INT.CONST.0', 'DS.LAST_INDEX_OF']
+  contains#obj: ['BOOL.CONST.True', 'POP.ANY', ['DS.REMOVE.INDEX'], 'INT.LT', 'BOOL.CONST.False', 'BOOL.AND', 'INT.CONST.1', 'DS.SET.INDEX', 'DS.INDEX_OF', 'ITE', 'INT.ADD', 'DS.INSERT.AT.INDEX', ['SWAP.ANY', 'DS.REMOVE.INDEX', 'BOOL.CONST.True'], 'ITE', 'BOOL.CONST.False']
+Gen 75: Fitness=0.112533, Acc=0.673, Complexity=0.028
+  add#int_obj: ['DS.INDEX_OF', 'BOOL.AND', ['DS.SIZE', 'BOOL.CONST.True', 'DS.GET.INDEX', ['DS.REMOVE.INDEX', 'INT.EQ', [['DUP.ANY', 'INT.ADD', 'BOOL.OR'], 'DS.SET.INDEX', 'POP.ANY', 'BOOL.CONST.True']]], 'BOOL.AND', ['BOOL.OR'], ['BOOL.CONST.False', 'DS.SET.INDEX', 'BOOL.CONST.True'], ['BOOL.NOT'], 'INT.LT', ['INT.EQ', 'DS.INSERT.AT.INDEX'], 'INT.CONST.0', 'POP.ANY', 'DS.LAST_INDEX_OF', ['INT.EQ']]
+  remove#int: ['BOOL.CONST.False', 'DS.REMOVE.INDEX', 'DS.SIZE', 'POP.ANY', 'DS.REMOVE.INDEX', 'DS.SET.INDEX', ['BOOL.CONST.True'], 'DS.GET.INDEX', 'DS.INDEX_OF', 'INT.EQ', 'ITE']
+  indexOf#obj: [[['BOOL.OR'], 'BOOL.CONST.False', 'INT.SUB'], 'POP.ANY', 'INT.EQ', 'DS.SET.INDEX', 'DS.LAST_INDEX_OF', 'INT.LT', 'BOOL.CONST.True', ['SWAP.ANY', 'INT.CONST.-1']]
+  clear#0: ['DS.GET.INDEX', 'DS.CLEAR', 'DS.GET.INDEX', 'INT.CONST.1', 'DS.INDEX_OF', 'DUP.ANY', 'SWAP.ANY', 'POP.ANY', ['DS.GET.INDEX', 'DS.GET.INDEX', 'INT.LT'], 'BOOL.CONST.False', 'DS.INSERT.AT.INDEX', 'INT.SUB']
+  remove#obj: ['DS.INDEX_OF', 'INT.SUB', 'POP.ANY', 'BOOL.AND', 'INT.EQ', 'DS.INSERT.AT.INDEX', 'BOOL.CONST.True', ['BOOL.NOT', 'DS.SET.INDEX', 'INT.SUB']]
+  lastIndexOf#obj: ['DS.SIZE', 'DS.REMOVE.INDEX', 'POP.ANY', 'BOOL.NOT', 'DS.INDEX_OF', 'DS.SET.INDEX', 'BOOL.CONST.False', 'DS.INDEX_OF', 'INT.SUB']
+  isEmpty#0: ['INT.CONST.0', 'DS.SIZE', 'BOOL.CONST.False', 'BOOL.AND', 'ITE', 'INT.EQ']
+  set#int_obj: ['INT.SUB', ['DS.LAST_INDEX_OF', 'INT.SUB', 'INT.EQ'], 'INT.CONST.-1', ['POP.ANY', ['DS.REMOVE.INDEX', 'DS.SIZE']], 'INT.EQ', 'POP.ANY', 'POP.ANY', [['BOOL.OR', 'SWAP.ANY'], 'BOOL.CONST.False', 'SWAP.ANY'], 'INT.CONST.0', 'BOOL.NOT']
+  add#obj: ['BOOL.CONST.True', 'DS.GET.INDEX', ['INT.ADD', 'INT.CONST.0', 'DS.INSERT.AT.INDEX'], 'INT.EQ', 'ITE', ['DS.GET.INDEX', 'POP.ANY', 'INT.CONST.1'], 'INT.ADD', ['INT.LT', 'INT.SUB', 'BOOL.CONST.True'], 'DS.SIZE', 'BOOL.CONST.True', 'BOOL.CONST.True', 'POP.ANY']
+  size#0: ['DS.INDEX_OF', 'POP.ANY', 'BOOL.OR', 'DS.LAST_INDEX_OF', 'DS.SET.INDEX', 'DS.SIZE']
+  get#int: ['DS.SET.INDEX', 'POP.ANY', 'INT.CONST.0', 'DS.LAST_INDEX_OF']
+  contains#obj: ['BOOL.CONST.True', 'INT.ADD', 'BOOL.CONST.True', 'INT.CONST.1', 'BOOL.AND', 'DS.GET.INDEX', 'BOOL.CONST.False']
+Gen 100: Fitness=0.106283, Acc=0.697, Complexity=0.035
+  add#int_obj: ['INT.ADD', 'INT.ADD', 'BOOL.OR', 'BOOL.CONST.False', 'SWAP.ANY', 'BOOL.CONST.True', 'DS.LAST_INDEX_OF', 'DS.REMOVE.INDEX', 'DS.INDEX_OF', ['BOOL.AND', 'DUP.ANY'], [['INT.EQ'], ['INT.SUB']]]
+  remove#int: ['DS.GET.INDEX', 'DS.REMOVE.INDEX', ['BOOL.AND', 'BOOL.OR'], ['INT.CONST.1', 'DS.SET.INDEX', ['INT.ADD', ['DS.LAST_INDEX_OF', 'DS.INSERT.AT.INDEX', 'INT.CONST.1']]], 'DS.INDEX_OF', ['DS.REMOVE.INDEX', 'BOOL.CONST.False'], ['BOOL.CONST.True'], ['INT.CONST.-1', 'DS.SIZE', 'INT.ADD', 'DS.SIZE'], 'DS.GET.INDEX', ['BOOL.CONST.True', 'DS.INDEX_OF'], 'BOOL.NOT', 'INT.ADD', 'INT.CONST.0']
+  indexOf#obj: ['DS.LAST_INDEX_OF', 'DS.INDEX_OF', 'POP.ANY', 'DS.SIZE', 'INT.CONST.-1', 'DS.SIZE', 'SWAP.ANY', 'INT.CONST.-1']
+  clear#0: ['BOOL.OR', 'INT.CONST.-1', 'DS.INSERT.AT.INDEX', 'DS.CLEAR', 'INT.SUB', 'DS.LAST_INDEX_OF', ['DS.INDEX_OF', 'DS.SIZE'], 'POP.ANY', 'BOOL.OR', 'INT.EQ', 'BOOL.AND', 'INT.SUB']
+  remove#obj: ['DS.INDEX_OF', 'INT.SUB', 'POP.ANY', 'BOOL.AND', 'DS.SIZE', 'DS.INSERT.AT.INDEX', 'BOOL.CONST.True', ['BOOL.NOT', 'DS.SET.INDEX', 'INT.SUB']]
+  lastIndexOf#obj: ['DS.SIZE', 'DS.REMOVE.INDEX', 'POP.ANY', 'BOOL.NOT', 'DS.INDEX_OF', 'DS.SET.INDEX', 'BOOL.CONST.False', 'DS.INDEX_OF', 'INT.SUB']
+  isEmpty#0: ['INT.CONST.0', 'DS.INDEX_OF', 'INT.SUB', ['ITE', 'DS.SIZE', 'INT.CONST.0'], 'INT.CONST.-1', 'DS.SIZE', 'INT.EQ', 'INT.EQ', 'BOOL.CONST.False', ['BOOL.OR', 'BOOL.CONST.True', 'DS.REMOVE.INDEX', 'DS.INDEX_OF']]
+  set#int_obj: ['BOOL.NOT', ['DS.GET.INDEX', 'INT.SUB', 'INT.EQ'], 'INT.CONST.-1', 'DS.LAST_INDEX_OF', 'SWAP.ANY', 'BOOL.CONST.True', 'DS.GET.INDEX', 'ITE', 'SWAP.ANY', 'SWAP.ANY', ['DS.INSERT.AT.INDEX', 'POP.ANY', ['INT.CONST.-1'], 'DS.GET.INDEX'], ['DS.REMOVE.INDEX', 'DS.SET.INDEX', 'POP.ANY', 'INT.CONST.-1'], 'BOOL.CONST.True', 'BOOL.CONST.False']
+  add#obj: ['BOOL.CONST.True', 'DS.GET.INDEX', ['INT.ADD', 'INT.CONST.0', 'DS.INSERT.AT.INDEX'], 'INT.EQ', 'ITE', ['DS.GET.INDEX', 'POP.ANY', 'INT.CONST.1'], 'INT.ADD', 'INT.ADD', 'DS.SIZE', 'BOOL.CONST.True', 'BOOL.CONST.True', 'POP.ANY', 'DS.LAST_INDEX_OF', 'DS.LAST_INDEX_OF', 'BOOL.CONST.True']
+  size#0: ['DS.INDEX_OF', 'DS.SIZE', 'DUP.ANY', 'DS.SIZE', 'INT.CONST.0', 'INT.EQ', 'DS.LAST_INDEX_OF', 'DS.SIZE']
+  get#int: ['DS.SET.INDEX', ['INT.CONST.1', 'INT.ADD'], 'INT.CONST.0', 'SWAP.ANY', 'SWAP.ANY', 'DS.SIZE', 'POP.ANY', ['DS.GET.INDEX', 'DS.GET.INDEX', 'DS.GET.INDEX']]
+  contains#obj: ['BOOL.CONST.True', 'ITE', 'POP.ANY', 'INT.CONST.1', 'POP.ANY', 'BOOL.CONST.False', 'DS.SET.INDEX', ['INT.CONST.0', 'INT.SUB', 'INT.CONST.1', 'INT.SUB'], 'INT.ADD', [['POP.ANY', 'BOOL.OR', 'INT.CONST.-1', 'INT.ADD']], 'INT.CONST.-1', 'INT.CONST.1', 'ITE', [['BOOL.CONST.False'], 'INT.CONST.1'], 'BOOL.CONST.False']
+Gen 125: Fitness=0.101059, Acc=0.697, Complexity=0.028
+  add#int_obj: ['BOOL.CONST.True', 'DS.LAST_INDEX_OF', 'INT.CONST.1', ['BOOL.OR', 'DS.LAST_INDEX_OF'], 'SWAP.ANY', ['BOOL.CONST.True'], ['INT.LT'], [['DS.SIZE'], 'BOOL.AND'], ['DS.LAST_INDEX_OF', 'INT.CONST.-1'], 'BOOL.NOT', 'DS.INSERT.AT.INDEX', 'DUP.ANY', 'BOOL.NOT', ['DS.GET.INDEX', 'DS.INSERT.AT.INDEX'], 'DS.SIZE', 'INT.LT', 'INT.CONST.-1']
+  remove#int: ['BOOL.CONST.False', 'DS.REMOVE.INDEX', 'DS.SIZE', 'DS.LAST_INDEX_OF', 'INT.CONST.1', 'INT.CONST.0', ['BOOL.CONST.False'], 'INT.EQ', 'INT.EQ', 'DS.SET.INDEX', 'INT.ADD']
+  indexOf#obj: [[['BOOL.CONST.True'], 'DS.GET.INDEX', 'INT.LT'], 'POP.ANY', 'BOOL.AND', ['DS.LAST_INDEX_OF', 'INT.CONST.-1'], 'DS.LAST_INDEX_OF', 'BOOL.NOT', 'DS.INSERT.AT.INDEX', 'INT.CONST.-1']
+  clear#0: ['BOOL.OR', 'DS.INDEX_OF', 'BOOL.CONST.False', 'DS.CLEAR', 'DS.INDEX_OF', 'DS.INSERT.AT.INDEX', 'DS.CLEAR', 'DS.INSERT.AT.INDEX', 'INT.ADD', 'INT.CONST.0']
+  remove#obj: ['INT.SUB', 'INT.SUB', 'POP.ANY', 'DS.INSERT.AT.INDEX', 'INT.EQ', 'ITE', 'BOOL.CONST.True', 'BOOL.NOT']
+  lastIndexOf#obj: ['DS.SIZE', 'DS.REMOVE.INDEX', 'POP.ANY', 'DS.INDEX_OF', 'INT.SUB', 'DS.SET.INDEX', 'BOOL.CONST.False', 'INT.CONST.-1', 'INT.SUB']
+  isEmpty#0: ['INT.CONST.0', 'DS.SIZE', 'BOOL.CONST.False', 'ITE', 'INT.EQ', 'BOOL.CONST.False', 'ITE', 'INT.EQ']
+  set#int_obj: ['BOOL.NOT', 'BOOL.CONST.False', 'POP.ANY', 'DS.LAST_INDEX_OF', 'INT.ADD', 'BOOL.OR', 'DS.GET.INDEX', 'DUP.ANY', 'INT.CONST.0', 'DUP.ANY', ['BOOL.CONST.False', 'POP.ANY', ['INT.EQ'], 'BOOL.AND']]
+  add#obj: ['BOOL.CONST.True', 'DS.GET.INDEX', ['INT.ADD', 'INT.CONST.0', 'DS.INSERT.AT.INDEX'], 'INT.SUB', 'BOOL.AND', 'POP.ANY', 'DS.GET.INDEX', 'DS.GET.INDEX', ['DS.GET.INDEX', 'POP.ANY', 'INT.CONST.1'], 'INT.ADD', 'BOOL.CONST.True', 'BOOL.CONST.True', 'POP.ANY']
+  size#0: ['DS.INDEX_OF', ['DUP.ANY', 'INT.LT', 'BOOL.NOT'], 'DUP.ANY', 'INT.LT', 'SWAP.ANY', ['INT.EQ', 'DS.INDEX_OF', 'BOOL.CONST.True', 'DUP.ANY'], 'DS.SIZE', 'DUP.ANY', 'ITE', 'DS.SIZE', 'DS.SIZE']
+  get#int: ['DS.SET.INDEX', ['DS.INSERT.AT.INDEX'], ['INT.SUB', 'DS.SIZE', 'INT.ADD', ['INT.EQ', 'BOOL.CONST.True', 'INT.ADD']], 'SWAP.ANY']
+  contains#obj: ['POP.ANY', 'INT.SUB', 'DS.LAST_INDEX_OF', 'DS.SET.INDEX', 'DS.GET.INDEX', 'BOOL.CONST.False']
+Gen 150: Fitness=0.097534, Acc=0.707, Complexity=0.030
+  add#int_obj: ['BOOL.CONST.True', 'DS.LAST_INDEX_OF', 'INT.CONST.1', ['BOOL.OR', 'DS.LAST_INDEX_OF'], 'SWAP.ANY', ['BOOL.CONST.True'], ['INT.LT'], [['DS.SIZE'], 'BOOL.AND'], ['DS.LAST_INDEX_OF', 'INT.CONST.-1'], 'BOOL.NOT', 'DS.INSERT.AT.INDEX', 'DUP.ANY', 'BOOL.NOT', ['DS.GET.INDEX', 'DS.INSERT.AT.INDEX'], 'DS.SIZE', 'INT.LT', 'INT.CONST.-1']
+  remove#int: ['BOOL.CONST.False', 'DS.REMOVE.INDEX', 'INT.CONST.1', 'INT.ADD', 'DS.GET.INDEX', 'DS.SIZE', 'DS.LAST_INDEX_OF', 'INT.ADD', 'INT.CONST.0', 'DS.GET.INDEX', 'BOOL.NOT']
+  indexOf#obj: ['DS.INSERT.AT.INDEX', 'DS.GET.INDEX', 'BOOL.OR', 'DS.LAST_INDEX_OF', 'BOOL.NOT', 'DS.INDEX_OF', 'INT.CONST.0', 'DS.GET.INDEX', 'POP.ANY', 'INT.CONST.1', 'INT.CONST.-1']
+  clear#0: ['BOOL.OR', 'DS.INDEX_OF', 'BOOL.CONST.False', 'DS.CLEAR', 'DS.INDEX_OF', 'INT.CONST.-1', 'DS.REMOVE.INDEX', ['BOOL.CONST.False', 'BOOL.NOT'], 'INT.CONST.-1', 'DS.INSERT.AT.INDEX', 'BOOL.CONST.True']
+  remove#obj: ['DS.INDEX_OF', 'INT.EQ', ['DS.INDEX_OF', 'ITE', 'DUP.ANY', 'INT.EQ'], 'DS.INSERT.AT.INDEX', 'INT.SUB', 'INT.ADD', 'POP.ANY', 'BOOL.AND', 'BOOL.CONST.True', 'DS.REMOVE.INDEX', 'BOOL.CONST.False']
+  lastIndexOf#obj: ['DS.SIZE', 'DS.REMOVE.INDEX', 'POP.ANY', 'BOOL.NOT', 'DS.INDEX_OF', 'DS.SIZE', 'DS.REMOVE.INDEX', 'POP.ANY', 'DS.INDEX_OF', 'INT.SUB', 'DS.SET.INDEX', 'BOOL.CONST.False', 'INT.CONST.-1', 'INT.SUB']
+  isEmpty#0: ['INT.CONST.0', 'DS.SIZE', 'BOOL.AND', 'INT.CONST.0', 'DS.SIZE', 'BOOL.CONST.False', 'ITE', 'BOOL.AND', 'ITE', 'INT.EQ']
+  set#int_obj: ['BOOL.NOT', 'BOOL.CONST.False', 'POP.ANY', 'DS.LAST_INDEX_OF', 'INT.ADD', 'BOOL.OR', 'DS.GET.INDEX', 'DUP.ANY', 'INT.CONST.0', 'DUP.ANY', ['BOOL.CONST.False', 'POP.ANY', ['INT.EQ'], 'BOOL.AND']]
+  add#obj: ['BOOL.CONST.True', 'DS.GET.INDEX', ['INT.ADD', 'INT.CONST.0', 'DS.INSERT.AT.INDEX'], 'INT.SUB', 'BOOL.AND', 'DS.INDEX_OF', ['DS.GET.INDEX', 'POP.ANY', 'INT.CONST.1'], 'DS.GET.INDEX', ['DS.GET.INDEX', 'POP.ANY', 'INT.CONST.1'], 'INT.ADD', 'BOOL.CONST.True', 'BOOL.CONST.True', 'POP.ANY']
+  size#0: ['SWAP.ANY', ['DUP.ANY', 'INT.LT', 'BOOL.NOT'], 'DUP.ANY', 'DS.INSERT.AT.INDEX', 'DS.INDEX_OF', 'INT.ADD', 'BOOL.CONST.True', 'DS.SIZE', 'DS.SIZE', 'DS.SIZE']
+  get#int: [['DS.GET.INDEX', 'INT.CONST.-1'], 'BOOL.AND']
+  contains#obj: ['POP.ANY', 'INT.SUB', 'DS.LAST_INDEX_OF', 'DUP.ANY', 'DS.SIZE', 'BOOL.CONST.False', 'INT.LT', 'BOOL.CONST.False']
+Process ForkProcess-2:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/concurrent/futures/process.py", line 251, in _process_worker
+    call_item = call_queue.get(block=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/multiprocessing/queues.py", line 103, in get
+    res = self._recv_bytes()
+          ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 216, in recv_bytes
+    buf = self._recv_bytes(maxlength)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 437, in _recv_bytes
+    return self._recv(size)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 395, in _recv
+    chunk = read(handle, remaining)
+            ^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/home/felix/AutoStubX/PushSymbolicLearner/evaluation/../rungp.py", line 191, in <module>
+    main()
+  File "/home/felix/AutoStubX/PushSymbolicLearner/evaluation/../rungp.py", line 176, in main
+    best_genome = run_pushgp_evolution(
+                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/felix/AutoStubX/PushSymbolicLearner/pushgp_learner.py", line 1665, in run_pushgp_evolution
+    population = list(executor.map(
+                 ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/process.py", line 642, in _chain_from_iterable_of_lists
+    for element in iterable:
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 451, in result
+    self._condition.wait(timeout)
+  File "/usr/lib/python3.12/threading.py", line 355, in wait
+    waiter.acquire()
+KeyboardInterrupt
