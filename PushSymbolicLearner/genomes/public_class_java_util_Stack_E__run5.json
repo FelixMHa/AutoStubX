@@ -1,0 +1,66 @@
+{
+  "fitness": 0.22690759665058804,
+  "accuracy": 0.372,
+  "complexity_penalty": 0.0024000000000000002,
+  "method_accuracies": {
+    "peek#0": 0.6419885747513003,
+    "empty#0": 0.5762314225053078,
+    "search#obj": 0.899234302570332,
+    "pop#0": 0.6377248906673935,
+    "add#obj": 0.9232297063903281,
+    "push#obj": 0.9014152551037796
+  },
+  "executionTime": 639.3624973297119,
+  "methods": {
+    "add#obj": {
+      "program": [
+        "POP.ANY",
+        "BOOL.CONST.False",
+        "BOOL.CONST.True"
+      ],
+      "accuracy": 0.9232297063903281,
+      "complexity": 3
+    },
+    "empty#0": {
+      "program": [
+        "BOOL.CONST.False"
+      ],
+      "accuracy": 0.5762314225053078,
+      "complexity": 1
+    },
+    "peek#0": {
+      "program": [
+        "DS.INDEX_OF",
+        "INT.CONST.-1",
+        [
+          "BOOL.CONST.True"
+        ]
+      ],
+      "accuracy": 0.6419885747513003,
+      "complexity": 3
+    },
+    "push#obj": {
+      "program": [
+        "INT.SUB"
+      ],
+      "accuracy": 0.9014152551037796,
+      "complexity": 1
+    },
+    "search#obj": {
+      "program": [
+        "DS.LAST_INDEX_OF"
+      ],
+      "accuracy": 0.899234302570332,
+      "complexity": 1
+    },
+    "pop#0": {
+      "program": [
+        "DS.INDEX_OF",
+        "DS.SIZE",
+        "BOOL.CONST.True"
+      ],
+      "accuracy": 0.6377248906673935,
+      "complexity": 3
+    }
+  }
+}

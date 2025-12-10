@@ -1,0 +1,95 @@
+Loading training data from ../Training-Data-Generation/symbolic-regression-data/training/public_class_java_util_HashSet_E_.json
+Max samples per file: 10000
+------------------------------------------------------------
+Loading public_class_java_util_HashSet_E_.json... (1000 samples)
+------------------------------------------------------------
+Loaded 1000 total samples from 1 files
+Learning PushGP programs for 6 methods: ['add#obj', 'clear#0', 'isEmpty#0', 'remove#obj', 'contains#obj', 'size#0']
+Gen 0: Fitness=0.345426, Acc=0.248, Complexity=0.003
+  add#obj: [['INT.CONST.1'], 'DUP.ANY', ['DS.INDEX_OF', ['INT.CONST.0'], 'BOOL.OR', 'BOOL.CONST.True']]
+  clear#0: ['INT.EQ']
+  isEmpty#0: ['BOOL.CONST.True']
+  remove#obj: ['INT.CONST.-1', ['INT.CONST.1', 'INT.CONST.-1', 'INT.LT', 'INT.ADD'], 'INT.LT', 'DS.INDEX_OF']
+  contains#obj: ['DS.SET.INDEX']
+  size#0: ['BOOL.AND']
+Gen 25: Fitness=0.143772, Acc=0.548, Complexity=0.004
+  add#obj: ['DS.INDEX_OF', 'BOOL.CONST.False', ['BOOL.CONST.True']]
+  clear#0: ['ITE', 'INT.CONST.-1']
+  remove#obj: ['DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'BOOL.CONST.False']
+  isEmpty#0: ['INT.CONST.0', 'INT.CONST.0', 'DS.SIZE', 'BOOL.NOT', 'INT.EQ']
+  contains#obj: ['INT.CONST.0', 'DS.INSERT.AT.INDEX', 'BOOL.CONST.True', 'BOOL.NOT']
+  size#0: ['INT.CONST.0']
+Gen 50: Fitness=0.053614, Acc=0.814, Complexity=0.004
+  add#obj: ['INT.SUB', 'INT.CONST.0', ['DS.INSERT.AT.INDEX'], ['BOOL.CONST.True']]
+  clear#0: ['DS.INDEX_OF', ['BOOL.CONST.False'], ['DS.SET.INDEX']]
+  remove#obj: ['DS.LAST_INDEX_OF', 'INT.CONST.1', 'BOOL.CONST.False']
+  isEmpty#0: ['BOOL.NOT', 'INT.CONST.0', 'DS.SIZE', 'INT.EQ']
+  contains#obj: ['INT.CONST.0', 'BOOL.CONST.True', 'BOOL.NOT']
+  size#0: [['POP.ANY', 'DS.SIZE', ['INT.ADD']]]
+Gen 75: Fitness=0.013066, Acc=0.958, Complexity=0.004
+  add#obj: ['INT.SUB', 'INT.CONST.0', ['DS.INSERT.AT.INDEX'], ['BOOL.CONST.True']]
+  clear#0: ['DS.INDEX_OF', ['DS.CLEAR'], [['DS.SIZE']]]
+  remove#obj: ['INT.EQ', 'DS.INDEX_OF', 'BOOL.CONST.False', 'DS.GET.INDEX']
+  isEmpty#0: ['BOOL.NOT', 'INT.CONST.0', 'DS.SIZE', 'INT.EQ']
+  contains#obj: ['DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'DS.GET.INDEX', 'BOOL.NOT']
+  size#0: ['DS.SIZE']
+Gen 100: Fitness=0.011843, Acc=0.960, Complexity=0.004
+  add#obj: ['INT.CONST.0', ['DS.INSERT.AT.INDEX'], ['BOOL.CONST.True']]
+  clear#0: [['DS.CLEAR'], 'INT.LT']
+  remove#obj: ['DS.INDEX_OF', 'BOOL.CONST.False', 'DS.GET.INDEX']
+  isEmpty#0: ['INT.CONST.0', 'DS.SIZE', 'INT.EQ']
+  contains#obj: ['DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'DS.GET.INDEX', 'BOOL.NOT', 'BOOL.OR']
+  size#0: ['DS.SIZE', 'DS.SIZE']
+Gen 125: Fitness=0.011249, Acc=0.962, Complexity=0.003
+  add#obj: ['INT.CONST.0', ['DS.INSERT.AT.INDEX'], ['BOOL.CONST.True']]
+  clear#0: [['DS.CLEAR']]
+  remove#obj: ['DS.INDEX_OF', 'BOOL.CONST.False', 'DS.GET.INDEX']
+  isEmpty#0: ['DS.SIZE', 'INT.CONST.0', 'INT.EQ']
+  contains#obj: ['DS.INSERT.AT.INDEX', 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'DS.GET.INDEX', 'BOOL.NOT', 'BOOL.OR']
+  size#0: ['DS.SIZE']
+Gen 150: Fitness=0.011249, Acc=0.962, Complexity=0.003
+  add#obj: ['INT.CONST.0', ['DS.INSERT.AT.INDEX'], ['BOOL.CONST.True']]
+  clear#0: [['DS.CLEAR']]
+  remove#obj: ['DS.INDEX_OF', 'BOOL.CONST.False', 'DS.GET.INDEX']
+  isEmpty#0: ['DS.SIZE', 'INT.CONST.0', 'INT.EQ']
+  contains#obj: ['DS.INSERT.AT.INDEX', 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'DS.GET.INDEX', 'BOOL.NOT', 'BOOL.OR']
+  size#0: ['DS.SIZE']
+Gen 175: Fitness=0.011249, Acc=0.962, Complexity=0.003
+  add#obj: ['INT.CONST.0', ['DS.INSERT.AT.INDEX'], ['BOOL.CONST.True']]
+  clear#0: [['DS.CLEAR']]
+  remove#obj: ['DS.INDEX_OF', 'BOOL.CONST.False', 'DS.GET.INDEX']
+  isEmpty#0: ['DS.SIZE', 'INT.CONST.0', 'INT.EQ']
+  contains#obj: ['DS.INSERT.AT.INDEX', 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'DS.GET.INDEX', 'BOOL.NOT', 'BOOL.OR']
+  size#0: ['DS.SIZE']
+Gen 200: Fitness=0.011191, Acc=0.964, Complexity=0.003
+  add#obj: [['INT.CONST.0'], ['DS.INSERT.AT.INDEX'], ['BOOL.CONST.True']]
+  clear#0: [['DS.CLEAR']]
+  remove#obj: ['DS.INDEX_OF', 'INT.CONST.0', 'INT.EQ']
+  isEmpty#0: ['INT.CONST.0', 'DS.SIZE', 'INT.EQ']
+  contains#obj: ['DS.INSERT.AT.INDEX', 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'DS.GET.INDEX', 'BOOL.NOT', 'BOOL.OR']
+  size#0: ['DS.SIZE']
+Gen 225: Fitness=0.011191, Acc=0.964, Complexity=0.003
+  add#obj: [['INT.CONST.0'], ['DS.INSERT.AT.INDEX'], ['BOOL.CONST.True']]
+  clear#0: [['DS.CLEAR']]
+  remove#obj: ['DS.INDEX_OF', 'INT.CONST.0', 'INT.EQ']
+  isEmpty#0: ['INT.CONST.0', 'DS.SIZE', 'INT.EQ']
+  contains#obj: ['DS.INSERT.AT.INDEX', 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'DS.GET.INDEX', 'BOOL.NOT', 'BOOL.OR']
+  size#0: ['DS.SIZE']
+Gen 250: Fitness=0.011191, Acc=0.964, Complexity=0.003
+  add#obj: [['INT.CONST.0'], ['DS.INSERT.AT.INDEX'], ['BOOL.CONST.True']]
+  clear#0: [['DS.CLEAR']]
+  remove#obj: ['DS.INDEX_OF', 'INT.CONST.0', 'INT.EQ']
+  isEmpty#0: ['INT.CONST.0', 'DS.SIZE', 'INT.EQ']
+  contains#obj: ['DS.INSERT.AT.INDEX', 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'DS.GET.INDEX', 'BOOL.NOT', 'BOOL.OR']
+  size#0: ['DS.SIZE']
+Gen 275: Fitness=0.011191, Acc=0.964, Complexity=0.003
+  add#obj: [['INT.CONST.0'], ['DS.INSERT.AT.INDEX'], ['BOOL.CONST.True']]
+  clear#0: [['DS.CLEAR']]
+  remove#obj: ['DS.INDEX_OF', 'INT.CONST.0', 'INT.EQ']
+  isEmpty#0: ['INT.CONST.0', 'DS.SIZE', 'INT.EQ']
+  contains#obj: ['DS.INSERT.AT.INDEX', 'DS.LAST_INDEX_OF', 'BOOL.CONST.True', 'DS.GET.INDEX', 'BOOL.NOT', 'BOOL.OR']
+  size#0: ['DS.SIZE']
+Stopping after 100 gens without improvement
+Evolution completed in 507.34 seconds
+PushGP genome saved to: genomes/public_class_java_util_HashSet_E__run3.json
+Best genome saved to genomes/public_class_java_util_HashSet_E__run3.json

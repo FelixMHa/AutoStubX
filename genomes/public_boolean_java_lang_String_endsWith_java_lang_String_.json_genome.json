@@ -1,0 +1,18 @@
+{
+  "fitness": 0.0863,
+  "accuracy": 0.9138,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "endsWith": 0.9138
+  },
+  "executionTime": 999.1993753910065,
+  "methods": {
+    "endsWith": {
+      "program": [
+        "STR_EQ"
+      ],
+      "accuracy": 0.9138,
+      "complexity": 1
+    }
+  }
+}

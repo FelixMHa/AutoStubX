@@ -1,0 +1,21 @@
+{
+  "fitness": 0.0004,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.0008,
+  "method_accuracies": {
+    "compareTo": 1.0
+  },
+  "executionTime": 550.3808307647705,
+  "methods": {
+    "compareTo": {
+      "program": [
+        "SWAP.ANY",
+        "FLOAT.ADD",
+        "BOOL.OR",
+        "INT.SUB"
+      ],
+      "accuracy": 1.0,
+      "complexity": 4
+    }
+  }
+}

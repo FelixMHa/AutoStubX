@@ -1,0 +1,19 @@
+{
+  "fitness": 0.0167,
+  "accuracy": 0.9835,
+  "complexity_penalty": 0.0004,
+  "method_accuracies": {
+    "isMirrored": 0.9835
+  },
+  "executionTime": 478.03523993492126,
+  "methods": {
+    "isMirrored": {
+      "program": [
+        "BOOL.CONST.False",
+        "STR_TO_ASCII"
+      ],
+      "accuracy": 0.9835,
+      "complexity": 2
+    }
+  }
+}

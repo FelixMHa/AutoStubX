@@ -1,0 +1,19 @@
+{
+  "fitness": 0.1075,
+  "accuracy": 0.8926,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "isUpperCase": 0.8925999999999998
+  },
+  "executionTime": 680.1509740352631,
+  "methods": {
+    "isUpperCase": {
+      "program": [
+        "STR_TO_ASCII",
+        "BOOL.CONST.False"
+      ],
+      "accuracy": 0.8925999999999998,
+      "complexity": 2
+    }
+  }
+}

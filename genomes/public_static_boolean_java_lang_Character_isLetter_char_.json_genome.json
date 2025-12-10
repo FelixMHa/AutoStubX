@@ -1,0 +1,21 @@
+{
+  "fitness": 0.364,
+  "accuracy": 0.6362,
+  "complexity_penalty": 0.0004,
+  "method_accuracies": {
+    "isLetter": 0.6362
+  },
+  "executionTime": 690.5360250473022,
+  "methods": {
+    "isLetter": {
+      "program": [
+        [
+          "BOOL.CONST.False"
+        ],
+        "STR_TO_INT"
+      ],
+      "accuracy": 0.6362,
+      "complexity": 2
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "fitness": 0.0030499999999999998,
+  "accuracy": 0.9971,
+  "complexity_penalty": 0.00030000000000000003,
+  "method_accuracies": {
+    "isSpaceChar": 0.9971
+  },
+  "executionTime": 8.679065942764282,
+  "methods": {
+    "isSpaceChar": {
+      "program": [
+        "STR_ITE",
+        "BOOL.CONST.False",
+        [
+          "STR_LEN"
+        ]
+      ],
+      "accuracy": 0.9971,
+      "complexity": 3
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "fitness": 0.0132,
+  "accuracy": 0.9869,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "isInfinite": 0.9868999999999999
+  },
+  "executionTime": 604.804575920105,
+  "methods": {
+    "isInfinite": {
+      "program": [
+        [
+          "POP.ANY"
+        ],
+        "BOOL.CONST.False"
+      ],
+      "accuracy": 0.9868999999999999,
+      "complexity": 2
+    }
+  }
+}

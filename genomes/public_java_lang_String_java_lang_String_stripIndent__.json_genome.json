@@ -1,0 +1,16 @@
+{
+  "fitness": 0.05866405668533084,
+  "accuracy": 0.9308,
+  "complexity_penalty": 0.0,
+  "method_accuracies": {
+    "stripIndent": 0.9307999999999998
+  },
+  "executionTime": 1404.7533674240112,
+  "methods": {
+    "stripIndent": {
+      "program": [],
+      "accuracy": 0.9307999999999998,
+      "complexity": 0
+    }
+  }
+}

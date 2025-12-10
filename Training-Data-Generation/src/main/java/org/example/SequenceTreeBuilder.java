@@ -51,7 +51,7 @@ public class SequenceTreeBuilder {
             for (int i = 0; i < count; i++) {
                 Object randomElement = RandomDataProvider.randomPrimitiveOrString();
                 boolean out = coll.add(randomElement);
-                sequence.add("add");
+                sequence.add("add#obj");
                 stepInputs.add(new Object[]{randomElement});
                 stepOutputs.add(out);
             }
@@ -63,7 +63,7 @@ public class SequenceTreeBuilder {
                 Object randomKey = RandomDataProvider.randomPrimitiveOrString();
                 Object randomValue = RandomDataProvider.randomPrimitiveOrString();
                 Object out = map.put(randomKey, randomValue);
-                sequence.add("put");
+                sequence.add("put#obj_obj");
                 stepInputs.add(new Object[]{randomKey, randomValue});
                 stepOutputs.add(out);
             }
@@ -87,7 +87,8 @@ public class SequenceTreeBuilder {
             Method candidate = validMethods.get(random.nextInt(validMethods.size()));
             if (candidate == null) continue;
             Object[] args = RandomDataProvider.generateRandomArgs(candidate, baseObject);
-            sequence.add(candidate.getName());
+            String methodSig = createMethodSignature(candidate);
+            sequence.add(methodSig); 
             stepInputs.add(args);
             try {
                 Object output = candidate.invoke(baseObject, args);
@@ -103,6 +104,37 @@ public class SequenceTreeBuilder {
                 stepInputs.toArray(),
                 stepOutputs.toArray()
         );
+    }
+    private String normalizeType(Class<?> type) {
+        // Primitive types
+        if (type == int.class) return "int";
+        if (type == boolean.class) return "bool";
+        if (type == float.class) return "float";
+        if (type == double.class) return "float";  // Treat double as float
+        if (type == long.class) return "long";
+        if (type == byte.class) return "int";      // Small ints
+        if (type == short.class) return "int";     // Small ints
+        if (type == char.class) return "char";
+        
+        // Everything else is an object
+        // This includes: Object, String, E (generic), T, K, V, Integer (boxed), etc.
+        return "obj";
+    }
+    private String createMethodSignature(Method method) {
+        String methodName = method.getName();
+        Class<?>[] paramTypes = method.getParameterTypes();
+        
+        if (paramTypes.length == 0) {
+            return methodName + "#0";
+        }
+        
+        StringBuilder sig = new StringBuilder(methodName).append("#");
+        for (int i = 0; i < paramTypes.length; i++) {
+            if (i > 0) sig.append("_");
+            sig.append(normalizeType(paramTypes[i]));
+        }
+        
+        return sig.toString();
     }
 
     private List<Method> getValidMethods(Class<?> clazz) {

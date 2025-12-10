@@ -1,0 +1,19 @@
+{
+  "fitness": 0.015099999999999999,
+  "accuracy": 0.985,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "isInfinite": 0.985
+  },
+  "executionTime": 701.1333162784576,
+  "methods": {
+    "isInfinite": {
+      "program": [
+        "FLOAT.TO.STR",
+        "BOOL.CONST.False"
+      ],
+      "accuracy": 0.985,
+      "complexity": 2
+    }
+  }
+}

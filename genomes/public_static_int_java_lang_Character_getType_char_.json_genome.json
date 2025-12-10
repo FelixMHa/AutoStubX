@@ -1,0 +1,25 @@
+{
+  "fitness": 0.5087010336793166,
+  "accuracy": 0.4454,
+  "complexity_penalty": 0.0008,
+  "method_accuracies": {
+    "getType": 0.4454
+  },
+  "executionTime": 2715.709874868393,
+  "methods": {
+    "getType": {
+      "program": [
+        "INT.CONST.6",
+        "INT.CONST.3",
+        "INT.ADD",
+        "STR.TO.FLOAT",
+        "INT.CONST.3",
+        "INT.CONST.5",
+        "INT.MUL",
+        "POP.ANY"
+      ],
+      "accuracy": 0.4454,
+      "complexity": 8
+    }
+  }
+}

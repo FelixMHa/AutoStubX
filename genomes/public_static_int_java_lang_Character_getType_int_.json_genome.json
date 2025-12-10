@@ -1,0 +1,19 @@
+{
+  "fitness": 0.311835615138752,
+  "accuracy": 0.6867,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "getType": 0.6867
+  },
+  "executionTime": 879.2743487358093,
+  "methods": {
+    "getType": {
+      "program": [
+        "ASCII_TO_STR",
+        "STR_TO_INT"
+      ],
+      "accuracy": 0.6867,
+      "complexity": 2
+    }
+  }
+}

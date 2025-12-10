@@ -1,0 +1,19 @@
+{
+  "fitness": 0.009399999999999999,
+  "accuracy": 0.9907,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "isDigit": 0.9906999999999999
+  },
+  "executionTime": 9.600758790969849,
+  "methods": {
+    "isDigit": {
+      "program": [
+        "INT.CONST.5",
+        "INT.EQ"
+      ],
+      "accuracy": 0.9906999999999999,
+      "complexity": 2
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "fitness": 0.0172,
+  "accuracy": 0.9832,
+  "complexity_penalty": 0.0008,
+  "method_accuracies": {
+    "isISOControl": 0.9832
+  },
+  "executionTime": 854.0238118171692,
+  "methods": {
+    "isISOControl": {
+      "program": [
+        [
+          "STR_TO_ASCII"
+        ],
+        [
+          [
+            "STR.CONST. "
+          ],
+          "STR_TO_ASCII"
+        ],
+        [
+          "INT.LT"
+        ]
+      ],
+      "accuracy": 0.9832,
+      "complexity": 4
+    }
+  }
+}

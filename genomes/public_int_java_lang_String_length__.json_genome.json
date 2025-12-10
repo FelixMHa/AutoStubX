@@ -1,0 +1,18 @@
+{
+  "fitness": 5e-05,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.0001,
+  "method_accuracies": {
+    "length": 1.0
+  },
+  "executionTime": 17.283708572387695,
+  "methods": {
+    "length": {
+      "program": [
+        "STR_LEN"
+      ],
+      "accuracy": 1.0,
+      "complexity": 1
+    }
+  }
+}

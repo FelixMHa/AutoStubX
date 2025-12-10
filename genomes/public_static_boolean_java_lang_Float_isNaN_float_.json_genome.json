@@ -1,0 +1,22 @@
+{
+  "fitness": 0.0058,
+  "accuracy": 0.9945,
+  "complexity_penalty": 0.0006000000000000001,
+  "method_accuracies": {
+    "isNaN": 0.9945
+  },
+  "executionTime": 9.997127771377563,
+  "methods": {
+    "isNaN": {
+      "program": [
+        "FLOAT.TO.STR",
+        [
+          "STR_SUBSTRING"
+        ],
+        "BOOL.CONST.False"
+      ],
+      "accuracy": 0.9945,
+      "complexity": 3
+    }
+  }
+}

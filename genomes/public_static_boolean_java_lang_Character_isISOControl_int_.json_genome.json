@@ -1,0 +1,26 @@
+{
+  "fitness": 0.00575,
+  "accuracy": 0.9945,
+  "complexity_penalty": 0.0005,
+  "method_accuracies": {
+    "isISOControl": 0.9945
+  },
+  "executionTime": 2186.2568113803864,
+  "methods": {
+    "isISOControl": {
+      "program": [
+        "INT.CONST.0",
+        [
+          "STR_EQ",
+          [
+            "ERC.INT.29"
+          ],
+          "FLOAT.MUL"
+        ],
+        "INT.COMPARE_RANGE"
+      ],
+      "accuracy": 0.9945,
+      "complexity": 5
+    }
+  }
+}

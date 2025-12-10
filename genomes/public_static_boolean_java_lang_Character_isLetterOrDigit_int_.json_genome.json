@@ -1,0 +1,19 @@
+{
+  "fitness": 0.1333,
+  "accuracy": 0.8668,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "isLetterOrDigit": 0.8668
+  },
+  "executionTime": 2016.8311722278595,
+  "methods": {
+    "isLetterOrDigit": {
+      "program": [
+        "POP.ANY",
+        "BOOL.CONST.False"
+      ],
+      "accuracy": 0.8668,
+      "complexity": 2
+    }
+  }
+}
