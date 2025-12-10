@@ -902,6 +902,18 @@ class POP_ANY(PushInstruction):
                 stack.pop()
                 return
 
+class ITE(PushInstruction):
+    def __init__(self):
+        super().__init__("ITE")
+
+    def execute(self, state: PushState):
+        if state.boolean_stack:
+            cond = state.boolean_stack.pop()
+            if state.exec_stack>=2:
+                false_val = state.exec_stack.pop()
+                true_val = state.exec_stack.pop()
+                state.exec_stack(true_val if cond else false_val)
+    
 #  Data Structure Instructions
 
 class DS_SIZE(PushInstruction):
@@ -954,10 +966,8 @@ class DS_SET_INDEX(PushInstruction):
             index = state.integer_stack.pop()
             value = state.pop_from_any_stack()
             if value is not None and 0 <= index < len(state.data_structure_stack):
-                old = state.data_structure_stack[index]
                 state.data_structure_stack[index] = value
-                # Return old value like Java List.set
-                state.push_to_appropriate_stack(old)
+
             else:
                 state.error_stack.append("error")
 
@@ -974,8 +984,6 @@ class DS_INSERT_AT_INDEX(PushInstruction):
                 # Allow insert at end like Java add(index, element)
                 if 0 <= index <= len(state.data_structure_stack):
                     state.data_structure_stack.insert(index, value)
-                    # Return True to mimic add semantics where applicable
-                    state.boolean_stack.append(True)
                 else:
                     state.error_stack.append("error")
 
@@ -989,8 +997,7 @@ class DS_REMOVE_INDEX(PushInstruction):
         if state.integer_stack:
             index = state.integer_stack.pop()
             if 0 <= index < len(state.data_structure_stack):
-                element = state.data_structure_stack.pop(index)
-                state.push_to_appropriate_stack(element)
+                state.data_structure_stack.pop(index)
             else:
                 state.error_stack.append("error")
 
@@ -1213,7 +1220,7 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
             BOOL_CONST(True), BOOL_CONST(False),
         ])
         # Utility
-        instructions.extend([DUP_ANY(), POP_ANY()])
+        instructions.extend([DUP_ANY(), POP_ANY(), ITE()])
         # Data structure operations
         instructions.extend([
             DS_SIZE(), DS_CLEAR(),
@@ -1556,7 +1563,7 @@ class PushGPInterpreter:
             ]
         
         
-        return self.random_program(max_depth=2, max_length=5)
+        return self.random_program(max_depth=2, max_length=6)
     
 
 def _validate_evolution_params(training_data: List[TrainingExample], population_size: int, generations: int):
@@ -1894,7 +1901,7 @@ def mutate_program_aggressive(program: List, interpreter: PushGPInterpreter):
     """Aggressive mutation for poor performers"""
     # Replace large chunks
     if random.random() < 0.5:
-        replacement = interpreter.random_program(max_depth=2, max_length=5)
+        replacement = interpreter.random_program(max_depth=3, max_length=6)
         if len(program) > 2:
             start = random.randint(0, len(program) - 2)
             end = random.randint(start + 1, len(program))
@@ -1959,7 +1966,7 @@ def mutate_program(program: List, interpreter: PushGPInterpreter, mutation_rate:
                         prog[i] = random.choice(interpreter.instruction_list)
                     else:
                         # Replace with small subprogram
-                        subprog = interpreter.random_program(max_depth=2, max_length=3)
+                        subprog = interpreter.random_program(max_depth=2, max_length=4)
                         prog[i] = subprog
             elif isinstance(item, list):
                 mutate_recursive(item)
