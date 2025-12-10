@@ -1,0 +1,16 @@
+{
+  "fitness": 0.3560786289218045,
+  "accuracy": 0.4158,
+  "complexity_penalty": 0.0,
+  "method_accuracies": {
+    "toLowerCase": 0.41579999999999995
+  },
+  "executionTime": 3205.671705007553,
+  "methods": {
+    "toLowerCase": {
+      "program": [],
+      "accuracy": 0.41579999999999995,
+      "complexity": 0
+    }
+  }
+}

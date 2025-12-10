@@ -1,0 +1,19 @@
+{
+  "fitness": 0.8535697017333205,
+  "accuracy": 0.102,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "compareToIgnoreCase": 0.10199999999999998
+  },
+  "executionTime": 1905.8686378002167,
+  "methods": {
+    "compareToIgnoreCase": {
+      "program": [
+        "STR_CONCAT",
+        "STR_LEN"
+      ],
+      "accuracy": 0.10199999999999998,
+      "complexity": 2
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "fitness": 0.1271,
+  "accuracy": 0.873,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "isLowerCase": 0.873
+  },
+  "executionTime": 660.494035243988,
+  "methods": {
+    "isLowerCase": {
+      "program": [
+        "STR.TO.FLOAT",
+        "BOOL.CONST.False"
+      ],
+      "accuracy": 0.873,
+      "complexity": 2
+    }
+  }
+}

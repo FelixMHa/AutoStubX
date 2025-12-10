@@ -1,0 +1,20 @@
+{
+  "fitness": 0.052149999999999995,
+  "accuracy": 0.948,
+  "complexity_penalty": 0.00030000000000000003,
+  "method_accuracies": {
+    "regionMatches": 0.948
+  },
+  "executionTime": 2418.970627307892,
+  "methods": {
+    "regionMatches": {
+      "program": [
+        "INT.SUB",
+        "INT.ABS",
+        "INT.EQ"
+      ],
+      "accuracy": 0.948,
+      "complexity": 3
+    }
+  }
+}

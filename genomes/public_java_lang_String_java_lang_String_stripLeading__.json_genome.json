@@ -1,0 +1,19 @@
+{
+  "fitness": 0.014662469795896188,
+  "accuracy": 0.9658,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "stripLeading": 0.9658
+  },
+  "executionTime": 1181.8586032390594,
+  "methods": {
+    "stripLeading": {
+      "program": [
+        "STR.CONST. ",
+        "SWAP.ANY"
+      ],
+      "accuracy": 0.9658,
+      "complexity": 2
+    }
+  }
+}

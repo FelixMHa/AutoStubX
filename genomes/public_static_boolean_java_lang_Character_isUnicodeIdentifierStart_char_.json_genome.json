@@ -1,0 +1,19 @@
+{
+  "fitness": 0.375,
+  "accuracy": 0.6251,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "isUnicodeIdentifierStart": 0.6251
+  },
+  "executionTime": 739.7143948078156,
+  "methods": {
+    "isUnicodeIdentifierStart": {
+      "program": [
+        "BOOL.CONST.False",
+        "STR_TO_INT"
+      ],
+      "accuracy": 0.6251,
+      "complexity": 2
+    }
+  }
+}

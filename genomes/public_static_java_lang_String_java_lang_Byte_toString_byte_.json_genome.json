@@ -1,0 +1,18 @@
+{
+  "fitness": 0.0001,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "toString": 1.0
+  },
+  "executionTime": 7.290827035903931,
+  "methods": {
+    "toString": {
+      "program": [
+        "INT_TO_STR"
+      ],
+      "accuracy": 1.0,
+      "complexity": 1
+    }
+  }
+}

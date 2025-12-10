@@ -1,0 +1,28 @@
+{
+  "fitness": 0.004579000000000004,
+  "accuracy": 0.9964,
+  "complexity_penalty": 0.0014,
+  "method_accuracies": {
+    "isMirrored": 0.9963999999999998
+  },
+  "executionTime": 10.173145532608032,
+  "methods": {
+    "isMirrored": {
+      "program": [
+        [
+          "FLOAT.ADD",
+          "BOOL.CONST.False",
+          "FLOAT.CONST.1.0",
+          "INT.CONST.2"
+        ],
+        "FLOAT.EQ",
+        "STR_ITE",
+        [
+          "SWAP.ANY"
+        ]
+      ],
+      "accuracy": 0.9963999999999998,
+      "complexity": 7
+    }
+  }
+}

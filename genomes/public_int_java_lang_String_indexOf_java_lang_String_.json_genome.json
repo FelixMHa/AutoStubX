@@ -1,0 +1,21 @@
+{
+  "fitness": 0.0002,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.0004,
+  "method_accuracies": {
+    "indexOf": 1.0
+  },
+  "executionTime": 39.78809213638306,
+  "methods": {
+    "indexOf": {
+      "program": [
+        "SWAP.ANY",
+        "FLOAT.ABS",
+        "INT.CONST.-2",
+        "STR_INDEX_OF"
+      ],
+      "accuracy": 1.0,
+      "complexity": 4
+    }
+  }
+}

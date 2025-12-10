@@ -1,0 +1,19 @@
+{
+  "fitness": 0.0001,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "concat": 1.0
+  },
+  "executionTime": 84.86180996894836,
+  "methods": {
+    "concat": {
+      "program": [
+        "SWAP.ANY",
+        "STR_CONCAT"
+      ],
+      "accuracy": 1.0,
+      "complexity": 2
+    }
+  }
+}

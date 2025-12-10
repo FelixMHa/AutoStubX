@@ -1,0 +1,23 @@
+{
+  "fitness": 0.0050999999999999995,
+  "accuracy": 0.9951,
+  "complexity_penalty": 0.0004,
+  "method_accuracies": {
+    "isTitleCase": 0.9950999999999999
+  },
+  "executionTime": 7.073025465011597,
+  "methods": {
+    "isTitleCase": {
+      "program": [
+        [
+          "FLOAT.ABS",
+          "INT.CONST.6"
+        ],
+        "BOOL.CONST.True",
+        "INT.EQ"
+      ],
+      "accuracy": 0.9950999999999999,
+      "complexity": 4
+    }
+  }
+}

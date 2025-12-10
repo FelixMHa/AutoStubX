@@ -1,0 +1,18 @@
+{
+  "fitness": 0.48214999999999997,
+  "accuracy": 0.5179,
+  "complexity_penalty": 0.0001,
+  "method_accuracies": {
+    "compareUnsigned": 0.5179
+  },
+  "executionTime": 845.4556221961975,
+  "methods": {
+    "compareUnsigned": {
+      "program": [
+        "INT.SUB"
+      ],
+      "accuracy": 0.5179,
+      "complexity": 1
+    }
+  }
+}

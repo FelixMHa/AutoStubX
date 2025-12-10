@@ -1,0 +1,26 @@
+{
+  "fitness": 0.18895,
+  "accuracy": 0.8112,
+  "complexity_penalty": 0.00030000000000000003,
+  "method_accuracies": {
+    "isJavaLetterOrDigit": 0.8112
+  },
+  "executionTime": 723.9556336402893,
+  "methods": {
+    "isJavaLetterOrDigit": {
+      "program": [
+        [
+          [
+            "STR.CONST. "
+          ],
+          [
+            "STR_EQ"
+          ]
+        ],
+        "BOOL.NOT"
+      ],
+      "accuracy": 0.8112,
+      "complexity": 3
+    }
+  }
+}

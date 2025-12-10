@@ -1,0 +1,19 @@
+{
+  "fitness": 0.0001,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "isSurrogatePair": 1.0
+  },
+  "executionTime": 23.499841690063477,
+  "methods": {
+    "isSurrogatePair": {
+      "program": [
+        "STR_CONTAINS",
+        "BOOL.CONST.False"
+      ],
+      "accuracy": 1.0,
+      "complexity": 2
+    }
+  }
+}

@@ -242,7 +242,7 @@ public class GenerateTrainingDataPerClass {
                     continue;
 
                 // Always wrap into a per-step sequence of length 1
-                sequence = Collections.singletonList(method.getName());
+                sequence = Collections.singletonList(createMethodSignature(method));
                 Object[][] inputsPerStep = new Object[][] { fullArgs };
                 Object[] outputsPerStep = new Object[] { output };
                 trainingData.add(new SequenceInputOutputPair<>(sequence, inputsPerStep, outputsPerStep));
@@ -288,8 +288,6 @@ public class GenerateTrainingDataPerClass {
         if (trainingData.isEmpty())
             return;
 
-        // write training data to file, replace all non-alphanumeric characters in
-        // method name
         System.out.println("Writing training data to " + file.getFileName().toString());
 
         try {
@@ -311,5 +309,39 @@ public class GenerateTrainingDataPerClass {
             e.printStackTrace();
         }
     }
+    private static String createMethodSignature(Method method) {
+        String methodName = method.getName();
+        Class<?>[] paramTypes = method.getParameterTypes();
+        
+        if (paramTypes.length == 0) {
+            return methodName + "#0";
+        }
+        
+        StringBuilder sig = new StringBuilder(methodName).append("#");
+        for (int i = 0; i < paramTypes.length; i++) {
+            if (i > 0) sig.append("_");
+            sig.append(normalizeType(paramTypes[i]));
+        }
+        
+        return sig.toString();
+    }
+    
+
+    private static String normalizeType(Class<?> type) {
+        // Primitive types
+        if (type == int.class) return "int";
+        if (type == boolean.class) return "bool";
+        if (type == float.class) return "float";
+        if (type == double.class) return "float";  // Treat double as float
+        if (type == long.class) return "long";
+        if (type == byte.class) return "int";      // Small ints
+        if (type == short.class) return "int";     // Small ints
+        if (type == char.class) return "char";
+        
+        // Everything else is an object
+        // This includes: Object, String, E (generic), T, K, V, Integer (boxed), etc.
+        return "obj";
+    }
+
 
 }

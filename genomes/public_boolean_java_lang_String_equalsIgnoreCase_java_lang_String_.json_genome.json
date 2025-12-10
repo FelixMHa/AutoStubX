@@ -1,0 +1,18 @@
+{
+  "fitness": 5e-05,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.0001,
+  "method_accuracies": {
+    "equalsIgnoreCase": 1.0
+  },
+  "executionTime": 16.941189289093018,
+  "methods": {
+    "equalsIgnoreCase": {
+      "program": [
+        "STR_EQ"
+      ],
+      "accuracy": 1.0,
+      "complexity": 1
+    }
+  }
+}

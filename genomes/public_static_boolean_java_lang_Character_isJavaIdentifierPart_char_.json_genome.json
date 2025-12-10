@@ -1,0 +1,19 @@
+{
+  "fitness": 0.19039999999999999,
+  "accuracy": 0.8097,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "isJavaIdentifierPart": 0.8096999999999999
+  },
+  "executionTime": 2086.1986463069916,
+  "methods": {
+    "isJavaIdentifierPart": {
+      "program": [
+        "BOOL.CONST.True",
+        "STR_LEN"
+      ],
+      "accuracy": 0.8096999999999999,
+      "complexity": 2
+    }
+  }
+}

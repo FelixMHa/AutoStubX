@@ -1,0 +1,19 @@
+{
+  "fitness": 0.0373,
+  "accuracy": 0.9629,
+  "complexity_penalty": 0.0004,
+  "method_accuracies": {
+    "isIdeographic": 0.9628999999999999
+  },
+  "executionTime": 508.54313349723816,
+  "methods": {
+    "isIdeographic": {
+      "program": [
+        "POP.ANY",
+        "BOOL.CONST.False"
+      ],
+      "accuracy": 0.9628999999999999,
+      "complexity": 2
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "fitness": 0.9932,
+  "accuracy": 0.007,
+  "complexity_penalty": 0.0004,
+  "method_accuracies": {
+    "floatToIntBits": 0.006999999999999999
+  },
+  "executionTime": 1085.5300936698914,
+  "methods": {
+    "floatToIntBits": {
+      "program": [
+        [
+          "INT.CONST.0"
+        ],
+        "FLOAT.TO.STR"
+      ],
+      "accuracy": 0.006999999999999999,
+      "complexity": 2
+    }
+  }
+}

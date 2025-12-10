@@ -1,0 +1,20 @@
+{
+  "fitness": 0.1572,
+  "accuracy": 0.8431,
+  "complexity_penalty": 0.0006000000000000001,
+  "method_accuracies": {
+    "isValidCodePoint": 0.8431
+  },
+  "executionTime": 632.6013922691345,
+  "methods": {
+    "isValidCodePoint": {
+      "program": [
+        "INT.NEG",
+        "INT.CONST.1",
+        "INT.LT"
+      ],
+      "accuracy": 0.8431,
+      "complexity": 3
+    }
+  }
+}

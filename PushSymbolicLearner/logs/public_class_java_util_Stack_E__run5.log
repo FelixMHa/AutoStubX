@@ -1,0 +1,67 @@
+Loading training data from ../Training-Data-Generation/symbolic-regression-data/training/public_class_java_util_Stack_E_.json
+Max samples per file: 10000
+------------------------------------------------------------
+Loading public_class_java_util_Stack_E_.json... (1000 samples)
+------------------------------------------------------------
+Loaded 1000 total samples from 1 files
+Learning PushGP programs for 6 methods: ['add#obj', 'empty#0', 'peek#0', 'push#obj', 'search#obj', 'pop#0']
+Gen 0: Fitness=0.423849, Acc=0.167, Complexity=0.002
+  add#obj: [['DUP.ANY'], ['DS.SIZE'], 'BOOL.CONST.True', 'INT.ADD']
+  empty#0: ['BOOL.CONST.True']
+  peek#0: ['POP.ANY']
+  push#obj: ['DS.CLEAR']
+  search#obj: ['DS.LAST_INDEX_OF']
+  pop#0: ['ITE']
+Gen 25: Fitness=0.230279, Acc=0.367, Complexity=0.003
+  add#obj: [['DUP.ANY'], ['BOOL.OR'], [[['POP.ANY', ['DS.LAST_INDEX_OF', ['BOOL.CONST.False']], 'BOOL.CONST.True', ['INT.LT', ['DS.CLEAR']]]]]]
+  empty#0: ['BOOL.CONST.False']
+  peek#0: ['DS.INDEX_OF', ['BOOL.CONST.True']]
+  push#obj: ['DS.CLEAR', 'BOOL.OR']
+  search#obj: ['DS.LAST_INDEX_OF']
+  pop#0: ['DS.INDEX_OF', 'DUP.ANY', ['BOOL.CONST.True']]
+Gen 50: Fitness=0.227508, Acc=0.372, Complexity=0.004
+  add#obj: [['DS.INDEX_OF'], [[['POP.ANY', ['INT.CONST.1', ['BOOL.CONST.False']], 'BOOL.CONST.True', 'DS.GET.INDEX']]], 'INT.EQ', 'DUP.ANY']
+  empty#0: ['BOOL.CONST.False']
+  peek#0: ['DS.INDEX_OF', ['BOOL.CONST.True'], 'DS.INDEX_OF', ['BOOL.CONST.True']]
+  push#obj: ['DS.CLEAR']
+  search#obj: ['DS.LAST_INDEX_OF']
+  pop#0: ['DS.INDEX_OF', 'DS.SIZE', ['BOOL.CONST.True']]
+Gen 75: Fitness=0.227089, Acc=0.372, Complexity=0.003
+  empty#0: ['BOOL.CONST.False']
+  add#obj: [['DS.LAST_INDEX_OF'], 'BOOL.CONST.False', 'BOOL.CONST.True']
+  peek#0: ['DS.INDEX_OF', ['BOOL.CONST.True'], 'DS.INDEX_OF', ['BOOL.CONST.True']]
+  push#obj: ['INT.SUB']
+  search#obj: ['DS.LAST_INDEX_OF']
+  pop#0: ['DS.INDEX_OF', 'INT.CONST.0', ['BOOL.CONST.True']]
+Gen 100: Fitness=0.226908, Acc=0.372, Complexity=0.002
+  add#obj: ['POP.ANY', 'BOOL.CONST.False', 'BOOL.CONST.True']
+  empty#0: ['BOOL.CONST.False']
+  peek#0: ['DS.INDEX_OF', 'INT.CONST.-1', ['BOOL.CONST.True']]
+  push#obj: ['INT.SUB']
+  search#obj: ['DS.LAST_INDEX_OF']
+  pop#0: ['DS.INDEX_OF', 'DS.SIZE', 'BOOL.CONST.True']
+Gen 125: Fitness=0.226908, Acc=0.372, Complexity=0.002
+  add#obj: ['POP.ANY', 'BOOL.CONST.False', 'BOOL.CONST.True']
+  empty#0: ['BOOL.CONST.False']
+  peek#0: ['DS.INDEX_OF', 'INT.CONST.-1', ['BOOL.CONST.True']]
+  push#obj: ['INT.SUB']
+  search#obj: ['DS.LAST_INDEX_OF']
+  pop#0: ['DS.INDEX_OF', 'DS.SIZE', 'BOOL.CONST.True']
+Gen 150: Fitness=0.226908, Acc=0.372, Complexity=0.002
+  add#obj: ['POP.ANY', 'BOOL.CONST.False', 'BOOL.CONST.True']
+  empty#0: ['BOOL.CONST.False']
+  peek#0: ['DS.INDEX_OF', 'INT.CONST.-1', ['BOOL.CONST.True']]
+  push#obj: ['INT.SUB']
+  search#obj: ['DS.LAST_INDEX_OF']
+  pop#0: ['DS.INDEX_OF', 'DS.SIZE', 'BOOL.CONST.True']
+Gen 175: Fitness=0.226908, Acc=0.372, Complexity=0.002
+  add#obj: ['POP.ANY', 'BOOL.CONST.False', 'BOOL.CONST.True']
+  empty#0: ['BOOL.CONST.False']
+  peek#0: ['DS.INDEX_OF', 'INT.CONST.-1', ['BOOL.CONST.True']]
+  push#obj: ['INT.SUB']
+  search#obj: ['DS.LAST_INDEX_OF']
+  pop#0: ['DS.INDEX_OF', 'DS.SIZE', 'BOOL.CONST.True']
+Stopping after 100 gens without improvement
+Evolution completed in 639.36 seconds
+PushGP genome saved to: genomes/public_class_java_util_Stack_E__run5.json
+Best genome saved to genomes/public_class_java_util_Stack_E__run5.json

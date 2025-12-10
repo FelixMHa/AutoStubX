@@ -1,0 +1,19 @@
+{
+  "fitness": 0.2394,
+  "accuracy": 0.7607,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "isBmpCodePoint": 0.7607
+  },
+  "executionTime": 670.6904196739197,
+  "methods": {
+    "isBmpCodePoint": {
+      "program": [
+        "INT.CONST.0",
+        "INT.EQ"
+      ],
+      "accuracy": 0.7607,
+      "complexity": 2
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "fitness": 0.9929999970801489,
+  "accuracy": 0.0072,
+  "complexity_penalty": 0.0004,
+  "method_accuracies": {
+    "hashCode": 0.0072
+  },
+  "executionTime": 726.0604493618011,
+  "methods": {
+    "hashCode": {
+      "program": [
+        [
+          "INT.CONST.1"
+        ],
+        "FLOAT.COS"
+      ],
+      "accuracy": 0.0072,
+      "complexity": 2
+    }
+  }
+}

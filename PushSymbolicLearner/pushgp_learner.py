@@ -864,18 +864,15 @@ class EXEC_DO_TIMES(PushInstruction):
 
 #Utility Instructions
 class DUP_ANY(PushInstruction):
-    def __init__(self, arg_index: int = 0):
+    def __init__(self):
         super().__init__("DUP.ANY")
-    
+
     def execute(self, state: PushState):
-        if state.integer_stack:
-            state.integer_stack.append(state.integer_stack[-1])
-        if state.boolean_stack:
-            state.boolean_stack.append(state.boolean_stack[-1])
-        if state.string_stack:
-            state.string_stack.append(state.string_stack[-1])
-        if state.float_stack:
-            state.float_stack.append(state.float_stack[-1])
+        for stack in [state.integer_stack, state.boolean_stack,
+                      state.string_stack, state.float_stack]:
+            if stack:  # first non-empty stack
+                stack.append(stack[-1])
+                return
 
 class SWAP_ANY(PushInstruction):
     def __init__(self):
@@ -1220,7 +1217,7 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
             BOOL_CONST(True), BOOL_CONST(False),
         ])
         # Utility
-        instructions.extend([DUP_ANY(), POP_ANY(), ITE()])
+        instructions.extend([DUP_ANY(),SWAP_ANY(), POP_ANY(), ITE()])
         # Data structure operations
         instructions.extend([
             DS_SIZE(), DS_CLEAR(),
@@ -1511,28 +1508,18 @@ class PushGPInterpreter:
             return stack[-1]
         return None
 
+    def random_program(self, max_depth: int = 2, max_length: int = 5) -> List:
+        """Generate linear programs biased toward useful patterns"""
+        if max_depth <= 0 or random.random() < 0.9:  # 90% flat lists
+            length = random.randint(1, max_length)
+            return [self._get_random_instruction() for _ in range(length)]
 
+        # Rare: add one sublist
+        program = [self._get_random_instruction() for _ in range(random.randint(1, 3))]
+        program.append(self.random_program(max_depth - 1, 3))
+        return program
 
     
-    def random_program(self, max_depth: int = 3, max_length: int = 8) -> List:
-        """Generate random program with bias toward useful instructions"""
-        if max_depth <= 0 or random.random() < 0.6:
-            # Terminal: single instruction
-            return [random.choice(self.instruction_list)]
-        
-        # Non-terminal: list of instructions/sublists
-        length = random.randint(1, min(max_length, 4))
-        program = []
-        
-        for _ in range(length):
-            if random.random() < 0.7:  # Favor single instructions
-                program.append(self._get_random_instruction())
-            else:
-                # Add subprogram
-                subprogram = self.random_program(max_depth - 1, max_length // 2)
-                program.append(subprogram)
-        
-        return program
 
     def _get_random_instruction(self):
         """Get a random instruction, creating new ERCs when selected"""
@@ -1547,20 +1534,49 @@ class PushGPInterpreter:
     def create_smart_initial_program(self, method_name: str) -> List:
         """Create smarter initial programs based on method name"""
         m = method_name.lower()
-        if m == 'add':
-            # Append at end: size -> index, then insert(value) at index
+        if m == 'add#obj':
+
             return [
                 self.instruction_set['DS.SIZE'],
                 self.instruction_set['DS.INSERT.AT.INDEX'],
                 self.instruction_set['BOOL.CONST.True']
             ]
-        if m == 'isEmpty':
-            # Append at end: size -> index, then insert(value) at index
+        if m == 'empty#0':
+ 
             return [
                 self.instruction_set['DS.SIZE'],
                 self.instruction_set['INT.CONST.0'],
                 self.instruction_set['INT.EQ']
             ]
+        if m == 'push#obj':
+
+            return [
+                self.instruction_set['DUP.ANY'],
+                self.instruction_set['DS.SIZE'],
+                self.instruction_set['DS.INSERT.AT.INDEX']
+            ]
+        if m == 'pop#0':
+
+            return [
+                self.instruction_set['DS.SIZE'],
+                self.instruction_set['INT.CONST.1'],
+                self.instruction_set['INT.SUB'],
+                self.instruction_set['DUP.ANY'],
+                self.instruction_set['DS.GET.INDEX'],
+                self.instruction_set['SWAP.ANY'],
+                self.instruction_set['DS.REMOVE.INDEX']
+            ]
+
+
+        if m == 'peek#0':
+
+            return [
+                self.instruction_set['DS.SIZE'],
+                self.instruction_set['INT.CONST.1'],
+                self.instruction_set['INT.SUB'],
+                self.instruction_set['DS.GET.INDEX']
+            
+        ]
         
         
         return self.random_program(max_depth=2, max_length=6)
@@ -1757,7 +1773,8 @@ def evaluate_genome(genome: PushGPGenome, training_data, interpreter, early_stop
             
             if genome_error < 0.01:
                 correct_predictions += 1
-            
+            else:
+                pass
             # Early abort
             if abort_sum is not None and total_error > abort_sum:
                 genome.fitness = 1e5
@@ -1929,7 +1946,7 @@ def mutate_program_conservative(program: List, interpreter: PushGPInterpreter):
     elif mutation_type == 'tweak_constant':
         # Modify a constant slightly
         for i, instr in enumerate(program):
-            if hasattr(instr, 'value') and isinstance(instr.value, int):
+            if hasattr(instr, 'value') and type(instr.value) is int:
                 if random.random() < 0.3:
                     delta = random.choice([-1, 0, 1])
                     new_val = instr.value + delta

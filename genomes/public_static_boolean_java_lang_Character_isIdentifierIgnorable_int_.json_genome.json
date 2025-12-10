@@ -1,0 +1,24 @@
+{
+  "fitness": 0.01435,
+  "accuracy": 0.9859,
+  "complexity_penalty": 0.0005,
+  "method_accuracies": {
+    "isIdentifierIgnorable": 0.9858999999999999
+  },
+  "executionTime": 2648.222673177719,
+  "methods": {
+    "isIdentifierIgnorable": {
+      "program": [
+        "ERC.INT.28",
+        "STR.CONST. ",
+        "INT.DIV",
+        [
+          "STR_TO_INT",
+          "INT.EQ"
+        ]
+      ],
+      "accuracy": 0.9858999999999999,
+      "complexity": 5
+    }
+  }
+}

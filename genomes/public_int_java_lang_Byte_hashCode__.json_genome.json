@@ -1,0 +1,27 @@
+{
+  "fitness": 0.0004,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.0008,
+  "method_accuracies": {
+    "hashCode": 1.0
+  },
+  "executionTime": 8.387449502944946,
+  "methods": {
+    "hashCode": {
+      "program": [
+        "ERC.INT.158",
+        [
+          [
+            "SWAP.ANY"
+          ]
+        ],
+        [
+          "FLOAT.EQ"
+        ],
+        "FLOAT.ITE"
+      ],
+      "accuracy": 1.0,
+      "complexity": 4
+    }
+  }
+}

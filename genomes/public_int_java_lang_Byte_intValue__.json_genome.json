@@ -1,0 +1,23 @@
+{
+  "fitness": 0.0014079999999999976,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.0008,
+  "method_accuracies": {
+    "intValue": 1.0
+  },
+  "executionTime": 10.176138162612915,
+  "methods": {
+    "intValue": {
+      "program": [
+        [
+          "INT.CONST.-3"
+        ],
+        "INT.CONST.2",
+        "POP.ANY",
+        "SWAP.ANY"
+      ],
+      "accuracy": 1.0,
+      "complexity": 4
+    }
+  }
+}

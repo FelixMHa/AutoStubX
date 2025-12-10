@@ -1,0 +1,23 @@
+{
+  "fitness": 0.00021500000000000002,
+  "accuracy": 1.0,
+  "complexity_penalty": 0.0004,
+  "method_accuracies": {
+    "toString": 1.0
+  },
+  "executionTime": 21.610220909118652,
+  "methods": {
+    "toString": {
+      "program": [
+        "STR.CONST. ",
+        "FLOAT.NEG",
+        "SWAP.ANY",
+        [
+          "INT.CONST.6"
+        ]
+      ],
+      "accuracy": 1.0,
+      "complexity": 4
+    }
+  }
+}

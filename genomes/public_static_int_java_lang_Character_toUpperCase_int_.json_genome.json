@@ -1,0 +1,19 @@
+{
+  "fitness": 0.009030040412007322,
+  "accuracy": 0.9746,
+  "complexity_penalty": 0.0002,
+  "method_accuracies": {
+    "toUpperCase": 0.9845
+  },
+  "executionTime": 795.8622159957886,
+  "methods": {
+    "toUpperCase": {
+      "program": [
+        "ERC.INT.187",
+        "SWAP.ANY"
+      ],
+      "accuracy": 0.9845,
+      "complexity": 2
+    }
+  }
+}

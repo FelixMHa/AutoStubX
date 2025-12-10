@@ -16,8 +16,8 @@
   "args": [
     "${workspaceFolder}/Training-Data-Generation/symbolic-regression-data/training/public_class_java_util_Stack_E_.json",
     "--profile", "ds_smt_minimal",
-    "--generations", "700",
-    "--population", "300"
+    "--generations", "1000",
+    "--population", "500"
   ]
 }]
 }
