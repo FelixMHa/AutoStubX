@@ -1,0 +1,20 @@
+Loading training data from ../../Training-Data-Generation/symbolic-regression-data/training/public_class_java_util_ArrayList_E_.json
+Max samples per file: 10000
+------------------------------------------------------------
+Loading public_class_java_util_ArrayList_E_.json... (1000 samples)
+------------------------------------------------------------
+Loaded 1000 total samples from 1 files
+Learning PushGP programs for 12 methods: ['add#obj', 'set#int_obj', 'remove#int', 'get#int', 'contains#obj', 'size#0', 'clear#0', 'isEmpty#0', 'lastIndexOf#obj', 'add#int_obj', 'remove#obj', 'indexOf#obj']
+Gen 0: Fitness=0.313113, Acc=0.270, Complexity=0.017
+  add#obj: ['DS.GET.INDEX', 'DS.CLEAR', 'INT.ADD', 'INT.SUB', 'BOOL.CONST.True', 'DS.CLEAR', 'SWAP.ANY', 'DS.SIZE']
+  set#int_obj: ['DS.GET.INDEX', 'BOOL.NOT', 'INT.CONST.-1', 'DS.REMOVE.INDEX', 'INT.CONST.0', 'SWAP.ANY', 'DS.SET.INDEX', 'DS.INDEX_OF', 'INT.ADD']
+  remove#int: ['BOOL.CONST.True', 'DS.GET.INDEX', 'DS.LAST_INDEX_OF', 'BOOL.OR', 'INT.ADD', 'INT.CONST.-1']
+  get#int: ['DS.LAST_INDEX_OF', 'INT.SUB', ['DS.SET.INDEX', 'DS.INDEX_OF']]
+  contains#obj: ['DS.SET.INDEX', 'DS.SIZE', 'BOOL.CONST.False', 'INT.CONST.1', 'INT.CONST.-1', 'DUP.ANY', 'INT.SUB', 'INT.CONST.0', 'POP.ANY', 'DS.CLEAR']
+  size#0: ['SWAP.ANY', 'INT.SUB', 'ITE', 'DS.SIZE', 'POP.ANY', 'BOOL.CONST.True', 'DS.LAST_INDEX_OF', 'INT.SUB']
+  clear#0: ['DS.SIZE', 'INT.LT', 'BOOL.CONST.False', 'BOOL.CONST.False', 'BOOL.OR', 'INT.CONST.1', 'SWAP.ANY', 'INT.CONST.1', 'INT.SUB']
+  isEmpty#0: ['INT.LT', 'DS.CLEAR', 'BOOL.AND', 'DS.GET.INDEX', 'BOOL.CONST.True', 'INT.CONST.0', 'INT.EQ']
+  lastIndexOf#obj: ['INT.CONST.-1']
+  add#int_obj: ['DS.LAST_INDEX_OF', 'DS.CLEAR', 'INT.CONST.1', 'BOOL.NOT', 'DS.GET.INDEX', 'INT.SUB', 'INT.LT']
+  remove#obj: ['DS.GET.INDEX', 'INT.CONST.1', 'BOOL.CONST.True', 'DS.CLEAR', 'ITE', 'BOOL.NOT', 'DS.REMOVE.INDEX', 'INT.LT', 'BOOL.NOT', 'BOOL.CONST.False']
+  indexOf#obj: ['SWAP.ANY', 'DUP.ANY', 'INT.CONST.1', 'BOOL.NOT', 'DS.GET.INDEX', 'INT.EQ', 'BOOL.NOT']

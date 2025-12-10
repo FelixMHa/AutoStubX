@@ -30,7 +30,7 @@ def start_run(mainfolder: str, filename: str, run_idx: int):
     print(f"Run {run_idx} for {filename} -> genome: {genome_out}, log: {log_out}")
 
     cmd = [
-    PY, "-u", "rungp.py", filepath,
+    PY, "-u", "../rungp.py", filepath,
     "--profile", "ds_smt_minimal",
     "--population", "1000",
     "--generations", "2000",
