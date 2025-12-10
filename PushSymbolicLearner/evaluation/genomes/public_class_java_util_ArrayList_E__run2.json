@@ -1,0 +1,135 @@
+{
+  "fitness": 0.011753994899439131,
+  "accuracy": 0.963,
+  "complexity_penalty": 0.0058000000000000005,
+  "method_accuracies": {
+    "remove#int": 0.9818867099848252,
+    "get#int": 0.9702272364793535,
+    "isEmpty#0": 0.9947306791569086,
+    "add#obj": 0.9945556072591903,
+    "clear#0": 0.9992356687898089,
+    "indexOf#obj": 0.9952554744525547,
+    "size#0": 0.9943621545003543,
+    "lastIndexOf#obj": 0.989712833545108,
+    "remove#obj": 0.9880163116541689,
+    "contains#obj": 0.991780025578421,
+    "add#int_obj": 0.9955773955773954,
+    "set#int_obj": 0.9689895609211889
+  },
+  "executionTime": 2684.565306186676,
+  "methods": {
+    "remove#int": {
+      "program": [
+        [
+          [
+            "DS.GET.INDEX",
+            "BOOL.CONST.True",
+            "INT.CONST.0",
+            "BOOL.AND"
+          ]
+        ],
+        "DS.REMOVE.INDEX"
+      ],
+      "accuracy": 0.9818867099848252,
+      "complexity": 5
+    },
+    "indexOf#obj": {
+      "program": [
+        "DS.INDEX_OF"
+      ],
+      "accuracy": 0.9952554744525547,
+      "complexity": 1
+    },
+    "size#0": {
+      "program": [
+        "DS.SIZE"
+      ],
+      "accuracy": 0.9943621545003543,
+      "complexity": 1
+    },
+    "add#int_obj": {
+      "program": [
+        "SWAP.ANY",
+        "DS.INSERT.AT.INDEX"
+      ],
+      "accuracy": 0.9955773955773954,
+      "complexity": 2
+    },
+    "add#obj": {
+      "program": [
+        "DS.SIZE",
+        "DS.INSERT.AT.INDEX",
+        "BOOL.CONST.True"
+      ],
+      "accuracy": 0.9945556072591903,
+      "complexity": 3
+    },
+    "set#int_obj": {
+      "program": [
+        [
+          [
+            "BOOL.CONST.False"
+          ],
+          "SWAP.ANY"
+        ],
+        "DS.GET.INDEX"
+      ],
+      "accuracy": 0.9689895609211889,
+      "complexity": 3
+    },
+    "isEmpty#0": {
+      "program": [
+        "DS.SIZE",
+        "INT.CONST.0",
+        "INT.EQ"
+      ],
+      "accuracy": 0.9947306791569086,
+      "complexity": 3
+    },
+    "contains#obj": {
+      "program": [
+        "DS.GET.INDEX",
+        "DS.LAST_INDEX_OF",
+        "BOOL.CONST.False",
+        "DS.GET.INDEX"
+      ],
+      "accuracy": 0.991780025578421,
+      "complexity": 4
+    },
+    "remove#obj": {
+      "program": [
+        "DS.INDEX_OF",
+        "BOOL.CONST.False",
+        [
+          "DS.GET.INDEX"
+        ]
+      ],
+      "accuracy": 0.9880163116541689,
+      "complexity": 3
+    },
+    "lastIndexOf#obj": {
+      "program": [
+        [
+          "DS.INDEX_OF"
+        ]
+      ],
+      "accuracy": 0.989712833545108,
+      "complexity": 1
+    },
+    "get#int": {
+      "program": [
+        "BOOL.CONST.False",
+        "DS.GET.INDEX"
+      ],
+      "accuracy": 0.9702272364793535,
+      "complexity": 2
+    },
+    "clear#0": {
+      "program": [
+        "DS.CLEAR"
+      ],
+      "accuracy": 0.9992356687898089,
+      "complexity": 1
+    }
+  }
+}
