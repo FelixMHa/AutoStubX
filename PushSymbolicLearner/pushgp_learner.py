@@ -1973,7 +1973,7 @@ def mutate_program(program: List, interpreter: PushGPInterpreter, mutation_rate:
     
     # Structural mutations
     if random.random() < mutation_rate:
-        if len(program) > 1 and random.random() < 0.4:
+        if len(program) > 1 and random.random() < 0.5:
             # Remove instruction
             program.pop(random.randint(0, len(program) - 1))
         elif len(program) < 8 and random.random() < 0.5:
