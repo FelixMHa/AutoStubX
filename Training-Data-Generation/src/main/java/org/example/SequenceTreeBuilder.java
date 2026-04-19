@@ -47,6 +47,7 @@ public class SequenceTreeBuilder {
         // ✅ 70% chance: pre-fill instance with 0–3 random elements
         if (instance instanceof Collection<?> && random.nextDouble() < 0.7) {
             int count = random.nextInt(4);
+            @SuppressWarnings("unchecked")
             Collection<Object>  coll = (Collection<Object>) instance;
             for (int i = 0; i < count; i++) {
                 Object randomElement = RandomDataProvider.randomPrimitiveOrString();
@@ -58,6 +59,7 @@ public class SequenceTreeBuilder {
         return coll;
         } else if (instance instanceof Map<?, ?> && random.nextDouble() < 0.7) {
             int count = random.nextInt(4);
+            @SuppressWarnings("unchecked")
             Map<Object, Object> map = (Map<Object, Object>) instance;
             for (int i = 0; i < count; i++) {
                 Object randomKey = RandomDataProvider.randomPrimitiveOrString();

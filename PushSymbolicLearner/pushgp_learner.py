@@ -466,7 +466,7 @@ class ITE_FLOAT(PushInstruction):
 
 #ERCs
 class ERC_INT(PushInstruction):
-    def __init__(self, value: int = None):
+    def __init__(self, value: Optional[int] = None):
         if value is None:
             value = int(random.uniform(-10, 256))
         super().__init__(f"ERC.INT.{value}")
@@ -476,7 +476,7 @@ class ERC_INT(PushInstruction):
         state.integer_stack.append(self.value)
         
 class ERC_FLOAT(PushInstruction):
-    def __init__(self, value: int = None):
+    def __init__(self, value: Optional[float] = None):
         if value is None:
             if random.random() < 0.5:
                 value = float(random.uniform(-256, 256))
@@ -906,11 +906,11 @@ class ITE(PushInstruction):
     def execute(self, state: PushState):
         if state.boolean_stack:
             cond = state.boolean_stack.pop()
-            if state.exec_stack>=2:
+            if len(state.exec_stack) >= 2:
                 false_val = state.exec_stack.pop()
                 true_val = state.exec_stack.pop()
-                state.exec_stack(true_val if cond else false_val)
-    
+                state.exec_stack.append(true_val if cond else false_val)
+
 #  Data Structure Instructions
 
 class DS_SIZE(PushInstruction):
@@ -1289,7 +1289,7 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
 class PushProgram:
     """ Push program with better execution"""
     
-    def __init__(self, code: List[Union[PushInstruction, List]] = None):
+    def __init__(self, code: List[Union[PushInstruction, List]]):
         self.code = code or []
     
     def execute(self, state: PushState):
@@ -1410,7 +1410,7 @@ class PushGPInterpreter:
                     state.string_stack.append(arg)
     
     
-    def execute_sequence(self, genome: PushGPGenome, example: TrainingExample) -> List:
+    def execute_sequence(self, genome: PushGPGenome, example: TrainingExample) -> tuple[List, List]:
         """Execute each method Push program in a sequence, preserving DS state."""
         state = PushState(max_steps=self.max_steps)
         step_results = []
@@ -1418,7 +1418,7 @@ class PushGPInterpreter:
         for i, method_name in enumerate(example.sequence):
             args = example.input_args[i] if i < len(example.input_args) else []
             arg_types = example.type_inputs[i] if i < len(example.type_inputs) else []
-            expected_type = example.type_outputs[i] if i < len(example.type_outputs) else None
+            expected_type: Optional[str] = example.type_outputs[i] if i < len(example.type_outputs) else None
 
             # Reset non-persistent stacks between method calls
             state.result = None
@@ -1463,7 +1463,7 @@ class PushGPInterpreter:
         return step_results, used_inputs
 
 
-    def _extract_result_from_state(self, state: "PushState", expected_type: str):
+    def _extract_result_from_state(self, state: "PushState", expected_type: Optional[str]):
         """Return strictly typed results; treat error/null explicitly."""
         if expected_type is None:
             return None
@@ -1503,7 +1503,7 @@ class PushGPInterpreter:
             key = expected_type.lower()
         else:
             key = None
-        stack = type_map.get(key)
+        stack = type_map.get(key) if key is not None else None
         if stack and len(stack) > 0:
             return stack[-1]
         return None
@@ -1620,7 +1620,7 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
                         profile: str = 'primitives_full',
                         processes: Optional[int] = None,
                         log_every: int = 25,
-                        max_steps: Optional[int] = None) -> PushGPGenome:
+                        max_steps: Optional[int] = None) -> Optional[PushGPGenome]:
     
     _validate_evolution_params(training_data, population_size, generations)
     
@@ -2010,7 +2010,7 @@ def _calculate_behavioral_signature(genome: PushGPGenome,
     
     for example in samples:
         try:
-            predicted, _, _ = interpreter.execute_sequence(genome, example)
+            predicted, _ = interpreter.execute_sequence(genome, example)
             # Hash the outputs
             sig = tuple(str(p) for p in predicted)
             signature.append(sig)
