@@ -29,7 +29,7 @@ def loadtrainingdata(data_directory: str, max_samples_per_file: int = 1000, file
         print(f"Loading {json_file.name}...", end=" ")
         
         try:
-            with open(json_file, 'r') as f:
+            with open(json_file, 'r', encoding="utf-8") as f:
                 data = json.load(f)
             
             # Handle both single objects and arrays
@@ -86,7 +86,7 @@ def save_simple_genome(genome, output_file: str, execution_time: float):
         'execution_time': execution_time
     }
 
-    with open(output_path, 'w') as f:
+    with open(output_path, 'w', encoding="utf-8") as f:
         json.dump(genome_data, f, indent=4)
 
     print(f"Genome saved to {output_file}")
@@ -122,7 +122,7 @@ def save_genome(genome, output_path: str, executionTime: float):
             'complexity': genome._count_instructions(program.code),
         }
     
-    with open(output_path, 'w') as f:
+    with open(output_path, 'w', encoding="utf-8") as f:
         json.dump(genome_data, f, indent=2)
     
     print(f"PushGP genome saved to: {output_path}")
