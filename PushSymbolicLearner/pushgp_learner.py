@@ -153,17 +153,17 @@ def run_pushgp_evolution(training_data: List[TrainingExample],
             new_population = []
 
             # Elitism (keep top 10%)
-            elite_count = 1 #max(2, population_size // 10)
+            elite_count = max(2, population_size // 10)
             new_population.extend([g.copy() for g in population[:elite_count]])
 
             # Generate offspring
             while len(new_population) < population_size:
                 if random.random() < 0.5:  # Crossover
-                    parent1 = lexicase_selection(population, training_data, interpreter)
-                    parent2 = lexicase_selection(population, training_data, interpreter)
+                    parent1 = tournament_selection(population, training_data, interpreter)
+                    parent2 = tournament_selection(population, training_data, interpreter)
                     offspring = crossover_genomes(parent1, parent2)
                 else:  # Clone + mutate
-                    parent = lexicase_selection(population, training_data, interpreter)
+                    parent = tournament_selection(population, training_data, interpreter)
                     offspring = parent.copy()
 
 
@@ -180,6 +180,23 @@ def evaluate_wrapper(args):
     genome, early_threshold = args 
     return evaluate_genome(genome, GLOBAL_TRAINING_DATA, GLOBAL_INTERPRETER, early_stop_threshold=early_threshold)
 
+
+def evaluate_state(pred, target):
+    score = 0
+    
+    # Size difference
+    score += abs(pred.size - target.size)
+    
+    # Key mismatch
+    score += len(pred.keys.symmetric_difference(target.keys))
+    
+    # Field hash mismatch
+    for k in target.keys:
+        if pred.field_hashes.get(k) != target.field_hashes.get(k):
+            score += 1
+    
+    return score
+
 def evaluate_genome(genome: PushGPGenome, training_data, interpreter, early_stop_threshold: Optional[float] = None):
     total_error = 0.0
     total_examples = 0
@@ -192,7 +209,7 @@ def evaluate_genome(genome: PushGPGenome, training_data, interpreter, early_stop
     
     for example in training_data:
         try:
-            predicted_outputs, used_inputs = interpreter.execute_sequence(genome, example)
+            predicted_outputs, used_inputs, state_after = interpreter.execute_sequence(genome, example)
             # Calculate per-call correctness
             call_correct = []
             for pred, exp in zip_longest(predicted_outputs, example.expected_outputs, fillvalue=None):
@@ -273,8 +290,6 @@ def evaluate_genome(genome: PushGPGenome, training_data, interpreter, early_stop
 
 
 def lexicase_selection(population: List[PushGPGenome],
-                       training_data: List[TrainingExample],
-                       interpreter: PushGPInterpreter,
                        num_cases: int = 40) -> PushGPGenome:
     """
     Lexicase selection using pre-cached per-example errors — zero re-execution.
