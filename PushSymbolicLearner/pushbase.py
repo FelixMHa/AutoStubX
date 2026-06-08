@@ -1,6 +1,7 @@
 import random
 import copy
 from typing import Dict, List, Any, Union, Optional
+from weakref import ref
 from trainingexample import TrainingExample
 import math
 
@@ -16,7 +17,9 @@ class PushState:
         self.exec_stack = []
         self.error_stack = []
         # Domain-specific stacks
-        self.data_structure_stack = []
+        self.heap = {}  
+        self.next_ref_id = 0
+        self.ref_stack = []
         self.result = None
 
         
@@ -35,7 +38,9 @@ class PushState:
         new_state.string_stack = self.string_stack.copy()
         new_state.float_stack = self.float_stack.copy()
         new_state.exec_stack = copy.deepcopy(self.exec_stack)
-        new_state.data_structure_stack = copy.deepcopy(self.data_structure_stack)
+        new_state.heap = copy.deepcopy(self.heap)
+        new_state.next_ref_id = self.next_ref_id
+        new_state.ref_stack = self.ref_stack.copy()
         new_state.result = self.result
         new_state.map_storage = copy.deepcopy(self.map_storage)
         new_state.step_count = self.step_count
@@ -71,10 +76,28 @@ class PushState:
             "boolean_stack": self.boolean_stack.copy(),
             "string_stack": self.string_stack.copy(),
             "float_stack": self.float_stack.copy(),
-            "data_structure_stack": copy.deepcopy(self.data_structure_stack),
+            "heap": copy.deepcopy(self.heap),
+            "next_ref_id": self.next_ref_id,
+            "ref_stack": self.ref_stack.copy(),
             "result": self.result,
             "step_count": self.step_count,
         }
+    
+    def alloc(self, summary: ObjectSummary):
+        ref = self.next_ref_id
+        self.heap[ref] = summary
+        self.next_ref_id += 1
+        return ref
+
+    def get(self, ref):
+        return self.heap.get(ref)
+
+class ObjectSummary:
+    def __init__(self, size=0, keys=None, field_hashes=None, obj_type="generic"):
+        self.size = size
+        self.keys = frozenset(keys or [])
+        self.field_hashes = field_hashes or {}
+        self.obj_type = obj_type
 
 
 class PushProgram:
@@ -315,6 +338,7 @@ class PushGPInterpreter:
                     state.string_stack.append(sval[:1])
                 elif t in {"java.lang.string", "string"}:
                     state.string_stack.append(str(arg))
+                
                 else:
                     # Fallback by python type
                     if isinstance(arg, bool):
@@ -336,8 +360,22 @@ class PushGPInterpreter:
                 elif isinstance(arg, str):
                     state.string_stack.append(arg)
     
+
+    def to_summary(self, obj) -> ObjectSummary:
+        #TODO: implement for types
+        """Convert an object to a summary representation for state tracking."""
+        if isinstance(obj, list):
+            return ObjectSummary(size=len(obj), obj_type="list")
+        elif isinstance(obj, dict):
+            return ObjectSummary(size=len(obj), keys=obj.keys(), obj_type="map")
+        elif isinstance(obj, set):
+            return ObjectSummary(size=len(obj), obj_type="set")
+        elif isinstance(obj, (int, float, bool, str)):
+            return ObjectSummary(size=1, obj_type=type(obj).__name__)
+        else:
+            return ObjectSummary(size=0, obj_type="unknown")
     
-    def execute_sequence(self, genome: PushGPGenome, example: TrainingExample) -> tuple[List, List]:
+    def execute_sequence(self, genome: PushGPGenome, example: TrainingExample) -> tuple[List, List, ObjectSummary]:
         """Execute each method Push program in a sequence, preserving DS state."""
         state = PushState(max_steps=self.max_steps)
         step_results = []
@@ -346,6 +384,7 @@ class PushGPInterpreter:
             args = example.input_args[i] if i < len(example.input_args) else []
             arg_types = example.type_inputs[i] if i < len(example.type_inputs) else []
             expected_type: Optional[str] = example.type_outputs[i] if i < len(example.type_outputs) else None
+            obj_summary = self.to_summary(example.state_before[i]) if i < len(example.state_before) else None
 
             # Reset non-persistent stacks between method calls
             state.result = None
@@ -358,6 +397,8 @@ class PushGPInterpreter:
 
             # Push arguments
             self.push_args_to_stacks(state, args, arg_types)
+            #Push state
+            state.alloc(obj_summary) if obj_summary else None
 
             # Snapshot initial argument stacks to detect usage
             init_int = state.integer_stack.copy()
@@ -387,7 +428,7 @@ class PushGPInterpreter:
             if not (init_int or init_bool or init_str or init_float):
                 used = True
             used_inputs.append(used)
-        return step_results, used_inputs
+        return step_results, used_inputs, state.get(state.ref_stack[-1]) if state.ref_stack else None
 
 
     def _extract_result_from_state(self, state: "PushState", expected_type: Optional[str]):
