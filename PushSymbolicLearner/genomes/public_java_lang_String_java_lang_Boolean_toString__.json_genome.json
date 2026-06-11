@@ -1,0 +1,22 @@
+{
+  "fitness": 0.800760314634222,
+  "accuracy": 0.0,
+  "complexity_penalty": 5,
+  "method_accuracies": {
+    "toString#0": 0.0
+  },
+  "executionTime": 9054.122398376465,
+  "methods": {
+    "toString#0": {
+      "program": [
+        "STR.CONST. ",
+        "STR.TO.FLOAT",
+        "STR_TO_ASCII",
+        "ASCII_TO_STR",
+        "BOOL.NOT"
+      ],
+      "accuracy": 0.0,
+      "complexity": 5
+    }
+  }
+}

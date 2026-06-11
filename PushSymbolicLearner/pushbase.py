@@ -16,15 +16,12 @@ class PushState:
         self.float_stack = []
         self.exec_stack = []
         self.error_stack = []
-        # Domain-specific stacks
+        # Domain-specific stack
         self.heap = {}  
         self.next_ref_id = 0
         self.ref_stack = []
         self.result = None
 
-        
-        # HashMap/Map storage
-        self.map_storage = {}  # For key-value pairs
         
         # Execution state
         self.step_count = 0
@@ -42,7 +39,6 @@ class PushState:
         new_state.next_ref_id = self.next_ref_id
         new_state.ref_stack = self.ref_stack.copy()
         new_state.result = self.result
-        new_state.map_storage = copy.deepcopy(self.map_storage)
         new_state.step_count = self.step_count
         new_state.max_steps = self.max_steps
         return new_state
@@ -83,13 +79,19 @@ class PushState:
             "step_count": self.step_count,
         }
     
-    def alloc(self, summary: ObjectSummary):
+    def alloc(self, data: Any, obj_type: str = "list"):
+    
         ref = self.next_ref_id
-        self.heap[ref] = summary
+        self.heap[ref] = {
+            'data': data,
+            'type': obj_type,
+            'fields': {}  # For future: modCount, capacity, etc.
+        }
         self.next_ref_id += 1
+        self.ref_stack.append(ref)
         return ref
 
-    def get(self, ref):
+    def get(self, ref: int):
         return self.heap.get(ref)
 
 class ObjectSummary:
@@ -183,37 +185,6 @@ class PushGPGenome:
         """Call after any mutation or crossover."""
         self._behavioral_signature = None
 
-class PushProgram:
-    """ Push program with better execution"""
-    
-    def __init__(self, code: List[Union[PushInstruction, List]]):
-        self.code = code or []
-    
-    def execute(self, state: PushState):
-        """Execute program with  argument handling"""
-        # Initialize execution stack with program
-        if self.code:
-            for instruction in reversed(self.code):
-                state.exec_stack.append(instruction)
-        
-        # Execute until exec stack is empty or max steps reached
-        while state.exec_stack and state.step_count < state.max_steps:
-            try:
-                instruction = state.exec_stack.pop()
-                
-                if isinstance(instruction, PushInstruction):
-                    instruction.execute(state)
-                elif isinstance(instruction, list):
-                    # Code block - push onto exec stack in reverse order
-                    for instr in reversed(instruction):
-                        state.exec_stack.append(instr)
-                
-                state.step_count += 1
-            except Exception:
-                # Suppress instruction errors during GP evaluation to avoid noise
-                continue
-        
-        return state
 
 
 def create__pushgp_instruction_set(profile: str = 'primitives_full'):
@@ -271,8 +242,6 @@ def create__pushgp_instruction_set(profile: str = 'primitives_full'):
         FLOAT_NEG(), FLOAT_ABS(), FLOAT_FLOOR(),
         FLOAT_COS(), FLOAT_LT(), FLOAT_EQ(), ITE_FLOAT(),
         FLOAT_TO_STR(), STR_TO_FLOAT(),
-        #FLOAT_IS_NAN(), FLOAT_IS_INF(),
-        #FLOAT_IS_FINITE(),
     ])
     for f in [0.0, 1.0, -1.0]:
         instructions.append(FLOAT_CONST(f))
@@ -338,6 +307,12 @@ class PushGPInterpreter:
                     state.string_stack.append(sval[:1])
                 elif t in {"java.lang.string", "string"}:
                     state.string_stack.append(str(arg))
+                elif t in {"list", "java.util.list", "java.util.arraylist"}:
+                    state.alloc(arg, "list")
+                elif t in {"map", "java.util.map", "java.util.hashmap"}:
+                    state.alloc(arg, "map")
+                elif t in {"set", "java.util.set", "java.util.hashset"}:
+                    state.alloc(arg, "set")
                 
                 else:
                     # Fallback by python type
@@ -380,11 +355,26 @@ class PushGPInterpreter:
         state = PushState(max_steps=self.max_steps)
         step_results = []
         used_inputs = []
+        for ref_id, data in example.initial_state.items():
+            obj_type = example.data_structure_type
+            if isinstance(data, dict):
+                obj_type = "map"
+            elif isinstance(data, set):
+                obj_type = "set"
+            state.alloc(data, obj_type)
+
+        if not example.initial_state:
+            if example.data_structure_type == "map":
+                state.alloc({}, "map")
+            elif example.data_structure_type == "set":
+                state.alloc(set(), "set")
+            else:
+                state.alloc([], "list")
         for i, method_name in enumerate(example.sequence):
             args = example.input_args[i] if i < len(example.input_args) else []
             arg_types = example.type_inputs[i] if i < len(example.type_inputs) else []
             expected_type: Optional[str] = example.type_outputs[i] if i < len(example.type_outputs) else None
-            obj_summary = self.to_summary(example.state_before[i]) if i < len(example.state_before) else None
+           
 
             # Reset non-persistent stacks between method calls
             state.result = None
@@ -394,11 +384,12 @@ class PushGPInterpreter:
             state.float_stack.clear()
             state.exec_stack.clear()
             state.step_count = 0
+            state.ref_stack.clear()
 
+            # Push main data structure ref onto ref_stack (ref 0)
+            state.ref_stack.append(0)
             # Push arguments
             self.push_args_to_stacks(state, args, arg_types)
-            #Push state
-            state.alloc(obj_summary) if obj_summary else None
 
             # Snapshot initial argument stacks to detect usage
             init_int = state.integer_stack.copy()
@@ -428,7 +419,8 @@ class PushGPInterpreter:
             if not (init_int or init_bool or init_str or init_float):
                 used = True
             used_inputs.append(used)
-        return step_results, used_inputs, state.get(state.ref_stack[-1]) if state.ref_stack else None
+            final_obj = state.get(0)
+        return step_results, used_inputs, final_obj if final_obj  else None
 
 
     def _extract_result_from_state(self, state: "PushState", expected_type: Optional[str]):
@@ -1537,14 +1529,6 @@ class MAP_SIZE(PushInstruction):
         state.integer_stack.append(size)
 
 
-class MAP_IS_EMPTY(PushInstruction):
-    def __init__(self):
-        super().__init__("MAP.IS_EMPTY")
-
-    def execute(self, state: PushState):
-        is_empty = len(state.map_storage) == 0
-        state.boolean_stack.append(is_empty)
-
 
 class MAP_CLEAR(PushInstruction):
     def __init__(self):
@@ -1587,40 +1571,3 @@ class MAP_REMOVE(PushInstruction):
             value = state.map_storage.pop(key)
             state.push_to_appropriate_stack(value)
 
-
-class MAP_CONTAINS_KEY(PushInstruction):
-    def __init__(self):
-        super().__init__("MAP.CONTAINS_KEY")
-
-    def execute(self, state: PushState):
-        key = state.pop_from_any_stack()
-        if key is not None:
-            state.boolean_stack.append(key in state.map_storage)
-
-
-class MAP_CONTAINS_VALUE(PushInstruction):
-    def __init__(self):
-        super().__init__("MAP.CONTAINS_VALUE")
-
-    def execute(self, state: PushState):
-        value = state.pop_from_any_stack()
-        if value is not None:
-            state.boolean_stack.append(value in state.map_storage.values())
-
-
-class MAP_KEY_SET(PushInstruction):
-    def __init__(self):
-        super().__init__("MAP.KEY_SET")
-
-    def execute(self, state: PushState):
-        keys = list(state.map_storage.keys())
-        state.push_to_appropriate_stack(keys)
-
-
-class MAP_VALUES(PushInstruction):
-    def __init__(self):
-        super().__init__("MAP.VALUES")
-
-    def execute(self, state: PushState):
-        values = list(state.map_storage.values())
-        state.push_to_appropriate_stack(values)

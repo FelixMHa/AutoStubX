@@ -1,0 +1,20 @@
+{
+  "fitness": 0.01796700000000049,
+  "accuracy": 1.0,
+  "complexity_penalty": 3,
+  "method_accuracies": {
+    "booleanValue#0": 1.0
+  },
+  "executionTime": 45.14029002189636,
+  "methods": {
+    "booleanValue#0": {
+      "program": [
+        "BOOL.CONST.True",
+        "INT.MUL",
+        "SWAP.ANY"
+      ],
+      "accuracy": 1.0,
+      "complexity": 3
+    }
+  }
+}

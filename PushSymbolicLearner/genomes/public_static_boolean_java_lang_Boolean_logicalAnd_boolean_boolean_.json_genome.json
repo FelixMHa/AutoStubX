@@ -1,0 +1,20 @@
+{
+  "fitness": 0.003,
+  "accuracy": 1.0,
+  "complexity_penalty": 3,
+  "method_accuracies": {
+    "logicalAnd#bool_bool": 1.0
+  },
+  "executionTime": 25.515432834625244,
+  "methods": {
+    "logicalAnd#bool_bool": {
+      "program": [
+        "BOOL.CONST.False",
+        "BOOL.XOR",
+        "BOOL.AND"
+      ],
+      "accuracy": 1.0,
+      "complexity": 3
+    }
+  }
+}
