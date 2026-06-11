@@ -1,0 +1,21 @@
+{
+  "fitness": 0.2549,
+  "accuracy": 0.7491,
+  "complexity_penalty": 4,
+  "method_accuracies": {
+    "compare#bool_bool": 0.7491
+  },
+  "executionTime": 4015.32386136055,
+  "methods": {
+    "compare#bool_bool": {
+      "program": [
+        "INT.CONST.1",
+        "BOOL.XOR",
+        "INT.CONST.0",
+        "INT.ITE"
+      ],
+      "accuracy": 0.7491,
+      "complexity": 4
+    }
+  }
+}

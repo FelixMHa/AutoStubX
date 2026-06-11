@@ -1,0 +1,23 @@
+{
+  "fitness": 0.04084449451097447,
+  "accuracy": 0.5009,
+  "complexity_penalty": 6,
+  "method_accuracies": {
+    "hashCode#0": 1.0
+  },
+  "executionTime": 2478.3918945789337,
+  "methods": {
+    "hashCode#0": {
+      "program": [
+        "ERC.INT.246",
+        "INT.CONST.5",
+        "BOOL.NOT",
+        "INT.MUL",
+        "INT.CONST.7",
+        "INT.ADD"
+      ],
+      "accuracy": 1.0,
+      "complexity": 6
+    }
+  }
+}

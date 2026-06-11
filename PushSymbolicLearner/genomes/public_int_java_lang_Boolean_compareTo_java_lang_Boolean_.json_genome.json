@@ -1,0 +1,19 @@
+{
+  "fitness": 0.5027,
+  "accuracy": 0.4993,
+  "complexity_penalty": 2,
+  "method_accuracies": {
+    "compareTo#obj": 0.49929999999999997
+  },
+  "executionTime": 2207.6914229393005,
+  "methods": {
+    "compareTo#obj": {
+      "program": [
+        "INT.CONST.0",
+        "BOOL.XOR"
+      ],
+      "accuracy": 0.49929999999999997,
+      "complexity": 2
+    }
+  }
+}
