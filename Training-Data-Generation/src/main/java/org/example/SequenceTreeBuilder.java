@@ -127,10 +127,10 @@ public class SequenceTreeBuilder {
         Class<?>[] paramTypes = method.getParameterTypes();
         
         if (paramTypes.length == 0) {
-            return methodName + "#0";
+            return normalizeType(method.getReturnType()) + "#" +methodName + "#0";
         }
         
-        StringBuilder sig = new StringBuilder(methodName).append("#");
+        StringBuilder sig = new StringBuilder(normalizeType(method.getReturnType()) + "#" + methodName).append("#");
         for (int i = 0; i < paramTypes.length; i++) {
             if (i > 0) sig.append("_");
             sig.append(normalizeType(paramTypes[i]));
