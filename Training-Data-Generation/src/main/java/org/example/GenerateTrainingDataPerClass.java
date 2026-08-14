@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Random;
 import java.util.List;
+import java.util.Map;
 
 public class GenerateTrainingDataPerClass {
 
@@ -52,19 +54,19 @@ public class GenerateTrainingDataPerClass {
 
     }
 
-    private static void generateStatefulTrainingDataForClass(Class<?> targetClass) throws  IOException {
+    private static void generateStatefulTrainingDataForClass(Class<?> targetClass) throws IOException {
         List<SequenceInputOutputPair<Object[], Object>> trainingData = new ArrayList<>();
         long startTime = System.currentTimeMillis();
         int groupSize = Main.MAX_SAMPLES / 30;
-        int steps=8;
+        int steps = 8;
         Random rand = new Random();
-        for (int i = 0; i < Main.MAX_SAMPLES/10; i++) {
-            if (i<groupSize){
-                steps=1+rand.nextInt(4);
-            }else if (i < 2 * groupSize) {
-                steps=5+rand.nextInt(2);
+        for (int i = 0; i < Main.MAX_SAMPLES / 10; i++) {
+            if (i < groupSize) {
+                steps = 1 + rand.nextInt(4);
+            } else if (i < 2 * groupSize) {
+                steps = 5 + rand.nextInt(2);
             } else {
-                steps=7+rand.nextInt(2);
+                steps = 7 + rand.nextInt(2);
             }
             SequenceTreeBuilder builder = new SequenceTreeBuilder(targetClass);
             SequenceInputOutputPair<Object[], Object> sample = builder.buildSequence(steps);
@@ -167,31 +169,31 @@ public class GenerateTrainingDataPerClass {
     }
 
     private static boolean isStateful(String className) {
-    return className.equals("java.util.ArrayDeque") ||
-           className.equals("java.util.ArrayList") ||
-           className.equals("java.util.BitSet") ||
-           className.equals("java.util.Calendar") ||
-           className.equals("java.util.GregorianCalendar") ||
-           className.equals("java.util.HashMap") ||
-           className.equals("java.util.HashSet") ||
-           className.equals("java.util.Hashtable") ||
-           className.equals("java.util.IdentityHashMap") ||
-           className.equals("java.util.LinkedHashMap") ||
-           className.equals("java.util.LinkedHashSet") ||
-           className.equals("java.util.LinkedList") ||
-           className.equals("java.util.PriorityQueue") ||
-           className.equals("java.util.Properties") ||
-           className.equals("java.util.Random") ||
-           className.equals("java.util.Scanner") ||
-           className.equals("java.util.Stack") ||
-           className.equals("java.util.TreeMap") ||
-           className.equals("java.util.TreeSet") ||
-           className.equals("java.util.Vector") ||
-           className.equals("java.util.EnumMap") ||
-           className.equals("java.util.EnumSet") ||
-           className.equals("java.util.Date") ||
-           className.equals("java.util.WeakHashMap"); // optional, covers reference-sensitive maps
-}
+        return className.equals("java.util.ArrayDeque") ||
+                className.equals("java.util.ArrayList") ||
+                className.equals("java.util.BitSet") ||
+                className.equals("java.util.Calendar") ||
+                className.equals("java.util.GregorianCalendar") ||
+                className.equals("java.util.HashMap") ||
+                className.equals("java.util.HashSet") ||
+                className.equals("java.util.Hashtable") ||
+                className.equals("java.util.IdentityHashMap") ||
+                className.equals("java.util.LinkedHashMap") ||
+                className.equals("java.util.LinkedHashSet") ||
+                className.equals("java.util.LinkedList") ||
+                className.equals("java.util.PriorityQueue") ||
+                className.equals("java.util.Properties") ||
+                className.equals("java.util.Random") ||
+                className.equals("java.util.Scanner") ||
+                className.equals("java.util.Stack") ||
+                className.equals("java.util.TreeMap") ||
+                className.equals("java.util.TreeSet") ||
+                className.equals("java.util.Vector") ||
+                className.equals("java.util.EnumMap") ||
+                className.equals("java.util.EnumSet") ||
+                className.equals("java.util.Date") ||
+                className.equals("java.util.WeakHashMap"); // optional, covers reference-sensitive maps
+    }
 
     private static void generateTrainingDataForMethod(Method method, boolean isStatic, String className)
             throws IOException {
@@ -211,7 +213,6 @@ public class GenerateTrainingDataPerClass {
             return;
         if (fileName.contains("public_java_lang_String_java_lang_String_indent_int"))
             return;
-       
 
         boolean printedError = false;
         int multiplier = Main.EXTENDED ? 100 : 1;
@@ -219,7 +220,6 @@ public class GenerateTrainingDataPerClass {
         statistics_samples_per_method = Main.MAX_SAMPLES * multiplier;
         for (int i = 0; i < Main.MAX_SAMPLES * multiplier; i++) {
             Object[] args = RandomDataProvider.generateRandomArgs(method, null);
-            Object[] fullArgs = isStatic ? args : Arrays.copyOf(args, args.length + 1);
 
             List<String> sequence = Collections.emptyList();
             try {
@@ -228,7 +228,6 @@ public class GenerateTrainingDataPerClass {
 
                 if (!isStatic) {
                     baseObject = RandomDataProvider.randomValueForType(method.getDeclaringClass());
-                    fullArgs[args.length] = baseObject;
                 }
                 stringRepresentation = String.valueOf(baseObject);
                 Object output = method.invoke(baseObject, args);
@@ -243,43 +242,60 @@ public class GenerateTrainingDataPerClass {
 
                 // Always wrap into a per-step sequence of length 1
                 sequence = Collections.singletonList(createMethodSignature(method));
-                Object[][] inputsPerStep = new Object[][] { fullArgs };
+                Object[][] inputsPerStep = new Object[][] { args };
                 Object[] outputsPerStep = new Object[] { output };
-                trainingData.add(new SequenceInputOutputPair<>(sequence, inputsPerStep, outputsPerStep));
+                List<List<String>> typeInputs = List.of(
+                        getParamTypeNames(method.getParameterTypes()));
+                List<String> typeOutputs = List.of(
+                        method.getReturnType().getTypeName());
+
+                trainingData.add(new SequenceInputOutputPair<>(
+                        sequence,
+                        inputsPerStep,
+                        outputsPerStep,
+                        typeInputs,
+                        typeOutputs,
+                        createGenericInitialState(isStatic ? null : baseObject),
+                        "generic",
+                        className));
             } catch (Exception e) {
                 if (!printedError) {
                     printedError = true;
                     System.out.println("Error while invoking method " + method.getName() + ": " + e.getMessage());
                 }
-                /*sequence = Collections.singletonList(method.getName());
-                Object[][] inputsPerStep = new Object[][] { fullArgs };
-                Object[] outputsPerStep = new Object[] { "error" };
-                trainingData.add(new SequenceInputOutputPair<>(sequence, inputsPerStep, outputsPerStep));*/
+                /*
+                 * sequence = Collections.singletonList(method.getName());
+                 * Object[][] inputsPerStep = new Object[][] { fullArgs };
+                 * Object[] outputsPerStep = new Object[] { "error" };
+                 * trainingData.add(new SequenceInputOutputPair<>(sequence, inputsPerStep,
+                 * outputsPerStep));
+                 */
             }
         }
         if (trainingData.size() == Main.MAX_SAMPLES * multiplier) {
-                statistics_successful_methods++;
-        writeTrainingDataToFile(trainingDataFile, trainingData, startTime);
-        String owner = method.getDeclaringClass().getName();
-                String name = method.getName();
-                String genericString = method.toGenericString();
-                String returnType = method.getReturnType().getTypeName();
-                List<String> paramTypes = getParamTypeNames(method.getParameterTypes());
+            statistics_successful_methods++;
+            writeTrainingDataToFile(trainingDataFile, trainingData, startTime);
+            String owner = method.getDeclaringClass().getName();
+            String name = method.getName();
+            String genericString = method.toGenericString();
+            String returnType = method.getReturnType().getTypeName();
+            List<String> paramTypes = getParamTypeNames(method.getParameterTypes());
 
-                JavaFunctionExport javaFunctionExport = new JavaFunctionExport(
-                        owner,
-                        name,
-                        genericString,
-                        returnType,
-                        paramTypes);
+            JavaFunctionExport javaFunctionExport = new JavaFunctionExport(
+                    owner,
+                    name,
+                    genericString,
+                    returnType,
+                    paramTypes);
 
-                successfulMethods.put(trainingDataFile.getFileName().toString(), javaFunctionExport);
-        }else {
-                System.out.println("Not enough samples for " + method.getName() + ", skipping.");
-            }
+            successfulMethods.put(trainingDataFile.getFileName().toString(), javaFunctionExport);
+        } else {
+            System.out.println("Not enough samples for " + method.getName() + ", skipping.");
+        }
     }
 
-    private static void writeTrainingDataToFile(Path file, List<SequenceInputOutputPair<Object[], Object>> trainingData, long startTime)
+    private static void writeTrainingDataToFile(Path file, List<SequenceInputOutputPair<Object[], Object>> trainingData,
+            long startTime)
             throws IOException {
         // create folders if they don't exist
         if (!Files.exists(file.getParent())) {
@@ -297,51 +313,66 @@ public class GenerateTrainingDataPerClass {
                     .create();
             String json = gson.toJson(trainingData);
 
+            long timeDelta = System.currentTimeMillis() - startTime;
+            statistics_total_time += timeDelta;
 
-                long timeDelta = System.currentTimeMillis() - startTime;
-                statistics_total_time += timeDelta;
+            // Only save if it was successful
+            Files.writeString(file, json);
 
-                // Only save if it was successful
-                Files.writeString(file, json);
-            
         } catch (Exception e) {
             System.out.println("Error while writing training data to file " + file);
             e.printStackTrace();
         }
     }
-    private static String createMethodSignature(Method method) {
-        String methodName = method.getName();
-        Class<?>[] paramTypes = method.getParameterTypes();
-        
-        if (paramTypes.length == 0) {
-            return methodName + "#0";
-        }
-        
-        StringBuilder sig = new StringBuilder(methodName).append("#");
-        for (int i = 0; i < paramTypes.length; i++) {
-            if (i > 0) sig.append("_");
-            sig.append(normalizeType(paramTypes[i]));
-        }
-        
-        return sig.toString();
+
+    private static Map<String, Object> createGenericInitialState(Object receiver) {
+        Map<String, Object> entry = new LinkedHashMap<>();
+        entry.put("type", "generic");
+        entry.put("data", receiver);
+        entry.put("fields", new LinkedHashMap<>());
+
+        Map<String, Object> state = new LinkedHashMap<>();
+        state.put("0", entry);
+        return state;
     }
-    
+
+    private static String createMethodSignature(Method method) {
+        StringBuilder signature = new StringBuilder(method.getName());
+        Class<?>[] parameterTypes = method.getParameterTypes();
+
+        if (parameterTypes.length == 0) {
+            return signature.append("#0").toString();
+        }
+
+        for (Class<?> parameterType : parameterTypes) {
+            signature.append("#").append(normalizeType(parameterType));
+        }
+
+        return signature.toString();
+    }
 
     private static String normalizeType(Class<?> type) {
         // Primitive types
-        if (type == int.class) return "int";
-        if (type == boolean.class) return "bool";
-        if (type == float.class) return "float";
-        if (type == double.class) return "float";  // Treat double as float
-        if (type == long.class) return "long";
-        if (type == byte.class) return "int";      // Small ints
-        if (type == short.class) return "int";     // Small ints
-        if (type == char.class) return "char";
-        
+        if (type == int.class)
+            return "int";
+        if (type == boolean.class)
+            return "bool";
+        if (type == float.class)
+            return "float";
+        if (type == double.class)
+            return "float"; // Treat double as float
+        if (type == long.class)
+            return "long";
+        if (type == byte.class)
+            return "int"; // Small ints
+        if (type == short.class)
+            return "int"; // Small ints
+        if (type == char.class)
+            return "char";
+
         // Everything else is an object
         // This includes: Object, String, E (generic), T, K, V, Integer (boxed), etc.
         return "obj";
     }
-
 
 }
