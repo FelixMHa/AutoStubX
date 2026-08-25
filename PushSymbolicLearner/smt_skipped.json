@@ -1,0 +1,1518 @@
+[
+  {
+    "example": 22,
+    "reason": "SMT Real cannot represent IEEE non-finite value nan",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "isEmpty#0",
+      "replace#obj#obj"
+    ],
+    "input_args": [
+      [
+        2.268801e-21,
+        ""
+      ],
+      [
+        1746671,
+        NaN
+      ],
+      [],
+      [
+        8.333435e-33,
+        1.9673842e-23
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      false,
+      null
+    ]
+  },
+  {
+    "example": 49,
+    "reason": "SMT Real cannot represent IEEE non-finite value nan",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "put#obj#obj"
+    ],
+    "input_args": [
+      [
+        1.0383957e-13,
+        -9.44187e-23
+      ],
+      [
+        -733949972,
+        976231240000000.0
+      ],
+      [
+        2.478486e+36,
+        NaN
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "example": 76,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "get#obj",
+      "remove#obj"
+    ],
+    "input_args": [
+      [
+        false,
+        "\\}\u000f¿"
+      ],
+      [
+        54.09881,
+        -Infinity
+      ],
+      [
+        21652.078
+      ],
+      [
+        -1.8002292e+34
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "example": 139,
+    "reason": "SMT Real cannot represent IEEE non-finite value nan",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj"
+    ],
+    "input_args": [
+      [
+        "¦",
+        NaN
+      ],
+      [
+        4556.6553,
+        "e&4ì"
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      null
+    ]
+  },
+  {
+    "example": 181,
+    "reason": "SMT Real cannot represent IEEE non-finite value nan",
+    "sequence": [
+      "replace#obj#obj",
+      "containsKey#obj",
+      "remove#obj#obj",
+      "remove#obj#obj"
+    ],
+    "input_args": [
+      [
+        false,
+        false
+      ],
+      [
+        false
+      ],
+      [
+        NaN,
+        "¯ù¡Ú"
+      ],
+      [
+        "\r\u0019ðº 6",
+        true
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "example": 194,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "put#obj#obj"
+    ],
+    "input_args": [
+      [
+        1.6831216e-20,
+        Infinity
+      ],
+      [
+        "Qs\týäëÙÜ",
+        "¦\u0017|"
+      ],
+      [
+        true,
+        false
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "example": 278,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "put#obj#obj"
+    ],
+    "input_args": [
+      [
+        -1.3758481e+32,
+        -Infinity
+      ],
+      [
+        12821096,
+        -0.64245105
+      ],
+      [
+        true,
+        "¿\u001fa\u001aÒÜÅ"
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "example": 350,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "put#obj#obj",
+      "get#obj",
+      "containsValue#obj",
+      "putIfAbsent#obj#obj"
+    ],
+    "input_args": [
+      [
+        Infinity,
+        "\u0004Y9"
+      ],
+      [
+        true,
+        -4.7387135e+33
+      ],
+      [
+        "]°VY",
+        "ÿ"
+      ],
+      [
+        ""
+      ],
+      [
+        false
+      ],
+      [
+        -45087927,
+        true
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      null,
+      null,
+      false,
+      null
+    ]
+  },
+  {
+    "example": 359,
+    "reason": "SMT Real cannot represent IEEE non-finite value nan",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "containsKey#obj",
+      "containsValue#obj",
+      "replace#obj#obj#obj",
+      "containsKey#obj"
+    ],
+    "input_args": [
+      [
+        "ÅF\u001a?ãu",
+        "òôø¨"
+      ],
+      [
+        "",
+        true
+      ],
+      [
+        -872157
+      ],
+      [
+        NaN
+      ],
+      [
+        "\tó4>z.\u000f",
+        1.503311e-31,
+        1.2501774e-36
+      ],
+      [
+        "©8ø¢ "
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "example": 377,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "size#0",
+      "remove#obj",
+      "replace#obj#obj#obj",
+      "put#obj#obj",
+      "containsValue#obj",
+      "replace#obj#obj#obj"
+    ],
+    "input_args": [
+      [],
+      [
+        1948204030.0
+      ],
+      [
+        1.3250884e-17,
+        "ñEð",
+        -Infinity
+      ],
+      [
+        5.050997e+27,
+        -2147483648
+      ],
+      [
+        5190062
+      ],
+      [
+        4.6416362e-29,
+        true,
+        "Çqi"
+      ]
+    ],
+    "expected_outputs": [
+      0,
+      null,
+      false,
+      null,
+      false,
+      false
+    ]
+  },
+  {
+    "example": 410,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "size#0",
+      "replace#obj#obj",
+      "get#obj",
+      "size#0",
+      "putIfAbsent#obj#obj"
+    ],
+    "input_args": [
+      [],
+      [
+        Infinity,
+        -3.639539e+16
+      ],
+      [
+        5482820
+      ],
+      [],
+      [
+        false,
+        7.19081e-14
+      ]
+    ],
+    "expected_outputs": [
+      0,
+      null,
+      null,
+      0,
+      null
+    ]
+  },
+  {
+    "example": 425,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "put#obj#obj",
+      "containsKey#obj",
+      "remove#obj#obj",
+      "isEmpty#0",
+      "remove#obj#obj"
+    ],
+    "input_args": [
+      [
+        -30,
+        "\u0001·Am"
+      ],
+      [
+        0.16486359
+      ],
+      [
+        Infinity,
+        ""
+      ],
+      [],
+      [
+        27,
+        true
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "example": 448,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "put#obj#obj",
+      "getOrDefault#obj#obj",
+      "put#obj#obj",
+      "size#0",
+      "getOrDefault#obj#obj",
+      "containsValue#obj"
+    ],
+    "input_args": [
+      [
+        12,
+        308444201000.0
+      ],
+      [
+        -1.9219131e+32,
+        1111.6057
+      ],
+      [
+        true,
+        -Infinity
+      ],
+      [],
+      [
+        false,
+        0
+      ],
+      [
+        false
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      1111.6057,
+      null,
+      2,
+      0,
+      false
+    ]
+  },
+  {
+    "example": 464,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "getOrDefault#obj#obj",
+      "containsKey#obj",
+      "replace#obj#obj#obj",
+      "get#obj",
+      "put#obj#obj"
+    ],
+    "input_args": [
+      [
+        2.00459077e+17,
+        0
+      ],
+      [
+        "<Þ®Þ"
+      ],
+      [
+        Infinity,
+        false,
+        true
+      ],
+      [
+        false
+      ],
+      [
+        "ÞÄ¾È5 ",
+        "©Ê"
+      ]
+    ],
+    "expected_outputs": [
+      0,
+      false,
+      false,
+      null,
+      null
+    ]
+  },
+  {
+    "example": 465,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "put#obj#obj",
+      "isEmpty#0",
+      "remove#obj#obj",
+      "replace#obj#obj"
+    ],
+    "input_args": [
+      [
+        20634,
+        true
+      ],
+      [
+        false,
+        8
+      ],
+      [
+        false,
+        1.4395244e+36
+      ],
+      [],
+      [
+        Infinity,
+        -565797869
+      ],
+      [
+        1884299,
+        -7.7082283e-19
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      8,
+      false,
+      false,
+      null
+    ]
+  },
+  {
+    "example": 476,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "size#0",
+      "size#0",
+      "clear#0",
+      "replace#obj#obj#obj",
+      "replace#obj#obj#obj",
+      "put#obj#obj"
+    ],
+    "input_args": [
+      [],
+      [],
+      [],
+      [
+        -31,
+        442849,
+        -4683919
+      ],
+      [
+        false,
+        true,
+        false
+      ],
+      [
+        -2147483648,
+        -Infinity
+      ]
+    ],
+    "expected_outputs": [
+      0,
+      0,
+      null,
+      false,
+      false,
+      null
+    ]
+  },
+  {
+    "example": 493,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "replace#obj#obj#obj",
+      "isEmpty#0",
+      "replace#obj#obj",
+      "remove#obj",
+      "get#obj",
+      "remove#obj"
+    ],
+    "input_args": [
+      [
+        "kÞx¸",
+        Infinity,
+        -6
+      ],
+      [],
+      [
+        "\f|d\u0018",
+        false
+      ],
+      [
+        -5597205
+      ],
+      [
+        "y"
+      ],
+      [
+        true
+      ]
+    ],
+    "expected_outputs": [
+      false,
+      true,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "example": 511,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "remove#obj#obj",
+      "remove#obj",
+      "getOrDefault#obj#obj",
+      "remove#obj#obj",
+      "containsValue#obj",
+      "containsValue#obj"
+    ],
+    "input_args": [
+      [
+        false,
+        -9.107664e+25
+      ],
+      [
+        false
+      ],
+      [
+        "È`\u001en\u0011",
+        "\u001b«\u001eE\u001cÖHuì"
+      ],
+      [
+        4760958,
+        Infinity
+      ],
+      [
+        false
+      ],
+      [
+        9.872782e+24
+      ]
+    ],
+    "expected_outputs": [
+      false,
+      null,
+      "\u001b«\u001eE\u001cÖHuì",
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "example": 516,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "put#obj#obj",
+      "containsValue#obj",
+      "containsKey#obj",
+      "size#0",
+      "replace#obj#obj#obj"
+    ],
+    "input_args": [
+      [
+        1.6254219e-37,
+        "Tá²!_êÈq"
+      ],
+      [
+        1.1637458e-11
+      ],
+      [
+        -Infinity
+      ],
+      [],
+      [
+        -43,
+        -8.8128286e+32,
+        "b¨¢"
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      false,
+      false,
+      1,
+      false
+    ]
+  },
+  {
+    "example": 594,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "put#obj#obj",
+      "putIfAbsent#obj#obj",
+      "containsValue#obj",
+      "size#0"
+    ],
+    "input_args": [
+      [
+        3.4028235e+38,
+        "TE"
+      ],
+      [
+        -253838338,
+        false
+      ],
+      [
+        1,
+        "±éz;"
+      ],
+      [
+        "Ìbåwæ",
+        -Infinity
+      ],
+      [
+        -2.3972852e-33
+      ],
+      []
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      null,
+      null,
+      false,
+      4
+    ]
+  },
+  {
+    "example": 605,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "remove#obj#obj",
+      "remove#obj#obj",
+      "containsValue#obj",
+      "size#0",
+      "replace#obj#obj#obj",
+      "put#obj#obj"
+    ],
+    "input_args": [
+      [
+        6.567601e-07,
+        Infinity
+      ],
+      [
+        false,
+        -5
+      ],
+      [
+        "ý"
+      ],
+      [],
+      [
+        84789.44,
+        -10485479,
+        "¢\u0006¯æ« _g{"
+      ],
+      [
+        13738744,
+        -7.3833085e+19
+      ]
+    ],
+    "expected_outputs": [
+      false,
+      false,
+      false,
+      0,
+      false,
+      null
+    ]
+  },
+  {
+    "example": 715,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "getOrDefault#obj#obj",
+      "size#0",
+      "putIfAbsent#obj#obj",
+      "putIfAbsent#obj#obj",
+      "get#obj",
+      "putIfAbsent#obj#obj",
+      "replace#obj#obj",
+      "put#obj#obj"
+    ],
+    "input_args": [
+      [
+        "<îk)*",
+        6661721
+      ],
+      [],
+      [
+        -Infinity,
+        false
+      ],
+      [
+        false,
+        2084542
+      ],
+      [
+        true
+      ],
+      [
+        1848389284,
+        144462.0
+      ],
+      [
+        "",
+        3.4028235e+38
+      ],
+      [
+        ")­\u0011#ä\u0015M",
+        478
+      ]
+    ],
+    "expected_outputs": [
+      6661721,
+      0,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "example": 750,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "put#obj#obj",
+      "getOrDefault#obj#obj",
+      "get#obj",
+      "getOrDefault#obj#obj",
+      "size#0",
+      "put#obj#obj",
+      "remove#obj",
+      "remove#obj"
+    ],
+    "input_args": [
+      [
+        52159143,
+        -Infinity
+      ],
+      [
+        false,
+        5.428126e-24
+      ],
+      [
+        1.6005322e-37
+      ],
+      [
+        -2.7964352e+35,
+        48986671
+      ],
+      [],
+      [
+        18479,
+        true
+      ],
+      [
+        true
+      ],
+      [
+        false
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      5.428126e-24,
+      null,
+      48986671,
+      1,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "example": 775,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "put#obj#obj",
+      "putIfAbsent#obj#obj",
+      "replace#obj#obj",
+      "replace#obj#obj",
+      "containsValue#obj"
+    ],
+    "input_args": [
+      [
+        -70455.914,
+        true
+      ],
+      [
+        true,
+        -7.3788105e+28
+      ],
+      [
+        61635,
+        -7.9360925e+24
+      ],
+      [
+        980,
+        -Infinity
+      ],
+      [
+        -6.1819467e+26,
+        94858
+      ],
+      [
+        -2162096470000000.0,
+        3964053500.0
+      ],
+      [
+        5523316
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      false
+    ]
+  },
+  {
+    "example": 777,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "put#obj#obj",
+      "replace#obj#obj#obj",
+      "size#0",
+      "remove#obj#obj",
+      "containsKey#obj",
+      "replace#obj#obj#obj",
+      "isEmpty#0",
+      "clear#0"
+    ],
+    "input_args": [
+      [
+        "m\u0004ö¹«",
+        -Infinity
+      ],
+      [
+        652757720000000.0,
+        100,
+        "(\u0001ÖºCJ"
+      ],
+      [],
+      [
+        true,
+        -1848652980000000.0
+      ],
+      [
+        true
+      ],
+      [
+        "aÞ\u0001.]¸*\u0007",
+        -6.9394023e-25,
+        false
+      ],
+      [],
+      []
+    ],
+    "expected_outputs": [
+      null,
+      false,
+      1,
+      false,
+      false,
+      false,
+      false,
+      null
+    ]
+  },
+  {
+    "example": 830,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "containsValue#obj",
+      "clear#0",
+      "put#obj#obj",
+      "containsKey#obj",
+      "remove#obj",
+      "replace#obj#obj",
+      "replace#obj#obj#obj",
+      "replace#obj#obj#obj"
+    ],
+    "input_args": [
+      [
+        true
+      ],
+      [],
+      [
+        27167494100.0,
+        -313
+      ],
+      [
+        "êt\u0000\u0019®\u0007\u001cò"
+      ],
+      [
+        "g\tÝ\u001aúDêz"
+      ],
+      [
+        "EÞ\u0015K³",
+        3.4028235e+38
+      ],
+      [
+        true,
+        ".­æ",
+        Infinity
+      ],
+      [
+        true,
+        "o\\Mëªõ",
+        -35286171
+      ]
+    ],
+    "expected_outputs": [
+      false,
+      null,
+      null,
+      false,
+      null,
+      null,
+      false,
+      false
+    ]
+  },
+  {
+    "example": 878,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "put#obj#obj",
+      "size#0",
+      "replace#obj#obj#obj",
+      "remove#obj#obj",
+      "isEmpty#0"
+    ],
+    "input_args": [
+      [
+        "",
+        -10
+      ],
+      [
+        "²ÍDñÇe",
+        "¸LÂ"
+      ],
+      [
+        "A=ô\u001bí.=DÇ",
+        "a,«\u000fß.;"
+      ],
+      [],
+      [
+        -Infinity,
+        "Fý\u0018\rÜ\u0006g",
+        true
+      ],
+      [
+        false,
+        "ãÊý|\u0003­"
+      ],
+      []
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      null,
+      3,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "example": 925,
+    "reason": "SMT Real cannot represent IEEE non-finite value nan",
+    "sequence": [
+      "getOrDefault#obj#obj",
+      "replace#obj#obj#obj",
+      "replace#obj#obj#obj",
+      "replace#obj#obj",
+      "get#obj",
+      "containsKey#obj",
+      "replace#obj#obj"
+    ],
+    "input_args": [
+      [
+        "¼O",
+        -2
+      ],
+      [
+        false,
+        -9,
+        -132695
+      ],
+      [
+        1.169148e-15,
+        false,
+        true
+      ],
+      [
+        NaN,
+        -230498538
+      ],
+      [
+        123770
+      ],
+      [
+        -1654171
+      ],
+      [
+        "\u0014\u001cA?#à~",
+        -64
+      ]
+    ],
+    "expected_outputs": [
+      -2,
+      false,
+      false,
+      null,
+      null,
+      false,
+      null
+    ]
+  },
+  {
+    "example": 949,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "put#obj#obj",
+      "putIfAbsent#obj#obj",
+      "putIfAbsent#obj#obj",
+      "replace#obj#obj",
+      "remove#obj#obj",
+      "remove#obj",
+      "get#obj"
+    ],
+    "input_args": [
+      [
+        true,
+        true
+      ],
+      [
+        true,
+        0
+      ],
+      [
+        Infinity,
+        true
+      ],
+      [
+        "Pd|",
+        true
+      ],
+      [
+        -3449544,
+        "ðúfd\t"
+      ],
+      [
+        true
+      ],
+      [
+        3.0240224e-36
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      true,
+      null,
+      null,
+      false,
+      true,
+      null
+    ]
+  },
+  {
+    "example": 963,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "containsKey#obj",
+      "containsValue#obj",
+      "getOrDefault#obj#obj",
+      "put#obj#obj",
+      "size#0",
+      "replace#obj#obj",
+      "replace#obj#obj#obj"
+    ],
+    "input_args": [
+      [
+        -2.0348974e+33
+      ],
+      [
+        Infinity
+      ],
+      [
+        false,
+        "£"
+      ],
+      [
+        "ÞÒ½v",
+        6.012988e-12
+      ],
+      [],
+      [
+        false,
+        214785249
+      ],
+      [
+        true,
+        "¤÷@¥o",
+        -124683207
+      ]
+    ],
+    "expected_outputs": [
+      false,
+      false,
+      "£",
+      null,
+      1,
+      null,
+      false
+    ]
+  },
+  {
+    "example": 965,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "put#obj#obj",
+      "isEmpty#0",
+      "getOrDefault#obj#obj",
+      "put#obj#obj",
+      "replace#obj#obj",
+      "get#obj",
+      "replace#obj#obj",
+      "size#0"
+    ],
+    "input_args": [
+      [
+        -122749349,
+        -934182
+      ],
+      [],
+      [
+        "v;äè_¢~îF",
+        "ö¡\rG"
+      ],
+      [
+        42365924,
+        -14
+      ],
+      [
+        5.410325e+27,
+        "{'òyØ"
+      ],
+      [
+        298
+      ],
+      [
+        23,
+        -Infinity
+      ],
+      []
+    ],
+    "expected_outputs": [
+      null,
+      false,
+      "ö¡\rG",
+      null,
+      null,
+      null,
+      null,
+      2
+    ]
+  },
+  {
+    "example": 967,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "containsValue#obj",
+      "remove#obj#obj",
+      "containsValue#obj",
+      "replace#obj#obj",
+      "replace#obj#obj#obj",
+      "remove#obj",
+      "remove#obj"
+    ],
+    "input_args": [
+      [
+        -Infinity
+      ],
+      [
+        false,
+        "6©J\u0003´9"
+      ],
+      [
+        0
+      ],
+      [
+        true,
+        556
+      ],
+      [
+        "",
+        1,
+        true
+      ],
+      [
+        ""
+      ],
+      [
+        9.60244e-37
+      ]
+    ],
+    "expected_outputs": [
+      false,
+      false,
+      false,
+      null,
+      false,
+      null,
+      null
+    ]
+  },
+  {
+    "example": 976,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "put#obj#obj",
+      "replace#obj#obj",
+      "get#obj",
+      "put#obj#obj",
+      "size#0",
+      "size#0"
+    ],
+    "input_args": [
+      [
+        false,
+        Infinity
+      ],
+      [
+        "?Á/â³\"Û",
+        "%èq-"
+      ],
+      [
+        23944,
+        true
+      ],
+      [
+        -7837189100000.0,
+        "9\u001clså6"
+      ],
+      [
+        false
+      ],
+      [
+        "[0\u0013M-",
+        false
+      ],
+      [],
+      []
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      null,
+      null,
+      Infinity,
+      null,
+      4,
+      4
+    ]
+  },
+  {
+    "example": 989,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "clear#0",
+      "clear#0",
+      "replace#obj#obj",
+      "getOrDefault#obj#obj",
+      "clear#0",
+      "replace#obj#obj#obj",
+      "isEmpty#0"
+    ],
+    "input_args": [
+      [],
+      [],
+      [
+        196250249,
+        -3623
+      ],
+      [
+        true,
+        7.6125553e-13
+      ],
+      [],
+      [
+        "~",
+        Infinity,
+        true
+      ],
+      []
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      null,
+      7.6125553e-13,
+      null,
+      false,
+      true
+    ]
+  },
+  {
+    "example": 996,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "isEmpty#0",
+      "containsKey#obj",
+      "getOrDefault#obj#obj",
+      "clear#0",
+      "getOrDefault#obj#obj",
+      "putIfAbsent#obj#obj",
+      "containsKey#obj"
+    ],
+    "input_args": [
+      [],
+      [
+        -34.648155
+      ],
+      [
+        1.582707e-06,
+        25188372
+      ],
+      [],
+      [
+        7.454473e-14,
+        "¥Ï¨"
+      ],
+      [
+        -2147483648,
+        -2
+      ],
+      [
+        Infinity
+      ]
+    ],
+    "expected_outputs": [
+      true,
+      false,
+      25188372,
+      null,
+      "¥Ï¨",
+      null,
+      false
+    ]
+  },
+  {
+    "example": 997,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "put#obj#obj",
+      "put#obj#obj",
+      "put#obj#obj",
+      "remove#obj",
+      "replace#obj#obj#obj",
+      "replace#obj#obj#obj",
+      "containsKey#obj"
+    ],
+    "input_args": [
+      [
+        "M\u0003",
+        true
+      ],
+      [
+        1984,
+        "h¤=Qò_©"
+      ],
+      [
+        "ªl",
+        -6.614042e-31
+      ],
+      [
+        -2147483648
+      ],
+      [
+        -1.3938381e-30,
+        false,
+        -2.1467096e+23
+      ],
+      [
+        false,
+        -Infinity,
+        -1.1666338e+22
+      ],
+      [
+        true
+      ]
+    ],
+    "expected_outputs": [
+      null,
+      null,
+      null,
+      null,
+      false,
+      false,
+      false
+    ]
+  }
+]

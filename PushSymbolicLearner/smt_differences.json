@@ -1,0 +1,4003 @@
+[
+  {
+    "example": 19,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      100715,
+      2.5972848e-22
+    ],
+    "expected": 2.5972848e-22,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JInt 100715))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 31,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      5.5354385e-27
+    ],
+    "expected": 2.028181e-30,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool false))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 32,
+    "call": 2,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JInt 0))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 33,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      -4.6905097e+16
+    ],
+    "expected": -4.6905097e+16,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool false))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 57,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "7",
+      1.7857883e-05
+    ],
+    "expected": 1.7857883e-05,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JString \"\\u{90}\\u{86}7\"))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 69,
+    "call": 1,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      "\u0015\u0007FG7\u0019"
+    ],
+    "expected": 24,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) JNull)\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 79,
+    "call": 1,
+    "method": "remove#obj",
+    "args": [
+      false
+    ],
+    "expected": -2143,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) JNull)\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 93,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "²Û",
+      327
+    ],
+    "expected": 327,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JString \"\\u{b2}\\u{db}\"))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 93,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -498,
+      2.9825395e-24
+    ],
+    "expected": 2.9825395e-24,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt (- 498)))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 102,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      -0.78618646
+    ],
+    "expected": -0.78618646,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JBool true))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 104,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      3.4028235e+38
+    ],
+    "expected": 2.5210464e-33,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 105,
+    "call": 3,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      true,
+      -4.741477e-15
+    ],
+    "expected": "cXÝã",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) JNull)\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 110,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "\\ÞêÈ",
+      1.0
+    ],
+    "expected": 1.0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JString \"\\u{9c}\\\\u{de}\\u{ea}\\u{c8}\"))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 115,
+    "call": 2,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 118,
+    "call": 3,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 1))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 121,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "Ü$Á",
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JString \"\\u{dc}\\u{99}$\\u{c1}\"))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 133,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      0.0041404087
+    ],
+    "expected": "¦²Hú:\u0018*",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 134,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      244480
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 147,
+    "call": 2,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      "¦",
+      false,
+      true
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 159,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "i·¹",
+      2866759
+    ],
+    "expected": 2866759,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JString \"i\\u{b7}\\u{b9}\"))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 163,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      "*öb"
+    ],
+    "expected": "\fB\u001cÙ",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 190,
+    "call": 1,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JInt 0))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 191,
+    "call": 2,
+    "method": "get#obj",
+    "args": [
+      true
+    ],
+    "expected": "p#ñ",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 195,
+    "call": 3,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 0))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 209,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      387004663,
+      6.833557e-15
+    ],
+    "expected": 6.833557e-15,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JInt 387004663))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 212,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      ";â|\"~;\u0006Íå",
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JString \";\\u{e2}|\"\"~;\\u{6}\\u{cd}\\u{e5}\"))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 222,
+    "call": 2,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      "Q\u000b\nu©·ô",
+      -6,
+      true
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 243,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      8.2442685e-32
+    ],
+    "expected": 8.2442685e-32,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JBool true))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 243,
+    "call": 3,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 259,
+    "call": 2,
+    "method": "remove#obj#obj",
+    "args": [
+      -2147483648,
+      false
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 265,
+    "call": 1,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      "Ô<"
+    ],
+    "expected": "\u001f",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) JNull)\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 295,
+    "call": 3,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      "­ì$\u0000"
+    ],
+    "expected": "·]z",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) JNull)\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 306,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      -7.923157e+24
+    ],
+    "expected": -7.923157e+24,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 315,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "íð",
+      -4979222
+    ],
+    "expected": -4979222,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JString \"\\u{ed}\\u{f0}\"))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 333,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      13
+    ],
+    "expected": "+",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 339,
+    "call": 4,
+    "method": "replace#obj#obj",
+    "args": [
+      false,
+      8454151700.0
+    ],
+    "expected": "\u0015)$Å",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JString \" \"))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 340,
+    "call": 3,
+    "method": "put#obj#obj",
+    "args": [
+      "",
+      true
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) JNull)\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 342,
+    "call": 2,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 347,
+    "call": 3,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      1.9532833
+    ],
+    "expected": "\u0011UU",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) JNull)\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 348,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "ªÔ\u0002\u0015-æ",
+      14
+    ],
+    "expected": 14,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JString \"\\u{aa}\\u{d4}\\u{2}\\u{15}-\\u{e6}\"))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 355,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      60382111,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 60382111))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 357,
+    "call": 3,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool false))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 358,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      174,
+      13705108500.0
+    ],
+    "expected": 13705108500.0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 174))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 360,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "ô\u001bK\u0004",
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JString \"\\u{f4}\\u{1b}\\u{93}K\\u{4}\"))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 362,
+    "call": 4,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      true,
+      -54231392
+    ],
+    "expected": -4.5268203e+31,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) JNull)\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 363,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      52751621,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JInt 52751621))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 363,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      119183,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 119183))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 365,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "mýe\u0015?Ç",
+      39858
+    ],
+    "expected": 39858,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JString \"m\\u{fd}e\\u{91}\\u{15}?\\u{c7}\"))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 369,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "ÿRÅµ",
+      4.543507e-38
+    ],
+    "expected": 4.543507e-38,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JString \"\\u{ff}R\\u{c5}\\u{b5}\"))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 374,
+    "call": 3,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      "æTâ\u0004ýl",
+      "Éo",
+      true
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 374,
+    "call": 5,
+    "method": "remove#obj",
+    "args": [
+      false
+    ],
+    "expected": "X¨×¸\t&",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) JNull)\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 375,
+    "call": 3,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool false))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 380,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 0))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 383,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      "\u001d9\u0001"
+    ],
+    "expected": 3132942,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 394,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "à$",
+      -16904072
+    ],
+    "expected": -16904072,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JString \"\\u{9e}\\u{e0}$\"))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 396,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 2))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 397,
+    "call": 1,
+    "method": "put#obj#obj",
+    "args": [
+      -1,
+      "\u0007TAª"
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) JNull)\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 400,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      "ÿ\"Íp"
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 402,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      1,
+      3.34759286e+16
+    ],
+    "expected": 3.34759286e+16,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 1))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 406,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      -1.8631803e-05
+    ],
+    "expected": -1.8631803e-05,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 411,
+    "call": 4,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool false))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 416,
+    "call": 5,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      -50138379,
+      false
+    ],
+    "expected": null,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JString \"|\\u{da}\\u{b1}\\u{ec}>\\u{11}\"))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 417,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "",
+      25668335
+    ],
+    "expected": 25668335,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JString \"\"))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 430,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "ä÷Sl\u00038¸",
+      -3
+    ],
+    "expected": -3,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JString \"\\u{e4}\\u{f7}\\u{89}Sl\\u{3}8\\u{b8}\"))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 432,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "üY'AjÑ",
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JString \"\\u{fc}Y\\u{8c}'Aj\\u{d1}\"))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 434,
+    "call": 2,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JInt 1))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 435,
+    "call": 1,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JInt 0))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 435,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 0))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 436,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      "",
+      " R+ï±­]y"
+    ],
+    "expected": 8.27068e-06,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 437,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "ë",
+      -1263017
+    ],
+    "expected": -1263017,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JString \"\\u{eb}\"))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 438,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 3))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 447,
+    "call": 3,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      false,
+      -2.8470194
+    ],
+    "expected": "",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) JNull)\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 451,
+    "call": 5,
+    "method": "containsValue#obj",
+    "args": [
+      true
+    ],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool false))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 456,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -11,
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JInt (- 11)))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 459,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      6.0705517e-21
+    ],
+    "expected": "P97¤",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 459,
+    "call": 3,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      -1
+    ],
+    "expected": 6.0705517e-21,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) JNull)\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 460,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      -8.247985e-39
+    ],
+    "expected": -8.247985e-39,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool false))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 467,
+    "call": 5,
+    "method": "remove#obj",
+    "args": [
+      false
+    ],
+    "expected": "Ô\u0013\u0014,\t'Wm\r",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) JNull)\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 469,
+    "call": 1,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JBool true))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 469,
+    "call": 3,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 478,
+    "call": 5,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      -0.0062532965,
+      false
+    ],
+    "expected": null,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 1))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 479,
+    "call": 3,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 1))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 484,
+    "call": 4,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool false))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 496,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      0.0
+    ],
+    "expected": 0.0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool false))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 498,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      3,
+      4.7656955e-37
+    ],
+    "expected": 4.7656955e-37,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 3))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 499,
+    "call": 4,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      5.7892e-38,
+      -4.4324643e-23,
+      true
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 500,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "{å§ï\b",
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JString \"{\\u{e5}\\u{a7}\\u{ef}\\u{8}\"))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 504,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      8616040400.0
+    ],
+    "expected": 8616040400.0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 505,
+    "call": 4,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 509,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "`®Ê}<Ú",
+      0
+    ],
+    "expected": 0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JString \"`\\u{92}\\u{ae}\\u{ca}}<\\u{da}\"))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 519,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      23328,
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 23328))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 525,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      -2.6631303e-08
+    ],
+    "expected": -1.5437254e-21,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool true))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 526,
+    "call": 4,
+    "method": "containsValue#obj",
+    "args": [
+      false
+    ],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool false))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 527,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "\r>",
+      0.0
+    ],
+    "expected": 0.0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JString \"\\u{d}>\"))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 531,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "°",
+      2.4602467e+31
+    ],
+    "expected": 2.4602467e+31,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JString \"\\u{b0}\"))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 535,
+    "call": 1,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      "",
+      "ôÃ\u0002\u0006¢ô",
+      "À_¡Ò"
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_THROWN)\n ((result-value r1) JNull)\n ((result-exception r1) EX_INDEX_OUT_OF_BOUNDS))"
+  },
+  {
+    "example": 537,
+    "call": 5,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool true))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 539,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "³ª3\t",
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JString \"\\u{b3}\\u{aa}3\\u{9}\"))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 539,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "yVüj`K\f",
+      -2.2918374e-21
+    ],
+    "expected": -2.2918374e-21,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JString \"yV\\u{fc}j`K\\u{c}\"))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 541,
+    "call": 3,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 541,
+    "call": 4,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 541,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 0))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 546,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 0))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 546,
+    "call": 5,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool true))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 548,
+    "call": 4,
+    "method": "get#obj",
+    "args": [
+      false
+    ],
+    "expected": -293,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) JNull)\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 549,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      -1.3456084e+34
+    ],
+    "expected": -1.3456084e+34,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool true))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 554,
+    "call": 3,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      -2.9693603e-28,
+      true
+    ],
+    "expected": null,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JString \"\\u{f}a`\\u{db}\"))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 555,
+    "call": 2,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 557,
+    "call": 4,
+    "method": "get#obj",
+    "args": [
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) JNull)\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 558,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 3))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 563,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 1))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 568,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "¥ÙÛªÊ",
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JString \"\\u{a5}\\u{d9}\\u{db}\\u{aa}\\u{93}\\u{ca}\"))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 569,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "Å",
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JString \"\\u{c5}\"))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 580,
+    "call": 4,
+    "method": "get#obj",
+    "args": [
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) JNull)\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 581,
+    "call": 5,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool true))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 587,
+    "call": 1,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      0.38112402
+    ],
+    "expected": "A\u0012Þ\\\u001b\u0006FË",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) JNull)\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 588,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      true
+    ],
+    "expected": -1.0226834e-33,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 590,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      84
+    ],
+    "expected": -768,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 84))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 597,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -365385,
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt (- 365385)))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 604,
+    "call": 4,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      102184,
+      332413127,
+      true
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 608,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -429,
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JInt (- 429)))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 610,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      4.267674e+32
+    ],
+    "expected": 4.267674e+32,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JBool true))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 613,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -6596,
+      -28197664100000.0
+    ],
+    "expected": -28197664100000.0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JInt (- 6596)))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 614,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "C",
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JString \"C\"))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 616,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "ù",
+      9
+    ],
+    "expected": 9,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JString \"\\u{f9}\"))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 619,
+    "call": 2,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JInt 0))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 620,
+    "call": 2,
+    "method": "replace#obj#obj",
+    "args": [
+      true,
+      63907639
+    ],
+    "expected": 7533642,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JString \" \"))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 620,
+    "call": 3,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      false,
+      -8.075553e+36
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) JNull)\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 620,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 1))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 621,
+    "call": 5,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      6.271497e+35
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) JNull)\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 622,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      1.8380094e+22
+    ],
+    "expected": -2003024,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 624,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -2911116,
+      3.7640698e+35
+    ],
+    "expected": 3.7640698e+35,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JInt (- 2911116)))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 627,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -51122596,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt (- 51122596)))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 630,
+    "call": 5,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      false,
+      false
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 1))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 637,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "±§",
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JString \"\\u{b1}\\u{a7}\"))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 640,
+    "call": 3,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      -103,
+      true,
+      ""
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 642,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -2,
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JInt (- 2)))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 642,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      true
+    ],
+    "expected": "",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 646,
+    "call": 2,
+    "method": "get#obj",
+    "args": [
+      false
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 653,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "íÀö\u0001¦e#",
+      -9
+    ],
+    "expected": -9,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JString \"\\u{ed}\\u{c0}\\u{f6}\\u{1}\\u{a6}e#\\u{85}\"))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 656,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "PÒûæ}&",
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JString \"P\\u{d2}\\u{fb}\\u{e6}}&\"))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 659,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "ÕT\u0005p",
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JString \"\\u{d5}\\u{83}T\\u{5}p\\u{99}\"))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 665,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      false
+    ],
+    "expected": "b",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 666,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 3,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 2))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 668,
+    "call": 7,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JInt 0))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 670,
+    "call": 4,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 671,
+    "call": 1,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JInt 0))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 671,
+    "call": 2,
+    "method": "containsValue#obj",
+    "args": [
+      false
+    ],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool false))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 671,
+    "call": 3,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 0))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 672,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 1))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 672,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 1))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 672,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 1))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 674,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 1))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 674,
+    "call": 7,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JInt 1))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 679,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      true
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JBool true))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 680,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      0,
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 0))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 680,
+    "call": 7,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JInt 1))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 681,
+    "call": 1,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      351868
+    ],
+    "expected": -2315341,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) JNull)\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 681,
+    "call": 4,
+    "method": "remove#obj#obj",
+    "args": [
+      "wµ£A¨Öô",
+      true
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 681,
+    "call": 6,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JBool false))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 682,
+    "call": 5,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool false))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 682,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 3))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 683,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      201211408.0
+    ],
+    "expected": 201211408.0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool false))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 685,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      "Ñ¶~pV;t"
+    ],
+    "expected": "Åôrq\u0010T",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 685,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "£Ü¶Â",
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JString \"\\u{88}\\u{a3}\\u{dc}\\u{b6}\\u{c2}\"))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 687,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      1770341,
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 1770341))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 688,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 3))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 697,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 1))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 697,
+    "call": 7,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JInt 1))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 702,
+    "call": 2,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JInt 0))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 704,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "",
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JString \"\"))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 705,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      157,
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 157))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 706,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 3,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 2))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 708,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "Þ",
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JString \"\\u{de}\"))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 709,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "`:¼qe\u0006\u0005",
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JString \"`:\\u{bc}\\u{87}q\\u{96}e\\u{6}\\u{5}\"))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 712,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -4159666,
+      1.43384705e-11
+    ],
+    "expected": 1.43384705e-11,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt (- 4159666)))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 713,
+    "call": 6,
+    "method": "containsValue#obj",
+    "args": [
+      true
+    ],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JBool false))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 714,
+    "call": 1,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      -1.5902075e+22
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) JNull)\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 714,
+    "call": 5,
+    "method": "get#obj",
+    "args": [
+      true
+    ],
+    "expected": -1.5902075e+22,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) JNull)\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 720,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      16580,
+      0.19338974
+    ],
+    "expected": 0.19338974,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JInt 16580))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 720,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      36345,
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 36345))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 722,
+    "call": 5,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool true))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 729,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 2))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 729,
+    "call": 7,
+    "method": "containsValue#obj",
+    "args": [
+      true
+    ],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JBool false))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 730,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "2mñ½Ã",
+      29314
+    ],
+    "expected": 29314,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JString \"2m\\u{f1}\\u{bd}\\u{c3}\"))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 735,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "ÛÖ·LX6y",
+      818
+    ],
+    "expected": 818,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JString \"\\u{db}\\u{d6}\\u{b7}LX\\u{8e}6y\"))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 735,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      0,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 0))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 738,
+    "call": 3,
+    "method": "containsValue#obj",
+    "args": [
+      true
+    ],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool false))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 739,
+    "call": 5,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      94192395,
+      true
+    ],
+    "expected": null,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 2))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 740,
+    "call": 1,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      114
+    ],
+    "expected": -393,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) JNull)\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 740,
+    "call": 5,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      "b4",
+      "Ïr\"<E",
+      "Â"
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_THROWN)\n ((result-value r5) JNull)\n ((result-exception r5) EX_INDEX_OUT_OF_BOUNDS))"
+  },
+  {
+    "example": 741,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "\u0014Á)Î",
+      5.9892955e-07
+    ],
+    "expected": 5.9892955e-07,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JString \"\\u{14}\\u{c1})\\u{ce}\\u{89}\"))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 741,
+    "call": 3,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 0))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 743,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      -15.610462
+    ],
+    "expected": -15.610462,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JBool false))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 743,
+    "call": 7,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JInt 1))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 747,
+    "call": 6,
+    "method": "remove#obj",
+    "args": [
+      true
+    ],
+    "expected": 112.833496,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) JNull)\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 754,
+    "call": 4,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool false))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 762,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 0))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 763,
+    "call": 7,
+    "method": "replace#obj#obj",
+    "args": [
+      false,
+      "\u000eD>³6ï?b"
+    ],
+    "expected": null,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JString \" \"))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 766,
+    "call": 4,
+    "method": "remove#obj#obj",
+    "args": [
+      9297835,
+      true
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 767,
+    "call": 1,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      49390
+    ],
+    "expected": 3.828076e-38,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) JNull)\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 773,
+    "call": 7,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JInt 2))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 774,
+    "call": 3,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 774,
+    "call": 5,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool true))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 776,
+    "call": 2,
+    "method": "replace#obj#obj",
+    "args": [
+      false,
+      -6.132916e+29
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 776,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 0))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 776,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 0))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 776,
+    "call": 7,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "\u001d\rcó#nHs",
+      0.0
+    ],
+    "expected": 0.0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JString \"\\u{1d}\\u{d}c\\u{f3}#nH\\u{84}s\"))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 783,
+    "call": 2,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 795,
+    "call": 4,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      2.148162e+28
+    ],
+    "expected": -2,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) JNull)\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 796,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      1112655,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 1112655))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 797,
+    "call": 5,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool true))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 797,
+    "call": 6,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JBool true))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 798,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      0,
+      -4.270479e-35
+    ],
+    "expected": -4.270479e-35,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 0))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 798,
+    "call": 5,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      false,
+      "¾\f"
+    ],
+    "expected": -3459,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) JNull)\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 799,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "[\u0018×\u000f'",
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JString \"[\\u{95}\\u{18}\\u{d7}\\u{f}\\u{85}'\"))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 799,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 2))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 801,
+    "call": 3,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      -9.159733e-28,
+      -331838,
+      true
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 801,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      "ü[®Á"
+    ],
+    "expected": "I",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JString \"\\u{fc}[\\u{ae}\\u{c1}\"))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 803,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "\u0001\b\u000f´@rY",
+      1.6884423e+30
+    ],
+    "expected": 1.6884423e+30,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JString \"\\u{1}\\u{8}\\u{f}\\u{b4}@rY\\u{9a}\\u{95}\"))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 806,
+    "call": 4,
+    "method": "remove#obj#obj",
+    "args": [
+      2.6369701e-08,
+      true
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 806,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -1811,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt (- 1811)))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 806,
+    "call": 6,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      -931
+    ],
+    "expected": -63609620,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) JNull)\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 808,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      -3.2326502e+28
+    ],
+    "expected": -3.2326502e+28,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 810,
+    "call": 2,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 810,
+    "call": 3,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 810,
+    "call": 7,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JInt 1))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 811,
+    "call": 2,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      -1711792
+    ],
+    "expected": "[¸H",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 814,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      -13754303
+    ],
+    "expected": -3593736.0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JInt (- 13754303)))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 817,
+    "call": 2,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      "ÔïÌ«'Ö",
+      true,
+      false
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 818,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 1))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 818,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "1ì$\u0019",
+      0
+    ],
+    "expected": 0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JString \"1\\u{ec}$\\u{19}\"))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 820,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -99,
+      -1.0201876e-36
+    ],
+    "expected": -1.0201876e-36,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JInt (- 99)))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 820,
+    "call": 7,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "Ï®Kjj£",
+      98
+    ],
+    "expected": 98,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JString \"\\u{cf}\\u{ae}Kjj\\u{a3}\"))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 821,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "kØª8Ç«\tcy",
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JString \"k\\u{d8}\\u{aa}8\\u{c7}\\u{ab}\\u{9}cy\"))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 821,
+    "call": 6,
+    "method": "get#obj",
+    "args": [
+      false
+    ],
+    "expected": "£´\u001e",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) JNull)\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 822,
+    "call": 4,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 823,
+    "call": 4,
+    "method": "replace#obj#obj",
+    "args": [
+      false,
+      false
+    ],
+    "expected": -68344,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) JNull)\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 823,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 0))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 824,
+    "call": 4,
+    "method": "replace#obj#obj",
+    "args": [
+      false,
+      false
+    ],
+    "expected": "\u0006/w",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) JNull)\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 825,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "Y",
+      -89363
+    ],
+    "expected": -89363,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JString \"\\u{85}Y\"))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 826,
+    "call": 7,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JInt 2))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 827,
+    "call": 6,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      true,
+      3,
+      true
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JBool true))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 828,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      9982726,
+      9.8176785e+32
+    ],
+    "expected": 9.8176785e+32,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 9982726))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 833,
+    "call": 6,
+    "method": "containsKey#obj",
+    "args": [
+      false
+    ],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JBool false))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 835,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      7.2846084e-32
+    ],
+    "expected": 7.2846084e-32,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JBool true))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 840,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 3))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 840,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 3))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 842,
+    "call": 6,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      "( l",
+      "Iz§ÁC°ó",
+      "U3F®r¿@"
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_THROWN)\n ((result-value r6) JNull)\n ((result-exception r6) EX_INDEX_OUT_OF_BOUNDS))"
+  },
+  {
+    "example": 844,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "5í±xÆÓ",
+      -5.1470617e-30
+    ],
+    "expected": -5.1470617e-30,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JString \"\\u{9e}5\\u{ed}\\u{b1}x\\u{c6}\\u{d3}\"))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 844,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      -1.5393384e-06
+    ],
+    "expected": -1.5393384e-06,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool false))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 846,
+    "call": 5,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      1
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) JNull)\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 847,
+    "call": 5,
+    "method": "put#obj#obj",
+    "args": [
+      false,
+      9
+    ],
+    "expected": -1360,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) JNull)\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 848,
+    "call": 5,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool true))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 850,
+    "call": 2,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      false,
+      true,
+      -60
+    ],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool false))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 850,
+    "call": 5,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool false))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 852,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "\b:\u0010e",
+      64015
+    ],
+    "expected": 64015,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JString \"\\u{8}:\\u{10}e\"))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 853,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      -1.6760988e+26
+    ],
+    "expected": -1.6760988e+26,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool false))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 856,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "K@:\u0013µ",
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JString \"K@:\\u{13}\\u{b5}\"))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 858,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      167640241,
+      -0.047109976
+    ],
+    "expected": -0.047109976,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 167640241))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 860,
+    "call": 6,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      -58,
+      -1,
+      false
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JBool true))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 861,
+    "call": 1,
+    "method": "remove#obj#obj",
+    "args": [
+      11099968,
+      true
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JBool true))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 861,
+    "call": 4,
+    "method": "remove#obj",
+    "args": [
+      true
+    ],
+    "expected": "Â´Bv1\tåW",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) JNull)\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 866,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "",
+      4.8190853e+37
+    ],
+    "expected": 4.8190853e+37,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JString \"\"))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 871,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "0óÔ",
+      -6.4258115e-14
+    ],
+    "expected": -6.4258115e-14,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JString \"\\u{8a}0\\u{f3}\\u{d4}\"))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 872,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -444192,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt (- 444192)))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 874,
+    "call": 4,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      2366520,
+      false
+    ],
+    "expected": null,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 2))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 876,
+    "call": 7,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JInt 1))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 877,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -1246,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt (- 1246)))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 879,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      32,
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 32))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 880,
+    "call": 7,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      true,
+      "ní"
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) JNull)\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 883,
+    "call": 3,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 1))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 887,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      ""
+    ],
+    "expected": -3.0953807e-36,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JString \"\"))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 887,
+    "call": 2,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      true,
+      1.0,
+      true
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 888,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -11465640,
+      -1.4108019e-35
+    ],
+    "expected": -1.4108019e-35,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt (- 11465640)))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 890,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      433,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JInt 433))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 890,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      -1.478886e+34
+    ],
+    "expected": -1.478886e+34,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool false))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 891,
+    "call": 2,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "þ5\u001f",
+      0.054152533
+    ],
+    "expected": 0.054152533,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JString \"\\u{9a}\\u{98}\\u{fe}5\\u{1f}\"))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 893,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      -6.729059e+31
+    ],
+    "expected": -6.729059e+31,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool false))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 898,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "¼ÞçeË³",
+      2147483647
+    ],
+    "expected": 2147483647,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JString \"\\u{bc}\\u{de}\\u{e7}e\\u{8e}\\u{99}\\u{cb}\\u{b3}\"))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 901,
+    "call": 5,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool false))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 902,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      "Òð]\u001dñ1¿"
+    ],
+    "expected": -46,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JString \"\\u{d2}\\u{f0}]\\u{1d}\\u{f1}1\\u{bf}\"))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 903,
+    "call": 3,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 1))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 903,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 1))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 904,
+    "call": 4,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      false,
+      true
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) JNull)\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 907,
+    "call": 5,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "ÝöþÛ÷§",
+      -42589978000000.0
+    ],
+    "expected": -42589978000000.0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JString \"\\u{dd}\\u{86}\\u{f6}\\u{fe}\\u{9e}\\u{db}\\u{f7}\\u{a7}\"))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 908,
+    "call": 1,
+    "method": "containsValue#obj",
+    "args": [
+      false
+    ],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JBool false))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 909,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 1))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 909,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 1))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 909,
+    "call": 7,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      -5.2656997e-30
+    ],
+    "expected": "ù'¥(\u0003d",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JBool false))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 910,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "ÑãÂK|\u0018\n",
+      7.791221e-20
+    ],
+    "expected": 7.791221e-20,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JString \"\\u{d1}\\u{e3}\\u{c2}K|\\u{18}\\u{a}\"))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 914,
+    "call": 3,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 1))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 920,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      42441274,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 42441274))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 922,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 1))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 926,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      0,
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 0))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 927,
+    "call": 4,
+    "method": "containsValue#obj",
+    "args": [
+      true
+    ],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool false))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 930,
+    "call": 6,
+    "method": "put#obj#obj",
+    "args": [
+      true,
+      -221
+    ],
+    "expected": -3,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) JNull)\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 931,
+    "call": 3,
+    "method": "isEmpty#0",
+    "args": [],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 934,
+    "call": 6,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "XÝ!á\u0004Ò*",
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JString \"X\\u{9e}\\u{dd}\\u{87}!\\u{e1}\\u{4}\\u{d2}*\"))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 936,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 1))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 939,
+    "call": 1,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JInt 0))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 939,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      true,
+      -8.777149e+23
+    ],
+    "expected": -8.777149e+23,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 940,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -138634156,
+      3.4026426e+28
+    ],
+    "expected": 3.4026426e+28,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JInt (- 138634156)))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 941,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -2888296,
+      -19980.346
+    ],
+    "expected": -19980.346,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JInt (- 2888296)))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 943,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      false,
+      -1.3625134e+25
+    ],
+    "expected": -1.3625134e+25,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool false))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 945,
+    "call": 2,
+    "method": "remove#obj",
+    "args": [
+      true
+    ],
+    "expected": 0.0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 945,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 1))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 953,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "Àà\u001f\u00133í",
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JString \"\\u{c0}\\u{8f}\\u{e0}\\u{1f}\\u{13}3\\u{ed}\"))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 956,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 1))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 956,
+    "call": 7,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JInt 1))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 962,
+    "call": 1,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      1799106,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JInt 1799106))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 964,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 2))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 966,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 0))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 970,
+    "call": 3,
+    "method": "size#0",
+    "args": [],
+    "expected": 0,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt 2))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 971,
+    "call": 4,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "\u001e",
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JString \"\\u{1e}\\u{9a}\"))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 971,
+    "call": 6,
+    "method": "get#obj",
+    "args": [
+      true
+    ],
+    "expected": "g\u0019Q6",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) JNull)\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 972,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 1,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 0))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 973,
+    "call": 3,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      -2677,
+      false
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt (- 2677)))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 974,
+    "call": 5,
+    "method": "replace#obj#obj",
+    "args": [
+      true,
+      true
+    ],
+    "expected": null,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JString \" \"))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 977,
+    "call": 5,
+    "method": "size#0",
+    "args": [],
+    "expected": 3,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JInt 1))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 979,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 1))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 982,
+    "call": 0,
+    "method": "getOrDefault#obj#obj",
+    "args": [
+      "røÂ",
+      -130769760.0
+    ],
+    "expected": -130769760.0,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r0) OUT_NORMAL)\n ((result-value r0) (JString \"r\\u{f8}\\u{c2}\"))\n ((result-exception r0) EX_NONE))"
+  },
+  {
+    "example": 983,
+    "call": 4,
+    "method": "remove#obj",
+    "args": [
+      true
+    ],
+    "expected": true,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) JNull)\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 984,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "expected": 2,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 1))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 987,
+    "call": 4,
+    "method": "remove#obj",
+    "args": [
+      true
+    ],
+    "expected": false,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) JNull)\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 988,
+    "call": 1,
+    "method": "replace#obj#obj#obj",
+    "args": [
+      1.0537651e-09,
+      -1.2200773e+27,
+      false
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r1) OUT_NORMAL)\n ((result-value r1) (JBool true))\n ((result-exception r1) EX_NONE))"
+  },
+  {
+    "example": 990,
+    "call": 4,
+    "method": "remove#obj#obj",
+    "args": [
+      1214003,
+      false
+    ],
+    "expected": false,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 991,
+    "call": 6,
+    "method": "containsValue#obj",
+    "args": [
+      ""
+    ],
+    "expected": true,
+    "type": "boolean",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JBool false))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 992,
+    "call": 2,
+    "method": "get#obj",
+    "args": [
+      false
+    ],
+    "expected": "wÉ~\u0011´\u0017\u0016",
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) JNull)\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 992,
+    "call": 6,
+    "method": "putIfAbsent#obj#obj",
+    "args": [
+      "3þ",
+      false
+    ],
+    "expected": null,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JString \"w\\u{c9}~\\u{11}\\u{b4}\\u{17}\\u{16}\"))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 993,
+    "call": 6,
+    "method": "size#0",
+    "args": [],
+    "expected": 4,
+    "type": "int",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JInt 3))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 994,
+    "call": 6,
+    "method": "get#obj",
+    "args": [
+      false
+    ],
+    "expected": 8.2077576e+32,
+    "type": "java.lang.Object",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) JNull)\n ((result-exception r6) EX_NONE))"
+  }
+]
