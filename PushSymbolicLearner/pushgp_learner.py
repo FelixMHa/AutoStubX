@@ -1,28 +1,34 @@
 #!/usr/bin/env python3
-"""Evolutionary learner for sequence-based PushGP Java method models.
-
-The public function names from the original module are retained. The
-implementation is compatible with the revised ``pushbase.py`` and treats a full
-method-call sequence as one fitness case while preserving per-call errors for
-lexicase selection.
-"""
 from __future__ import annotations
 
 import copy
-import difflib
 import math
 import os
 import random
 from collections import defaultdict
+from collections.abc import Mapping
 from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass
+from functools import lru_cache
 from itertools import zip_longest
 from statistics import median
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, TYPE_CHECKING
+from typing import Any, Dict, Iterable, List, Optional, Sequence, TYPE_CHECKING
 
-# Keep the original module's accidental re-export of pushbase symbols so code that
-# imports PushProgram/PushGPGenome from pushgp_learner continues to work.
-from pushbase import *  # noqa: F401,F403
+# Keep the commonly re-exported runtime classes available without polluting this
+# module's namespace with every instruction implementation.
+from pushbase import (
+    ERC_FLOAT,
+    ERC_INT,
+    FLOAT_CONST,
+    HeapReference,
+    INT_CONST,
+    MISSING_RESULT,
+    ObjectSummary,
+    PushGPGenome,
+    PushGPInterpreter,
+    PushInstruction,
+    PushProgram,
+)
 
 if TYPE_CHECKING:
     from trainingexample import TrainingExample
@@ -34,20 +40,20 @@ else:
         # import optional also avoids circular-import failures in small tools/tests.
         TrainingExample = Any
 
-try:
-    import Levenshtein
-except ImportError:
-    Levenshtein = None
-
-
 EPS = 1e-9
 DEFAULT_TOURNAMENT_SIZE = 5
 DEFAULT_MAX_PROGRAM_ATOMS = 64
 DEFAULT_MAX_PROGRAM_DEPTH = 6
+DEFAULT_MAX_PROCESSES = 8
 
 GLOBAL_TRAINING_DATA: Optional[List[Any]] = None
+GLOBAL_EVALUATION_CASES: Optional[List["_EvaluationCase"]] = None
 GLOBAL_INTERPRETER: Optional[PushGPInterpreter] = None
 GLOBAL_EVALUATION_CONFIG: Optional["EvaluationConfig"] = None
+
+PUSH_TEXT_TYPES = frozenset(
+    PushGPInterpreter.STRING_TYPES | PushGPInterpreter.CHAR_TYPES
+)
 
 
 @dataclass(frozen=True)
@@ -57,7 +63,9 @@ class EvaluationConfig:
     complexity_weight: float = 0.001
     argument_use_weight: float = 0.1
     state_weight: float = 0.1
-    correctness_tolerance: float = 0.01
+    # Used only for floating-point correctness. Integers, booleans, strings,
+    # references, exceptions, and structured values use exact/type-aware checks.
+    correctness_tolerance: float = 1e-9
 
     def __post_init__(self) -> None:
         for name in ("complexity_weight", "argument_use_weight", "state_weight"):
@@ -68,14 +76,29 @@ class EvaluationConfig:
             raise ValueError("correctness_tolerance must be finite and non-negative")
 
 
+@dataclass(frozen=True)
+class _EvaluationCase:
+    """Pre-extracted immutable metadata reused for every genome evaluation."""
+
+    example: Any
+    sequence: tuple[str, ...]
+    expected_outputs: tuple[Any, ...]
+    output_types: tuple[Any, ...]
+    input_args: tuple[Any, ...]
+    state_scope: str
+    expected_state: Any
+
+
 def init_worker(
     training_data: List[Any],
     interpreter: PushGPInterpreter,
     evaluation_config: Optional[EvaluationConfig] = None,
 ) -> None:
     """Initialize one worker process with immutable evaluation inputs."""
-    global GLOBAL_TRAINING_DATA, GLOBAL_INTERPRETER, GLOBAL_EVALUATION_CONFIG
+    global GLOBAL_TRAINING_DATA, GLOBAL_EVALUATION_CASES
+    global GLOBAL_INTERPRETER, GLOBAL_EVALUATION_CONFIG
     GLOBAL_TRAINING_DATA = training_data
+    GLOBAL_EVALUATION_CASES = _prepare_evaluation_cases(training_data)
     GLOBAL_INTERPRETER = interpreter
     GLOBAL_EVALUATION_CONFIG = evaluation_config or EvaluationConfig()
 
@@ -119,12 +142,103 @@ def _extract_method_names(training_data: Sequence[Any]) -> List[str]:
     seen: set[str] = set()
     method_names: List[str] = []
     for example in training_data:
-        for raw_name in list(getattr(example, "sequence", None) or []):
+        for raw_name in getattr(example, "sequence", None) or ():
             name = str(raw_name)
             if name not in seen:
                 seen.add(name)
                 method_names.append(name)
     return method_names
+
+
+def _parse_reference_id(value: Any) -> int:
+    if isinstance(value, bool):
+        raise ValueError("boolean is not a valid reference id")
+    if isinstance(value, int):
+        return value
+    text = str(value).strip()
+    if len(text) > 1 and text[0].lower() in {"o", "r"} and text[1:].isdigit():
+        return int(text[1:])
+    return int(text)
+
+
+def validate_training_example(example: Any, *, index: Optional[int] = None) -> None:
+    """Reject malformed call-aligned traces before they can influence fitness."""
+    prefix = f"training example {index}" if index is not None else "training example"
+    sequence = list(getattr(example, "sequence", None) or [])
+    n_calls = len(sequence)
+
+    for field_name in (
+        "input_args",
+        "type_inputs",
+        "type_outputs",
+        "expected_outputs",
+    ):
+        raw = getattr(example, field_name, None)
+        if raw is None:
+            raise ValueError(f"{prefix}: missing required field {field_name!r}")
+        values = list(raw)
+        if len(values) != n_calls:
+            raise ValueError(
+                f"{prefix}: {field_name} has length {len(values)}; "
+                f"expected {n_calls} to match sequence"
+            )
+
+    input_args = list(getattr(example, "input_args"))
+    input_types = list(getattr(example, "type_inputs"))
+    for call_index, (args, types) in enumerate(zip(input_args, input_types)):
+        args = list(args or [])
+        types = list(types or [])
+        if len(types) != len(args):
+            raise ValueError(
+                f"{prefix}: call {call_index} has {len(args)} arguments but "
+                f"{len(types)} declared input types"
+            )
+
+    receiver_refs = list(getattr(example, "receiver_refs", None) or [])
+    if receiver_refs and len(receiver_refs) != n_calls:
+        raise ValueError(
+            f"{prefix}: receiver_refs has length {len(receiver_refs)}; "
+            f"expected 0 or {n_calls}"
+        )
+
+    initial_state = getattr(example, "initial_state", None)
+    if initial_state is not None and not isinstance(initial_state, Mapping):
+        raise ValueError(f"{prefix}: initial_state must be a mapping")
+    initial_state = initial_state or {}
+    available_refs: set[int] = set()
+    for raw_ref in initial_state:
+        try:
+            ref_id = _parse_reference_id(raw_ref)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(
+                f"{prefix}: invalid initial_state reference id {raw_ref!r}"
+            ) from exc
+        if ref_id < 0:
+            raise ValueError(f"{prefix}: reference ids must be non-negative")
+        if ref_id in available_refs:
+            raise ValueError(f"{prefix}: duplicate normalized reference id {ref_id}")
+        available_refs.add(ref_id)
+    if not available_refs:
+        available_refs.add(0)
+
+    for call_index, raw_ref in enumerate(receiver_refs):
+        try:
+            ref_id = _parse_reference_id(raw_ref)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(
+                f"{prefix}: call {call_index} has invalid receiver id {raw_ref!r}"
+            ) from exc
+        if ref_id not in available_refs:
+            raise ValueError(
+                f"{prefix}: call {call_index} references unknown receiver {ref_id}"
+            )
+
+
+def validate_training_data(training_data: Sequence[Any]) -> None:
+    if not training_data:
+        raise ValueError("Training data cannot be empty")
+    for index, example in enumerate(training_data):
+        validate_training_example(example, index=index)
 
 
 def serialize_program(code: Iterable[Any]) -> List[Any]:
@@ -145,11 +259,18 @@ def serialize_program(code: Iterable[Any]) -> List[Any]:
 def _reset_genome_evaluation(genome: PushGPGenome) -> None:
     """Invalidate cached fitness after crossover or mutation."""
     genome.fitness = float("inf")
+    genome.data_fitness = float("inf")
     genome.accuracy = 0.0
     genome.method_accuracies = {}
     genome.complexity_penalty = 0.0
     genome.case_errors = []
+    genome.evaluation_failures = []
     genome.invalidate_signature()
+
+
+@lru_cache(maxsize=8)
+def _normalise_selection(selection: str) -> str:
+    return (selection or "tournament").strip().lower()
 
 
 def _select_parent(
@@ -157,11 +278,11 @@ def _select_parent(
     *,
     selection: str,
     tournament_size: int,
-    lexicase_cases: int,
+    lexicase_cases: Optional[int],
 ) -> PushGPGenome:
-    selection_key = (selection or "tournament").strip().lower()
+    selection_key = _normalise_selection(selection)
     if selection_key in {"lexicase", "exact_lexicase"}:
-        return lexicase_selection(population, num_cases=lexicase_cases, epsilon=1e-6)
+        return lexicase_selection(population, num_cases=lexicase_cases, epsilon=0.0)
     if selection_key in {"epsilon_lexicase", "epsilon-lexicase", "eplexicase"}:
         return lexicase_selection(population, num_cases=lexicase_cases, epsilon=None)
     if selection_key != "tournament":
@@ -173,15 +294,15 @@ def _select_parent(
 
 def _evaluate_population_serial(
     population: List[PushGPGenome],
-    training_data: List[Any],
+    evaluation_cases: Sequence[_EvaluationCase],
     interpreter: PushGPInterpreter,
     early_threshold: Optional[float],
     evaluation_config: EvaluationConfig,
 ) -> List[PushGPGenome]:
     return [
-        evaluate_genome(
+        _evaluate_genome_cases(
             genome,
-            training_data,
+            evaluation_cases,
             interpreter,
             early_stop_threshold=early_threshold,
             evaluation_config=evaluation_config,
@@ -201,10 +322,10 @@ def run_pushgp_evolution(
     max_steps: Optional[int] = None,
     *,
     random_seed: Optional[int] = None,
-    smart_initialization_probability: float = 0.2,
+    smart_initialization_probability: float = 0,
     selection: str = "tournament",
     tournament_size: int = DEFAULT_TOURNAMENT_SIZE,
-    lexicase_cases: int = 40,
+    lexicase_cases: Optional[int] = None,
     crossover_rate: float = 0.5,
     elite_fraction: float = 0.1,
     diversity_interval: Optional[int] = 10,
@@ -214,6 +335,8 @@ def run_pushgp_evolution(
     max_program_depth: int = DEFAULT_MAX_PROGRAM_DEPTH,
     evaluation_config: Optional[EvaluationConfig] = None,
     parallel_fallback: bool = True,
+    allowed_instruction_names: Optional[Iterable[str]] = None,
+    parallel_chunksize: Optional[int] = None,
 ) -> Optional[PushGPGenome]:
     """Evolve one Push program per method name found in the training traces.
 
@@ -222,13 +345,16 @@ def run_pushgp_evolution(
     """
     training_data = list(training_data or [])
     if processes is None:
-        processes = min(population_size, os.cpu_count() or 2)
+        processes = min(
+            population_size,
+            max(1, min(DEFAULT_MAX_PROCESSES, os.cpu_count() or 2)),
+        )
     if max_steps is None:
         max_steps = 80
     if tournament_size <= 0:
         raise ValueError("tournament_size must be positive")
-    if lexicase_cases <= 0:
-        raise ValueError("lexicase_cases must be positive")
+    if lexicase_cases is not None and lexicase_cases <= 0:
+        raise ValueError("lexicase_cases must be positive or None")
     if diversity_interval is not None and diversity_interval <= 0:
         raise ValueError("diversity_interval must be positive or None")
     if not 0.0 <= diversity_threshold <= 1.0:
@@ -237,7 +363,9 @@ def run_pushgp_evolution(
         raise ValueError("base_mutation_rate must be in [0, 1]")
     if max_program_atoms <= 0 or max_program_depth <= 0:
         raise ValueError("program size and depth limits must be positive")
-    selection_key = (selection or "tournament").strip().lower()
+    if parallel_chunksize is not None and parallel_chunksize <= 0:
+        raise ValueError("parallel_chunksize must be positive or None")
+    selection_key = _normalise_selection(selection)
     if selection_key not in {
         "tournament",
         "lexicase",
@@ -261,15 +389,24 @@ def run_pushgp_evolution(
         crossover_rate=crossover_rate,
         elite_fraction=elite_fraction,
     )
+    validate_training_data(training_data)
 
     if random_seed is not None:
         random.seed(random_seed)
 
     evaluation_config = evaluation_config or EvaluationConfig()
-    interpreter = PushGPInterpreter(profile=profile, max_steps=max_steps)
+    if allowed_instruction_names is None:
+        interpreter = PushGPInterpreter(profile=profile, max_steps=max_steps)
+    else:
+        interpreter = PushGPInterpreter(
+            profile=profile,
+            max_steps=max_steps,
+            allowed_instruction_names=allowed_instruction_names,
+        )
     method_names = _extract_method_names(training_data)
     if not method_names:
         raise ValueError("Training data contains no method calls")
+    evaluation_cases = _prepare_evaluation_cases(training_data)
 
     print(f"Learning PushGP programs for {len(method_names)} methods: {method_names}")
 
@@ -292,11 +429,15 @@ def run_pushgp_evolution(
     stall_count = 0
     executor: Optional[ProcessPoolExecutor] = None
     use_parallel = processes > 1
+    worker_count = min(processes, population_size)
+    map_chunksize = parallel_chunksize or max(
+        1, population_size // max(1, worker_count * 4)
+    )
 
     if use_parallel:
         try:
             executor = ProcessPoolExecutor(
-                max_workers=min(processes, population_size),
+                max_workers=worker_count,
                 initializer=init_worker,
                 initargs=(training_data, interpreter, evaluation_config),
             )
@@ -312,7 +453,6 @@ def run_pushgp_evolution(
     try:
         for generation in range(generations):
             # Exact per-case errors are required for lexicase; do not truncate them.
-            selection_key = (selection or "tournament").strip().lower()
             supports_early_abort = "lexicase" not in selection_key
             early_threshold = (
                 best_fitness
@@ -325,7 +465,8 @@ def run_pushgp_evolution(
                     population = list(
                         executor.map(
                             evaluate_wrapper,
-                            [(genome, early_threshold) for genome in population],
+                            ((genome, early_threshold) for genome in population),
+                            chunksize=map_chunksize,
                         )
                     )
                 except Exception as exc:
@@ -339,7 +480,7 @@ def run_pushgp_evolution(
                     executor = None
                     population = _evaluate_population_serial(
                         population,
-                        training_data,
+                        evaluation_cases,
                         interpreter,
                         early_threshold,
                         evaluation_config,
@@ -347,7 +488,7 @@ def run_pushgp_evolution(
             else:
                 population = _evaluate_population_serial(
                     population,
-                    training_data,
+                    evaluation_cases,
                     interpreter,
                     early_threshold,
                     evaluation_config,
@@ -372,7 +513,11 @@ def run_pushgp_evolution(
                 for method_name, program in generation_best.methods.items():
                     print(f"  {method_name}: {serialize_program(program.code)}")
 
-            if generation_best.accuracy >= 0.99 and generation_best.fitness < 0.02:
+            # Accuracy is based on strict, type-aware outputs and exact supervised
+            # state.  Heuristic argument-use and complexity penalties should rank
+            # equivalent solutions, not prevent a behaviorally perfect one from
+            # terminating the run.
+            if generation_best.accuracy >= 1.0 - EPS:
                 print(f"Solution found at generation {generation}")
                 break
             if (
@@ -397,10 +542,9 @@ def run_pushgp_evolution(
                     interpreter,
                     diversity_threshold=diversity_threshold,
                 )
-                reproduction_pool.sort(key=lambda genome: genome.fitness)
 
             new_population: List[PushGPGenome] = []
-            elite_count = max(1, int(round(population_size * elite_fraction)))
+            elite_count = int(round(population_size * elite_fraction))
             elite_count = min(elite_count, len(population), population_size)
             new_population.extend(genome.copy() for genome in population[:elite_count])
 
@@ -408,13 +552,13 @@ def run_pushgp_evolution(
                 if random.random() < crossover_rate and len(reproduction_pool) >= 2:
                     parent1 = _select_parent(
                         reproduction_pool,
-                        selection=selection,
+                        selection=selection_key,
                         tournament_size=tournament_size,
                         lexicase_cases=lexicase_cases,
                     )
                     parent2 = _select_parent(
                         reproduction_pool,
-                        selection=selection,
+                        selection=selection_key,
                         tournament_size=tournament_size,
                         lexicase_cases=lexicase_cases,
                     )
@@ -427,7 +571,7 @@ def run_pushgp_evolution(
                 else:
                     parent = _select_parent(
                         reproduction_pool,
-                        selection=selection,
+                        selection=selection_key,
                         tournament_size=tournament_size,
                         lexicase_cases=lexicase_cases,
                     )
@@ -456,12 +600,12 @@ def run_pushgp_evolution(
 
 def evaluate_wrapper(args: tuple[Any, ...]) -> PushGPGenome:
     """Process-pool wrapper using data installed by ``init_worker``."""
-    if GLOBAL_TRAINING_DATA is None or GLOBAL_INTERPRETER is None:
+    if GLOBAL_EVALUATION_CASES is None or GLOBAL_INTERPRETER is None:
         raise RuntimeError("Worker was not initialized with training data/interpreter")
     genome, early_threshold = args[:2]
-    return evaluate_genome(
+    return _evaluate_genome_cases(
         genome,
-        GLOBAL_TRAINING_DATA,
+        GLOBAL_EVALUATION_CASES,
         GLOBAL_INTERPRETER,
         early_stop_threshold=early_threshold,
         evaluation_config=GLOBAL_EVALUATION_CONFIG or EvaluationConfig(),
@@ -497,7 +641,7 @@ def _summary_from_value(value: Any) -> ObjectSummary:
         data = value.get("data")
         obj_type = _canonical_object_type(value.get("type"), data)
         fields = {
-            str(key): _stable_value(item)
+            f"field:{key}": _stable_value(item)
             for key, item in dict(value.get("fields") or {}).items()
         }
     else:
@@ -564,64 +708,143 @@ def evaluate_state(pred: Any, target: Any) -> float:
 
 
 def _normalised_state_error(pred: Any, target: Any) -> float:
+    """Return a bounded structural distance without double-normalizing contents."""
     if target is None:
         return 0.0
-    pred_summary = _summary_from_value(pred) if pred is not None else ObjectSummary()
+    if pred is None:
+        return 1.0
+
+    pred_summary = _summary_from_value(pred)
     target_summary = _summary_from_value(target)
-    scale = (
-        1.0
-        + max(pred_summary.size, target_summary.size)
-        + len(pred_summary.keys | target_summary.keys)
-        + len(set(pred_summary.field_hashes) | set(target_summary.field_hashes))
+    component_sum = float(pred_summary.obj_type != target_summary.obj_type)
+    component_count = 1
+    size_scale = max(pred_summary.size, target_summary.size, 1)
+    component_sum += min(
+        1.0, abs(pred_summary.size - target_summary.size) / size_scale
     )
-    return min(1.0, evaluate_state(pred, target) / scale)
+    component_count += 1
+
+    key_union = pred_summary.keys | target_summary.keys
+    if key_union:
+        component_sum += (
+            len(pred_summary.keys.symmetric_difference(target_summary.keys)) / len(key_union)
+        )
+        component_count += 1
+
+    all_fields = set(pred_summary.field_hashes) | set(target_summary.field_hashes)
+    if all_fields:
+        field_error_sum = 0.0
+        for key in all_fields:
+            if key not in pred_summary.field_hashes or key not in target_summary.field_hashes:
+                field_error_sum += 1.0
+            else:
+                field_error_sum += _rec_error(
+                    pred_summary.field_hashes[key],
+                    target_summary.field_hashes[key],
+                )
+        component_sum += field_error_sum / len(all_fields)
+        component_count += 1
+
+    return min(1.0, component_sum / component_count)
 
 
-def _extract_expected_final_state(example: Any) -> Any:
-    """Find an optional final-state oracle without requiring a schema revision."""
+def _looks_like_heap(value: Any, data_structure_type: str = "") -> bool:
+    if not isinstance(value, Mapping):
+        return False
+    if not value:
+        return False
+    if "map" in data_structure_type.lower():
+        return False
+    try:
+        for key in value:
+            _parse_reference_id(key)
+    except (TypeError, ValueError):
+        return False
+    return True
+
+
+def _extract_expected_state_oracle(example: Any) -> tuple[str, Any]:
+    """Return ``(scope, value)`` where scope is ``none``, ``receiver``, or ``heap``."""
     attributes = (
+        "expected_heap",
         "expected_final_state",
         "expected_state_after",
         "expected_state",
         "final_state",
-        "expected_heap",
     )
+    data_structure_type = str(getattr(example, "data_structure_type", "") or "")
     for name in attributes:
         if not hasattr(example, name):
             continue
         value = getattr(example, name)
         if value is None:
             continue
-
         if isinstance(value, Mapping) and "heap" in value:
-            value = value["heap"]
+            return "heap", value["heap"]
+        if name == "expected_heap" or _looks_like_heap(value, data_structure_type):
+            return "heap", value
+        return "receiver", value
+    return "none", None
 
-        # Heap-shaped expected states are commonly {ref_id: data}. Do not unwrap a
-        # raw Map model unless the attribute explicitly names a heap.
-        data_structure_type = str(getattr(example, "data_structure_type", "")).lower()
-        looks_like_ref_map = False
-        if isinstance(value, Mapping) and value:
-            looks_like_ref_map = all(
-                isinstance(key, int) or (isinstance(key, str) and key.lstrip("-").isdigit())
-                for key in value
+
+def _extract_expected_final_state(example: Any) -> Any:
+    """Backward-compatible helper returning only the state-oracle value."""
+    return _extract_expected_state_oracle(example)[1]
+
+
+def _prepare_evaluation_cases(
+    training_data: Sequence[Any],
+) -> List[_EvaluationCase]:
+    """Extract per-example metadata once instead of once per genome."""
+    cases: List[_EvaluationCase] = []
+    for example in training_data:
+        state_scope, expected_state = _extract_expected_state_oracle(example)
+        cases.append(
+            _EvaluationCase(
+                example=example,
+                sequence=tuple(
+                    str(name) for name in (getattr(example, "sequence", None) or ())
+                ),
+                expected_outputs=tuple(
+                    getattr(example, "expected_outputs", None) or ()
+                ),
+                output_types=tuple(getattr(example, "type_outputs", None) or ()),
+                input_args=tuple(getattr(example, "input_args", None) or ()),
+                state_scope=state_scope,
+                expected_state=expected_state,
             )
-        heap_entry_values = bool(value) and isinstance(value, Mapping) and all(
-            isinstance(item, Mapping) and "data" in item
-            for item in value.values()
         )
-        if isinstance(value, Mapping) and (
-            "heap" in name
-            or heap_entry_values
-            or (looks_like_ref_map and "map" not in data_structure_type)
-        ):
-            refs = list(getattr(example, "receiver_refs", None) or [])
-            preferred_ref = refs[-1] if refs else 0
-            for candidate in (preferred_ref, str(preferred_ref), 0, "0"):
-                if candidate in value:
-                    return value[candidate]
-            return next(iter(value.values())) if value else None
-        return value
-    return None
+    return cases
+
+
+def _normalise_heap_mapping(value: Any) -> Dict[int, Any]:
+    if not isinstance(value, Mapping):
+        raise ValueError("Expected heap state must be a mapping keyed by reference id")
+    result: Dict[int, Any] = {}
+    for raw_ref, entry in value.items():
+        ref_id = _parse_reference_id(raw_ref)
+        if ref_id in result:
+            raise ValueError(f"Duplicate normalized heap reference {ref_id}")
+        result[ref_id] = entry
+    return result
+
+
+def _normalised_heap_error(pred_heap: Any, target_heap: Any) -> float:
+    try:
+        predicted = _normalise_heap_mapping(pred_heap)
+        target = _normalise_heap_mapping(target_heap)
+    except (TypeError, ValueError):
+        return 1.0
+    refs = set(predicted) | set(target)
+    if not refs:
+        return 0.0
+    total = 0.0
+    for ref in refs:
+        if ref not in predicted or ref not in target:
+            total += 1.0
+        else:
+            total += _normalised_state_error(predicted[ref], target[ref])
+    return total / len(refs)
 
 
 def _finalize_genome_metrics(
@@ -636,10 +859,11 @@ def _finalize_genome_metrics(
 ) -> PushGPGenome:
     base_fitness = total_error / total_examples if total_examples else 1.0
     complexity_penalty = genome.get_complexity_penalty()
+    genome.data_fitness = base_fitness
     genome.fitness = base_fitness + evaluation_config.complexity_weight * complexity_penalty
     genome.accuracy = correct_predictions / total_examples if total_examples else 0.0
     genome.complexity_penalty = complexity_penalty
-    genome.case_errors = list(case_errors)
+    genome.case_errors = case_errors
 
     method_accuracies: Dict[str, float] = {}
     for method_name, stats in method_stats.items():
@@ -661,10 +885,32 @@ def evaluate_genome(
     interpreter: PushGPInterpreter,
     early_stop_threshold: Optional[float] = None,
     evaluation_config: Optional[EvaluationConfig] = None,
+    *,
+    validate_schema: bool = True,
 ) -> PushGPGenome:
     """Evaluate a genome on complete traces and cache per-trace errors."""
     evaluation_config = evaluation_config or EvaluationConfig()
     training_data = list(training_data or [])
+    if validate_schema:
+        validate_training_data(training_data)
+    return _evaluate_genome_cases(
+        genome,
+        _prepare_evaluation_cases(training_data),
+        interpreter,
+        early_stop_threshold=early_stop_threshold,
+        evaluation_config=evaluation_config,
+    )
+
+
+def _evaluate_genome_cases(
+    genome: PushGPGenome,
+    evaluation_cases: Sequence[_EvaluationCase],
+    interpreter: PushGPInterpreter,
+    early_stop_threshold: Optional[float] = None,
+    evaluation_config: Optional[EvaluationConfig] = None,
+) -> PushGPGenome:
+    """Hot evaluation path using metadata prepared once per training dataset."""
+    evaluation_config = evaluation_config or EvaluationConfig()
     total_error = 0.0
     total_examples = 0
     correct_predictions = 0
@@ -681,41 +927,68 @@ def evaluate_genome(
 
     abort_sum: Optional[float] = None
     if early_stop_threshold is not None and math.isfinite(early_stop_threshold):
-        abort_sum = max(0.0, early_stop_threshold) * len(training_data)
+        abort_sum = max(0.0, early_stop_threshold) * len(evaluation_cases)
 
-    for example_index, example in enumerate(training_data):
-        sequence = [str(name) for name in list(getattr(example, "sequence", None) or [])]
-        expected_outputs = list(getattr(example, "expected_outputs", None) or [])
+    for example_index, case in enumerate(evaluation_cases):
+        sequence = case.sequence
+        expected_outputs = case.expected_outputs
+        output_types = case.output_types
         try:
-            predicted_outputs, used_inputs, state_after = interpreter.execute_sequence(
-                genome, example
-            )
+            heap_after: Any = None
+            if case.state_scope == "heap":
+                (
+                    predicted_outputs,
+                    used_inputs,
+                    state_after,
+                    heap_after,
+                ) = interpreter.execute_sequence(
+                    genome, case.example, return_heap=True
+                )
+            else:
+                predicted_outputs, used_inputs, state_after = interpreter.execute_sequence(
+                    genome, case.example
+                )
             per_call_errors = calculate_per_call_errors(
-                sequence, predicted_outputs, expected_outputs
+                sequence,
+                predicted_outputs,
+                expected_outputs,
+                expected_types=output_types,
             )
             call_correct = [
-                error <= evaluation_config.correctness_tolerance
-                for error in per_call_errors[: len(sequence)]
+                _is_strictly_correct(
+                    predicted_outputs[index],
+                    expected_outputs[index],
+                    output_types[index],
+                    float_tolerance=evaluation_config.correctness_tolerance,
+                )
+                for index in range(len(sequence))
             ]
 
+            downstream_correct = 0
+            downstream_total = 0
             for index, method_name in enumerate(sequence):
-                is_correct = call_correct[index] if index < len(call_correct) else False
                 stats = method_stats[method_name]
-                stats["correct"] += float(is_correct)
+                stats["correct"] += float(call_correct[index])
                 stats["total"] += 1.0
-                downstream = call_correct[index + 1 :]
-                stats["downstream_correct"] += float(sum(downstream))
-                stats["downstream_total"] += float(len(downstream))
+                # Filled below in one reverse pass; avoids repeated slices/sums.
 
-            output_error = aggregate_genome_error(
-                sequence, predicted_outputs, expected_outputs
-            )
-            input_args = list(getattr(example, "input_args", None) or [])
+            for index in range(len(sequence) - 1, -1, -1):
+                stats = method_stats[sequence[index]]
+                stats["downstream_correct"] += float(downstream_correct)
+                stats["downstream_total"] += float(downstream_total)
+                downstream_correct += int(call_correct[index])
+                downstream_total += 1
+
+            output_error = _aggregate_per_call_errors(sequence, per_call_errors)
             unused_penalty = compute_arg_unused_penalty(
-                sequence, used_inputs, input_args
+                sequence, used_inputs, case.input_args
             )
-            expected_state = _extract_expected_final_state(example)
-            state_error = _normalised_state_error(state_after, expected_state)
+            if case.state_scope == "heap":
+                state_error = _normalised_heap_error(heap_after, case.expected_state)
+            elif case.state_scope == "receiver":
+                state_error = _normalised_state_error(state_after, case.expected_state)
+            else:
+                state_error = 0.0
 
             case_error = min(
                 1.0,
@@ -727,16 +1000,9 @@ def evaluate_genome(
             total_error += case_error
             total_examples += 1
 
-            output_correct = bool(per_call_errors) and all(
-                error <= evaluation_config.correctness_tolerance
-                for error in per_call_errors
-            )
-            if not sequence:
-                output_correct = True
-            if (
-                output_correct
-                and state_error <= evaluation_config.correctness_tolerance
-            ):
+            output_correct = all(call_correct)
+            state_correct = state_error <= EPS
+            if output_correct and state_correct:
                 correct_predictions += 1
 
         except Exception as exc:
@@ -753,13 +1019,13 @@ def evaluate_genome(
             # The accumulated non-negative error already proves this candidate cannot
             # beat the threshold. Fill missing cases so lexicase consumers never see
             # vectors of inconsistent length.
-            remaining_examples = training_data[example_index + 1 :]
-            case_errors.extend([1.0] * len(remaining_examples))
-            total_error += float(len(remaining_examples))
-            total_examples += len(remaining_examples)
-            for remaining in remaining_examples:
-                for method_name in list(getattr(remaining, "sequence", None) or []):
-                    method_stats[str(method_name)]["total"] += 1.0
+            remaining_cases = evaluation_cases[example_index + 1 :]
+            case_errors.extend([1.0] * len(remaining_cases))
+            total_error += float(len(remaining_cases))
+            total_examples += len(remaining_cases)
+            for remaining in remaining_cases:
+                for method_name in remaining.sequence:
+                    method_stats[method_name]["total"] += 1.0
             break
 
     genome = _finalize_genome_metrics(
@@ -779,6 +1045,8 @@ def _case_error(genome: PushGPGenome, index: int) -> float:
     if index >= len(genome.case_errors):
         return 1.0
     value = genome.case_errors[index]
+    if isinstance(value, float):
+        return value if math.isfinite(value) else 1.0
     try:
         value = float(value)
     except (TypeError, ValueError):
@@ -795,8 +1063,8 @@ def _mad_epsilon(values: Sequence[float]) -> float:
 
 def lexicase_selection(
     population: List[PushGPGenome],
-    num_cases: int = 40,
-    epsilon: Optional[float] = 1e-6,
+    num_cases: Optional[int] = None,
+    epsilon: Optional[float] = 0.0,
 ) -> PushGPGenome:
     """Select using cached per-example errors without re-executing candidates.
 
@@ -811,7 +1079,8 @@ def lexicase_selection(
     n_cases = max(len(genome.case_errors) for genome in candidates)
     if n_cases == 0:
         return random.choice(candidates)
-    case_indices = random.sample(range(n_cases), min(max(1, num_cases), n_cases))
+    case_count = n_cases if num_cases is None else min(max(1, num_cases), n_cases)
+    case_indices = random.sample(range(n_cases), case_count)
 
     for index in case_indices:
         if len(candidates) <= 1:
@@ -822,7 +1091,7 @@ def lexicase_selection(
         candidates = [
             genome
             for genome, error in zip(candidates, errors)
-            if error <= best + case_epsilon + EPS
+            if error <= best + case_epsilon
         ]
         if not candidates:
             return random.choice(population)
@@ -831,13 +1100,10 @@ def lexicase_selection(
 
 def tournament_selection(
     population: List[PushGPGenome],
-    tournament_size: Any = DEFAULT_TOURNAMENT_SIZE,
-    *_legacy_args: Any,
+    tournament_size: Any = DEFAULT_TOURNAMENT_SIZE
 ) -> PushGPGenome:
-    """Tournament selection with compatibility for the old broken call shape.
-
-    Older code passed ``(population, training_data, interpreter)``. When the second
-    argument is not an integer, a default tournament size is used instead.
+    """
+    Tournament selection
     """
     if not population:
         raise ValueError("population cannot be empty")
@@ -859,13 +1125,24 @@ def _bounded_program_copy(
     max_atoms: int = DEFAULT_MAX_PROGRAM_ATOMS,
     max_depth: int = DEFAULT_MAX_PROGRAM_DEPTH,
 ) -> List[Any]:
-    """Deep-copy a program while enforcing atom and nesting limits."""
-    remaining = [max(1, int(max_atoms))]
+    """Copy program structure while enforcing atom and nesting limits."""
+    remaining = max(1, int(max_atoms))
+
+    def copy_atom(item: Any) -> Any:
+        # Push instructions in the runtime are parameter objects with immutable
+        # scalar fields. A shallow copy keeps genomes independent without paying
+        # recursive deepcopy cost for every crossover/bounds pass.
+        if isinstance(item, PushInstruction):
+            return copy.copy(item)
+        if item is None or isinstance(item, (bool, int, float, str, bytes, HeapReference)):
+            return item
+        return copy.deepcopy(item)
 
     def visit(items: Iterable[Any], depth: int) -> List[Any]:
+        nonlocal remaining
         output: List[Any] = []
         for item in items or []:
-            if remaining[0] <= 0:
+            if remaining <= 0:
                 break
             if isinstance(item, (list, tuple)):
                 if depth >= max_depth:
@@ -874,8 +1151,8 @@ def _bounded_program_copy(
                 if nested:
                     output.append(nested)
             else:
-                output.append(copy.deepcopy(item))
-                remaining[0] -= 1
+                output.append(copy_atom(item))
+                remaining -= 1
         return output
 
     return visit(code, 1)
@@ -937,6 +1214,7 @@ def crossover_genomes(
                 method_name, 0.0
             )
     offspring.fitness = float("inf")
+    offspring.data_fitness = float("inf")
     offspring.accuracy = 0.0
     offspring.complexity_penalty = 0.0
     offspring.case_errors = []
@@ -985,10 +1263,15 @@ def _fresh_instruction(interpreter: PushGPInterpreter) -> PushInstruction:
 
 
 def _all_code_containers(program: List[Any]) -> List[List[Any]]:
-    containers = [program]
-    for item in list(program):
-        if isinstance(item, list):
-            containers.extend(_all_code_containers(item))
+    """Return nested list containers in the same deterministic pre-order."""
+    containers: List[List[Any]] = []
+    pending = [program]
+    while pending:
+        container = pending.pop()
+        containers.append(container)
+        for item in reversed(container):
+            if isinstance(item, list):
+                pending.append(item)
     return containers
 
 
@@ -1006,9 +1289,30 @@ def _bound_program_in_place(
     max_program_atoms: int,
     max_program_depth: int,
 ) -> None:
-    program[:] = _bounded_program_copy(
-        program, max_program_atoms, max_program_depth
-    )
+    """Enforce size/depth limits without cloning the whole mutated program."""
+    remaining = max(1, int(max_program_atoms))
+
+    def prune(container: List[Any], depth: int) -> None:
+        nonlocal remaining
+        write_index = 0
+        for item in container:
+            if remaining <= 0:
+                break
+            if isinstance(item, (list, tuple)):
+                if depth >= max_program_depth:
+                    continue
+                nested = item if isinstance(item, list) else list(item)
+                prune(nested, depth + 1)
+                if nested:
+                    container[write_index] = nested
+                    write_index += 1
+            else:
+                container[write_index] = item
+                write_index += 1
+                remaining -= 1
+        del container[write_index:]
+
+    prune(program, 1)
 
 
 def adaptive_mutate_genome(
@@ -1309,10 +1613,14 @@ def _signature_similarity(left: Sequence[Any], right: Sequence[Any]) -> float:
     if not left and not right:
         return 1.0
     missing = object()
-    pairs = list(zip_longest(left, right, fillvalue=missing))
-    if not pairs:
+    pair_count = max(len(left), len(right))
+    if pair_count == 0:
         return 1.0
-    return sum(first == second for first, second in pairs) / len(pairs)
+    matches = sum(
+        first == second
+        for first, second in zip_longest(left, right, fillvalue=missing)
+    )
+    return matches / pair_count
 
 
 def maintain_diversity(
@@ -1347,14 +1655,29 @@ def maintain_diversity(
     return diverse_population
 
 
+def _levenshtein_distance(left: str, right: str) -> int:
+    """Deterministic edit distance without optional dependency-dependent behavior."""
+    if left == right:
+        return 0
+    if len(left) < len(right):
+        left, right = right, left
+    previous = list(range(len(right) + 1))
+    for row, left_char in enumerate(left, start=1):
+        current = [row]
+        for column, right_char in enumerate(right, start=1):
+            insertion = current[column - 1] + 1
+            deletion = previous[column] + 1
+            substitution = previous[column - 1] + (left_char != right_char)
+            current.append(min(insertion, deletion, substitution))
+        previous = current
+    return previous[-1]
+
+
 def _string_error(left: str, right: str) -> float:
     if left == right:
         return 0.0
-    if Levenshtein is not None:
-        distance = Levenshtein.distance(left, right)
-        return min(distance / max(len(left), len(right), 1), 1.0)
-    ratio = difflib.SequenceMatcher(None, left, right).ratio()
-    return 1.0 - ratio
+    distance = _levenshtein_distance(left, right)
+    return min(distance / max(len(left), len(right), 1), 1.0)
 
 
 def _numeric_error(predicted: float, expected: float) -> float:
@@ -1372,12 +1695,51 @@ def _normalise_reference_id(value: Any) -> Any:
     if value is None:
         return None
     try:
-        return int(value)
+        return _parse_reference_id(value)
     except (TypeError, ValueError):
-        text = str(value)
-        if len(text) > 1 and text[0].lower() in {"o", "r"} and text[1:].isdigit():
-            return int(text[1:])
-        return text
+        return str(value)
+
+
+def _normalise_exception_category(value: Any) -> Optional[str]:
+    if value is None:
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    return _normalise_exception_text(text)
+
+
+@lru_cache(maxsize=128)
+def _normalise_exception_text(text: str) -> str:
+    key = text.lower().replace("-", "_").replace(" ", "_")
+    compact = key.replace(".", "").replace("_", "")
+    if "indexoutofbounds" in compact or "stringindexoutofbounds" in compact:
+        return "INDEX_OUT_OF_BOUNDS"
+    if "arithmetic" in compact or key == "arithmetic_divide_by_zero":
+        return "ARITHMETIC_ERROR"
+    if "numberformat" in compact or key in {
+        "string_to_int_failed",
+        "string_to_float_failed",
+    }:
+        return "NUMBER_FORMAT"
+    if (
+        "nosuchelement" in compact
+        or "emptystack" in compact
+        or key == "empty_data_structure"
+    ):
+        return "EMPTY_DATA_STRUCTURE"
+    if (
+        "nullpointer" in compact
+        or key in {"invalid_receiver_reference", "invalid_heap_object"}
+    ):
+        return "INVALID_RECEIVER"
+    if "patternsyntax" in compact or key == "pattern_syntax":
+        return "PATTERN_SYNTAX"
+    if "illegalargument" in compact or key == "invalid_replacement":
+        return "INVALID_ARGUMENT"
+    if key in {"modelled_exception", "modeled_exception", "error", "generic"}:
+        return "GENERIC"
+    return text
 
 
 def _normalise_observed_value(value: Any) -> Any:
@@ -1386,6 +1748,13 @@ def _normalise_observed_value(value: Any) -> Any:
         return MISSING_RESULT
     if isinstance(value, HeapReference):
         return ("reference", _normalise_reference_id(value.ref_id))
+    if (
+        isinstance(value, tuple)
+        and len(value) >= 1
+        and value[0] == "exception"
+    ):
+        category = value[1] if len(value) > 1 else None
+        return ("exception", _normalise_exception_category(category))
     if isinstance(value, Mapping):
         kind = str(value.get("kind", "")).lower()
         if kind in {"return", "returned"} and "value" in value:
@@ -1396,13 +1765,149 @@ def _normalise_observed_value(value: Any) -> Any:
             ref_id = value.get("id", value.get("ref_id"))
             return ("reference", _normalise_reference_id(ref_id))
         if kind in {"exception", "throw", "thrown", "error"}:
-            exception_type = value.get("exceptionType", value.get("type"))
-            return ("exception", str(exception_type) if exception_type else None)
+            exception_type = value.get(
+                "exceptionType",
+                value.get("exception_type", value.get("type", value.get("category"))),
+            )
+            return ("exception", _normalise_exception_category(exception_type))
     return value
+
+
+def _exception_matches(pred: Any, exp: Any) -> Optional[bool]:
+    """Return exception-match truth, or None when neither side is exceptional."""
+    pred_is_exc = isinstance(pred, tuple) and pred[:1] == ("exception",)
+    exp_is_exc = isinstance(exp, tuple) and exp[:1] == ("exception",)
+    if exp == "error":
+        return pred == "error" or pred_is_exc
+    if pred == "error":
+        if exp_is_exc:
+            expected_category = exp[1] if len(exp) > 1 else None
+            return expected_category in {None, "GENERIC"}
+        return exp == "error"
+    if pred_is_exc or exp_is_exc:
+        if not (pred_is_exc and exp_is_exc):
+            return False
+        pred_category = pred[1] if len(pred) > 1 else None
+        exp_category = exp[1] if len(exp) > 1 else None
+        if exp_category in {None, "GENERIC"}:
+            return True
+        return pred_category == exp_category
+    return None
 
 
 def _is_number(value: Any) -> bool:
     return isinstance(value, (int, float)) and not isinstance(value, bool)
+
+
+def _strict_recursive_equal(
+    pred: Any, exp: Any, *, float_tolerance: float = 0.0, _depth: int = 0
+) -> bool:
+    if _depth > 32:
+        return _stable_value(pred) == _stable_value(exp)
+    pred = _normalise_observed_value(pred)
+    exp = _normalise_observed_value(exp)
+
+    exception_match = _exception_matches(pred, exp)
+    if exception_match is not None:
+        return exception_match
+    if pred is MISSING_RESULT or exp is MISSING_RESULT:
+        return pred is MISSING_RESULT and exp is MISSING_RESULT
+    if pred is None or exp is None:
+        return pred is None and exp is None
+    if isinstance(pred, bool) or isinstance(exp, bool):
+        return type(pred) is bool and type(exp) is bool and pred == exp
+    if isinstance(pred, int) or isinstance(exp, int):
+        return type(pred) is int and type(exp) is int and pred == exp
+    if isinstance(pred, float) or isinstance(exp, float):
+        if type(pred) is not float or type(exp) is not float:
+            return False
+        if math.isnan(pred) or math.isnan(exp):
+            return math.isnan(pred) and math.isnan(exp)
+        if math.isinf(pred) or math.isinf(exp):
+            return pred == exp
+        return math.isclose(
+            pred, exp, rel_tol=float_tolerance, abs_tol=float_tolerance
+        )
+    if isinstance(pred, str) or isinstance(exp, str):
+        return type(pred) is str and type(exp) is str and pred == exp
+    if isinstance(pred, Mapping) or isinstance(exp, Mapping):
+        if not isinstance(pred, Mapping) or not isinstance(exp, Mapping):
+            return False
+        if set(pred) != set(exp):
+            return False
+        return all(
+            _strict_recursive_equal(
+                pred[key],
+                exp[key],
+                float_tolerance=float_tolerance,
+                _depth=_depth + 1,
+            )
+            for key in pred
+        )
+    if isinstance(pred, (list, tuple)) or isinstance(exp, (list, tuple)):
+        if type(pred) is not type(exp) or len(pred) != len(exp):
+            return False
+        return all(
+            _strict_recursive_equal(
+                left,
+                right,
+                float_tolerance=float_tolerance,
+                _depth=_depth + 1,
+            )
+            for left, right in zip(pred, exp)
+        )
+    if isinstance(pred, set) or isinstance(exp, set):
+        if not isinstance(pred, set) or not isinstance(exp, set):
+            return False
+        return {_stable_value(value) for value in pred} == {
+            _stable_value(value) for value in exp
+        }
+    return type(pred) is type(exp) and pred == exp
+
+
+def _is_strictly_correct(
+    predicted: Any,
+    expected: Any,
+    expected_type: Optional[str],
+    *,
+    float_tolerance: float = 0.0,
+) -> bool:
+    """Type-aware correctness test, separate from graded evolutionary distance."""
+    pred = _normalise_observed_value(predicted)
+    exp = _normalise_observed_value(expected)
+    exception_match = _exception_matches(pred, exp)
+    if exception_match is not None:
+        return exception_match
+
+    key = PushGPInterpreter._normalise_type_name(expected_type)
+    if key in {"void", "v", "java.lang.void"}:
+        return pred is None and exp is None
+    if key in {"error", "exception", "throw", "thrown"}:
+        return bool(_exception_matches(pred, "error"))
+    if key in PushGPInterpreter.INTEGER_TYPES:
+        return type(pred) is int and type(exp) is int and pred == exp
+    if key in PushGPInterpreter.FLOAT_TYPES:
+        if type(pred) is not float or not _is_number(exp):
+            return False
+        expected_float = float(exp)
+        if math.isnan(pred) or math.isnan(expected_float):
+            return math.isnan(pred) and math.isnan(expected_float)
+        if math.isinf(pred) or math.isinf(expected_float):
+            return pred == expected_float
+        return math.isclose(
+            pred,
+            expected_float,
+            rel_tol=float_tolerance,
+            abs_tol=float_tolerance,
+        )
+    if key in PushGPInterpreter.BOOLEAN_TYPES:
+        return type(pred) is bool and type(exp) is bool and pred == exp
+    if key in PUSH_TEXT_TYPES:
+        return type(pred) is str and type(exp) is str and pred == exp
+
+    return _strict_recursive_equal(
+        pred, exp, float_tolerance=float_tolerance
+    )
 
 
 def _rec_error(pred: Any, exp: Any, _depth: int = 0) -> float:
@@ -1420,22 +1925,16 @@ def _rec_error(pred: Any, exp: Any, _depth: int = 0) -> float:
     if pred is None or exp is None:
         return 1.0
 
-    # Current pushbase represents exceptions generically as "error". Preserve that
-    # compatibility while allowing future typed exception tuples.
-    if exp == "error" and (
-        pred == "error" or (isinstance(pred, tuple) and pred[:1] == ("exception",))
-    ):
-        return 0.0
-    if pred == "error" and isinstance(exp, tuple) and exp[:1] == ("exception",):
-        return 0.0
-    if isinstance(pred, tuple) and pred[:1] == ("exception",):
-        return 0.0 if pred == exp else 1.0
-    if isinstance(exp, tuple) and exp[:1] == ("exception",):
-        return 1.0
+    exception_match = _exception_matches(pred, exp)
+    if exception_match is not None:
+        return 0.0 if exception_match else 1.0
 
     if isinstance(exp, bool) or isinstance(pred, bool):
         return 0.0 if type(pred) is bool and type(exp) is bool and pred == exp else 1.0
     if _is_number(pred) and _is_number(exp):
+        # Do not let Python's int/float equality hide a Java return-type mismatch.
+        if type(pred) is not type(exp):
+            return 1.0
         return _numeric_error(float(pred), float(exp))
     if isinstance(pred, str) and isinstance(exp, str):
         return _string_error(pred, exp)
@@ -1446,25 +1945,27 @@ def _rec_error(pred: Any, exp: Any, _depth: int = 0) -> float:
         keys = set(pred) | set(exp)
         if not keys:
             return 0.0
-        errors = []
+        error_sum = 0.0
         for key in keys:
             if key not in pred or key not in exp:
-                errors.append(1.0)
+                error_sum += 1.0
             else:
-                errors.append(_rec_error(pred[key], exp[key], _depth + 1))
-        return sum(errors) / len(errors)
+                error_sum += _rec_error(pred[key], exp[key], _depth + 1)
+        return error_sum / len(keys)
 
     if isinstance(pred, (list, tuple)) and isinstance(exp, (list, tuple)):
         if not pred and not exp:
             return 0.0
         missing = object()
-        errors = [
-            1.0
-            if left is missing or right is missing
-            else _rec_error(left, right, _depth + 1)
-            for left, right in zip_longest(pred, exp, fillvalue=missing)
-        ]
-        return sum(errors) / max(1, len(errors))
+        error_sum = 0.0
+        count = 0
+        for left, right in zip_longest(pred, exp, fillvalue=missing):
+            count += 1
+            if left is missing or right is missing:
+                error_sum += 1.0
+            else:
+                error_sum += _rec_error(left, right, _depth + 1)
+        return error_sum / max(1, count)
 
     if isinstance(pred, set) and isinstance(exp, set):
         frozen_pred = {_stable_value(value) for value in pred}
@@ -1482,52 +1983,100 @@ def _rec_error(pred: Any, exp: Any, _depth: int = 0) -> float:
 
 
 def calculate_per_call_errors(
-    sequence: List[str],
-    predicted: List[Any],
-    expected: List[Any],
+    sequence: Sequence[str],
+    predicted: Sequence[Any],
+    expected: Sequence[Any],
+    *,
+    expected_types: Optional[Sequence[Any]] = None,
 ) -> List[float]:
-    """Return errors aligned across calls without treating absent values as null."""
-    length = max(len(sequence), len(predicted), len(expected))
+    """Return per-call graded errors; malformed expected labels are rejected."""
+    if len(expected) != len(sequence):
+        raise ValueError(
+            f"expected_outputs has length {len(expected)} but sequence has "
+            f"length {len(sequence)}"
+        )
+    if expected_types is not None and len(expected_types) != len(sequence):
+        raise ValueError(
+            f"type_outputs has length {len(expected_types)} but sequence has "
+            f"length {len(sequence)}"
+        )
+
+    length = max(len(sequence), len(predicted))
     errors: List[float] = []
     for index in range(length):
         pred = predicted[index] if index < len(predicted) else MISSING_RESULT
         exp = expected[index] if index < len(expected) else MISSING_RESULT
-        errors.append(_rec_error(pred, exp))
+        error = _rec_error(pred, exp)
+
+        # A declared primitive return type makes int/float mismatches maximally
+        # wrong even if their numeric values happen to compare equal in Python.
+        if index < len(sequence) and expected_types is not None:
+            key = PushGPInterpreter._normalise_type_name(expected_types[index])
+            normalized_pred = _normalise_observed_value(pred)
+            normalized_exp = _normalise_observed_value(exp)
+            exception_case = _exception_matches(normalized_pred, normalized_exp)
+            if exception_case is None:
+                if key in PushGPInterpreter.INTEGER_TYPES and type(normalized_pred) is not int:
+                    error = 1.0
+                elif key in PushGPInterpreter.FLOAT_TYPES and type(normalized_pred) is not float:
+                    error = 1.0
+                elif key in PushGPInterpreter.BOOLEAN_TYPES and type(normalized_pred) is not bool:
+                    error = 1.0
+                elif (
+                    key in PUSH_TEXT_TYPES
+                    and type(normalized_pred) is not str
+                ):
+                    error = 1.0
+        errors.append(error)
     return errors
 
 
-def aggregate_genome_error(
-    sequence: List[str],
-    predicted: List[Any],
-    expected: List[Any],
+def _aggregate_per_call_errors(
+    sequence: Sequence[str], per_call: Sequence[float]
 ) -> float:
-    """Combine sequence-order and method-balanced output errors."""
-    per_call = calculate_per_call_errors(sequence, predicted, expected)
+    """Aggregate already-computed call errors without allocating helper lists."""
     if not per_call:
         return 0.0
 
-    # sqrt emphasizes small semantic mismatches instead of letting them disappear.
-    shaped = [math.sqrt(min(1.0, max(0.0, error))) for error in per_call]
-    recency_weights = [1.0 + index * 0.1 for index in range(len(shaped))]
-    recency_mean = sum(
-        error * weight for error, weight in zip(shaped, recency_weights)
-    ) / sum(recency_weights)
+    weighted_sum = 0.0
+    weight_sum = 0.0
+    method_sums: Dict[str, float] = defaultdict(float)
+    method_counts: Dict[str, int] = defaultdict(int)
 
-    grouped: Dict[str, List[float]] = defaultdict(list)
-    for index, error in enumerate(shaped):
+    for index, raw_error in enumerate(per_call):
+        error = math.sqrt(min(1.0, max(0.0, raw_error)))
+        weight = 1.0 + index * 0.1
+        weighted_sum += error * weight
+        weight_sum += weight
         name = sequence[index] if index < len(sequence) else "<extra-output>"
-        grouped[name].append(error)
-    method_mean = sum(
-        sum(errors) / len(errors) for errors in grouped.values()
-    ) / len(grouped)
+        method_sums[name] += error
+        method_counts[name] += 1
 
+    recency_mean = weighted_sum / weight_sum
+    method_mean = sum(
+        method_sums[name] / method_counts[name] for name in method_sums
+    ) / len(method_sums)
     return float(min(1.0, max(0.0, 0.7 * recency_mean + 0.3 * method_mean)))
 
 
+def aggregate_genome_error(
+    sequence: Sequence[str],
+    predicted: Sequence[Any],
+    expected: Sequence[Any],
+    *,
+    expected_types: Optional[Sequence[Any]] = None,
+) -> float:
+    """Combine sequence-order and method-balanced output errors."""
+    per_call = calculate_per_call_errors(
+        sequence, predicted, expected, expected_types=expected_types
+    )
+    return _aggregate_per_call_errors(sequence, per_call)
+
+
 def compute_arg_unused_penalty(
-    sequence: List[str],
-    used_inputs: List[bool],
-    input_args: List[List[Any]],
+    sequence: Sequence[str],
+    used_inputs: Sequence[bool],
+    input_args: Sequence[Any],
 ) -> float:
     """Return a small penalty for argument-bearing calls that consume no input."""
     if not sequence:

@@ -3,15 +3,12 @@ from __future__ import annotations
 import copy
 import math
 import random
+import re
+from functools import lru_cache
 from dataclasses import dataclass, field
-from typing import Any, Dict, Iterable, List, Optional, TYPE_CHECKING, Union
+from typing import Any, Dict, Iterable, List, Optional, Union
+from trainingexample import TrainingExample
 
-if TYPE_CHECKING:
-    from trainingexample import TrainingExample
-else:
-    # The class is only needed for annotations. Avoid a runtime/circular import while
-    # keeping ``typing.get_type_hints`` and legacy imports functional.
-    TrainingExample = Any
 
 
 class _MissingResult:
@@ -52,6 +49,102 @@ class HeapReference:
     ref_id: int
 
 
+_IMMUTABLE_VALUE_TYPES = (type(None), bool, int, float, str, bytes, HeapReference)
+
+
+def _clone_value(value: Any) -> Any:
+    """Copy mutable values while returning common immutable values directly."""
+    if isinstance(value, _IMMUTABLE_VALUE_TYPES):
+        return value
+    return copy.deepcopy(value)
+
+
+class _TrackedStack(list):
+    """List-compatible stack carrying provenance tokens for argument copies.
+
+    Public Push stacks remain ordinary list-like objects.  The parallel token list is
+    internal metadata used only to identify the *specific* typed copy created when an
+    argument is routed to both ``value_stack`` and a typed stack.  This avoids removing
+    an unrelated equal-valued constant when a domain operation consumes an argument.
+    """
+
+    __slots__ = ("_tokens", "_owner")
+
+    def __init__(self, owner: Optional["PushState"] = None) -> None:
+        super().__init__()
+        self._tokens: List[Optional[int]] = []
+        self._owner = owner
+
+    def append(self, value: Any, token: Optional[int] = None) -> None:  # type: ignore[override]
+        super().append(value)
+        self._tokens.append(token)
+
+    def extend(self, values: Iterable[Any]) -> None:  # type: ignore[override]
+        values = list(values)
+        super().extend(values)
+        self._tokens.extend([None] * len(values))
+
+    def extend_with_tokens(
+        self, values: Iterable[Any], tokens: Iterable[Optional[int]]
+    ) -> None:
+        values = list(values)
+        tokens = list(tokens)
+        if len(values) != len(tokens):
+            raise ValueError("Tracked stack values/tokens must have equal length")
+        super().extend(values)
+        self._tokens.extend(tokens)
+
+    def insert(  # type: ignore[override]
+        self, index: int, value: Any, token: Optional[int] = None
+    ) -> None:
+        super().insert(index, value)
+        self._tokens.insert(index, token)
+
+    def pop(self, index: int = -1) -> Any:  # type: ignore[override]
+        value, token = self.pop_with_token(index)
+        return value
+
+    def pop_with_token(
+        self, index: int = -1, *, mark_used: bool = True
+    ) -> tuple[Any, Optional[int]]:
+        if not self:
+            raise IndexError("pop from empty stack")
+        token = self._tokens.pop(index)
+        value = super().pop(index)
+        if mark_used and token is not None and self._owner is not None:
+            self._owner._mark_argument_token_used(token)
+        return value, token
+
+    def clear(self) -> None:  # type: ignore[override]
+        super().clear()
+        self._tokens.clear()
+
+    def token_at(self, index: int = -1) -> Optional[int]:
+        if not self:
+            return None
+        return self._tokens[index]
+
+    def remove_token(self, token: int, *, mark_used: bool = False) -> bool:
+        try:
+            index = self._tokens.index(token)
+        except ValueError:
+            return False
+        self.pop_with_token(index, mark_used=mark_used)
+        return True
+
+    def swap(self, first: int, second: int, *, mark_used: bool = True) -> None:
+        if mark_used and self._owner is not None:
+            for index in (first, second):
+                token = self._tokens[index]
+                if token is not None:
+                    self._owner._mark_argument_token_used(token)
+        self[first], self[second] = self[second], self[first]
+        self._tokens[first], self._tokens[second] = (
+            self._tokens[second],
+            self._tokens[first],
+        )
+
+
 class PushState:
     """Mutable Push interpreter state.
 
@@ -68,13 +161,21 @@ class PushState:
         if max_steps <= 0:
             raise ValueError("max_steps must be greater than zero")
 
-        # Core Push stacks.
-        self.integer_stack: List[int] = []
-        self.boolean_stack: List[bool] = []
-        self.string_stack: List[str] = []
-        self.float_stack: List[float] = []
-        self.object_stack: List[Any] = []
-        self.value_stack: List[Any] = []
+        # Core Push stacks. Typed/domain/reference stacks carry hidden provenance
+        # tokens so equal-valued constants cannot be mistaken for argument copies.
+        self.integer_stack: _TrackedStack = _TrackedStack(self)
+        self.boolean_stack: _TrackedStack = _TrackedStack(self)
+        self.string_stack: _TrackedStack = _TrackedStack(self)
+        self.float_stack: _TrackedStack = _TrackedStack(self)
+        self.object_stack: _TrackedStack = _TrackedStack(self)
+        self.value_stack: _TrackedStack = _TrackedStack(self)
+        self._value_stacks = (
+            self.string_stack,
+            self.integer_stack,
+            self.boolean_stack,
+            self.float_stack,
+            self.object_stack,
+        )
         self.exec_stack: List[Any] = []
         self.error_stack: List[str] = []
         self.diagnostics: List[str] = []
@@ -82,8 +183,18 @@ class PushState:
         # Persistent abstract heap.
         self.heap: Dict[int, Dict[str, Any]] = {}
         self.next_ref_id: int = 0
-        self.ref_stack: List[int] = []
+        self.ref_stack: _TrackedStack = _TrackedStack(self)
         self.active_ref: Optional[int] = None
+
+        # Argument provenance/usage accounting.
+        self._next_argument_token: int = 0
+        self._argument_token_to_index: Dict[int, Optional[int]] = {}
+        self._used_argument_tokens: set[int] = set()
+
+        # Modeled Java outcome. Diagnostics are deliberately separate so an
+        # interpreter failure or step limit cannot satisfy an expected exception.
+        self.exception_code: Optional[str] = None
+        self.execution_failed: bool = False
 
         # Current-call context. Expected outputs are deliberately not stored here.
         self.current_method_name: Optional[str] = None
@@ -112,11 +223,20 @@ class PushState:
             "float_stack",
             "object_stack",
             "value_stack",
+            "ref_stack",
+        ):
+            source = getattr(self, name)
+            target = getattr(new_state, name)
+            target.extend_with_tokens(
+                copy.deepcopy(list(source)),
+                copy.deepcopy(source._tokens),
+            )
+
+        for name in (
             "exec_stack",
             "error_stack",
             "diagnostics",
             "heap",
-            "ref_stack",
             "current_args",
             "current_arg_types",
         ):
@@ -131,6 +251,11 @@ class PushState:
         new_state.noop_count = self.noop_count
         new_state.instruction_error_count = self.instruction_error_count
         new_state.halted = self.halted
+        new_state.exception_code = self.exception_code
+        new_state.execution_failed = self.execution_failed
+        new_state._next_argument_token = self._next_argument_token
+        new_state._argument_token_to_index = copy.deepcopy(self._argument_token_to_index)
+        new_state._used_argument_tokens = set(self._used_argument_tokens)
         return new_state
 
     def begin_call(
@@ -147,6 +272,11 @@ class PushState:
         self.current_arg_types = list(arg_types or [])
         self.result = None
         self.result_is_set = False
+        self.exception_code = None
+        self.execution_failed = False
+        self._next_argument_token = 0
+        self._argument_token_to_index.clear()
+        self._used_argument_tokens.clear()
         self.step_count = 0
         self.noop_count = 0
         self.instruction_error_count = 0
@@ -175,17 +305,11 @@ class PushState:
 
     def value_stacks(self) -> List[List[Any]]:
         """Return typed value stacks in the legacy ``*_ANY`` priority order."""
-        return [
-            self.string_stack,
-            self.integer_stack,
-            self.boolean_stack,
-            self.float_stack,
-            self.object_stack,
-        ]
+        return list(self._value_stacks)
 
     def try_pop_from_any_stack(self) -> tuple[bool, Any]:
         """Pop a legacy typed value, preserving the active receiver reference."""
-        for stack in self.value_stacks():
+        for stack in self._value_stacks:
             if stack:
                 return True, stack.pop()
 
@@ -201,66 +325,90 @@ class PushState:
         found, value = self.try_pop_from_any_stack()
         return value if found else None
 
-    def _remove_typed_duplicate(self, value: Any) -> None:
-        """Remove the right-most typed copy created by ``push_argument``."""
+    def _typed_stack_for_value(self, value: Any) -> _TrackedStack:
         if isinstance(value, HeapReference):
-            for index in range(len(self.ref_stack) - 1, 0, -1):
-                if self.ref_stack[index] == value.ref_id:
-                    self.ref_stack.pop(index)
-                    return
-            return
-
+            return self.ref_stack
         if value is None:
-            target_stack = self.object_stack
-        elif isinstance(value, bool):
-            target_stack = self.boolean_stack
-        elif isinstance(value, int):
-            target_stack = self.integer_stack
-        elif isinstance(value, float):
-            target_stack = self.float_stack
-        elif isinstance(value, str):
-            target_stack = self.string_stack
-        else:
-            target_stack = self.object_stack
+            return self.object_stack
+        if isinstance(value, bool):
+            return self.boolean_stack
+        if isinstance(value, int):
+            return self.integer_stack
+        if isinstance(value, float):
+            return self.float_stack
+        if isinstance(value, str):
+            return self.string_stack
+        return self.object_stack
 
-        for index in range(len(target_stack) - 1, -1, -1):
-            try:
-                matches = target_stack[index] is value or target_stack[index] == value
-            except Exception:
-                matches = target_stack[index] is value
-            if matches:
-                target_stack.pop(index)
-                return
+    def _mark_argument_token_used(self, token: int) -> None:
+        if token in self._argument_token_to_index:
+            self._used_argument_tokens.add(token)
+
+    def mark_argument_index_used(self, index: int) -> None:
+        for token, arg_index in self._argument_token_to_index.items():
+            if arg_index == index:
+                self._used_argument_tokens.add(token)
+
+    def mark_stack_item_used(self, stack: List[Any], index: int = -1) -> None:
+        if isinstance(stack, _TrackedStack) and stack:
+            token = stack.token_at(index)
+            if token is not None:
+                self._mark_argument_token_used(token)
+
+    def any_argument_used(self) -> bool:
+        return bool(self._used_argument_tokens)
+
+    def _remove_typed_duplicate(
+        self, value: Any, token: Optional[int] = None
+    ) -> None:
+        """Remove only the exact typed copy paired with a domain-stack entry.
+
+        Older versions searched by value equality and could therefore delete a newly
+        generated constant instead of the original argument when both had the same
+        value.  Provenance tokens make the operation identity-safe.
+        """
+        if token is None:
+            return
+        self._typed_stack_for_value(value).remove_token(token, mark_used=False)
 
     def try_pop_domain_value(self) -> tuple[bool, Any]:
-        """Pop an ordered argument/domain value and consume its typed duplicate."""
+        """Pop an ordered domain value and its exact paired typed copy, if present."""
         if self.value_stack:
-            value = self.value_stack.pop()
-            self._remove_typed_duplicate(value)
+            value, token = self.value_stack.pop_with_token()
+            self._remove_typed_duplicate(value, token)
             return True, value
         return self.try_pop_from_any_stack()
 
-    def push_to_appropriate_stack(self, value: Any) -> None:
+    def push_to_appropriate_stack(
+        self, value: Any, *, token: Optional[int] = None
+    ) -> None:
         """Push a Python/abstract-Java value to its corresponding Push stack."""
         if isinstance(value, HeapReference):
-            self.ref_stack.append(value.ref_id)
+            self.ref_stack.append(value.ref_id, token=token)
         elif value is None:
-            self.object_stack.append(None)
+            self.object_stack.append(None, token=token)
         elif isinstance(value, bool):  # bool must be tested before int
-            self.boolean_stack.append(value)
+            self.boolean_stack.append(value, token=token)
         elif isinstance(value, int):
-            self.integer_stack.append(value)
+            self.integer_stack.append(value, token=token)
         elif isinstance(value, float):
-            self.float_stack.append(value)
+            self.float_stack.append(value, token=token)
         elif isinstance(value, str):
-            self.string_stack.append(value)
+            self.string_stack.append(value, token=token)
         else:
-            self.object_stack.append(value)
+            self.object_stack.append(value, token=token)
 
-    def push_argument(self, value: Any) -> None:
-        """Push an argument both to typed stacks and the ordered domain stack."""
+    def push_domain_value(self, value: Any) -> None:
+        """Push an untracked derived value to the ordered domain stack."""
         self.value_stack.append(value)
-        self.push_to_appropriate_stack(value)
+
+    def push_argument(self, value: Any, *, arg_index: Optional[int] = None) -> None:
+        """Push an argument to both views using one provenance token."""
+        token = self._next_argument_token
+        self._next_argument_token += 1
+        self._argument_token_to_index[token] = arg_index
+        self.value_stack.append(value, token=token)
+        self.push_to_appropriate_stack(value, token=token)
 
     def set_result(self, value: Any, *, halt: bool = False) -> None:
         self.result = value
@@ -268,28 +416,53 @@ class PushState:
         if halt:
             self.halted = True
 
-    def record_error(self, code: str = "error", detail: Optional[str] = None) -> None:
-        """Record a semantic error without throwing out of GP evaluation."""
-        self.error_stack.append("error")
+    def record_diagnostic(
+        self,
+        code: str,
+        detail: Optional[str] = None,
+        *,
+        fatal: bool = False,
+    ) -> None:
+        """Record an interpreter/evaluation diagnostic, not a Java method outcome."""
         self.diagnostics.append(code if detail is None else f"{code}: {detail}")
+        if fatal:
+            self.execution_failed = True
+
+    def throw_exception(self, code: str, detail: Optional[str] = None) -> None:
+        """Record a modeled Java-style exceptional outcome and halt this call."""
+        if self.exception_code is None:
+            self.exception_code = str(code)
+            # Keep the legacy marker for callers that inspect ``error_stack``.
+            self.error_stack.append("error")
+        self.diagnostics.append(
+            f"THROWN[{code}]" if detail is None else f"THROWN[{code}]: {detail}"
+        )
+        self.halted = True
+
+    def record_error(self, code: str = "error", detail: Optional[str] = None) -> None:
+        """Backward-compatible alias for a modeled exceptional outcome."""
+        self.throw_exception(code, detail)
 
     def to_dict(self) -> Dict[str, Any]:
         return {
-            "integer_stack": self.integer_stack.copy(),
-            "boolean_stack": self.boolean_stack.copy(),
-            "string_stack": self.string_stack.copy(),
-            "float_stack": self.float_stack.copy(),
-            "object_stack": copy.deepcopy(self.object_stack),
-            "value_stack": copy.deepcopy(self.value_stack),
+            "integer_stack": list(self.integer_stack),
+            "boolean_stack": list(self.boolean_stack),
+            "string_stack": list(self.string_stack),
+            "float_stack": list(self.float_stack),
+            "object_stack": copy.deepcopy(list(self.object_stack)),
+            "value_stack": copy.deepcopy(list(self.value_stack)),
             "exec_stack": copy.deepcopy(self.exec_stack),
             "error_stack": self.error_stack.copy(),
             "diagnostics": self.diagnostics.copy(),
             "heap": copy.deepcopy(self.heap),
             "next_ref_id": self.next_ref_id,
-            "ref_stack": self.ref_stack.copy(),
+            "ref_stack": list(self.ref_stack),
             "active_ref": self.active_ref,
             "result": self.result,
             "result_is_set": self.result_is_set,
+            "exception_code": self.exception_code,
+            "execution_failed": self.execution_failed,
+            "used_argument_tokens": sorted(self._used_argument_tokens),
             "step_count": self.step_count,
             "max_steps": self.max_steps,
             "noop_count": self.noop_count,
@@ -327,6 +500,8 @@ class PushState:
                 ref_id += 1
         elif ref_id < 0:
             raise ValueError("ref_id must be non-negative")
+        elif ref_id in self.heap:
+            raise ValueError(f"Heap reference {ref_id} is already allocated")
 
         self.heap[ref_id] = {
             "data": data,
@@ -462,15 +637,17 @@ class PushProgram:
                     state.push_to_appropriate_stack(instruction)
             except Exception as exc:  # GP individuals must remain evaluable.
                 state.instruction_error_count += 1
-                state.diagnostics.append(
-                    f"INSTRUCTION_EXCEPTION[{instruction!r}]: "
-                    f"{type(exc).__name__}: {exc}"
+                state.record_diagnostic(
+                    f"INSTRUCTION_EXCEPTION[{instruction!r}]",
+                    f"{type(exc).__name__}: {exc}",
+                    fatal=True,
                 )
             finally:
                 state.step_count += 1
 
         if state.exec_stack and state.step_count >= state.max_steps:
-            state.record_error("STEP_LIMIT_EXCEEDED")
+            state.record_diagnostic("STEP_LIMIT_EXCEEDED", fatal=True)
+            state.halted = True
 
         return state
 
@@ -481,11 +658,15 @@ class PushGPGenome:
     def __init__(self):
         self.methods: Dict[str, PushProgram] = {}
         self.fitness = float('inf')
+        self.data_fitness = float('inf')
         self.accuracy = 0.0
         self.method_accuracies: Dict[str, float] = {}
         self.complexity_penalty = 0.0
+        self._complexity_cache: Optional[int] = None
         self._behavioral_signature: Optional[tuple] = None
+        self._behavioral_signature_key: Optional[tuple] = None
         self.case_errors: List[float] = []
+        self.evaluation_failures: List[str] = []
     
     def add_method(self, method_name: str, program: PushProgram) -> None:
         """Add or replace a method program and invalidate cached behaviour."""
@@ -493,11 +674,13 @@ class PushGPGenome:
         self.invalidate_signature()
     
     def get_complexity_penalty(self) -> float:
-        """Calculate complexity penalty"""
-        total_complexity = 0
-        for program in self.methods.values():
-            total_complexity += self._count_instructions(program.code)
-        return total_complexity
+        """Return cached program complexity, recomputing after invalidation."""
+        if self._complexity_cache is None:
+            self._complexity_cache = sum(
+                self._count_instructions(program.code)
+                for program in self.methods.values()
+            )
+        return self._complexity_cache
     
     def _count_instructions(self, code: Iterable[Any]) -> int:
         """Recursively count atoms while treating each nested block structurally."""
@@ -509,23 +692,46 @@ class PushGPGenome:
                 count += 1
         return count
     
+    @staticmethod
+    def _copy_program_code(code: Iterable[Any]) -> List[Any]:
+        """Copy program structure without recursively deep-copying instructions."""
+        copied: List[Any] = []
+        for item in code:
+            if isinstance(item, list):
+                copied.append(PushGPGenome._copy_program_code(item))
+            elif isinstance(item, tuple):
+                copied.append(tuple(PushGPGenome._copy_program_code(item)))
+            elif isinstance(item, PushInstruction):
+                copied.append(copy.copy(item))
+            else:
+                copied.append(_clone_value(item))
+        return copied
+
     def copy(self):
-        """Deep copy genome"""
+        """Copy a genome using cheap shallow copies for instruction instances."""
         new_genome = PushGPGenome()
         for method_name, program in self.methods.items():
-            new_program = PushProgram(copy.deepcopy(program.code))
+            new_program = PushProgram(self._copy_program_code(program.code))
             new_genome.methods[method_name] = new_program
         new_genome.fitness = self.fitness
+        new_genome.data_fitness = self.data_fitness
         new_genome.accuracy = self.accuracy
         new_genome.method_accuracies = self.method_accuracies.copy()
         new_genome.complexity_penalty = self.complexity_penalty
+        new_genome._complexity_cache = self._complexity_cache
         new_genome._behavioral_signature = copy.deepcopy(self._behavioral_signature)
+        new_genome._behavioral_signature_key = copy.deepcopy(
+            self._behavioral_signature_key
+        )
         new_genome.case_errors = self.case_errors.copy()
+        new_genome.evaluation_failures = self.evaluation_failures.copy()
         return new_genome
 
     def invalidate_signature(self):
-        """Call after any mutation or crossover."""
+        """Invalidate cached behavior and complexity after mutation/crossover."""
         self._behavioral_signature = None
+        self._behavioral_signature_key = None
+        self._complexity_cache = None
 
 
 
@@ -544,12 +750,14 @@ def create_pushgp_instruction_set(profile: str = "primitives_full") -> Dict[str,
     """
     profile = (profile or "primitives_full").strip().lower()
 
-    original_ds_minimal: List[PushInstruction] = [
+    minimal_core: List[PushInstruction] = [
         INT_ADD(), INT_SUB(), INT_EQ(), INT_LT(),
         INT_CONST(-1), INT_CONST(0), INT_CONST(1),
         BOOL_AND(), BOOL_OR(), BOOL_NOT(),
         BOOL_CONST(True), BOOL_CONST(False),
         DUP_ANY(), SWAP_ANY(), POP_ANY(), ITE(),
+    ]
+    original_ds_minimal: List[PushInstruction] = minimal_core + [
         DS_SIZE(), DS_CLEAR(), DS_GET_INDEX(), DS_SET_INDEX(),
         DS_INSERT_AT_INDEX(), DS_REMOVE_INDEX(),
         DS_INDEX_OF(), DS_LAST_INDEX_OF(),
@@ -581,6 +789,9 @@ def create_pushgp_instruction_set(profile: str = "primitives_full") -> Dict[str,
     if profile not in {
         "java_ds_full",
         "java_ds_minimal",
+        "java_list_minimal",
+        "java_map_minimal",
+        "java_set_minimal",
         "ds_full",
         "collections_full",
     }:
@@ -589,7 +800,7 @@ def create_pushgp_instruction_set(profile: str = "primitives_full") -> Dict[str,
     call_and_result: List[PushInstruction] = [
         VALUE_FROM_ANY(), ARG_COUNT(),
         ARG_PUSH(0), ARG_PUSH(1), ARG_PUSH(2), ARG_PUSH(3),
-        ACTIVE_REF(), NULL_CONST(),
+        ACTIVE_REF(), NULL_CONST(), RECEIVER_VALUE(),
         RESULT_FROM_ANY(), RESULT_NULL(), RESULT_ERROR(),
         EXEC_IF(),
     ]
@@ -599,18 +810,41 @@ def create_pushgp_instruction_set(profile: str = "primitives_full") -> Dict[str,
         DS_REMOVE_INDEX(), DS_PEEK_LAST(), DS_POP_LAST(),
         DS_LAST_INDEX(), DS_FIRST_INDEX(), DS_INDEX_OF(), DS_LAST_INDEX_OF(),
         DS_CONTAINS(),
-        MAP_SIZE(), MAP_CLEAR(), MAP_PUT(), MAP_GET(), MAP_REMOVE(),
-        MAP_CONTAINS_KEY(),
-        SET_SIZE(), SET_CLEAR(), SET_ADD(), SET_REMOVE(), SET_CONTAINS(),
+        # DS.SIZE/DS.CLEAR/DS.CONTAINS already cover map/set receivers.  Keep
+        # only operations with genuinely distinct map/set semantics to avoid
+        # wasting GP search probability on exact duplicates.
+        MAP_PUT(), MAP_GET(), MAP_REMOVE(),
+        SET_ADD(), SET_REMOVE(),
     ]
 
+    list_operations: List[PushInstruction] = [
+        DS_SIZE(), DS_IS_EMPTY(), DS_CLEAR(),
+        DS_GET_INDEX(), DS_SET_INDEX(), DS_INSERT_AT_INDEX(), DS_APPEND(),
+        DS_REMOVE_INDEX(), DS_PEEK_LAST(), DS_POP_LAST(),
+        DS_LAST_INDEX(), DS_FIRST_INDEX(), DS_INDEX_OF(), DS_LAST_INDEX_OF(),
+        DS_CONTAINS(),
+    ]
+    map_operations: List[PushInstruction] = [
+        DS_SIZE(), DS_IS_EMPTY(), DS_CLEAR(), DS_CONTAINS(),
+        MAP_PUT(), MAP_GET(), MAP_REMOVE(),
+    ]
+    set_operations: List[PushInstruction] = [
+        DS_SIZE(), DS_IS_EMPTY(), DS_CLEAR(), DS_CONTAINS(),
+        SET_ADD(), SET_REMOVE(),
+    ]
+
+    if profile == "java_list_minimal":
+        return _as_instruction_dict(minimal_core + call_and_result + list_operations)
+    if profile == "java_map_minimal":
+        return _as_instruction_dict(minimal_core + call_and_result + map_operations)
+    if profile == "java_set_minimal":
+        return _as_instruction_dict(minimal_core + call_and_result + set_operations)
     if profile == "java_ds_minimal":
         enhanced_minimal = original_ds_minimal + call_and_result + [
             DS_IS_EMPTY(), DS_APPEND(), DS_PEEK_LAST(), DS_POP_LAST(),
             DS_LAST_INDEX(), DS_FIRST_INDEX(), DS_CONTAINS(),
-            MAP_SIZE(), MAP_CLEAR(), MAP_PUT(), MAP_GET(), MAP_REMOVE(),
-            MAP_CONTAINS_KEY(),
-            SET_SIZE(), SET_CLEAR(), SET_ADD(), SET_REMOVE(), SET_CONTAINS(),
+            MAP_PUT(), MAP_GET(), MAP_REMOVE(),
+            SET_ADD(), SET_REMOVE(),
         ]
         return _as_instruction_dict(enhanced_minimal)
 
@@ -642,23 +876,64 @@ class PushGPInterpreter:
     BOOLEAN_TYPES = {"boolean", "java.lang.boolean", "bool", "z"}
     STRING_TYPES = {"java.lang.string", "string", "str", "charsequence"}
     CHAR_TYPES = {"char", "java.lang.character", "c"}
+    VOID_TYPES = {"void", "v", "java.lang.void"}
+    ERROR_TYPES = {"error", "exception", "throw", "thrown"}
+    NULL_TYPES = {"null", "none"}
+    OBJECT_TYPES = {"object", "java.lang.object"}
+    REFERENCE_TYPES = {"reference", "ref"}
+    COLLECTION_TYPES = {
+        "list": list, "java.util.list": list, "java.util.arraylist": list,
+        "map": dict, "java.util.map": dict, "java.util.hashmap": dict,
+        "set": set, "java.util.set": set, "java.util.hashset": set,
+    }
 
-    def __init__(self, profile: str = "primitives_full", max_steps: int = 150):
+    def __init__(
+        self,
+        profile: str = "primitives_full",
+        max_steps: int = 150,
+        allowed_instruction_names: Optional[Iterable[str]] = None,
+    ):
         if max_steps <= 0:
             raise ValueError("max_steps must be greater than zero")
         self.profile = profile
         self.max_steps = max_steps
-        self.instruction_set = create_pushgp_instruction_set(profile)
-        self.instruction_list = list(self.instruction_set.values())
+        instruction_set = create_pushgp_instruction_set(profile)
+        if allowed_instruction_names is not None:
+            allowed = set(allowed_instruction_names)
+            instruction_set = {
+                name: instruction
+                for name, instruction in instruction_set.items()
+                if name in allowed
+            }
+            if not instruction_set:
+                raise ValueError("Instruction filter removed every instruction")
+        self.instruction_set = instruction_set
+        self.instruction_list = list(instruction_set.values())
 
     @staticmethod
     def _normalise_type_name(type_name: Optional[str]) -> str:
         if type_name is None:
             return ""
-        value = str(type_name).strip().lower().replace("/", ".")
+        return PushGPInterpreter._normalise_type_text(str(type_name))
+
+    @staticmethod
+    @lru_cache(maxsize=128)
+    def _normalise_type_text(type_name: str) -> str:
+        value = type_name.strip().lower().replace("/", ".")
         if value.startswith("l") and value.endswith(";"):
             value = value[1:-1]
         return value
+
+    @staticmethod
+    def _normalise_reference_id(value: Any) -> int:
+        if isinstance(value, bool):
+            raise ValueError("boolean is not a valid reference id")
+        if isinstance(value, int):
+            return value
+        text = str(value).strip()
+        if len(text) > 1 and text[0].lower() in {"o", "r"} and text[1:].isdigit():
+            return int(text[1:])
+        return int(text)
 
     @staticmethod
     def _coerce_boolean(value: Any) -> bool:
@@ -682,7 +957,7 @@ class PushGPInterpreter:
         if isinstance(arg, dict) and str(arg.get("kind", "")).lower() == "reference":
             ref_id = arg.get("id", arg.get("ref_id"))
             if ref_id is not None:
-                return HeapReference(int(ref_id))
+                return HeapReference(self._normalise_reference_id(ref_id))
         if arg is None:
             return None
 
@@ -710,7 +985,9 @@ class PushGPInterpreter:
                 ref_id = state.alloc(list(copy.deepcopy(arg)), "list", push_ref=False)
                 return HeapReference(ref_id)
         except (TypeError, ValueError, OverflowError) as exc:
-            state.record_error("ARGUMENT_COERCION_FAILED", str(exc))
+            state.record_diagnostic(
+                "ARGUMENT_COERCION_FAILED", str(exc), fatal=True
+            )
             return arg
 
         return arg
@@ -730,7 +1007,7 @@ class PushGPInterpreter:
             type_name = types[index] if index < len(types) else ""
             resolved = self._coerce_argument(state, arg, type_name)
             resolved_args.append(resolved)
-            state.push_argument(resolved)
+            state.push_argument(resolved, arg_index=index)
 
         state.current_args = resolved_args
         state.current_arg_types = types
@@ -807,16 +1084,20 @@ class PushGPInterpreter:
         value = getattr(example, name, None)
         return list(value or [])
 
-    @staticmethod
-    def _input_prefix_preserved(initial: List[Any], after: List[Any]) -> bool:
-        return not initial or (len(after) >= len(initial) and after[:len(initial)] == initial)
-
     def execute_sequence(
         self,
         genome: PushGPGenome,
         example: TrainingExample,
-    ) -> tuple[List[Any], List[bool], Optional[Dict[str, Any]]]:
-        """Execute a method sequence while preserving only its abstract heap."""
+        *,
+        return_heap: bool = False,
+    ) -> Any:
+        """Execute a method sequence while preserving its abstract heap.
+
+        The default three-value return remains backward compatible.  ``return_heap``
+        adds a fourth value containing a deep snapshot of the complete final heap,
+        which lets the learner supervise multi-object traces without guessing which
+        receiver an expected heap refers to.
+        """
         state = PushState(max_steps=self.max_steps)
         step_results: List[Any] = []
         used_inputs: List[bool] = []
@@ -826,9 +1107,11 @@ class PushGPInterpreter:
 
         for supplied_ref, raw_data in initial_state.items():
             try:
-                ref_id = int(supplied_ref)
-            except (TypeError, ValueError):
-                ref_id = None
+                ref_id = self._normalise_reference_id(supplied_ref)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(
+                    f"Invalid initial_state reference id: {supplied_ref!r}"
+                ) from exc
 
             if isinstance(raw_data, dict) and "data" in raw_data and "type" in raw_data:
                 data = copy.deepcopy(raw_data.get("data"))
@@ -875,13 +1158,17 @@ class PushGPInterpreter:
             args = input_args[index] if index < len(input_args) else []
             arg_types = input_types[index] if index < len(input_types) else []
             expected_type = output_types[index] if index < len(output_types) else None
-            receiver_ref = receiver_refs[index] if index < len(receiver_refs) else default_receiver
+            raw_receiver_ref = (
+                receiver_refs[index] if index < len(receiver_refs) else default_receiver
+            )
+            invalid_receiver_detail: Optional[str] = None
             try:
-                receiver_ref = int(receiver_ref)
+                receiver_ref = self._normalise_reference_id(raw_receiver_ref)
             except (TypeError, ValueError):
                 receiver_ref = default_receiver
-            if receiver_ref not in state.heap:
-                state.record_error("INVALID_RECEIVER_REFERENCE", str(receiver_ref))
+                invalid_receiver_detail = repr(raw_receiver_ref)
+            if invalid_receiver_detail is None and receiver_ref not in state.heap:
+                invalid_receiver_detail = str(receiver_ref)
                 receiver_ref = default_receiver
 
             state.begin_call(
@@ -892,29 +1179,30 @@ class PushGPInterpreter:
             )
             self.push_args_to_stacks(state, args, arg_types)
 
-            initial_stacks = [copy.deepcopy(stack) for stack in state.value_stacks()]
-            initial_domain_values = copy.deepcopy(state.value_stack)
-            initial_arg_refs = state.ref_stack[1:].copy()
-
-            program = genome.methods.get(str(method_name))
-            if program is not None:
-                program.execute(state)
+            if invalid_receiver_detail is not None:
+                # Never redirect an invalid receiver into normal method semantics.
+                # The active reference is only a safe placeholder for state plumbing;
+                # the modeled call is already exceptional and the program will not run.
+                state.throw_exception(
+                    "INVALID_RECEIVER_REFERENCE", invalid_receiver_detail
+                )
             else:
-                state.diagnostics.append(f"MISSING_METHOD_PROGRAM: {method_name}")
+                program = genome.methods.get(str(method_name))
+                if program is not None:
+                    program.execute(state)
+                else:
+                    state.record_diagnostic(
+                        "MISSING_METHOD_PROGRAM", str(method_name), fatal=True
+                    )
 
             step_results.append(self._extract_result_from_state(state, expected_type))
+            used_inputs.append(state.any_argument_used())
 
-            typed_preserved = all(
-                self._input_prefix_preserved(before, after)
-                for before, after in zip(initial_stacks, state.value_stacks())
-            )
-            domain_preserved = self._input_prefix_preserved(initial_domain_values, state.value_stack)
-            refs_preserved = self._input_prefix_preserved(initial_arg_refs, state.ref_stack[1:])
-            had_inputs = bool(initial_domain_values or initial_arg_refs)
-            inputs_preserved = typed_preserved and domain_preserved and refs_preserved
-            used_inputs.append(True if not had_inputs else not inputs_preserved)
-
+        # ``state`` is local to this evaluation and is not mutated after this point,
+        # so returning its final receiver avoids an unnecessary full deepcopy.
         final_obj = state.get(default_receiver)
+        if return_heap:
+            return step_results, used_inputs, final_obj, copy.deepcopy(state.heap)
         return step_results, used_inputs, final_obj
 
     def _extract_result_from_state(
@@ -922,44 +1210,79 @@ class PushGPInterpreter:
         state: PushState,
         expected_type: Optional[str],
     ) -> Any:
-        """Extract a candidate result without conflating missing output and null."""
+        """Extract a candidate result without conflating missing, null, and throw.
+
+        A modeled exception is an outcome independent of the declared return type, so
+        it takes precedence over explicit/implicit normal results.  Diagnostics such as
+        step limits and Python instruction failures never appear here.
+        """
+        if state.exception_code is not None:
+            return ("exception", state.exception_code)
+        if state.execution_failed:
+            return MISSING_RESULT
+
         if state.result_is_set:
             return state.result
 
         key = self._normalise_type_name(expected_type)
         if not key:
+            return MISSING_RESULT
+        if key in self.VOID_TYPES:
             return None
-        if key in {"void", "v", "java.lang.void"}:
-            return None
-        if key in {"error", "exception", "throw", "thrown"}:
-            return "error" if state.error_stack else MISSING_RESULT
-        if key in {"null", "none"}:
-            return None if state.object_stack and state.object_stack[-1] is None else MISSING_RESULT
+        if key in self.ERROR_TYPES:
+            return MISSING_RESULT
+        if key in self.NULL_TYPES:
+            if state.object_stack and state.object_stack[-1] is None:
+                state.mark_stack_item_used(state.object_stack)
+                return None
+            return MISSING_RESULT
 
-        type_map: Dict[str, List[Any]] = {}
-        for name in self.INTEGER_TYPES:
-            type_map[name] = state.integer_stack
-        for name in self.FLOAT_TYPES:
-            type_map[name] = state.float_stack
-        for name in self.BOOLEAN_TYPES:
-            type_map[name] = state.boolean_stack
-        for name in self.STRING_TYPES | self.CHAR_TYPES:
-            type_map[name] = state.string_stack
+        stack: Optional[_TrackedStack] = None
+        if key in self.INTEGER_TYPES:
+            stack = state.integer_stack
+        elif key in self.FLOAT_TYPES:
+            stack = state.float_stack
+        elif key in self.BOOLEAN_TYPES:
+            stack = state.boolean_stack
+        elif key in self.STRING_TYPES or key in self.CHAR_TYPES:
+            stack = state.string_stack
 
-        stack = type_map.get(key)
         if stack:
+            state.mark_stack_item_used(stack)
             return stack[-1]
 
-        if key in {
-            "object", "java.lang.object", "reference", "ref",
-            "list", "java.util.list", "java.util.arraylist",
-            "map", "java.util.map", "java.util.hashmap",
-            "set", "java.util.set", "java.util.hashset",
-        }:
-            if state.object_stack:
+        if key in self.REFERENCE_TYPES:
+            if len(state.ref_stack) > 1:
+                state.mark_stack_item_used(state.ref_stack)
+                return HeapReference(state.ref_stack[-1])
+            if state.object_stack and isinstance(state.object_stack[-1], HeapReference):
+                state.mark_stack_item_used(state.object_stack)
+                return state.object_stack[-1]
+            return MISSING_RESULT
+
+        expected_python_type = self.COLLECTION_TYPES.get(key)
+        if expected_python_type is not None:
+            if state.object_stack and isinstance(
+                state.object_stack[-1], expected_python_type
+            ):
+                state.mark_stack_item_used(state.object_stack)
                 return state.object_stack[-1]
             if len(state.ref_stack) > 1:
+                candidate_ref = state.ref_stack[-1]
+                candidate_data = state.get_data(candidate_ref)
+                if isinstance(candidate_data, expected_python_type):
+                    state.mark_stack_item_used(state.ref_stack)
+                    return HeapReference(candidate_ref)
+            return MISSING_RESULT
+
+        if key in self.OBJECT_TYPES:
+            if state.object_stack:
+                state.mark_stack_item_used(state.object_stack)
+                return state.object_stack[-1]
+            if len(state.ref_stack) > 1:
+                state.mark_stack_item_used(state.ref_stack)
                 return HeapReference(state.ref_stack[-1])
+            # Java Object may legitimately carry boxed primitive/string values.
             for candidate_stack in (
                 state.string_stack,
                 state.integer_stack,
@@ -967,6 +1290,7 @@ class PushGPInterpreter:
                 state.float_stack,
             ):
                 if candidate_stack:
+                    state.mark_stack_item_used(candidate_stack)
                     return candidate_stack[-1]
 
         return MISSING_RESULT
@@ -1074,10 +1398,13 @@ class PushInstruction:
         return self.name
     
     def __eq__(self, other):
-        return isinstance(other, PushInstruction) and self.name == other.name
+        return type(self) is type(other) and self.__dict__ == other.__dict__
     
     def __hash__(self):
-        return hash(self.name)
+        parameters = tuple(
+            sorted((key, repr(value)) for key, value in self.__dict__.items())
+        )
+        return hash((type(self), parameters))
 
 #  Core Push Instructions
 #Integer Instructions
@@ -1206,8 +1533,7 @@ class INT_ABS(PushInstruction):
 
     def execute(self, state: PushState):
         if state.integer_stack:
-            _int=state.integer_stack.pop()
-            state.integer_stack.append(abs(_int))
+            state.integer_stack.append(abs(state.integer_stack.pop()))
 
 
 
@@ -1286,8 +1612,18 @@ class FLOAT_DIV(PushInstruction):
         if len(state.float_stack) >= 2:
             b = state.float_stack.pop()
             a = state.float_stack.pop()
-            if b != 0.0:
+            # Java floating-point division does not throw on zero.  Python does,
+            # so reproduce the Java/IEEE outcome explicitly.
+            if b == 0.0:
+                if math.isnan(a) or a == 0.0:
+                    state.float_stack.append(float("nan"))
+                else:
+                    sign = math.copysign(1.0, a) * math.copysign(1.0, b)
+                    state.float_stack.append(math.copysign(float("inf"), sign))
+            else:
                 state.float_stack.append(a / b)
+        else:
+            state.noop_count += 1
 
 
 class FLOAT_NEG(PushInstruction):
@@ -1314,7 +1650,11 @@ class FLOAT_FLOOR(PushInstruction):
 
     def execute(self, state: PushState):
         if state.float_stack:
-            state.float_stack.append(float(math.floor(state.float_stack.pop())))
+            value = state.float_stack.pop()
+            if math.isnan(value) or math.isinf(value):
+                state.float_stack.append(value)
+            else:
+                state.float_stack.append(float(math.floor(value)))
         else:
             state.noop_count += 1
 
@@ -1325,7 +1665,12 @@ class FLOAT_COS(PushInstruction):
 
     def execute(self, state: PushState):
         if state.float_stack:
-            state.float_stack.append(math.cos(state.float_stack.pop()))
+            value = state.float_stack.pop()
+            state.float_stack.append(
+                float("nan") if math.isinf(value) else math.cos(value)
+            )
+        else:
+            state.noop_count += 1
 
 
 class FLOAT_LT(PushInstruction):
@@ -1441,7 +1786,10 @@ class ERC_FLOAT(PushInstruction):
                 value = float(random.uniform(-256, 256))
             else:
                 value = float(random.uniform(-1, 1))
-        super().__init__(f"ERC.FLOAT.{value:.2f}")
+        value = float(value)
+        # repr(float) is round-trippable; do not collapse distinct ERCs to two
+        # decimal places because names are also used for serialization.
+        super().__init__(f"ERC.FLOAT.{repr(value)}")
         self.value = value
 
     def execute(self, state: PushState):
@@ -1521,75 +1869,7 @@ class ITE_BOOL(PushInstruction):
         else:
             state.noop_count += 1
 
-#BIT 
-class BIT_AND(PushInstruction):
-    def __init__(self):
-        super().__init__("BIT.AND")
-
-    def execute(self, state: PushState):
-        if len(state.integer_stack) >= 2:
-            b = state.integer_stack.pop()
-            a = state.integer_stack.pop()
-            state.integer_stack.append(a & b)
-
-
-class BIT_OR(PushInstruction):
-    def __init__(self):
-        super().__init__("BIT.OR")
-
-    def execute(self, state: PushState):
-        if len(state.integer_stack) >= 2:
-            b = state.integer_stack.pop()
-            a = state.integer_stack.pop()
-            state.integer_stack.append(a | b)
-
-
-class BIT_XOR(PushInstruction):
-    def __init__(self):
-        super().__init__("BIT.XOR")
-
-    def execute(self, state: PushState):
-        if len(state.integer_stack) >= 2:
-            b = state.integer_stack.pop()
-            a = state.integer_stack.pop()
-            state.integer_stack.append(a ^ b)
-
-
-class BIT_NOT(PushInstruction):
-    def __init__(self):
-        super().__init__("BIT.NOT")
-
-    def execute(self, state: PushState):
-        if state.integer_stack:
-            a = state.integer_stack.pop()
-            state.integer_stack.append(~a)
-
-
-class BIT_SHL(PushInstruction):
-    def __init__(self):
-        super().__init__("BIT.SHL")
-
-    def execute(self, state: PushState):
-        if len(state.integer_stack) >= 2:
-            shift = state.integer_stack.pop()
-            value = state.integer_stack.pop()
-            state.integer_stack.append(value << shift)
-
-
-class BIT_SHR(PushInstruction):
-    def __init__(self):
-        super().__init__("BIT.SHR")
-
-    def execute(self, state: PushState):
-        if len(state.integer_stack) >= 2:
-            shift = state.integer_stack.pop()
-            value = state.integer_stack.pop()
-            state.integer_stack.append(value >> shift)
-
-
-#String Instructions
-
-# String Instructions (renamed to match your desired naming)
+# String instructions
 class STR_CONCAT(PushInstruction):
     def __init__(self):
         super().__init__("STR_CONCAT")
@@ -1631,6 +1911,10 @@ class STR_CHAR_AT(PushInstruction):
             s = state.string_stack.pop()
             if 0 <= index < len(s):
                 state.string_stack.append(s[index])
+            else:
+                state.throw_exception("STRING_INDEX_OUT_OF_BOUNDS", str(index))
+        else:
+            state.noop_count += 1
 
 
 class STR_STARTS_WITH(PushInstruction):
@@ -1676,7 +1960,14 @@ class STR_SUBSTRING(PushInstruction):
             end = state.integer_stack.pop()
             start = state.integer_stack.pop()
             s = state.string_stack.pop()
-            state.string_stack.append(s[start:end] if 0 <= start <= end <= len(s) else "")
+            if 0 <= start <= end <= len(s):
+                state.string_stack.append(s[start:end])
+            else:
+                state.throw_exception(
+                    "STRING_INDEX_OUT_OF_BOUNDS", f"start={start}, end={end}"
+                )
+        else:
+            state.noop_count += 1
 
 
 class STR_REPLACE(PushInstruction):
@@ -1691,6 +1982,65 @@ class STR_REPLACE(PushInstruction):
             state.string_stack.append(s.replace(old, new))
 
 
+def _expand_java_regex_replacement(match: re.Match[str], replacement: str) -> str:
+    """Expand the most common Java Matcher replacement syntax.
+
+    Java uses ``$1``/``${name}`` group references and backslash quoting, unlike
+    Python's replacement-string syntax.  A callback keeps those conventions from
+    being reinterpreted by ``re.sub``.
+    """
+    output: List[str] = []
+    index = 0
+    while index < len(replacement):
+        char = replacement[index]
+        if char == "\\":
+            index += 1
+            if index >= len(replacement):
+                raise ValueError("Trailing backslash in replacement")
+            output.append(replacement[index])
+            index += 1
+            continue
+        if char != "$":
+            output.append(char)
+            index += 1
+            continue
+
+        index += 1
+        if index >= len(replacement):
+            raise ValueError("Dangling $ in replacement")
+        if replacement[index] == "{":
+            end = replacement.find("}", index + 1)
+            if end < 0:
+                raise ValueError("Unterminated named group in replacement")
+            name = replacement[index + 1 : end]
+            if not name:
+                raise ValueError("Empty named group in replacement")
+            try:
+                output.append(match.group(name) or "")
+            except (IndexError, KeyError) as exc:
+                raise ValueError(f"Unknown replacement group {name!r}") from exc
+            index = end + 1
+            continue
+
+        if not replacement[index].isdigit():
+            raise ValueError("$ must be followed by a group number or {name}")
+        group_number = int(replacement[index])
+        if group_number > match.re.groups:
+            raise ValueError(f"Unknown replacement group {group_number}")
+        end = index + 1
+        # Java greedily absorbs additional digits only while the resulting group
+        # number remains valid; otherwise the extra digit is literal text.
+        while end < len(replacement) and replacement[end].isdigit():
+            candidate = group_number * 10 + int(replacement[end])
+            if candidate > match.re.groups:
+                break
+            group_number = candidate
+            end += 1
+        output.append(match.group(group_number) or "")
+        index = end
+    return "".join(output)
+
+
 class STR_REPLACE_ALL(PushInstruction):
     def __init__(self):
         super().__init__("STR_REPLACE_ALL")
@@ -1698,9 +2048,22 @@ class STR_REPLACE_ALL(PushInstruction):
     def execute(self, state: PushState):
         if len(state.string_stack) >= 3:
             new = state.string_stack.pop()
-            old = state.string_stack.pop()
+            pattern_text = state.string_stack.pop()
             s = state.string_stack.pop()
-            state.string_stack.append(s.replace(old, new))
+            try:
+                pattern = re.compile(pattern_text)
+                state.string_stack.append(
+                    pattern.sub(
+                        lambda match: _expand_java_regex_replacement(match, new),
+                        s,
+                    )
+                )
+            except re.error as exc:
+                state.throw_exception("PATTERN_SYNTAX", str(exc))
+            except ValueError as exc:
+                state.throw_exception("INVALID_REPLACEMENT", str(exc))
+        else:
+            state.noop_count += 1
 
 
 class STR_TO_INT(PushInstruction):
@@ -1834,11 +2197,15 @@ class DUP_ANY(PushInstruction):
         super().__init__("DUP.ANY")
 
     def execute(self, state: PushState):
-        for stack in state.value_stacks():
+        for stack in state._value_stacks:
             if stack:
-                stack.append(copy.deepcopy(stack[-1]))
+                state.mark_stack_item_used(stack)
+                # A duplicate is a derived value, not a second alias of the original
+                # argument token.
+                stack.append(_clone_value(stack[-1]))
                 return
         if len(state.ref_stack) > 1:
+            state.mark_stack_item_used(state.ref_stack)
             state.ref_stack.append(state.ref_stack[-1])
             return
         state.noop_count += 1
@@ -1849,12 +2216,15 @@ class SWAP_ANY(PushInstruction):
         super().__init__("SWAP.ANY")
 
     def execute(self, state: PushState):
-        for stack in state.value_stacks():
+        for stack in state._value_stacks:
             if len(stack) >= 2:
-                stack[-1], stack[-2] = stack[-2], stack[-1]
+                if isinstance(stack, _TrackedStack):
+                    stack.swap(-1, -2)
+                else:
+                    stack[-1], stack[-2] = stack[-2], stack[-1]
                 return
         if len(state.ref_stack) > 2:
-            state.ref_stack[-1], state.ref_stack[-2] = state.ref_stack[-2], state.ref_stack[-1]
+            state.ref_stack.swap(-1, -2)
             return
         state.noop_count += 1
 
@@ -1878,7 +2248,7 @@ class VALUE_FROM_ANY(PushInstruction):
     def execute(self, state: PushState):
         found, value = state.try_pop_from_any_stack()
         if found:
-            state.value_stack.append(value)
+            state.push_domain_value(value)
         else:
             state.noop_count += 1
 
@@ -1898,7 +2268,11 @@ class ARG_PUSH(PushInstruction):
 
     def execute(self, state: PushState):
         if 0 <= self.index < len(state.current_args):
-            state.push_argument(copy.deepcopy(state.current_args[self.index]))
+            state.mark_argument_index_used(self.index)
+            state.push_argument(
+                _clone_value(state.current_args[self.index]),
+                arg_index=self.index,
+            )
         else:
             state.noop_count += 1
 
@@ -1910,6 +2284,22 @@ class ACTIVE_REF(PushInstruction):
     def execute(self, state: PushState):
         if state.active_ref is not None:
             state.ref_stack.append(state.active_ref)
+        else:
+            state.noop_count += 1
+
+class RECEIVER_VALUE(PushInstruction):
+    def __init__(self):
+        super().__init__("RECEIVER.VALUE")
+
+    def execute(self, state: PushState):
+        if state.active_ref is None:
+            state.noop_count += 1
+            return
+
+        value = state.get_data(state.active_ref)
+
+        if isinstance(value, (bool, int, float, str)) or value is None:
+            state.push_to_appropriate_stack(copy.deepcopy(value))
         else:
             state.noop_count += 1
 
@@ -1947,8 +2337,7 @@ class RESULT_ERROR(PushInstruction):
         super().__init__("RESULT.ERROR")
 
     def execute(self, state: PushState):
-        state.record_error("MODELLED_EXCEPTION")
-        state.set_result("error", halt=True)
+        state.throw_exception("MODELLED_EXCEPTION")
 
 
 class ITE(PushInstruction):
@@ -1979,24 +2368,18 @@ def _active_data(state: PushState, allowed_types: tuple[type, ...], operation: s
 
 
 def _pop_integer_operand(state: PushState) -> tuple[bool, Optional[int]]:
-    """Consume an int argument consistently from ordered and typed stacks."""
+    """Consume an integer without equality-based duplicate guessing."""
     if (
         state.value_stack
         and isinstance(state.value_stack[-1], int)
         and not isinstance(state.value_stack[-1], bool)
-        and state.integer_stack
-        and state.integer_stack[-1] == state.value_stack[-1]
     ):
-        value = state.value_stack.pop()
-        state.integer_stack.pop()
+        value, token = state.value_stack.pop_with_token()
+        state._remove_typed_duplicate(value, token)
         return True, int(value)
     if state.integer_stack:
         return True, int(state.integer_stack.pop())
     return False, None
-
-
-def _unwrap_reference(value: Any) -> Any:
-    return value.ref_id if isinstance(value, HeapReference) else value
 
 
 class DS_SIZE(PushInstruction):
@@ -2219,26 +2602,6 @@ class DS_CONTAINS(PushInstruction):
 
 
 # Map instructions
-class MAP_SIZE(PushInstruction):
-    def __init__(self):
-        super().__init__("MAP.SIZE")
-
-    def execute(self, state: PushState):
-        data = _active_data(state, (dict,), self.name)
-        if data is not MISSING_RESULT:
-            state.integer_stack.append(len(data))
-
-
-class MAP_CLEAR(PushInstruction):
-    def __init__(self):
-        super().__init__("MAP.CLEAR")
-
-    def execute(self, state: PushState):
-        data = _active_data(state, (dict,), self.name)
-        if data is not MISSING_RESULT:
-            data.clear()
-
-
 class MAP_PUT(PushInstruction):
     def __init__(self):
         super().__init__("MAP.PUT")
@@ -2285,41 +2648,7 @@ class MAP_REMOVE(PushInstruction):
             state.push_to_appropriate_stack(data.pop(key, None))
 
 
-class MAP_CONTAINS_KEY(PushInstruction):
-    def __init__(self):
-        super().__init__("MAP.CONTAINS.KEY")
-
-    def execute(self, state: PushState):
-        found, key = state.try_pop_domain_value()
-        if not found:
-            state.noop_count += 1
-            return
-        data = _active_data(state, (dict,), self.name)
-        if data is not MISSING_RESULT:
-            state.boolean_stack.append(key in data)
-
-
 # Set instructions
-class SET_SIZE(PushInstruction):
-    def __init__(self):
-        super().__init__("SET.SIZE")
-
-    def execute(self, state: PushState):
-        data = _active_data(state, (set,), self.name)
-        if data is not MISSING_RESULT:
-            state.integer_stack.append(len(data))
-
-
-class SET_CLEAR(PushInstruction):
-    def __init__(self):
-        super().__init__("SET.CLEAR")
-
-    def execute(self, state: PushState):
-        data = _active_data(state, (set,), self.name)
-        if data is not MISSING_RESULT:
-            data.clear()
-
-
 class SET_ADD(PushInstruction):
     def __init__(self):
         super().__init__("SET.ADD")
@@ -2353,18 +2682,3 @@ class SET_REMOVE(PushInstruction):
         if existed:
             data.remove(value)
         state.boolean_stack.append(existed)
-
-
-class SET_CONTAINS(PushInstruction):
-    def __init__(self):
-        super().__init__("SET.CONTAINS")
-
-    def execute(self, state: PushState):
-        found, value = state.try_pop_domain_value()
-        if not found:
-            state.noop_count += 1
-            return
-        data = _active_data(state, (set,), self.name)
-        if data is not MISSING_RESULT:
-            state.boolean_stack.append(value in data)
-

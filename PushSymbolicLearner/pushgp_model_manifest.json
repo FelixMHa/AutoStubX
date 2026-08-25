@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "put#obj#obj",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_put_obj_obj",
+      "preconditionFunction": "stub_put_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object",
+        "java.lang.Object"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 216,
+      "warnings": [
+        "put#obj#obj: FLOAT.IS_NAN treated as a no-op (SMT Real has no IEEE NaN or infinity values; use a FloatingPoint backend)",
+        "put#obj#obj: STR_REPLACE_ALL treated as a no-op (pushbase STR_REPLACE_ALL is regex-based and cannot be represented by str.replace_all)",
+        "put#obj#obj: EXEC.DO_TIMES treated as a no-op (symbolic loop count)"
+      ]
+    },
+    {
+      "method": "isEmpty#0",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_isEmpty_0",
+      "preconditionFunction": "stub_isEmpty_0_pre",
+      "argumentTypes": [],
+      "returnType": "boolean",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "isEmpty#0: FLOAT.IS_FINITE treated as a no-op (SMT Real has no IEEE NaN or infinity values; use a FloatingPoint backend)"
+      ]
+    },
+    {
+      "method": "replace#obj#obj#obj",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_replace_obj_obj_obj",
+      "preconditionFunction": "stub_replace_obj_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object",
+        "java.lang.Object",
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 217,
+      "warnings": []
+    },
+    {
+      "method": "getOrDefault#obj#obj",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_getOrDefault_obj_obj",
+      "preconditionFunction": "stub_getOrDefault_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object",
+        "java.lang.Object"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 36,
+      "warnings": []
+    },
+    {
+      "method": "replace#obj#obj",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_replace_obj_obj",
+      "preconditionFunction": "stub_replace_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object",
+        "java.lang.Object"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 216,
+      "warnings": [
+        "replace#obj#obj: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)",
+        "replace#obj#obj: EXEC.DO_TIMES treated as a no-op (symbolic loop count)"
+      ]
+    },
+    {
+      "method": "remove#obj#obj",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_remove_obj_obj",
+      "preconditionFunction": "stub_remove_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object",
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 36,
+      "warnings": [
+        "remove#obj#obj: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    },
+    {
+      "method": "clear#0",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_clear_0",
+      "preconditionFunction": "stub_clear_0_pre",
+      "argumentTypes": [],
+      "returnType": "void",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "containsKey#obj",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_containsKey_obj",
+      "preconditionFunction": "stub_containsKey_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "putIfAbsent#obj#obj",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_putIfAbsent_obj_obj",
+      "preconditionFunction": "stub_putIfAbsent_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object",
+        "java.lang.Object"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 216,
+      "warnings": [
+        "putIfAbsent#obj#obj: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    },
+    {
+      "method": "remove#obj",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_remove_obj",
+      "preconditionFunction": "stub_remove_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": [
+        "remove#obj: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    },
+    {
+      "method": "containsValue#obj",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_containsValue_obj",
+      "preconditionFunction": "stub_containsValue_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": [
+        "containsValue#obj: STR_TRIM treated as a no-op (Java conversion/case semantics are solver-specific)",
+        "containsValue#obj: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    },
+    {
+      "method": "get#obj",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_get_obj",
+      "preconditionFunction": "stub_get_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "size#0",
+      "owner": "java.util.HashMap",
+      "smtFunction": "stub_size_0",
+      "preconditionFunction": "stub_size_0_pre",
+      "argumentTypes": [],
+      "returnType": "int",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 3,
+      "warnings": []
+    }
+  ],
+  "warnings": [
+    "put#obj#obj: FLOAT.IS_NAN treated as a no-op (SMT Real has no IEEE NaN or infinity values; use a FloatingPoint backend)",
+    "put#obj#obj: STR_REPLACE_ALL treated as a no-op (pushbase STR_REPLACE_ALL is regex-based and cannot be represented by str.replace_all)",
+    "put#obj#obj: EXEC.DO_TIMES treated as a no-op (symbolic loop count)",
+    "isEmpty#0: FLOAT.IS_FINITE treated as a no-op (SMT Real has no IEEE NaN or infinity values; use a FloatingPoint backend)",
+    "replace#obj#obj: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)",
+    "replace#obj#obj: EXEC.DO_TIMES treated as a no-op (symbolic loop count)",
+    "remove#obj#obj: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)",
+    "putIfAbsent#obj#obj: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)",
+    "remove#obj: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)",
+    "containsValue#obj: STR_TRIM treated as a no-op (Java conversion/case semantics are solver-specific)",
+    "containsValue#obj: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

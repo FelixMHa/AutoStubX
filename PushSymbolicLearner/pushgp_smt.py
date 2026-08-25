@@ -17,9 +17,12 @@ performs a structural parenthesis/string check.  A solver such as Z3 or cvc5 can
 then load the generated ``.smt2`` file.
 
 The default mode is strict: instructions whose semantics cannot be represented
-faithfully are rejected instead of being silently approximated.  ``strict=False``
-keeps unsupported instructions as Push-style no-ops and records warnings in the
-module manifest.
+faithfully *within the selected abstractions* are rejected instead of being
+silently approximated.  ``strict=False`` keeps unsupported instructions as
+Push-style no-ops and records warnings in the module manifest.  Strict mode does
+not by itself make SMT ``Int``/``Real``/``String`` identical to all Java numeric,
+IEEE-754, or UTF-16 corner cases; those abstraction boundaries are reported as
+warnings and require dedicated BitVec/FloatingPoint/UTF-16 backends for exactness.
 """
 
 import copy
@@ -98,8 +101,10 @@ class MethodSignature:
 
     ``return_type`` and ``argument_types`` use the same strings as
     ``TrainingExample.type_outputs``/``type_inputs``.  ``receiver_kind`` is one
-    of ``list``, ``map``, ``set``, ``generic``, or ``none``.  Use ``none`` or
-    ``is_static=True`` for static ``java.lang`` methods.
+    of ``list``, ``map``, ``set``, ``object``, ``generic``, or ``none``.  Use
+    ``none`` or ``is_static=True`` for static ``java.lang`` methods.  Optional
+    ``receiver_value_type`` describes the scalar payload exposed by
+    ``RECEIVER.VALUE``; standard boxed/String owners are inferred automatically.
     """
 
     method_name: str
@@ -112,12 +117,17 @@ class MethodSignature:
     element_type: Optional[str] = None
     key_type: Optional[str] = None
     value_type: Optional[str] = None
+    receiver_value_type: Optional[str] = None
 
     def __post_init__(self) -> None:
         if not self.method_name:
             raise ValueError("method_name cannot be empty")
         object.__setattr__(self, "argument_types", tuple(self.argument_types or ()))
         kind = _normalise_receiver_kind(self.receiver_kind)
+        if kind not in {"list", "map", "set", "object", "generic", "none"}:
+            raise ValueError(
+                "receiver_kind must be one of 'list', 'map', 'set', 'object', 'generic', or 'none'"
+            )
         static = bool(self.is_static or kind == "none")
         object.__setattr__(self, "receiver_kind", "none" if static else kind)
         object.__setattr__(self, "is_static", static)
@@ -155,25 +165,32 @@ class MethodSignature:
         static_value = first("is_static", "isStatic", "static", default=False)
         if isinstance(static_value, str):
             static_value = static_value.strip().lower() in {"true", "1", "yes", "static"}
+        owner = first("owner", "targetClass", "declaringClass", "className")
+        raw_receiver_kind = first(
+            "receiver_kind",
+            "receiverKind",
+            "data_structure_type",
+            "dataStructureType",
+            default=None,
+        )
+        receiver_kind = "none" if bool(static_value) else _normalise_receiver_kind(raw_receiver_kind)
+        if receiver_kind == "generic" and not bool(static_value):
+            receiver_kind = _receiver_kind_from_owner(owner) or "generic"
+
         return cls(
             method_name=str(method_name),
             argument_types=tuple(str(item) for item in (arguments or ())),
             return_type=str(first("return_type", "returnType", "outputType", default="void")),
-            receiver_kind=str(
-                first(
-                    "receiver_kind",
-                    "receiverKind",
-                    "data_structure_type",
-                    "dataStructureType",
-                    default="list",
-                )
-            ),
-            owner=first("owner", "targetClass", "declaringClass", "className"),
+            receiver_kind=receiver_kind,
+            owner=owner,
             is_static=bool(static_value),
             smt_name=first("smt_name", "smtName"),
             element_type=first("element_type", "elementType"),
             key_type=first("key_type", "keyType"),
             value_type=first("value_type", "valueType"),
+            receiver_value_type=first(
+                "receiver_value_type", "receiverValueType", "receiverPayloadType"
+            ),
         )
 
     def to_mapping(self) -> Dict[str, Any]:
@@ -188,6 +205,7 @@ class MethodSignature:
             "elementType": self.element_type,
             "keyType": self.key_type,
             "valueType": self.value_type,
+            "receiverValueType": self.receiver_value_type,
         }
 
 
@@ -211,6 +229,7 @@ class CompiledSMTMethod:
             "argumentTypes": list(self.signature.argument_types),
             "returnType": self.signature.return_type,
             "receiverKind": self.signature.receiver_kind,
+            "receiverValueType": self.signature.receiver_value_type,
             "isStatic": self.signature.is_static,
             "symbolicPaths": self.path_count,
             "warnings": list(self.warnings),
@@ -339,6 +358,33 @@ def _java_type(raw: Optional[str]) -> _JavaType:
     return _JavaType(display, "object", "JValue")
 
 
+def _receiver_payload_info(signature: "MethodSignature") -> Optional[_JavaType]:
+    """Return the scalar JValue payload exposed by RECEIVER.VALUE, when known."""
+    raw = signature.receiver_value_type or signature.owner
+    if not raw:
+        return None
+    info = _java_type(raw)
+    if info.category in {
+        "int", "boxed_int", "real", "boxed_real", "bool", "boxed_bool",
+        "char", "boxed_char", "string_ref",
+    }:
+        return info
+    return None
+
+
+def _jvalue_view(info: _JavaType) -> Optional[Tuple[str, str, str]]:
+    """Return (constructor, selector, Push/SMT sort) for a scalar JValue payload."""
+    if info.category in {"int", "boxed_int"}:
+        return ("JInt", "j-int", "Int")
+    if info.category in {"real", "boxed_real"}:
+        return ("JReal", "j-real", "Real")
+    if info.category in {"bool", "boxed_bool"}:
+        return ("JBool", "j-bool", "Bool")
+    if info.category in {"char", "boxed_char", "string_ref"}:
+        return ("JString", "j-string", "String")
+    return None
+
+
 def _infer_python_type(value: Any) -> str:
     if value is None:
         return "null"
@@ -381,18 +427,48 @@ def _infer_python_type(value: Any) -> str:
 
 
 def _normalise_receiver_kind(raw: Optional[str]) -> str:
-    value = ("" if raw is None else str(raw)).strip().lower()
-    if not value or value in {"none", "static", "primitive", "scalar"}:
+    """Normalize receiver metadata without treating missing metadata as static.
+
+    Only an explicit ``none``/``static`` marker means a static method.  Missing or
+    unknown receiver metadata is ``generic`` and may subsequently be refined from
+    the declaring owner.  This is important for scalar wrapper receivers such as
+    ``java.lang.Boolean``: defaulting missing metadata to ``list`` (or ``none``)
+    makes every concrete K_OBJECT receiver fail the generated precondition.
+    """
+    value = ("" if raw is None else str(raw)).strip().lower().replace("/", ".")
+    if value in {"none", "static"}:
         return "none"
+    if value in {"", "generic", "heap", "unknown"}:
+        return "generic"
+    if value in {"primitive", "scalar"}:
+        return "generic"
     if "map" in value:
         return "map"
     if "set" in value:
         return "set"
     if "list" in value or "arraylist" in value or "collection" in value:
         return "list"
-    if value in {"generic", "heap", "object"}:
-        return "generic"
+    if value == "object":
+        return "object"
+    # Preserve explicit unknown values so MethodSignature.__post_init__ rejects
+    # malformed receiver metadata instead of silently changing its meaning.
     return value
+
+
+def _receiver_kind_from_owner(owner: Any) -> Optional[str]:
+    if owner is None:
+        return None
+    value = str(owner).strip().lower().replace("/", ".")
+    if not value:
+        return None
+    if "map" in value:
+        return "map"
+    if "set" in value:
+        return "set"
+    if "list" in value or "arraylist" in value or "collection" in value:
+        return "list"
+    # Known non-collection Java owners are ordinary heap objects in this model.
+    return "object"
 
 
 def _compatible_type(first: str, second: str, *, method_name: str, position: str) -> str:
@@ -504,11 +580,21 @@ def _complete_signature_hints(signature: MethodSignature) -> MethodSignature:
         signature.return_type,
         signature.receiver_kind,
     )
+
+    # RECEIVER.VALUE may infer its payload sort from the declaring owner even when
+    # reflection metadata did not explicitly provide receiverValueType. Persist
+    # that effective type into the completed signature so the manifest exposes the
+    # same heap ABI to external replay/test tools.
+    receiver_value_type = signature.receiver_value_type
+    if receiver_value_type is None and _receiver_payload_info(signature) is not None:
+        receiver_value_type = signature.owner
+
     return replace(
         signature,
         element_type=signature.element_type or element,
         key_type=signature.key_type or key,
         value_type=signature.value_type or value,
+        receiver_value_type=receiver_value_type,
     )
 
 
@@ -528,13 +614,30 @@ def infer_method_signatures(training_data: Sequence[Any]) -> List[MethodSignatur
         all_input_types = list(getattr(example, "type_inputs", None) or [])
         all_output_types = list(getattr(example, "type_outputs", None) or [])
         expected_outputs = list(getattr(example, "expected_outputs", None) or [])
-        receiver_kind = _normalise_receiver_kind(
-            getattr(example, "data_structure_type", "list")
-        )
         owner = getattr(example, "target_class", None) or getattr(example, "owner", None)
+        raw_receiver_kind = getattr(example, "data_structure_type", None)
+        receiver_kind = _normalise_receiver_kind(raw_receiver_kind)
+        if receiver_kind == "generic":
+            receiver_kind = _receiver_kind_from_owner(owner) or "generic"
+
+        static_attr = None
+        for attr_name in ("is_static", "isStatic", "static"):
+            if hasattr(example, attr_name):
+                static_attr = getattr(example, attr_name)
+                break
 
         for index, raw_name in enumerate(sequence):
             method_name = str(raw_name)
+            call_static = static_attr
+            if isinstance(call_static, (list, tuple)):
+                call_static = call_static[index] if index < len(call_static) else None
+            if isinstance(call_static, str):
+                call_static = call_static.strip().lower() in {"true", "1", "yes", "static"}
+            if call_static is True:
+                call_receiver_kind = "none"
+            else:
+                call_receiver_kind = receiver_kind
+
             args = list(all_args[index] if index < len(all_args) else [])
             supplied_types = list(
                 all_input_types[index] if index < len(all_input_types) else []
@@ -559,7 +662,7 @@ def infer_method_signatures(training_data: Sequence[Any]) -> List[MethodSignatur
                 records[method_name] = {
                     "argument_types": arg_types,
                     "return_type": return_type,
-                    "receiver_kind": receiver_kind,
+                    "receiver_kind": call_receiver_kind,
                     "owner": owner,
                 }
                 continue
@@ -586,13 +689,18 @@ def infer_method_signatures(training_data: Sequence[Any]) -> List[MethodSignatur
                 method_name=method_name,
                 position="return value",
             )
-            if current["receiver_kind"] != receiver_kind:
+            if current["receiver_kind"] != call_receiver_kind:
                 raise SignatureInferenceError(
                     f"Method {method_name!r} is used with receiver kinds "
-                    f"{current['receiver_kind']!r} and {receiver_kind!r}"
+                    f"{current['receiver_kind']!r} and {call_receiver_kind!r}"
                 )
             if current["owner"] is None:
                 current["owner"] = owner
+            elif owner is not None and current["owner"] != owner:
+                raise SignatureInferenceError(
+                    f"Method {method_name!r} is used with owners "
+                    f"{current['owner']!r} and {owner!r}; method identifiers must be globally unique"
+                )
 
     result: List[MethodSignature] = []
     for method_name, record in records.items():
@@ -789,6 +897,7 @@ class _SVal:
 @dataclass
 class _SymHeap:
     kind: str
+    object_value: str
     list_size: str
     list_data: str
     map_size: str
@@ -801,6 +910,7 @@ class _SymHeap:
     def from_pre(cls) -> "_SymHeap":
         return cls(
             kind="(heap-kind pre)",
+            object_value="(heap-object-value pre)",
             list_size="(heap-list-size pre)",
             list_data="(heap-list-data pre)",
             map_size="(heap-map-size pre)",
@@ -815,7 +925,7 @@ class _SymHeap:
 
     def term(self) -> str:
         return (
-            f"(mk-heap {self.kind} {self.list_size} {self.list_data} "
+            f"(mk-heap {self.kind} {self.object_value} {self.list_size} {self.list_data} "
             f"{self.map_size} {self.map_present} {self.map_data} "
             f"{self.set_size} {self.set_present})"
         )
@@ -896,6 +1006,7 @@ class _MethodCompiler:
         self.element_info = _java_type(signature.element_type or "java.lang.Object")
         self.key_info = _java_type(signature.key_type or "java.lang.Object")
         self.value_info = _java_type(signature.value_type or signature.return_type or "java.lang.Object")
+        self.receiver_value_info = _receiver_payload_info(signature)
 
         all_infos = self.argument_infos + [
             self.return_info,
@@ -903,6 +1014,8 @@ class _MethodCompiler:
             self.key_info,
             self.value_info,
         ]
+        if self.receiver_value_info is not None:
+            all_infos.append(self.receiver_value_info)
         if any(info.category in {"real", "boxed_real"} for info in all_infos):
             self._warn(
                 f"{self.signature.method_name}: Java float/double values are modeled as mathematical SMT Real"
@@ -972,8 +1085,12 @@ class _MethodCompiler:
                     stack.pop(index)
                     return
         for index in range(len(state.ref_stack) - 1, -1, -1):
-            # ref_stack[0] is the receiver and must be preserved.
-            if index > 0 and state.ref_stack[index].token == token:
+            # Instance methods keep the receiver at ref_stack[0]. Static methods do
+            # not have that sentinel, so index 0 may be an ordinary argument copy.
+            if (
+                (self.signature.is_static or index > 0)
+                and state.ref_stack[index].token == token
+            ):
                 state.ref_stack.pop(index)
                 return
 
@@ -996,6 +1113,10 @@ class _MethodCompiler:
     def _record_exception(state: _SymState, exception: str) -> None:
         if state.exception == "EX_NONE":
             state.exception = exception
+        # Concrete PushState.throw_exception() terminates the current method call.
+        # Symbolic execution must do the same or instructions after a throw can
+        # mutate the post-heap and silently change the learned program's semantics.
+        state.halted = True
 
     def _add_condition(self, state: _SymState, condition: str) -> Optional[_SymState]:
         combined = _and(state.path_condition, condition)
@@ -1170,7 +1291,12 @@ class _MethodCompiler:
                     branch = self._add_condition(branch, condition)
                     if branch is None:
                         continue
-                    domain = self._fresh(term, "JValue", token=token)
+                    # Concrete pushbase stores the runtime Python/abstract-Java value
+                    # in value_stack, not the declared boxed type.  Thus a non-null
+                    # Integer argument is an Int in both value_stack and integer_stack,
+                    # while null remains a JValue/JNull.  Keeping that distinction is
+                    # essential for _pop_integer/_pop_domain operand precedence.
+                    domain = self._fresh(view_term, sort, token=token)
                     view = self._fresh(view_term, sort, token=token)
                     branch.value_stack.append(domain)
                     self._push_view(branch, view)
@@ -1195,19 +1321,27 @@ class _MethodCompiler:
             for_input=False,
         )
 
-    def _require_declared_kind(
+    def _require_declared_kinds(
         self,
         state: _SymState,
-        required_kind: str,
+        allowed_kinds: Iterable[str],
         instruction_name: str,
     ) -> bool:
-        """Model pushbase's INVALID_HEAP_OBJECT check for domain operations."""
+        """Model concrete ``_active_data`` receiver validation.
 
+        Important: callers must invoke this at the same point where the concrete
+        instruction calls ``_active_data``.  Operand-taking Push instructions first
+        try to pop their operands and are a no-op on underflow; only after successful
+        operand acquisition do they validate the active receiver.  Performing this
+        check earlier changes a concrete no-op into an SMT exception.
+        """
+
+        allowed = frozenset(str(kind) for kind in allowed_kinds)
         if self.signature.is_static or self.receiver is None:
             self._record_exception(state, "EX_INVALID_RECEIVER")
             return False
         declared = self.signature.receiver_kind
-        if declared == required_kind:
+        if declared in allowed:
             return True
         if declared == "generic":
             self._unsupported(
@@ -1217,6 +1351,16 @@ class _MethodCompiler:
             return False
         self._record_exception(state, "EX_INVALID_RECEIVER")
         return False
+
+    def _require_declared_kind(
+        self,
+        state: _SymState,
+        required_kind: str,
+        instruction_name: str,
+    ) -> bool:
+        return self._require_declared_kinds(
+            state, (required_kind,), instruction_name
+        )
 
     def _receiver_term(self) -> str:
         if self.receiver is None:
@@ -1262,13 +1406,12 @@ class _MethodCompiler:
 
     def _pop_integer(self, state: _SymState) -> Optional[_SVal]:
         # Mirrors pushbase._pop_integer_operand's ordered-stack handling.
-        if state.value_stack and state.value_stack[-1].sort == "Int" and state.integer_stack:
-            domain = state.value_stack[-1]
-            typed = state.integer_stack[-1]
-            if domain.token == typed.token:
-                state.value_stack.pop()
-                state.integer_stack.pop()
-                return typed
+        if state.value_stack and state.value_stack[-1].sort == "Int":
+            domain = state.value_stack.pop()
+            # The concrete runtime removes the exact typed duplicate by provenance
+            # token even when a newer integer constant sits above it on the stack.
+            self._remove_typed_token(state, domain.token)
+            return domain
         if state.integer_stack:
             return state.integer_stack.pop()
         return None
@@ -1400,21 +1543,15 @@ class _MethodCompiler:
         if name == "FLOAT.MUL":
             return self._binary(state, state.real_stack, "Real", "*")
         if name == "FLOAT.DIV":
-            if len(state.real_stack) < 2:
-                return [state]
-            divisor = state.real_stack.pop()
-            dividend = state.real_stack.pop()
-            valid, zero = self._split(state, _not(_eq(divisor.term, "0.0")))
-            result: List[_SymState] = []
-            if valid is not None:
-                valid.real_stack.append(
-                    self._fresh(f"(/ {dividend.term} {divisor.term})", "Real")
-                )
-                result.append(valid)
-            if zero is not None:
-                # pushbase FLOAT.DIV consumes both operands and produces no result.
-                result.append(zero)
-            return result
+            # Concrete pushbase follows Java/IEEE-754 and produces NaN/Inf for a
+            # zero divisor. SMT Real has neither value, so there is no faithful
+            # translation in this backend. In permissive mode this becomes the
+            # documented unsupported-instruction no-op rather than a third semantics.
+            self._unsupported(
+                name,
+                "Java/IEEE-754 division by zero requires a FloatingPoint backend",
+            )
+            return [state]
         if name == "FLOAT.NEG":
             if state.real_stack:
                 value = state.real_stack.pop()
@@ -1451,13 +1588,10 @@ class _MethodCompiler:
                 )
             return [state]
         if name in {"FLOAT.IS_NAN", "FLOAT.IS_INF", "FLOAT.IS_FINITE"}:
-            if state.real_stack:
-                state.real_stack.pop()
-                constant = "true" if name == "FLOAT.IS_FINITE" else "false"
-                state.boolean_stack.append(self._fresh(constant, "Bool"))
-                self._warn(
-                    f"{self.signature.method_name}: SMT Real abstracts away IEEE NaN and infinities"
-                )
+            self._unsupported(
+                name,
+                "SMT Real has no IEEE NaN or infinity values; use a FloatingPoint backend",
+            )
             return [state]
         if name in {"FLOAT.COS", "FLOAT.TO.STR", "STR.TO.FLOAT"}:
             self._unsupported(name, "not exactly representable in the selected SMT theory")
@@ -1537,6 +1671,7 @@ class _MethodCompiler:
                     )
                     result.append(valid)
                 if invalid is not None:
+                    self._record_exception(invalid, "EX_INDEX_OUT_OF_BOUNDS")
                     result.append(invalid)
                 return result
             return [state]
@@ -1574,23 +1709,27 @@ class _MethodCompiler:
                 end = state.integer_stack.pop()
                 start = state.integer_stack.pop()
                 string = state.string_stack.pop()
-                valid = _and(
+                valid_condition = _and(
                     f"(<= 0 {start.term})",
                     f"(<= {start.term} {end.term})",
                     f"(<= {end.term} (str.len {string.term}))",
                 )
-                state.string_stack.append(
-                    self._fresh(
-                        _ite(
-                            valid,
+                valid, invalid = self._split(state, valid_condition)
+                result: List[_SymState] = []
+                if valid is not None:
+                    valid.string_stack.append(
+                        self._fresh(
                             f"(str.substr {string.term} {start.term} (- {end.term} {start.term}))",
-                            '""',
-                        ),
-                        "String",
+                            "String",
+                        )
                     )
-                )
+                    result.append(valid)
+                if invalid is not None:
+                    self._record_exception(invalid, "EX_INDEX_OUT_OF_BOUNDS")
+                    result.append(invalid)
+                return result
             return [state]
-        if name in {"STR_REPLACE", "STR_REPLACE_ALL"}:
+        if name == "STR_REPLACE":
             if len(state.string_stack) >= 3:
                 new = state.string_stack.pop()
                 old = state.string_stack.pop()
@@ -1600,6 +1739,14 @@ class _MethodCompiler:
                 state.string_stack.append(
                     self._fresh(f"({operator} {string.term} {old.term} {new.term})", "String")
                 )
+            return [state]
+        if name == "STR_REPLACE_ALL":
+            # pushbase implements regex matching plus Java-style replacement-group
+            # expansion. SMT-LIB's string replace operators are literal, not regex.
+            self._unsupported(
+                name,
+                "pushbase STR_REPLACE_ALL is regex-based and cannot be represented by str.replace_all",
+            )
             return [state]
         if name == "STR_TO_ASCII":
             if state.string_stack:
@@ -1680,6 +1827,23 @@ class _MethodCompiler:
                 state.value_stack.append(domain)
                 self._push_view(state, view)
             return [state]
+        if name == "RECEIVER.VALUE":
+            if self.receiver is None:
+                self._unsupported(name, "requires an instance receiver")
+                return [state]
+            info = self.receiver_value_info
+            view = None if info is None else _jvalue_view(info)
+            if view is None:
+                self._unsupported(
+                    name,
+                    "receiver scalar payload is unknown; provide owner or receiverValueType",
+                )
+                return [state]
+            _constructor, selector, target_sort = view
+            payload = f"(select {state.heap.object_value} {self.receiver.term})"
+            # Match concrete RECEIVER.VALUE: typed stack only, not value_stack.
+            self._push_view(state, self._fresh(f"({selector} {payload})", target_sort))
+            return [state]
         if name == "REF.ACTIVE":
             if self.receiver is not None:
                 state.ref_stack.append(self._fresh(self.receiver.term, "Ref"))
@@ -1733,27 +1897,34 @@ class _MethodCompiler:
                     state.exec_stack.append(copy.deepcopy(block))
             return [state]
 
-        # List/data-structure operations.
-        list_only_instructions = {
-            "DS.GET.INDEX", "DS.SET.INDEX", "DS.INSERT.AT.INDEX",
-            "DS.APPEND", "DS.REMOVE.INDEX", "DS.PEEK.LAST",
-            "DS.POP.LAST", "DS.LAST.INDEX", "DS.FIRST.INDEX",
-            "DS.INDEX_OF", "DS.LAST_INDEX_OF",
-        }
-        if name in list_only_instructions and not self._require_declared_kind(
-            state, "list", name
-        ):
-            return [state]
+        # List/data-structure operations.  Receiver validation intentionally occurs
+        # at the same point as concrete pushbase._active_data().  In particular,
+        # operand-taking instructions first pop/check their operands; underflow is a
+        # Push no-op and must not become EX_INVALID_RECEIVER merely because the active
+        # receiver has another kind.
+        shared_collection_kinds = ("list", "map", "set")
 
         if name == "DS.SIZE":
+            if not self._require_declared_kinds(
+                state, shared_collection_kinds, name
+            ):
+                return [state]
             state.integer_stack.append(self._fresh(self._size_term(state), "Int"))
             return [state]
         if name == "DS.IS_EMPTY":
+            if not self._require_declared_kinds(
+                state, shared_collection_kinds, name
+            ):
+                return [state]
             state.boolean_stack.append(
                 self._fresh(_eq(self._size_term(state), "0"), "Bool")
             )
             return [state]
         if name == "DS.CLEAR":
+            if not self._require_declared_kinds(
+                state, shared_collection_kinds, name
+            ):
+                return [state]
             receiver = self._receiver_term()
             kind = self.signature.receiver_kind
             if kind == "list":
@@ -1770,12 +1941,12 @@ class _MethodCompiler:
                 state.heap.set_present = (
                     f"(store {state.heap.set_present} {receiver} {empty_present})"
                 )
-            else:
-                self._unsupported(name, "generic receiver kind cannot select one clear operation")
             return [state]
         if name == "DS.GET.INDEX":
             index = self._pop_integer(state)
             if index is None:
+                return [state]
+            if not self._require_declared_kind(state, "list", name):
                 return [state]
             size = self._size_term(state, "list")
             valid_condition = _and(f"(<= 0 {index.term})", f"(< {index.term} {size})")
@@ -1792,6 +1963,8 @@ class _MethodCompiler:
             value = self._pop_domain(state)
             index = self._pop_integer(state)
             if value is None or index is None:
+                return [state]
+            if not self._require_declared_kind(state, "list", name):
                 return [state]
             size = self._size_term(state, "list")
             valid_condition = _and(f"(<= 0 {index.term})", f"(< {index.term} {size})")
@@ -1814,6 +1987,8 @@ class _MethodCompiler:
             value = self._pop_domain(state)
             index = self._pop_integer(state)
             if value is None or index is None:
+                return [state]
+            if not self._require_declared_kind(state, "list", name):
                 return [state]
             size = self._size_term(state, "list")
             valid_condition = _and(f"(<= 0 {index.term})", f"(<= {index.term} {size})")
@@ -1840,6 +2015,8 @@ class _MethodCompiler:
             value = self._pop_domain(state)
             if value is None:
                 return [state]
+            if not self._require_declared_kind(state, "list", name):
+                return [state]
             receiver = self._receiver_term()
             size = self._size_term(state, "list")
             old_array = self._list_array(state)
@@ -1850,6 +2027,8 @@ class _MethodCompiler:
         if name == "DS.REMOVE.INDEX":
             index = self._pop_integer(state)
             if index is None:
+                return [state]
+            if not self._require_declared_kind(state, "list", name):
                 return [state]
             size = self._size_term(state, "list")
             valid_condition = _and(f"(<= 0 {index.term})", f"(< {index.term} {size})")
@@ -1872,6 +2051,8 @@ class _MethodCompiler:
                 result.append(invalid)
             return result
         if name in {"DS.PEEK.LAST", "DS.POP.LAST"}:
+            if not self._require_declared_kind(state, "list", name):
+                return [state]
             size = self._size_term(state, "list")
             nonempty, empty = self._split(state, f"(> {size} 0)")
             result: List[_SymState] = []
@@ -1890,10 +2071,14 @@ class _MethodCompiler:
                 result.append(empty)
             return result
         if name == "DS.LAST.INDEX":
+            if not self._require_declared_kind(state, "list", name):
+                return [state]
             size = self._size_term(state, "list")
             state.integer_stack.append(self._fresh(f"(- {size} 1)", "Int"))
             return [state]
         if name == "DS.FIRST.INDEX":
+            if not self._require_declared_kind(state, "list", name):
+                return [state]
             size = self._size_term(state, "list")
             state.integer_stack.append(
                 self._fresh(_ite(_eq(size, "0"), _int_literal(-1), "0"), "Int")
@@ -1902,6 +2087,8 @@ class _MethodCompiler:
         if name in {"DS.INDEX_OF", "DS.LAST_INDEX_OF"}:
             value = self._pop_domain(state)
             if value is None:
+                return [state]
+            if not self._require_declared_kind(state, "list", name):
                 return [state]
             helper = "list-index-of" if name == "DS.INDEX_OF" else "list-last-index-of"
             state.integer_stack.append(
@@ -1915,6 +2102,10 @@ class _MethodCompiler:
             value = self._pop_domain(state)
             if value is None:
                 return [state]
+            if not self._require_declared_kinds(
+                state, shared_collection_kinds, name
+            ):
+                return [state]
             boxed = self._box(value)
             kind = self.signature.receiver_kind
             if kind == "list":
@@ -1924,23 +2115,21 @@ class _MethodCompiler:
                 )
             elif kind == "map":
                 term = f"(select {self._map_present_array(state)} {boxed})"
-            elif kind == "set":
+            else:  # set
                 term = f"(select {self._set_present_array(state)} {boxed})"
-            else:
-                self._unsupported(name, "generic receiver kind")
-                return [state]
             state.boolean_stack.append(self._fresh(term, "Bool"))
             return [state]
 
-        # Map operations.
-        if name.startswith("MAP.") and not self._require_declared_kind(
-            state, "map", name
-        ):
-            return [state]
+        # Map operations.  Concrete MAP.PUT/GET/REMOVE first consume operands and
+        # only then validate that the active object is map-backed.
         if name == "MAP.SIZE":
+            if not self._require_declared_kind(state, "map", name):
+                return [state]
             state.integer_stack.append(self._fresh(self._size_term(state, "map"), "Int"))
             return [state]
         if name == "MAP.CLEAR":
+            if not self._require_declared_kind(state, "map", name):
+                return [state]
             receiver = self._receiver_term()
             state.heap.map_size = f"(store {state.heap.map_size} {receiver} 0)"
             empty_present = _const_array("(Array JValue Bool)", "false")
@@ -1950,6 +2139,8 @@ class _MethodCompiler:
             value = self._pop_domain(state)
             key = self._pop_domain(state)
             if value is None or key is None:
+                return [state]
+            if not self._require_declared_kind(state, "map", name):
                 return [state]
             receiver = self._receiver_term()
             boxed_key = self._box(key)
@@ -1972,6 +2163,8 @@ class _MethodCompiler:
             key = self._pop_domain(state)
             if key is None:
                 return [state]
+            if not self._require_declared_kind(state, "map", name):
+                return [state]
             boxed_key = self._box(key)
             present_array = self._map_present_array(state)
             data_array = self._map_data_array(state)
@@ -1981,6 +2174,8 @@ class _MethodCompiler:
         if name == "MAP.REMOVE":
             key = self._pop_domain(state)
             if key is None:
+                return [state]
+            if not self._require_declared_kind(state, "map", name):
                 return [state]
             receiver = self._receiver_term()
             boxed_key = self._box(key)
@@ -1998,24 +2193,28 @@ class _MethodCompiler:
             return self._push_jvalue_result(state, value, self.value_info)
         if name == "MAP.CONTAINS.KEY":
             key = self._pop_domain(state)
-            if key is not None:
-                state.boolean_stack.append(
-                    self._fresh(
-                        f"(select {self._map_present_array(state)} {self._box(key)})",
-                        "Bool",
-                    )
+            if key is None:
+                return [state]
+            if not self._require_declared_kind(state, "map", name):
+                return [state]
+            state.boolean_stack.append(
+                self._fresh(
+                    f"(select {self._map_present_array(state)} {self._box(key)})",
+                    "Bool",
                 )
+            )
             return [state]
 
-        # Set operations.
-        if name.startswith("SET.") and not self._require_declared_kind(
-            state, "set", name
-        ):
-            return [state]
+        # Set operations.  As in concrete pushbase, operand-taking operations are a
+        # no-op on underflow before receiver validation is attempted.
         if name == "SET.SIZE":
+            if not self._require_declared_kind(state, "set", name):
+                return [state]
             state.integer_stack.append(self._fresh(self._size_term(state, "set"), "Int"))
             return [state]
         if name == "SET.CLEAR":
+            if not self._require_declared_kind(state, "set", name):
+                return [state]
             receiver = self._receiver_term()
             state.heap.set_size = f"(store {state.heap.set_size} {receiver} 0)"
             empty_present = _const_array("(Array JValue Bool)", "false")
@@ -2024,6 +2223,8 @@ class _MethodCompiler:
         if name in {"SET.ADD", "SET.REMOVE", "SET.CONTAINS"}:
             value = self._pop_domain(state)
             if value is None:
+                return [state]
+            if not self._require_declared_kind(state, "set", name):
                 return [state]
             receiver = self._receiver_term()
             boxed = self._box(value)
@@ -2096,32 +2297,35 @@ class _MethodCompiler:
         if info.category == "error":
             return None
 
-        if info.category == "int" and state.integer_stack:
+        # Mirror PushGPInterpreter._extract_result_from_state.  In particular,
+        # implicit result extraction must not turn an unrelated JNull/object-stack
+        # value into a normal primitive/boxed/string result. Null for those return
+        # types is only observable when a program explicitly executes RESULT.NULL.
+        if info.category in {"int", "boxed_int"} and state.integer_stack:
             return state.integer_stack[-1]
-        if info.category == "real" and state.real_stack:
+        if info.category in {"real", "boxed_real"} and state.real_stack:
             return state.real_stack[-1]
-        if info.category == "bool" and state.boolean_stack:
+        if info.category in {"bool", "boxed_bool"} and state.boolean_stack:
             return state.boolean_stack[-1]
-        if info.category == "char" and state.string_stack:
-            return state.string_stack[-1]
-        if info.category in {"boxed_int"} and state.integer_stack:
-            return state.integer_stack[-1]
-        if info.category in {"boxed_real"} and state.real_stack:
-            return state.real_stack[-1]
-        if info.category in {"boxed_bool"} and state.boolean_stack:
-            return state.boolean_stack[-1]
-        if info.category in {"boxed_char", "string_ref"} and state.string_stack:
+        if info.category in {"char", "boxed_char", "string_ref"} and state.string_stack:
             return state.string_stack[-1]
 
-        # A nullable return may have taken the JNull/object path.
-        if state.object_stack:
-            return state.object_stack[-1]
         minimum_refs = 0 if self.signature.is_static else 1
-        if len(state.ref_stack) > minimum_refs:
+        if info.category == "reference" and len(state.ref_stack) > minimum_refs:
             return state.ref_stack[-1]
 
-        # java.lang.Object accepts any remaining primitive stack.
-        if info.category in {"object", "reference", "null"}:
+        if info.category == "null":
+            if state.object_stack and state.object_stack[-1].term == "JNull":
+                return state.object_stack[-1]
+            return None
+
+        # java.lang.Object accepts object, reference, or boxed primitive/string
+        # values. Keep the concrete runtime's priority order.
+        if info.category == "object":
+            if state.object_stack:
+                return state.object_stack[-1]
+            if len(state.ref_stack) > minimum_refs:
+                return state.ref_stack[-1]
             for stack in (
                 state.string_stack,
                 state.integer_stack,
@@ -2130,11 +2334,6 @@ class _MethodCompiler:
             ):
                 if stack:
                     return stack[-1]
-
-        # Heap access operations are internally boxed.  Allow that boxed value to
-        # be the semantic method result even for a primitive trace type.
-        if state.object_stack:
-            return state.object_stack[-1]
         return None
 
     def _result_term(self, state: _SymState) -> str:
@@ -2177,16 +2376,24 @@ class _MethodCompiler:
             "list": "K_LIST",
             "map": "K_MAP",
             "set": "K_SET",
+            "object": "K_OBJECT",
         }.get(kind)
         terms = [f"(<= 0 {receiver})"]
         if expected_kind is not None:
             terms.append(_eq(f"(select (heap-kind pre) {receiver})", expected_kind))
+        if kind in {"list", "map", "set"}:
             size_selector = {
                 "list": "heap-list-size",
                 "map": "heap-map-size",
                 "set": "heap-set-size",
             }[kind]
             terms.append(f"(<= 0 (select ({size_selector} pre) {receiver}))")
+        if self.receiver_value_info is not None:
+            view = _jvalue_view(self.receiver_value_info)
+            if view is not None:
+                constructor, _selector, _sort = view
+                payload = f"(select (heap-object-value pre) {receiver})"
+                terms.append(_tester(constructor, payload))
         return _and(*terms)
 
     def _argument_precondition(self) -> str:
@@ -2265,6 +2472,7 @@ class _MethodCompiler:
 
 def _smt_prelude(config: SMTExportConfig) -> str:
     empty_jvalue_array = _const_array("(Array Int JValue)", "JNull")
+    empty_object_values = _const_array("(Array Int JValue)", "JNull")
     empty_list_outer = _const_array("(Array Int (Array Int JValue))", empty_jvalue_array)
     empty_map_present_inner = _const_array("(Array JValue Bool)", "false")
     empty_map_present_outer = _const_array(
@@ -2281,7 +2489,7 @@ def _smt_prelude(config: SMTExportConfig) -> str:
         f"(set-logic {config.logic})",
         "(set-option :produce-models true)",
         "",
-        "; Boxed Java values used by collection and map contents.",
+        "; Boxed Java values used by receiver payloads and collection/map contents.",
         "(declare-datatypes () ((JValue",
         "  (JNull)",
         "  (JInt (j-int Int))",
@@ -2307,6 +2515,7 @@ def _smt_prelude(config: SMTExportConfig) -> str:
         "(declare-datatypes () ((Heap",
         "  (mk-heap",
         "    (heap-kind (Array Int ObjectKind))",
+        "    (heap-object-value (Array Int JValue))",
         "    (heap-list-size (Array Int Int))",
         "    (heap-list-data (Array Int (Array Int JValue)))",
         "    (heap-map-size (Array Int Int))",
@@ -2330,56 +2539,64 @@ def _smt_prelude(config: SMTExportConfig) -> str:
         "(define-fun java-rem ((left Int) (right Int)) Int",
         "  (- left (* right (java-div left right))))",
         "",
-        "; List-array transformations and search summaries.",
-        "(declare-fun list-insert ((Array Int JValue) Int Int JValue) (Array Int JValue))",
-        "(assert",
-        "  (forall ((data (Array Int JValue)) (size Int) (index Int) (value JValue) (position Int))",
-        "    (= (select (list-insert data size index value) position)",
-        "       (ite (and (<= 0 position) (< position (+ size 1)))",
-        "            (ite (< position index)",
-        "                 (select data position)",
-        "                 (ite (= position index) value (select data (- position 1))))",
-        "            (select data position)))))",
+        "; Executable list-array transformations and searches.",
+        ";",
+        "; These helpers deliberately avoid global forall axioms.  list-insert and",
+        "; list-remove are array-valued lambda expressions, so selecting an element",
+        "; reduces directly to an ite/select term.  indexOf/lastIndexOf use recursive",
+        "; searches that unfold only when a query actually calls them.  This keeps",
+        "; unrelated stubs (size/isEmpty/get/etc.) in a quantifier-free solver context.",
+        "(define-fun list-insert",
+        "  ((data (Array Int JValue)) (size Int) (index Int) (value JValue))",
+        "  (Array Int JValue)",
+        "  (lambda ((position Int))",
+        "    (ite (and (<= 0 position) (< position (+ size 1)))",
+        "         (ite (< position index)",
+        "              (select data position)",
+        "              (ite (= position index) value (select data (- position 1))))",
+        "         (select data position))))",
         "",
-        "(declare-fun list-remove ((Array Int JValue) Int Int) (Array Int JValue))",
-        "(assert",
-        "  (forall ((data (Array Int JValue)) (size Int) (index Int) (position Int))",
-        "    (= (select (list-remove data size index) position)",
-        "       (ite (and (<= 0 position) (< position (- size 1)))",
-        "            (ite (< position index) (select data position) (select data (+ position 1)))",
-        "            (select data position)))))",
+        "(define-fun list-remove",
+        "  ((data (Array Int JValue)) (size Int) (index Int))",
+        "  (Array Int JValue)",
+        "  (lambda ((position Int))",
+        "    (ite (and (<= 0 position) (< position (- size 1)))",
+        "         (ite (< position index)",
+        "              (select data position)",
+        "              (select data (+ position 1)))",
+        "         (select data position))))",
         "",
-        "(declare-fun list-index-of ((Array Int JValue) Int JValue) Int)",
-        "(assert",
-        "  (forall ((data (Array Int JValue)) (size Int) (value JValue))",
-        "    (=> (<= 0 size)",
-        "        (let ((result (list-index-of data size value)))",
-        "          (and (<= (- 1) result) (< result size)",
-        "               (=> (= result (- 1))",
-        "                   (forall ((position Int))",
-        "                     (=> (and (<= 0 position) (< position size))",
-        "                         (not (= (select data position) value)))))",
-        "               (=> (<= 0 result)",
-        "                   (and (= (select data result) value)",
-        "                        (forall ((position Int))",
-        "                          (=> (and (<= 0 position) (< position result))",
-        "                              (not (= (select data position) value)))))))))))",
+        "; Exact first-match search.  For concrete sizes this unfolds to a finite",
+        "; chain of select/equality tests; symbolic unbounded sizes retain recursion",
+        "; only in queries that actually use indexOf/contains/remove-by-value.",
+        "(define-fun-rec list-index-of-from",
+        "  ((data (Array Int JValue)) (size Int) (value JValue) (position Int)) Int",
+        "  (ite (>= position size)",
+        "       (- 1)",
+        "       (ite (= (select data position) value)",
+        "            position",
+        "            (list-index-of-from data size value (+ position 1)))))",
         "",
-        "(declare-fun list-last-index-of ((Array Int JValue) Int JValue) Int)",
-        "(assert",
-        "  (forall ((data (Array Int JValue)) (size Int) (value JValue))",
-        "    (=> (<= 0 size)",
-        "        (let ((result (list-last-index-of data size value)))",
-        "          (and (<= (- 1) result) (< result size)",
-        "               (=> (= result (- 1))",
-        "                   (forall ((position Int))",
-        "                     (=> (and (<= 0 position) (< position size))",
-        "                         (not (= (select data position) value)))))",
-        "               (=> (<= 0 result)",
-        "                   (and (= (select data result) value)",
-        "                        (forall ((position Int))",
-        "                          (=> (and (< result position) (< position size))",
-        "                              (not (= (select data position) value)))))))))))",
+        "(define-fun list-index-of",
+        "  ((data (Array Int JValue)) (size Int) (value JValue)) Int",
+        "  (ite (<= size 0)",
+        "       (- 1)",
+        "       (list-index-of-from data size value 0)))",
+        "",
+        "; Exact last-match search, scanning from size-1 toward zero.",
+        "(define-fun-rec list-last-index-of-from",
+        "  ((data (Array Int JValue)) (value JValue) (position Int)) Int",
+        "  (ite (< position 0)",
+        "       (- 1)",
+        "       (ite (= (select data position) value)",
+        "            position",
+        "            (list-last-index-of-from data value (- position 1)))))",
+        "",
+        "(define-fun list-last-index-of",
+        "  ((data (Array Int JValue)) (size Int) (value JValue)) Int",
+        "  (ite (<= size 0)",
+        "       (- 1)",
+        "       (list-last-index-of-from data value (- size 1))))",
         "",
         "(define-fun list-contains ((data (Array Int JValue)) (size Int) (value JValue)) Bool",
         "  (<= 0 (list-index-of data size value)))",
@@ -2393,6 +2610,7 @@ def _smt_prelude(config: SMTExportConfig) -> str:
                 "(define-fun empty-heap () Heap",
                 "  (mk-heap",
                 f"    {_const_array('(Array Int ObjectKind)', 'K_NONE')}",
+                f"    {empty_object_values}",
                 f"    {_const_array('(Array Int Int)', '0')}",
                 f"    {empty_list_outer}",
                 f"    {_const_array('(Array Int Int)', '0')}",
@@ -2401,9 +2619,22 @@ def _smt_prelude(config: SMTExportConfig) -> str:
                 f"    {_const_array('(Array Int Int)', '0')}",
                 f"    {empty_set_outer}))",
                 "",
+                "(define-fun heap-new-object ((heap Heap) (reference Int) (value JValue)) Heap",
+                "  (mk-heap",
+                "    (store (heap-kind heap) reference K_OBJECT)",
+                "    (store (heap-object-value heap) reference value)",
+                "    (heap-list-size heap)",
+                "    (heap-list-data heap)",
+                "    (heap-map-size heap)",
+                "    (heap-map-present heap)",
+                "    (heap-map-data heap)",
+                "    (heap-set-size heap)",
+                "    (heap-set-present heap)))",
+                "",
                 "(define-fun heap-new-list ((heap Heap) (reference Int)) Heap",
                 "  (mk-heap",
                 "    (store (heap-kind heap) reference K_LIST)",
+                "    (heap-object-value heap)",
                 "    (store (heap-list-size heap) reference 0)",
                 f"    (store (heap-list-data heap) reference {empty_jvalue_array})",
                 "    (heap-map-size heap)",
@@ -2415,6 +2646,7 @@ def _smt_prelude(config: SMTExportConfig) -> str:
                 "(define-fun heap-new-map ((heap Heap) (reference Int)) Heap",
                 "  (mk-heap",
                 "    (store (heap-kind heap) reference K_MAP)",
+                "    (heap-object-value heap)",
                 "    (heap-list-size heap)",
                 "    (heap-list-data heap)",
                 "    (store (heap-map-size heap) reference 0)",
@@ -2426,6 +2658,7 @@ def _smt_prelude(config: SMTExportConfig) -> str:
                 "(define-fun heap-new-set ((heap Heap) (reference Int)) Heap",
                 "  (mk-heap",
                 "    (store (heap-kind heap) reference K_SET)",
+                "    (heap-object-value heap)",
                 "    (heap-list-size heap)",
                 "    (heap-list-data heap)",
                 "    (heap-map-size heap)",
@@ -2510,9 +2743,16 @@ def compile_genome_to_smt(
     methods: "OrderedDict[str, CompiledSMTMethod]" = OrderedDict()
     module_warnings: List[str] = []
     used_names: set[str] = set()
+    seen_method_ids: set[str] = set()
 
     for signature in resolved_signatures:
         signature = _complete_signature_hints(signature)
+        if signature.method_name in seen_method_ids:
+            raise SignatureInferenceError(
+                f"Duplicate method identifier {signature.method_name!r}; "
+                "method identifiers must be globally unique (include owner/descriptor for overloads)"
+            )
+        seen_method_ids.add(signature.method_name)
         program = genome.methods.get(signature.method_name)
         force_missing = program is None
         if force_missing:
