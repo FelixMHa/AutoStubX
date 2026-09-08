@@ -1,3 +1,4 @@
+import profile
 import subprocess
 import os
 import argparse
@@ -11,13 +12,25 @@ def startRun(mainfolder, folder):
             if filename.endswith(".json"):  # only process JSON files
                 filepath = os.path.join(folder_path, filename)
                 print(f"Running on {filepath}...")
-
+    
                 subprocess.run([
                     "python", "rungp.py", filepath,
-                    "--population", "1000",
+                    "--population", "400",
                     "--generations", "400",
-                    "--output", f"genomes/{filename}_genome.json",
+                    "--profile", "primitives_full",
+                    "--output", f"genomesNew/{filename}_genome.json",
                 ])
+    elif os.path.isfile(folder_path) and folder.endswith(".json"):
+        print(f"Running on {folder_path}...")
+    
+        subprocess.run([
+            "python", "rungp.py", folder_path,
+            "--population", "400",
+            "--generations", "400",
+            "--profile", "java_ds_minimal",
+            "--output", f"genomesNew/{folder}_genome.json",
+        ])
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_directory", nargs='?', default="../Training-Data-Generation/symbolic-regression-data/training",
