@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "logicalOr#bool#bool",
+      "owner": "java.lang.Boolean",
+      "smtFunction": "stub_logicalOr_bool_bool",
+      "preconditionFunction": "stub_logicalOr_bool_bool_pre",
+      "argumentTypes": [
+        "boolean",
+        "boolean"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Boolean",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "logicalOr#bool#bool: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "logicalOr#bool#bool: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

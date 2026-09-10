@@ -25,6 +25,7 @@ IEEE-754, or UTF-16 corner cases; those abstraction boundaries are reported as
 warnings and require dedicated BitVec/FloatingPoint/UTF-16 backends for exactness.
 """
 
+import argparse
 import copy
 import ctypes
 import ctypes.util
@@ -2926,6 +2927,501 @@ def validate_smt2_with_z3(
             raise SMTExportError(f"Z3 rejected generated SMT-LIB: {message}")
     finally:
         library.Z3_del_context(context)
+
+
+def _instruction_from_name(
+    name: str,
+    instruction_set: Mapping[str, pb.PushInstruction],
+) -> Optional[pb.PushInstruction]:
+    """Reverse the instruction names produced by serialize_program()."""
+
+    # Normal fixed instruction.
+    instruction = instruction_set.get(name)
+    if instruction is not None:
+        return copy.copy(instruction)
+
+    # Parameterized instructions are not necessarily present in the registry
+    # with the exact value that evolution generated.
+    if name.startswith("INT.CONST."):
+        return pb.INT_CONST(int(name[len("INT.CONST."):]))
+
+
+    if name.startswith("FLOAT.CONST."):
+        return pb.FLOAT_CONST(float(name[len("FLOAT.CONST."):]))
+
+
+    if name.startswith("ERC.INT."):
+        return pb.ERC_INT(int(name[len("ERC.INT."):]))
+
+
+    if name.startswith("ERC.FLOAT."):
+        return pb.ERC_FLOAT(float(name[len("ERC.FLOAT."):]))
+
+
+    if name.startswith("BOOL.CONST."):
+        value = name[len("BOOL.CONST."):].strip().lower()
+
+        if value == "true":
+            return pb.BOOL_CONST(True)
+
+        if value == "false":
+            return pb.BOOL_CONST(False)
+
+        raise SMTExportError(
+            f"Invalid BOOL.CONST instruction: {name!r}"
+        )
+
+
+    if name.startswith("STR.CONST."):
+        value = name[len("STR.CONST."):]
+        return pb.STR_CONST(value)
+
+
+    if name.startswith("ARG."):
+        return pb.ARG_PUSH(
+            int(name[len("ARG."):])
+        )
+
+
+    return None
+
+
+def _looks_like_instruction(name: str) -> bool:
+    """Detect strings that look like serialized Push instructions."""
+    return bool(
+        re.fullmatch(
+            r"[A-Z][A-Z0-9_]*(?:\.[A-Za-z0-9_+\-. ]*)+",
+            name,
+        )
+        or name in {"ITE", "ASCII_TO_STR"}
+        or re.fullmatch(
+            r"(?:STR|INT|FLOAT|BOOL)_[A-Z0-9_]+",
+            name,
+        )
+    )
+
+
+def _deserialize_program(
+    code: Any,
+    instruction_set: Mapping[str, pb.PushInstruction],
+) -> List[Any]:
+    """
+    Reverse pushgp_learner.serialize_program().
+
+    Nested lists remain Push executable blocks.
+    Instruction names become real PushInstruction objects.
+    Other JSON scalars remain Push literals.
+    """
+
+    if not isinstance(code, list):
+        raise TypeError(
+            f"Serialized Push program must be a list, "
+            f"got {type(code).__name__}"
+        )
+
+    result: List[Any] = []
+
+    for item in code:
+
+        # Nested Push code block.
+        if isinstance(item, list):
+            result.append(
+                _deserialize_program(
+                    item,
+                    instruction_set,
+                )
+            )
+            continue
+
+        # Possibly an instruction name.
+        if isinstance(item, str):
+
+            instruction = _instruction_from_name(
+                item,
+                instruction_set,
+            )
+
+            if instruction is not None:
+                result.append(instruction)
+                continue
+
+            # If it looks like an instruction but is unknown, fail instead
+            # of silently treating it as a literal string.
+            if _looks_like_instruction(item):
+                raise SMTExportError(
+                    f"Unknown serialized Push instruction {item!r}. "
+                    f"Check that the selected instruction profile contains it."
+                )
+
+        # int / float / bool / None / ordinary string literal.
+        result.append(item)
+
+    return result
+
+def _build_deserialization_instruction_set() -> Dict[str, pb.PushInstruction]:
+    """
+    Build a registry containing every instruction that may appear in a saved genome.
+
+    Deserialization must not depend on the currently selected evolution profile:
+    a genome may have been learned with a different profile.
+    """
+    profiles = (
+        "primitives_full",
+        "ds_smt_minimal",
+        "java_ds_full",
+        "java_ds_minimal",
+        "java_list_minimal",
+        "java_map_minimal",
+        "java_set_minimal",
+        "ds_full",
+        "collections_full",
+    )
+
+    registry: Dict[str, pb.PushInstruction] = {}
+
+    for profile in profiles:
+        try:
+            registry.update(
+                pb.create_pushgp_instruction_set(profile)
+            )
+        except ValueError:
+            # Allows compatibility if an older pushbase doesn't know
+            # one of the newer profile names.
+            continue
+
+    return registry
+
+def read_genome_from_json(
+    path: str | Path,
+    *,
+    profile: str = "java_ds_full",
+) -> pb.PushGPGenome:
+    """
+    Reverse pushgp_learner.save_genome().
+
+    Restores:
+      * PushGPGenome
+      * PushProgram objects
+      * real PushInstruction instances
+      * fitness metadata
+      * method accuracies
+      * case errors
+      * complexity cache
+    """
+
+    path = Path(path)
+
+    if not path.is_file():
+        raise FileNotFoundError(
+            f"Genome JSON file not found: {path}"
+        )
+
+    try:
+        raw = json.loads(
+            path.read_text(encoding="utf-8")
+        )
+    except Exception as exc:
+        raise SMTExportError(
+            f"Could not read genome JSON from {path}"
+        ) from exc
+
+
+    if not isinstance(raw, Mapping):
+        raise SMTExportError(
+            "Genome JSON must contain an object"
+        )
+
+
+    raw_methods = raw.get("methods")
+
+    if not isinstance(raw_methods, Mapping) or not raw_methods:
+        raise SMTExportError(
+            "Genome JSON has no non-empty 'methods' object"
+        )
+
+
+    instruction_set = _build_deserialization_instruction_set()
+
+    genome = pb.PushGPGenome()
+
+
+    method_accuracies: Dict[str, float] = dict(
+        raw.get("method_accuracies", {}) or {}
+    )
+
+
+    cached_complexity = 0
+    have_all_complexities = True
+
+
+    for raw_method_name, method_data in raw_methods.items():
+
+        method_name = str(raw_method_name)
+
+        if not isinstance(method_data, Mapping):
+            raise SMTExportError(
+                f"Method {method_name!r} must be an object"
+            )
+
+
+        if "program" not in method_data:
+            raise SMTExportError(
+                f"Method {method_name!r} has no 'program'"
+            )
+
+
+        serialized_code = method_data["program"]
+
+        code = _deserialize_program(
+            serialized_code,
+            instruction_set,
+        )
+
+        genome.add_method(
+            method_name,
+            pb.PushProgram(code),
+        )
+
+
+        if "accuracy" in method_data:
+            method_accuracies.setdefault(
+                method_name,
+                float(method_data["accuracy"]),
+            )
+
+
+        if "complexity" in method_data:
+            cached_complexity += int(
+                method_data["complexity"]
+            )
+        else:
+            have_all_complexities = False
+
+
+    # Restore save_genome() metadata.
+    genome.fitness = raw.get(
+        "fitness",
+        float("inf"),
+    )
+
+    genome.accuracy = float(
+        raw.get("accuracy", 0.0)
+    )
+
+    genome.complexity_penalty = float(
+        raw.get("complexity_penalty", 0.0)
+    )
+
+    genome.method_accuracies = method_accuracies
+
+    genome.case_errors = list(
+        raw.get("case_errors", []) or []
+    )
+
+    genome.evaluation_failures = list(
+        raw.get("evaluation_failures", []) or []
+    )
+
+
+    # Optional if future serializer includes it.
+    if "data_fitness" in raw:
+        genome.data_fitness = raw["data_fitness"]
+
+
+    # executionTime isn't a declared PushGPGenome field,
+    # but keeping it is useful when round-tripping.
+    if "executionTime" in raw:
+        genome.execution_time = raw["executionTime"]
+
+
+    if have_all_complexities:
+        genome._complexity_cache = cached_complexity
+
+
+    return genome
+
+
+def _load_training_data(
+    path: str | Path,
+    max_samples: int,
+) -> Sequence[Any]:
+    """
+    Load the TrainingExample objects required by infer_method_signatures().
+    """
+
+    try:
+        from rungp import loadtrainingdata
+    except ImportError as exc:
+        raise RuntimeError(
+            "Could not import rungp.loadtrainingdata. "
+            "Run pushgp_smt.py from the normal project environment."
+        ) from exc
+
+
+    examples = loadtrainingdata(
+        str(path),
+        max_samples_per_file=max_samples,
+    )
+
+    examples = list(examples or [])
+
+    if not examples:
+        raise SMTExportError(
+            f"No training examples loaded from {path}"
+        )
+
+    return examples
+
+
+def main(
+    argv: Optional[Sequence[str]] = None,
+) -> int:
+    """
+    Read saved PushGP genome -> reconstruct genome ->
+    infer Java signatures from training data -> generate SMT.
+    """
+
+    parser = argparse.ArgumentParser(
+        description=(
+            "Compile a saved PushGP genome into SMT-LIB 2"
+        )
+    )
+
+
+    parser.add_argument(
+        "genome",
+        help="Genome JSON written by save_genome()",
+    )
+
+    parser.add_argument(
+        "training_data",
+        help=(
+            "Training trace file/directory used to infer "
+            "the Java method signatures"
+        ),
+    )
+
+
+    parser.add_argument(
+        "-o",
+        "--output",
+        default="pushgp_model.smt2",
+        help="Output SMT file",
+    )
+
+    parser.add_argument(
+        "--manifest",
+        default="pushgp_model_manifest.json",
+        help="Output manifest JSON",
+    )
+
+    parser.add_argument(
+        "--profile",
+        default="java_ds_full",
+        help=(
+            "Push instruction profile used when reconstructing "
+            "the genome (default: java_ds_full)"
+        ),
+    )
+
+    parser.add_argument(
+        "--max-samples",
+        type=int,
+        default=1_000_000,
+    )
+
+    parser.add_argument(
+        "--max-steps",
+        type=int,
+        default=256,
+    )
+
+    parser.add_argument(
+        "--max-paths",
+        type=int,
+        default=256,
+    )
+
+    parser.add_argument(
+        "--non-strict",
+        action="store_true",
+        help=(
+            "Treat unsupported SMT instructions as Push no-ops "
+            "instead of failing"
+        ),
+    )
+
+    parser.add_argument(
+        "--z3-validate",
+        action="store_true",
+        help="Parse/type-check generated SMT using libz3",
+    )
+
+
+    args = parser.parse_args(argv)
+
+
+
+    genome = read_genome_from_json(
+        args.genome,
+        profile=args.profile,
+    )
+
+
+    training_data = _load_training_data(
+        args.training_data,
+        args.max_samples,
+    )
+
+
+    config = SMTExportConfig(
+        strict=not args.non_strict,
+        max_steps=args.max_steps,
+        max_paths=args.max_paths,
+    )
+
+
+    module = export_genome_to_smt(
+        genome=genome,
+        output_path=args.output,
+        training_data=training_data,
+        config=config,
+        manifest_path=args.manifest,
+    )
+
+
+    if args.z3_validate:
+        validate_smt2_with_z3(
+            module.text
+        )
+
+
+    print()
+    print("=== PushGP -> SMT ===")
+    print(f"Genome   : {args.genome}")
+    print(f"Examples : {len(training_data)}")
+    print(f"Methods  : {len(genome.methods)}")
+    print(f"SMT      : {args.output}")
+    print(f"Manifest : {args.manifest}")
+
+    if module.warnings:
+        print()
+        print("Warnings:")
+        for warning in module.warnings:
+            print(f"  - {warning}")
+
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
+
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
 
 
 __all__ = [

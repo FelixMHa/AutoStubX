@@ -1,0 +1,1086 @@
+[
+  {
+    "example": 238,
+    "reason": "SMT Real cannot represent IEEE non-finite value nan",
+    "sequence": [
+      "add#obj",
+      "add#obj",
+      "add#obj"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "NaN"
+            }
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            false,
+            {
+              "kind": "float-special",
+              "value": "NaN"
+            }
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            false,
+            -6,
+            {
+              "kind": "float-special",
+              "value": "NaN"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "example": 388,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "size#0",
+      "remove#obj",
+      "clear#0",
+      "remove#obj",
+      "contains#obj",
+      "size#0"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": 0,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": null,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": 0,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      }
+    ]
+  },
+  {
+    "example": 455,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "contains#obj",
+      "remove#obj",
+      "add#obj",
+      "remove#obj",
+      "remove#obj",
+      "add#obj"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            1.942215e-23
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            1.942215e-23
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            1.942215e-23
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            1.942215e-23,
+            "²\u0002u±"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "example": 458,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "add#obj",
+      "add#obj",
+      "add#obj",
+      "remove#obj",
+      "add#obj"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            -2.6587643e-10
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            -19,
+            -2.6587643e-10
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            -19,
+            -2.6587643e-10,
+            -30
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            -19,
+            -2.6587643e-10,
+            -30
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            -19,
+            -2.6587643e-10,
+            -30,
+            206
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "example": 475,
+    "reason": "SMT Real cannot represent IEEE non-finite value nan",
+    "sequence": [
+      "remove#obj",
+      "clear#0",
+      "contains#obj",
+      "contains#obj",
+      "add#obj"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": null,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            "c¯OdO\b"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "example": 616,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "add#obj",
+      "add#obj",
+      "add#obj",
+      "isEmpty#0",
+      "add#obj"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            false
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            },
+            false
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            },
+            false,
+            true
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            },
+            false,
+            true
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            },
+            false,
+            -62263,
+            true
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "example": 680,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "add#obj",
+      "add#obj",
+      "contains#obj",
+      "remove#obj",
+      "clear#0",
+      "contains#obj",
+      "contains#obj"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            0
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            0,
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            }
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            0,
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            }
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            0,
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            }
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": null,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      }
+    ]
+  },
+  {
+    "example": 801,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "size#0",
+      "isEmpty#0",
+      "remove#obj",
+      "size#0",
+      "remove#obj",
+      "remove#obj",
+      "remove#obj",
+      "isEmpty#0"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": 0,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": 0,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      }
+    ]
+  },
+  {
+    "example": 900,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "clear#0",
+      "contains#obj",
+      "clear#0",
+      "contains#obj",
+      "remove#obj",
+      "add#obj",
+      "contains#obj"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": null,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": null,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            false
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            false
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "example": 935,
+    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "sequence": [
+      "add#obj",
+      "add#obj",
+      "add#obj",
+      "remove#obj",
+      "isEmpty#0",
+      "contains#obj",
+      "contains#obj"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            "V­$"
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            },
+            "V­$"
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            },
+            ")úL>",
+            "V­$"
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            },
+            ")úL>",
+            "V­$"
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            },
+            ")úL>",
+            "V­$"
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            },
+            ")úL>",
+            "V­$"
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "-Infinity"
+            },
+            ")úL>",
+            "V­$"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "example": 946,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "contains#obj",
+      "remove#obj",
+      "remove#obj",
+      "isEmpty#0",
+      "contains#obj",
+      "isEmpty#0",
+      "isEmpty#0"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      }
+    ]
+  },
+  {
+    "example": 951,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "size#0",
+      "add#obj",
+      "remove#obj",
+      "size#0",
+      "size#0",
+      "clear#0",
+      "remove#obj"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": 0,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            "kð"
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            "kð"
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": 1,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            "kð"
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": 1,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            "kð"
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": null,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      }
+    ]
+  },
+  {
+    "example": 962,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "add#obj",
+      "add#obj",
+      "isEmpty#0",
+      "size#0",
+      "remove#obj",
+      "clear#0",
+      "isEmpty#0"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            -183074038000000.0
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "Infinity"
+            },
+            -183074038000000.0
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "Infinity"
+            },
+            -183074038000000.0
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": 2,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "Infinity"
+            },
+            -183074038000000.0
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            {
+              "kind": "float-special",
+              "value": "Infinity"
+            },
+            -183074038000000.0
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": null,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      }
+    ]
+  },
+  {
+    "example": 983,
+    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "sequence": [
+      "clear#0",
+      "size#0",
+      "isEmpty#0",
+      "add#obj",
+      "clear#0",
+      "clear#0",
+      "remove#obj",
+      "size#0"
+    ],
+    "jdk_results": [
+      {
+        "outcome": "normal",
+        "value": null,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": 0,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": true,
+        "receiverState": {
+          "kind": "set",
+          "values": [
+            true
+          ]
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": null,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": null,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": false,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      },
+      {
+        "outcome": "normal",
+        "value": 0,
+        "receiverState": {
+          "kind": "set",
+          "values": []
+        }
+      }
+    ]
+  }
+]

@@ -173,21 +173,14 @@
     (heap-map-data heap)
     (store (heap-set-size heap) reference 0)
     (store (heap-set-present heap) reference ((as const (Array JValue Bool)) false))))
-; Java/trace method: java.lang.Boolean.booleanValue#0
-; Receiver kind: generic
-; Argument types: []
+; Java/trace method: java.lang.Boolean.parseBoolean#obj
+; Receiver kind: object
+; Argument types: ['java.lang.String']
 ; Return type: boolean
-; Symbolic paths: 1
-(define-fun stub_booleanValue_0_pre ((pre Heap) (receiver Int)) Bool
-  (and (<= 0 receiver) ((_ is JBool) (select (heap-object-value pre) receiver))))
-(define-fun stub_booleanValue_0 ((pre Heap) (receiver Int)) StubResult
-  (ite (and (<= 0 receiver) ((_ is JBool) (select (heap-object-value pre) receiver))) (mk-result (mk-heap (heap-kind pre) (heap-object-value pre) (heap-list-size pre) (heap-list-data pre) (heap-map-size pre) (heap-map-present pre) (heap-map-data pre) (heap-set-size pre) (heap-set-present pre)) OUT_NORMAL (JBool (j-bool (select (heap-object-value pre) receiver))) EX_NONE) (mk-result pre OUT_THROWN JNull EX_INVALID_RECEIVER)))
-
-(define-fun h_init_0 () Heap empty-heap)
-(define-fun h_init_1 () Heap (mk-heap (store (heap-kind h_init_0) 0 K_OBJECT) (heap-list-size h_init_0) (heap-list-data h_init_0) (heap-map-size h_init_0) (heap-map-present h_init_0) (heap-map-data h_init_0) (heap-set-size h_init_0) (heap-set-present h_init_0)))
-(define-fun h0 () Heap h_init_1)
-(define-fun r0 () StubResult (stub_booleanValue_0 h0 0))
-(push 1)
-(assert (not (and (= (result-outcome r0) OUT_NORMAL) (= (result-exception r0) EX_NONE) (= (result-value r0) (JBool false)))))
-(check-sat)
-(pop 1)
+; Symbolic paths: 2
+; WARNING: parseBoolean#obj: Java UTF-16 strings are modeled with the SMT String theory
+; WARNING: parseBoolean#obj: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)
+(define-fun stub_parseBoolean_obj_pre ((pre Heap) (receiver Int) (arg0 JValue)) Bool
+  (and (and (<= 0 receiver) (= (select (heap-kind pre) receiver) K_OBJECT) ((_ is JBool) (select (heap-object-value pre) receiver))) (or ((_ is JNull) arg0) ((_ is JString) arg0))))
+(define-fun stub_parseBoolean_obj ((pre Heap) (receiver Int) (arg0 JValue)) StubResult
+  (ite (and (<= 0 receiver) (= (select (heap-kind pre) receiver) K_OBJECT) ((_ is JBool) (select (heap-object-value pre) receiver))) (ite (or ((_ is JNull) arg0) ((_ is JString) arg0)) (ite (or ((_ is JString) arg0) ((_ is JNull) arg0)) (mk-result (mk-heap (heap-kind pre) (heap-object-value pre) (heap-list-size pre) (heap-list-data pre) (heap-map-size pre) (heap-map-present pre) (heap-map-data pre) (heap-set-size pre) (heap-set-present pre)) OUT_MISSING JNull EX_NONE) (mk-result pre OUT_MISSING JNull EX_INTERNAL)) (mk-result pre OUT_THROWN JNull EX_INVALID_ARGUMENT)) (mk-result pre OUT_THROWN JNull EX_INVALID_RECEIVER)))

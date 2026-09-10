@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "parseBoolean#obj",
+      "owner": "java.lang.Boolean",
+      "smtFunction": "stub_parseBoolean_obj",
+      "preconditionFunction": "stub_parseBoolean_obj_pre",
+      "argumentTypes": [
+        "java.lang.String"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Boolean",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "parseBoolean#obj: Java UTF-16 strings are modeled with the SMT String theory",
+        "parseBoolean#obj: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "parseBoolean#obj: Java UTF-16 strings are modeled with the SMT String theory",
+    "parseBoolean#obj: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}
