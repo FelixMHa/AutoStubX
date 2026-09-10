@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "setProperty#obj#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_setProperty_obj_obj",
+      "preconditionFunction": "stub_setProperty_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.String",
+        "java.lang.String"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 4,
+      "warnings": [
+        "setProperty#obj#obj: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    },
+    {
+      "method": "put#obj#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_put_obj_obj",
+      "preconditionFunction": "stub_put_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object",
+        "java.lang.Object"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 36,
+      "warnings": []
+    },
+    {
+      "method": "clear#0",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_clear_0",
+      "preconditionFunction": "stub_clear_0_pre",
+      "argumentTypes": [],
+      "returnType": "void",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "clear#0: RECEIVER.VALUE treated as a no-op (receiver scalar payload is unknown; provide owner or receiverValueType)"
+      ]
+    },
+    {
+      "method": "remove#obj#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_remove_obj_obj",
+      "preconditionFunction": "stub_remove_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object",
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 36,
+      "warnings": []
+    },
+    {
+      "method": "contains#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_contains_obj",
+      "preconditionFunction": "stub_contains_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "get#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_get_obj",
+      "preconditionFunction": "stub_get_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 36,
+      "warnings": []
+    },
+    {
+      "method": "putIfAbsent#obj#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_putIfAbsent_obj_obj",
+      "preconditionFunction": "stub_putIfAbsent_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object",
+        "java.lang.Object"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 36,
+      "warnings": []
+    },
+    {
+      "method": "getProperty#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_getProperty_obj",
+      "preconditionFunction": "stub_getProperty_obj_pre",
+      "argumentTypes": [
+        "java.lang.String"
+      ],
+      "returnType": "java.lang.String",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "getProperty#obj: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    },
+    {
+      "method": "getProperty#obj#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_getProperty_obj_obj",
+      "preconditionFunction": "stub_getProperty_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.String",
+        "java.lang.String"
+      ],
+      "returnType": "java.lang.String",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 4,
+      "warnings": [
+        "getProperty#obj#obj: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    },
+    {
+      "method": "replace#obj#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_replace_obj_obj",
+      "preconditionFunction": "stub_replace_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object",
+        "java.lang.Object"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 216,
+      "warnings": []
+    },
+    {
+      "method": "getOrDefault#obj#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_getOrDefault_obj_obj",
+      "preconditionFunction": "stub_getOrDefault_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object",
+        "java.lang.Object"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 36,
+      "warnings": []
+    },
+    {
+      "method": "containsValue#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_containsValue_obj",
+      "preconditionFunction": "stub_containsValue_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "toString#0",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_toString_0",
+      "preconditionFunction": "stub_toString_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.String",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toString#0: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    },
+    {
+      "method": "isEmpty#0",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_isEmpty_0",
+      "preconditionFunction": "stub_isEmpty_0_pre",
+      "argumentTypes": [],
+      "returnType": "boolean",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 3,
+      "warnings": []
+    },
+    {
+      "method": "remove#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_remove_obj",
+      "preconditionFunction": "stub_remove_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "java.lang.Object",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "replace#obj#obj#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_replace_obj_obj_obj",
+      "preconditionFunction": "stub_replace_obj_obj_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object",
+        "java.lang.Object",
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 216,
+      "warnings": []
+    },
+    {
+      "method": "containsKey#obj",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_containsKey_obj",
+      "preconditionFunction": "stub_containsKey_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 18,
+      "warnings": []
+    },
+    {
+      "method": "size#0",
+      "owner": "java.util.Properties",
+      "smtFunction": "stub_size_0",
+      "preconditionFunction": "stub_size_0_pre",
+      "argumentTypes": [],
+      "returnType": "int",
+      "receiverKind": "map",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": [
+    "setProperty#obj#obj: Java UTF-16 strings are modeled with the SMT String theory",
+    "clear#0: RECEIVER.VALUE treated as a no-op (receiver scalar payload is unknown; provide owner or receiverValueType)",
+    "getProperty#obj: Java UTF-16 strings are modeled with the SMT String theory",
+    "getProperty#obj#obj: Java UTF-16 strings are modeled with the SMT String theory",
+    "toString#0: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

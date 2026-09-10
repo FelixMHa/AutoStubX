@@ -1,0 +1,390 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "addLast#obj",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_addLast_obj",
+      "preconditionFunction": "stub_addLast_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "void",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "removeLastOccurrence#obj",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_removeLastOccurrence_obj",
+      "preconditionFunction": "stub_removeLastOccurrence_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 7,
+      "warnings": []
+    },
+    {
+      "method": "remove#obj",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_remove_obj",
+      "preconditionFunction": "stub_remove_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "peekLast#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_peekLast_0",
+      "preconditionFunction": "stub_peekLast_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "pop#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_pop_0",
+      "preconditionFunction": "stub_pop_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "addFirst#obj",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_addFirst_obj",
+      "preconditionFunction": "stub_addFirst_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "void",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": [
+        "addFirst#obj: RECEIVER.VALUE treated as a no-op (receiver scalar payload is unknown; provide owner or receiverValueType)"
+      ]
+    },
+    {
+      "method": "add#obj",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_add_obj",
+      "preconditionFunction": "stub_add_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": [
+        "add#obj: RECEIVER.VALUE treated as a no-op (receiver scalar payload is unknown; provide owner or receiverValueType)"
+      ]
+    },
+    {
+      "method": "peekFirst#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_peekFirst_0",
+      "preconditionFunction": "stub_peekFirst_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "peekFirst#0: RECEIVER.VALUE treated as a no-op (receiver scalar payload is unknown; provide owner or receiverValueType)"
+      ]
+    },
+    {
+      "method": "removeLast#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_removeLast_0",
+      "preconditionFunction": "stub_removeLast_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "push#obj",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_push_obj",
+      "preconditionFunction": "stub_push_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "void",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "removeFirstOccurrence#obj",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_removeFirstOccurrence_obj",
+      "preconditionFunction": "stub_removeFirstOccurrence_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "pollLast#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_pollLast_0",
+      "preconditionFunction": "stub_pollLast_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "offerFirst#obj",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_offerFirst_obj",
+      "preconditionFunction": "stub_offerFirst_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "peek#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_peek_0",
+      "preconditionFunction": "stub_peek_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "clear#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_clear_0",
+      "preconditionFunction": "stub_clear_0_pre",
+      "argumentTypes": [],
+      "returnType": "void",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "isEmpty#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_isEmpty_0",
+      "preconditionFunction": "stub_isEmpty_0_pre",
+      "argumentTypes": [],
+      "returnType": "boolean",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "getLast#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_getLast_0",
+      "preconditionFunction": "stub_getLast_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 7,
+      "warnings": []
+    },
+    {
+      "method": "contains#obj",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_contains_obj",
+      "preconditionFunction": "stub_contains_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 42,
+      "warnings": []
+    },
+    {
+      "method": "getFirst#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_getFirst_0",
+      "preconditionFunction": "stub_getFirst_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "poll#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_poll_0",
+      "preconditionFunction": "stub_poll_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "offer#obj",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_offer_obj",
+      "preconditionFunction": "stub_offer_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "remove#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_remove_0",
+      "preconditionFunction": "stub_remove_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "removeFirst#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_removeFirst_0",
+      "preconditionFunction": "stub_removeFirst_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "element#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_element_0",
+      "preconditionFunction": "stub_element_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 7,
+      "warnings": []
+    },
+    {
+      "method": "pollFirst#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_pollFirst_0",
+      "preconditionFunction": "stub_pollFirst_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.Object",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "offerLast#obj",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_offerLast_obj",
+      "preconditionFunction": "stub_offerLast_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "size#0",
+      "owner": "java.util.ArrayDeque",
+      "smtFunction": "stub_size_0",
+      "preconditionFunction": "stub_size_0_pre",
+      "argumentTypes": [],
+      "returnType": "int",
+      "receiverKind": "list",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": [
+    "addFirst#obj: RECEIVER.VALUE treated as a no-op (receiver scalar payload is unknown; provide owner or receiverValueType)",
+    "add#obj: RECEIVER.VALUE treated as a no-op (receiver scalar payload is unknown; provide owner or receiverValueType)",
+    "peekFirst#0: RECEIVER.VALUE treated as a no-op (receiver scalar payload is unknown; provide owner or receiverValueType)"
+  ]
+}

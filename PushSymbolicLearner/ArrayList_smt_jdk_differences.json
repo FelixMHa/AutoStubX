@@ -1,0 +1,347 @@
+[
+  {
+    "example": 27,
+    "call": 2,
+    "method": "remove#obj",
+    "args": [
+      true
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": true,
+      "receiverState": [
+        -4143
+      ]
+    },
+    "recorded_training_output": true,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 396,
+    "call": 3,
+    "method": "remove#obj",
+    "args": [
+      false
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": true,
+      "receiverState": [
+        2042,
+        "ýåkl_\u0011"
+      ]
+    },
+    "recorded_training_output": true,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JBool true))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 757,
+    "call": 2,
+    "method": "remove#obj",
+    "args": [
+      false
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": true,
+      "receiverState": [
+        true
+      ]
+    },
+    "recorded_training_output": true,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (JBool true))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 757,
+    "call": 3,
+    "method": "indexOf#obj",
+    "args": [
+      -844393520000000.0
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": -1,
+      "receiverState": [
+        true
+      ]
+    },
+    "recorded_training_output": -1,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (JInt (- 1)))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 757,
+    "call": 4,
+    "method": "size#0",
+    "args": [],
+    "jdk": {
+      "outcome": "normal",
+      "value": 1,
+      "receiverState": [
+        true
+      ]
+    },
+    "recorded_training_output": 1,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JInt 2))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 757,
+    "call": 5,
+    "method": "remove#int",
+    "args": [
+      0
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": true,
+      "receiverState": []
+    },
+    "recorded_training_output": true,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) (JBool true))\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 757,
+    "call": 6,
+    "method": "remove#obj",
+    "args": [
+      -10830437
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": false,
+      "receiverState": []
+    },
+    "recorded_training_output": false,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (let ((a!1 (lambda ((position Int))\n             (let ((a!1 (store (store ((as const (Array Int JValue)) JNull)\n                                      0\n                                      (JBool true))\n                               1\n                               (JBool false))))\n               (ite (and (<= 0 position) (not (<= 1 position)))\n                    (select a!1 (+ 1 position))\n                    (select a!1 position))))))\n  (JBool (<= 0 (list-index-of-from a!1 1 (JInt (- 10830437)) 0)))))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 757,
+    "call": 7,
+    "method": "size#0",
+    "args": [],
+    "jdk": {
+      "outcome": "normal",
+      "value": 0,
+      "receiverState": []
+    },
+    "recorded_training_output": 0,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JInt 1))\n ((result-exception r7) EX_NONE))"
+  },
+  {
+    "example": 796,
+    "call": 3,
+    "method": "remove#obj",
+    "args": [
+      false
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": true,
+      "receiverState": []
+    },
+    "recorded_training_output": true,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (let ((a!1 (lambda ((position Int))\n             (let ((a!1 (store (store ((as const (Array Int JValue)) JNull)\n                                      0\n                                      (JBool true))\n                               1\n                               (JBool false))))\n               (ite (and (<= 0 position) (not (<= 1 position)))\n                    (select a!1 (+ 1 position))\n                    (select a!1 position))))))\n  (JBool (<= 0 (list-index-of-from a!1 1 (JBool false) 0)))))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 796,
+    "call": 4,
+    "method": "isEmpty#0",
+    "args": [],
+    "jdk": {
+      "outcome": "normal",
+      "value": true,
+      "receiverState": []
+    },
+    "recorded_training_output": true,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool false))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 799,
+    "call": 6,
+    "method": "remove#obj",
+    "args": [
+      true
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": true,
+      "receiverState": []
+    },
+    "recorded_training_output": true,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JBool true))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 941,
+    "call": 2,
+    "method": "remove#obj",
+    "args": [
+      true
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": true,
+      "receiverState": [
+        false
+      ]
+    },
+    "recorded_training_output": true,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r2) OUT_NORMAL)\n ((result-value r2) (let ((a!1 (lambda ((position Int))\n             (ite (and (<= 0 position) (not (<= 2 position)))\n                  (ite (= position 0)\n                       (JBool false)\n                       (ite (= 1 position) (JBool true) JNull))\n                  (ite (= 0 position) (JBool true) JNull)))))\n  (JBool (<= 0 (list-index-of-from a!1 2 (JBool true) 0)))))\n ((result-exception r2) EX_NONE))"
+  },
+  {
+    "example": 941,
+    "call": 3,
+    "method": "contains#obj",
+    "args": [
+      1.4e-45
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": false,
+      "receiverState": [
+        false
+      ]
+    },
+    "recorded_training_output": false,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r3) OUT_NORMAL)\n ((result-value r3) (let ((a!1 (lambda ((position Int))\n             (ite (and (<= 0 position) (not (<= 2 position)))\n                  (ite (= position 0)\n                       (JBool false)\n                       (ite (= 1 position) (JBool true) JNull))\n                  (ite (= 0 position) (JBool true) JNull)))))\n  (JBool (<= 0\n             (list-index-of-from\n               a!1\n               2\n               (JReal (/ 7.0 5000000000000000000000000000000000000000000000.0))\n               0)))))\n ((result-exception r3) EX_NONE))"
+  },
+  {
+    "example": 941,
+    "call": 4,
+    "method": "set#int#obj",
+    "args": [
+      0,
+      -672755
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": false,
+      "receiverState": [
+        -672755
+      ]
+    },
+    "recorded_training_output": false,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool false))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 941,
+    "call": 5,
+    "method": "add#int#obj",
+    "args": [
+      0,
+      "]M>Æò"
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": null,
+      "receiverState": [
+        "]M>Æò",
+        -672755
+      ]
+    },
+    "recorded_training_output": null,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_NORMAL)\n ((result-value r5) JNull)\n ((result-exception r5) EX_NONE))"
+  },
+  {
+    "example": 941,
+    "call": 6,
+    "method": "add#int#obj",
+    "args": [
+      1,
+      257580
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": null,
+      "receiverState": [
+        "]M>Æò",
+        257580,
+        -672755
+      ]
+    },
+    "recorded_training_output": null,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) JNull)\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 958,
+    "call": 4,
+    "method": "remove#obj",
+    "args": [
+      false
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": true,
+      "receiverState": []
+    },
+    "recorded_training_output": true,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r4) OUT_NORMAL)\n ((result-value r4) (JBool true))\n ((result-exception r4) EX_NONE))"
+  },
+  {
+    "example": 958,
+    "call": 5,
+    "method": "add#int#obj",
+    "args": [
+      -56,
+      true
+    ],
+    "jdk": {
+      "outcome": "thrown",
+      "exceptionType": "java.lang.IndexOutOfBoundsException",
+      "message": "Index: -56, Size: 0",
+      "receiverState": []
+    },
+    "recorded_training_output": "error",
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r5) OUT_THROWN)\n ((result-value r5) JNull)\n ((result-exception r5) EX_INDEX_OUT_OF_BOUNDS))"
+  },
+  {
+    "example": 958,
+    "call": 6,
+    "method": "add#obj",
+    "args": [
+      13634
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": true,
+      "receiverState": [
+        13634
+      ]
+    },
+    "recorded_training_output": true,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r6) OUT_NORMAL)\n ((result-value r6) (JBool true))\n ((result-exception r6) EX_NONE))"
+  },
+  {
+    "example": 958,
+    "call": 7,
+    "method": "remove#int",
+    "args": [
+      0
+    ],
+    "jdk": {
+      "outcome": "normal",
+      "value": 13634,
+      "receiverState": []
+    },
+    "recorded_training_output": 13634,
+    "receiver_ref": 0,
+    "smt_result": "(((result-outcome r7) OUT_NORMAL)\n ((result-value r7) (JBool false))\n ((result-exception r7) EX_NONE))"
+  }
+]

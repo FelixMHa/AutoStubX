@@ -20,16 +20,16 @@ def startRun(mainfolder, folder):
                     "--profile", "primitives_full",
                     "--output", f"genomesNew/{filename}_genome.json",
                 ])
-    elif os.path.isfile(folder_path) and folder.endswith(".json"):
-        print(f"Running on {folder_path}...")
-    
-        subprocess.run([
-            "python", "rungp.py", folder_path,
-            "--population", "400",
-            "--generations", "400",
-            "--profile", "java_ds_minimal",
-            "--output", f"genomesNew/{folder}_genome.json",
-        ])
+    #if os.path.isfile(folder_path) and folder.endswith(".json"):
+    #    print(f"Running on {folder_path}...")
+    #
+    #    subprocess.run([
+    #        "python", "rungp.py", folder_path,
+    #        "--population", "400",
+    #        "--generations", "400",
+    #        "--profile", "java_ds_minimal",
+    #        "--output", f"genomesNew/{folder}_genome.json",
+    #    ])
 
 def main():
     parser = argparse.ArgumentParser()
