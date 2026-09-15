@@ -15,8 +15,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "NaN"
+              "value": "NaN",
+              "kind": "float-special"
             }
           ]
         }
@@ -29,8 +29,8 @@
           "values": [
             false,
             {
-              "kind": "float-special",
-              "value": "NaN"
+              "value": "NaN",
+              "kind": "float-special"
             }
           ]
         }
@@ -44,8 +44,8 @@
             false,
             -6,
             {
-              "kind": "float-special",
-              "value": "NaN"
+              "value": "NaN",
+              "kind": "float-special"
             }
           ]
         }
@@ -339,8 +339,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             },
             false
           ]
@@ -353,8 +353,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             },
             false,
             true
@@ -368,8 +368,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             },
             false,
             true
@@ -383,8 +383,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             },
             false,
             -62263,
@@ -425,8 +425,8 @@
           "values": [
             0,
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             }
           ]
         }
@@ -439,8 +439,8 @@
           "values": [
             0,
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             }
           ]
         }
@@ -453,8 +453,8 @@
           "values": [
             0,
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             }
           ]
         }
@@ -670,8 +670,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             },
             "V­$"
           ]
@@ -684,8 +684,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             },
             ")úL>",
             "V­$"
@@ -699,8 +699,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             },
             ")úL>",
             "V­$"
@@ -714,8 +714,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             },
             ")úL>",
             "V­$"
@@ -729,8 +729,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             },
             ")úL>",
             "V­$"
@@ -744,8 +744,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "-Infinity"
+              "value": "-Infinity",
+              "kind": "float-special"
             },
             ")úL>",
             "V­$"
@@ -934,8 +934,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "Infinity"
+              "value": "Infinity",
+              "kind": "float-special"
             },
             -183074038000000.0
           ]
@@ -948,8 +948,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "Infinity"
+              "value": "Infinity",
+              "kind": "float-special"
             },
             -183074038000000.0
           ]
@@ -962,8 +962,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "Infinity"
+              "value": "Infinity",
+              "kind": "float-special"
             },
             -183074038000000.0
           ]
@@ -976,8 +976,8 @@
           "kind": "set",
           "values": [
             {
-              "kind": "float-special",
-              "value": "Infinity"
+              "value": "Infinity",
+              "kind": "float-special"
             },
             -183074038000000.0
           ]

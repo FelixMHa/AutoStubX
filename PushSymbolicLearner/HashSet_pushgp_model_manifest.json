@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "size#0",
+      "owner": "java.util.HashSet",
+      "smtFunction": "stub_size_0",
+      "preconditionFunction": "stub_size_0_pre",
+      "argumentTypes": [],
+      "returnType": "int",
+      "receiverKind": "set",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "contains#obj",
+      "owner": "java.util.HashSet",
+      "smtFunction": "stub_contains_obj",
+      "preconditionFunction": "stub_contains_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "set",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "remove#obj",
+      "owner": "java.util.HashSet",
+      "smtFunction": "stub_remove_obj",
+      "preconditionFunction": "stub_remove_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "set",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "add#obj",
+      "owner": "java.util.HashSet",
+      "smtFunction": "stub_add_obj",
+      "preconditionFunction": "stub_add_obj_pre",
+      "argumentTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "set",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 6,
+      "warnings": []
+    },
+    {
+      "method": "isEmpty#0",
+      "owner": "java.util.HashSet",
+      "smtFunction": "stub_isEmpty_0",
+      "preconditionFunction": "stub_isEmpty_0_pre",
+      "argumentTypes": [],
+      "returnType": "boolean",
+      "receiverKind": "set",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    },
+    {
+      "method": "clear#0",
+      "owner": "java.util.HashSet",
+      "smtFunction": "stub_clear_0",
+      "preconditionFunction": "stub_clear_0_pre",
+      "argumentTypes": [],
+      "returnType": "void",
+      "receiverKind": "set",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}
