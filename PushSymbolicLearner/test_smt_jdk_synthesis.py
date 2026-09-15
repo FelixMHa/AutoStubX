@@ -734,7 +734,11 @@ def _jdk_payload(example: Any, methods: dict[str, dict]) -> dict[str, Any]:
             type_name = default_type
         if _generic_jdk_state_type(type_name) and ref in receiver_hints:
             type_name = receiver_hints[ref]
-        initial.append({"id": ref, "type": type_name, "data": _wire_value(data)})
+        if kind(type_name, data) == "set" and isinstance(data, (list, tuple)):
+            wire_data = {"kind": "set", "values": [_wire_value(v) for v in data]}
+        else:
+            wire_data = _wire_value(data)
+        initial.append({"id": ref, "type": type_name, "data": wire_data})
 
     next_ref = max((int(r) for r in state), default=-1) + 1
     calls_out = []
@@ -1366,15 +1370,22 @@ def expected_condition(result: str, value: Any, trace_type: Any, declared_type: 
 
 
 def run_z3(z3: str, text: str) -> str:
-    p = subprocess.run(
-        [z3, "-in", "-smt2"],
-        input=text,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="strict",
-        timeout=60,
-    )
+    try:
+        p = subprocess.run(
+            [z3, "-in", "-smt2"],
+            input=text,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="strict",
+            timeout=60,
+        )
+    except subprocess.TimeoutExpired:
+        # A solver timeout is an unresolved query, not a Python-level crash.  Save
+        # the exact query for diagnosis and let callers treat it like SMT unknown.
+        Path("timed_out_query.smt2").write_text(text, encoding="utf-8")
+        print("\nZ3 query timed out after 60s; saved to timed_out_query.smt2")
+        return "unknown\n"
     if p.returncode or "(error" in p.stdout:
         Path("failed_query.smt2").write_text(text, encoding="utf-8")
         raise RuntimeError("Z3 failed; query saved to failed_query.smt2\n" + p.stdout + p.stderr)
@@ -1455,7 +1466,7 @@ def _domain_term(index_name: str, domain: list[Any], type_name: Any) -> str:
     return term
 
 
-def _symbolic_set_heap(receiver: int, domain: list[Any]) -> tuple[str, list[str]]:
+def _finite_symbolic_set_heap(receiver: int, domain: list[Any]) -> tuple[str, list[str]]:
     """Build h0 with a finite symbolic HashSet over exactly `domain`."""
     membership = [f"synth_member_{i}" for i in range(len(domain))]
     present = "((as const (Array JValue Bool)) false)"
@@ -1541,7 +1552,7 @@ def _same_receiver_prefix(example: Any, methods: dict[str, dict], through: int, 
     return True
 
 
-def synthesize_cases_for_call(
+def _synthesize_cases_finite(
     z3: str,
     base: str,
     example: Any,
@@ -1552,7 +1563,7 @@ def synthesize_cases_for_call(
     domain: list[Any],
     limit: int,
 ) -> list[dict[str, Any]]:
-    """Finite-domain inverse generation for argument, HashSet state, or both."""
+    """Finite-domain inverse generation retained as an optional fallback."""
     method_name = example.sequence[call_index]
     info = methods[method_name]
     declared = list(info.get("argumentTypes", []))
@@ -1576,7 +1587,7 @@ def synthesize_cases_for_call(
     # receiver state for state/joint synthesis.
     membership: list[str] = []
     if synth_state:
-        heap_text, membership = _symbolic_set_heap(receiver, domain)
+        heap_text, membership = _finite_symbolic_set_heap(receiver, domain)
         next_ref = receiver + 1
     else:
         try:
@@ -1669,12 +1680,639 @@ def synthesize_cases_for_call(
     return found
 
 
+# ---------------------------------------------------------------------------
+# Unbounded-value symbolic synthesis
+# ---------------------------------------------------------------------------
+# Values are genuine SMT variables (Int/Real/Bool/String/JValue).  Only heap
+# structure is bounded: a synthesized HashSet has at most --synth-set-slots
+# live elements so that every satisfying model can be concretized on a JVM.
+
+
+def _smt_tokenize(text: str) -> list[Any]:
+    tokens: list[Any] = []
+    i = 0
+    n = len(text)
+    while i < n:
+        c = text[i]
+        if c.isspace():
+            i += 1
+            continue
+        if c in "()":
+            tokens.append(c)
+            i += 1
+            continue
+        if c == '"':
+            i += 1
+            buf: list[str] = []
+            while i < n:
+                if text[i] == '"':
+                    if i + 1 < n and text[i + 1] == '"':
+                        buf.append('"')
+                        i += 2
+                        continue
+                    i += 1
+                    break
+                buf.append(text[i])
+                i += 1
+            tokens.append(("__string__", "".join(buf)))
+            continue
+        start = i
+        while i < n and not text[i].isspace() and text[i] not in "()":
+            i += 1
+        tokens.append(text[start:i])
+    return tokens
+
+
+def _smt_parse_forms(text: str) -> list[Any]:
+    # Remove status lines; the remaining output is ordinary SMT S-expressions.
+    cleaned = "\n".join(
+        line for line in text.splitlines()
+        if line.strip() not in {"sat", "unsat", "unknown"}
+    )
+    tokens = _smt_tokenize(cleaned)
+    pos = 0
+
+    def parse_one() -> Any:
+        nonlocal pos
+        if pos >= len(tokens):
+            raise ValueError("unexpected end of SMT output")
+        tok = tokens[pos]
+        pos += 1
+        if tok == "(":
+            out: list[Any] = []
+            while True:
+                if pos >= len(tokens):
+                    raise ValueError("unterminated SMT list")
+                if tokens[pos] == ")":
+                    pos += 1
+                    return out
+                out.append(parse_one())
+        if tok == ")":
+            raise ValueError("unexpected ')' in SMT output")
+        return tok
+
+    forms: list[Any] = []
+    while pos < len(tokens):
+        forms.append(parse_one())
+    return forms
+
+
+def _get_value_pairs(output: str) -> dict[str, Any]:
+    values: dict[str, Any] = {}
+    for form in _smt_parse_forms(output):
+        if not isinstance(form, list):
+            continue
+        for pair in form:
+            if isinstance(pair, list) and len(pair) == 2 and isinstance(pair[0], str):
+                values[pair[0]] = pair[1]
+    return values
+
+
+def _smt_expr_text(expr: Any) -> str:
+    """Serialize a parsed model term back to SMT without lossy concretization."""
+    if isinstance(expr, tuple) and len(expr) == 2 and expr[0] == "__string__":
+        return '"' + str(expr[1]).replace('\"', '\"\"') + '"'
+    if isinstance(expr, list):
+        return "(" + " ".join(_smt_expr_text(x) for x in expr) + ")"
+    return str(expr)
+
+
+def _smt_bool_value(expr: Any) -> bool:
+    if expr == "true":
+        return True
+    if expr == "false":
+        return False
+    raise ValueError(f"not an SMT Bool value: {expr!r}")
+
+
+def _smt_int_value(expr: Any) -> int:
+    if isinstance(expr, str) and re.fullmatch(r"-?\d+", expr):
+        return int(expr)
+    if isinstance(expr, list) and len(expr) == 2 and expr[0] == "-":
+        return -_smt_int_value(expr[1])
+    raise ValueError(f"not an SMT Int value: {expr!r}")
+
+
+def _smt_real_fraction(expr: Any) -> Fraction:
+    if isinstance(expr, str):
+        try:
+            return Fraction(Decimal(expr))
+        except Exception as exc:
+            raise ValueError(f"not an SMT Real atom: {expr!r}") from exc
+    if isinstance(expr, list):
+        if len(expr) == 2 and expr[0] == "-":
+            return -_smt_real_fraction(expr[1])
+        if len(expr) == 3 and expr[0] == "/":
+            den = _smt_real_fraction(expr[2])
+            if den == 0:
+                raise ValueError("zero denominator in SMT real")
+            return _smt_real_fraction(expr[1]) / den
+    raise ValueError(f"not an SMT Real value: {expr!r}")
+
+
+def _decode_z3_string_atom(raw: str) -> str:
+    # Z3 commonly uses these display escapes even though SMT-LIB strings escape
+    # quotes by doubling them (already handled by the tokenizer).
+    raw = re.sub(r"\\u\{([0-9a-fA-F]+)\}", lambda m: chr(int(m.group(1), 16)), raw)
+    raw = re.sub(r"\\x([0-9a-fA-F]{2})", lambda m: chr(int(m.group(1), 16)), raw)
+    return raw
+
+
+def _smt_string_value(expr: Any) -> str:
+    if isinstance(expr, tuple) and len(expr) == 2 and expr[0] == "__string__":
+        return _decode_z3_string_atom(expr[1])
+    if isinstance(expr, list) and expr:
+        if expr[0] == "str.++":
+            return "".join(_smt_string_value(x) for x in expr[1:])
+        if expr[0] == "str.from_code" and len(expr) == 2:
+            code = _smt_int_value(expr[1])
+            if 0 <= code <= 0x10FFFF:
+                return chr(code)
+    raise ValueError(f"not a concretizable SMT String value: {expr!r}")
+
+
+def _decode_jvalue_model(expr: Any) -> Any:
+    if expr == "JNull" or expr == ["JNull"]:
+        return None
+    if not isinstance(expr, list) or not expr:
+        raise ValueError(f"not a JValue model term: {expr!r}")
+    ctor = expr[0]
+    if ctor == "JInt" and len(expr) == 2:
+        return _smt_int_value(expr[1])
+    if ctor == "JBool" and len(expr) == 2:
+        return _smt_bool_value(expr[1])
+    if ctor == "JReal" and len(expr) == 2:
+        value = float(_smt_real_fraction(expr[1]))
+        if not math.isfinite(value):
+            raise UnsupportedConcreteValue(f"non-finite synthesized real {value!r}")
+        return value
+    if ctor == "JString" and len(expr) == 2:
+        return _smt_string_value(expr[1])
+    if ctor == "JRef":
+        raise UnsupportedConcreteValue(
+            "symbolic JRef synthesis needs heap-object synthesis; scalar symbolic mode excludes it"
+        )
+    raise ValueError(f"unsupported JValue model term: {expr!r}")
+
+
+def _replayable_jvalue_constraint(name: str, allowed: set[str] | None = None) -> str:
+    kinds = allowed or {"null", "int", "bool", "real", "string"}
+    tests: list[str] = []
+    if "null" in kinds:
+        tests.append(f"((_ is JNull) {name})")
+    if "int" in kinds:
+        tests.append(f"((_ is JInt) {name})")
+    if "bool" in kinds:
+        tests.append(f"((_ is JBool) {name})")
+    if "real" in kinds:
+        tests.append(f"((_ is JReal) {name})")
+    if "string" in kinds:
+        tests.append(f"((_ is JString) {name})")
+    if not tests:
+        return "false"
+    return tests[0] if len(tests) == 1 else "(or " + " ".join(tests) + ")"
+
+
+def _symbolic_argument_spec(name: str, type_name: Any) -> tuple[list[str], str] | None:
+    """Return declarations/constraints plus the term passed to the SMT stub."""
+    t = norm(type_name)
+    if t in INT:
+        return [f"(declare-const {name} Int)"], name
+    if t in REAL:
+        return [f"(declare-const {name} Real)"], name
+    if t in BOOL:
+        return [f"(declare-const {name} Bool)"], name
+    if t in CHAR:
+        return [f"(declare-const {name} String)", f"(assert (= (str.len {name}) 1))"], name
+
+    # Reference-like scalar values are represented by JValue in the generated ABI.
+    if t in OBJECT or not t:
+        allowed = {"null", "int", "bool", "real", "string"}
+    elif t in STRING:
+        allowed = {"null", "string"}
+    elif t in BOXED_INT:
+        allowed = {"null", "int"}
+    elif t in BOXED_REAL:
+        allowed = {"null", "real"}
+    elif t in BOXED_BOOL:
+        allowed = {"null", "bool"}
+    elif t in BOXED_CHAR:
+        allowed = {"null", "string"}
+    else:
+        # Arbitrary reference objects require synthesizing an object graph and a live
+        # JRef, which is deliberately a separate extension from scalar synthesis.
+        return None
+
+    decls = [
+        f"(declare-const {name} JValue)",
+        f"(assert {_replayable_jvalue_constraint(name, allowed)})",
+    ]
+    if t in BOXED_CHAR:
+        decls.append(
+            f"(assert (or ((_ is JNull) {name}) "
+            f"(and ((_ is JString) {name}) (= (str.len (j-string {name})) 1))))"
+        )
+    return decls, name
+
+
+def _decode_symbolic_argument(expr: Any, type_name: Any) -> Any:
+    t = norm(type_name)
+    if t in INT:
+        return _smt_int_value(expr)
+    if t in REAL:
+        value = float(_smt_real_fraction(expr))
+        if not math.isfinite(value):
+            raise UnsupportedConcreteValue(f"non-finite synthesized real {value!r}")
+        return value
+    if t in BOOL:
+        return _smt_bool_value(expr)
+    if t in CHAR:
+        return _smt_string_value(expr)[:1]
+    return _decode_jvalue_model(expr)
+
+
+def _symbolic_arg_literal(value: Any, type_name: Any) -> str:
+    return argument(value, type_name)
+
+
+def _unbounded_symbolic_set_heap(
+    receiver: int,
+    slots: int,
+) -> tuple[str, list[str], list[str]]:
+    """A finite-cardinality HashSet whose *element values* are unrestricted JValues."""
+    if slots < 0:
+        raise ValueError("symbolic set slot bound cannot be negative")
+    active = [f"synth_active_{i}" for i in range(slots)]
+    elems = [f"synth_elem_{i}" for i in range(slots)]
+    lines: list[str] = []
+    for a, e in zip(active, elems):
+        lines.append(f"(declare-const {a} Bool)")
+        lines.append(f"(declare-const {e} JValue)")
+        lines.append(f"(assert {_replayable_jvalue_constraint(e)})")
+
+    # Canonicalize occupancy: active slots form a prefix.  Element values themselves
+    # remain unrestricted and are pairwise distinct whenever the slots are active.
+    for i in range(1, slots):
+        lines.append(f"(assert (=> {active[i]} {active[i - 1]}))")
+    for i in range(slots):
+        for j in range(i + 1, slots):
+            lines.append(
+                f"(assert (=> (and {active[i]} {active[j]}) (distinct {elems[i]} {elems[j]})))"
+            )
+
+    if slots:
+        body = "(or " + " ".join(
+            f"(and {a} (= synth_probe {e}))" for a, e in zip(active, elems)
+        ) + ")"
+        size = "(+ " + " ".join(f"(ite {a} 1 0)" for a in active) + ")"
+    else:
+        body = "false"
+        size = "0"
+
+    r = smt_int(receiver)
+    lines.extend([
+        f"(define-fun synth_set_present () (Array JValue Bool) (lambda ((synth_probe JValue)) {body}))",
+        f"(define-fun synth_set_size () Int {size})",
+        "(define-fun h0 () Heap",
+        "  (mk-heap",
+        f"    (store (heap-kind empty-heap) {r} K_SET)",
+        "    (heap-object-value empty-heap)",
+        "    (heap-list-size empty-heap)",
+        "    (heap-list-data empty-heap)",
+        "    (heap-map-size empty-heap)",
+        "    (heap-map-present empty-heap)",
+        "    (heap-map-data empty-heap)",
+        f"    (store (heap-set-size empty-heap) {r} synth_set_size)",
+        f"    (store (heap-set-present empty-heap) {r} synth_set_present)))",
+    ])
+    return "\n".join(lines), active, elems
+
+
+def _symbolic_hashset_summary_heap(
+    receiver: int,
+    max_size: int,
+    tracked_term: str | None,
+) -> tuple[str, list[str]]:
+    """Compact call-local symbolic HashSet state.
+
+    Values are still unrestricted: when a method has one Object argument, the
+    tracked term can be a genuinely symbolic JValue.  Instead of materializing N
+    arbitrary symbolic elements (which creates expensive datatype/lambda/distinct
+    constraints), represent exactly the facts HashSet's generated stubs observe:
+    size and membership of the target argument.  A concrete witness set is built
+    from these facts after solving and is then replayed on the actual JDK.
+    """
+    if max_size < 0:
+        raise ValueError("symbolic set size bound cannot be negative")
+    r = smt_int(receiver)
+    lines = [
+        "(declare-const synth_set_size Int)",
+        "(assert (<= 0 synth_set_size))",
+        f"(assert (<= synth_set_size {max_size}))",
+    ]
+    names = ["synth_set_size"]
+    present = "((as const (Array JValue Bool)) false)"
+    if tracked_term is not None:
+        lines.extend([
+            "(declare-const synth_present Bool)",
+            # A member cannot be present in an empty concrete set.
+            "(assert (=> synth_present (> synth_set_size 0)))",
+        ])
+        names.append("synth_present")
+        present = f"(store {present} {tracked_term} synth_present)"
+
+    lines.extend([
+        f"(define-fun synth_set_present () (Array JValue Bool) {present})",
+        "(define-fun h0 () Heap",
+        "  (mk-heap",
+        f"    (store (heap-kind empty-heap) {r} K_SET)",
+        "    (heap-object-value empty-heap)",
+        "    (heap-list-size empty-heap)",
+        "    (heap-list-data empty-heap)",
+        "    (heap-map-size empty-heap)",
+        "    (heap-map-present empty-heap)",
+        "    (heap-map-data empty-heap)",
+        f"    (store (heap-set-size empty-heap) {r} synth_set_size)",
+        f"    (store (heap-set-present empty-heap) {r} synth_set_present)))",
+    ])
+    return "\n".join(lines), names
+
+
+def _java_scalar_same(a: Any, b: Any) -> bool:
+    """Equality sufficient for the scalar values synthesized by this tester."""
+    if a is None or b is None:
+        return a is None and b is None
+    # Java boxed Boolean/Integer/Double/String do not cross-compare by numeric
+    # coercion the way Python's True == 1 does.
+    if type(a) is not type(b):
+        return False
+    if isinstance(a, float) and math.isnan(a) and math.isnan(b):
+        return True
+    return a == b
+
+
+def _hashset_witness(size: int, tracked_value: Any, present: bool | None) -> list[Any]:
+    """Construct a finite Java-replayable set matching a solved summary."""
+    if size < 0:
+        raise ValueError(f"negative synthesized HashSet size {size}")
+    out: list[Any] = []
+    if present:
+        if size == 0:
+            raise ValueError("inconsistent symbolic set: tracked value present at size 0")
+        out.append(tracked_value)
+
+    # Strings are valid Object elements and, with a private prefix, are convenient
+    # filler witnesses.  Skip any value equal to the tracked scalar.
+    i = 0
+    while len(out) < size:
+        filler = f"__pushgp_synth_fill_{i}__"
+        i += 1
+        if tracked_value is not None and _java_scalar_same(filler, tracked_value):
+            continue
+        if any(_java_scalar_same(filler, x) for x in out):
+            continue
+        out.append(filler)
+    return out
+
+
+def _candidate_identity(candidate: dict[str, Any]) -> str:
+    return json.dumps(
+        {
+            "state": candidate.get("initial_set"),
+            "argument": candidate.get("argument"),
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+        default=lambda x: repr(x),
+    )
+
+
+def _synthesize_cases_symbolic(
+    z3: str,
+    base: str,
+    example: Any,
+    methods: dict[str, dict],
+    call_index: int,
+    mode: str,
+    wanted: Any,
+    limit: int,
+    set_slots: int,
+) -> list[dict[str, Any]]:
+    """Inverse generation with unrestricted scalar values.
+
+    Argument-only synthesis preserves the concrete training prefix.  State and
+    joint synthesis use a compact *call-local* HashSet pre-state: symbolic size
+    plus symbolic membership of the target argument.  This is exact for the
+    generated HashSet size/isEmpty/clear/contains/add/remove stubs and avoids the
+    expensive arbitrary-JValue slot/lambda encoding.
+    """
+    method_name = example.sequence[call_index]
+    info = methods[method_name]
+    declared = list(info.get("argumentTypes", []))
+    is_static = bool(info.get("isStatic", False))
+    receiver = None if is_static else int(
+        example.receiver_refs[call_index] if call_index < len(example.receiver_refs) else 0
+    )
+
+    synth_arg = mode in {"args", "joint"}
+    synth_state = mode in {"state", "joint"}
+    if synth_arg and len(declared) != 1:
+        return []
+    if synth_state:
+        if is_static or str(info.get("receiverKind") or "").lower() != "set":
+            return []
+        assert receiver is not None
+
+    # Build the target argument first because joint state synthesis tracks the
+    # genuinely symbolic argument directly in heap-set-present.
+    declarations: list[str] = []
+    encoded_args: list[str] = []
+    arg_name = "synth_arg"
+    if synth_arg:
+        spec = _symbolic_argument_spec(arg_name, declared[0])
+        if spec is None:
+            return []
+        arg_decls, arg_term = spec
+        declarations.extend(arg_decls)
+        encoded_args = [arg_term]
+    else:
+        raw_args = list(example.input_args[call_index])
+        if len(raw_args) != len(declared):
+            return []
+        for value, type_name in zip(raw_args, declared):
+            if collection_arg(value, type_name):
+                return []
+            # Until symbolic heap-object synthesis exists, do not create a local
+            # HashSet summary around a dangling fixed reference argument.
+            if synth_state and ref_value(value) is not None:
+                return []
+            encoded_args.append(argument(value, type_name))
+
+    state_names: list[str] = []
+    if synth_state:
+        tracked_term = encoded_args[0] if len(encoded_args) == 1 else None
+        heap_text, state_names = _symbolic_hashset_summary_heap(
+            receiver, set_slots, tracked_term
+        )
+        prefix_text = ""
+        pre_heap = "h0"
+        synthesis_scope = "call-local"
+    else:
+        try:
+            heap_text, next_ref = initial_heap(example, methods)
+        except UnsupportedConcreteValue:
+            return []
+        prefix = _clone_example_prefix(example, call_index)
+        prefix_text = calls(prefix, methods, next_ref) if call_index else ""
+        pre_heap = "h0" if call_index == 0 else f"(result-heap r{call_index - 1})"
+        synthesis_scope = "sequence-prefix"
+
+    target = _target_call_smt(info, pre_heap, receiver, encoded_args)
+    desired = expected_condition("r_synth", wanted, info.get("returnType"), info.get("returnType"))
+    blocks: list[str] = []
+    found: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    attempts = 0
+    max_attempts = max(1, limit) * 20
+
+    while len(found) < max(0, limit) and attempts < max_attempts:
+        attempts += 1
+        # Declarations must precede the summary heap because its membership array
+        # may store at the symbolic argument term.
+        query = [base]
+        query.extend(declarations)
+        query.append(heap_text)
+        if prefix_text:
+            query.append(prefix_text)
+        query.append(target)
+        query.append(f"(assert {desired})")
+        query.extend(blocks)
+        query_text = "\n".join(query)
+
+        status_output = run_z3(z3, query_text + "\n(check-sat)\n")
+        statuses = result_words(status_output)
+        if not statuses or statuses[0] != "sat":
+            break
+
+        names = list(state_names)
+        if synth_arg:
+            names.append(arg_name)
+        if not names:
+            break
+        output = run_z3(
+            z3,
+            query_text + "\n(check-sat)\n" + f"(get-value ({' '.join(names)}))\n",
+        )
+        model_statuses = result_words(output)
+        if not model_statuses or model_statuses[0] != "sat":
+            break
+        model = _get_value_pairs(output)
+        if any(name not in model for name in names):
+            raise RuntimeError(f"Could not extract symbolic synthesis model values from Z3 output:\n{output}")
+
+        arg_value = _decode_symbolic_argument(model[arg_name], declared[0]) if synth_arg else None
+        state_values = None
+        solved_size = None
+        solved_present = None
+        if synth_state:
+            solved_size = _smt_int_value(model["synth_set_size"])
+            solved_present = (
+                _smt_bool_value(model["synth_present"])
+                if "synth_present" in state_names else None
+            )
+            if len(declared) == 1:
+                tracked_value = arg_value if synth_arg else example.input_args[call_index][0]
+            else:
+                tracked_value = None
+            state_values = _hashset_witness(solved_size, tracked_value, solved_present)
+
+        candidate = {
+            "mode": mode,
+            "synthesis_engine": "symbolic",
+            "synthesis_scope": synthesis_scope,
+            "symbolic_set_slots": set_slots if synth_state else None,
+            "symbolic_set_size": solved_size,
+            "symbolic_target_present": solved_present,
+            "wanted_output": wanted,
+            "initial_set": state_values,
+            "argument": arg_value,
+        }
+
+        exact: list[str] = []
+        for name in state_names:
+            exact.append(f"(= {name} {_smt_expr_text(model[name])})")
+        if synth_arg:
+            exact.append(f"(= {arg_name} {_smt_expr_text(model[arg_name])})")
+        if exact:
+            blocks.append(f"(assert (not (and {' '.join(exact)})))")
+        else:
+            break
+
+        key = _candidate_identity(candidate)
+        if key in seen:
+            continue
+        seen.add(key)
+        found.append(candidate)
+
+    return found
+
+def synthesize_cases_for_call(
+    z3: str,
+    base: str,
+    example: Any,
+    methods: dict[str, dict],
+    call_index: int,
+    mode: str,
+    wanted: Any,
+    domain: list[Any],
+    limit: int,
+    engine: str = "symbolic",
+    set_slots: int = 4,
+) -> list[dict[str, Any]]:
+    if engine == "finite":
+        cases = _synthesize_cases_finite(
+            z3, base, example, methods, call_index, mode, wanted, domain, limit
+        )
+        for case in cases:
+            case.setdefault("synthesis_engine", "finite")
+        return cases
+    if engine == "symbolic":
+        return _synthesize_cases_symbolic(
+            z3, base, example, methods, call_index, mode, wanted, limit, set_slots
+        )
+    raise ValueError(f"unknown synthesis engine {engine!r}")
+
+
 def _trial_from_synthesized(
     example: Any,
     methods: dict[str, dict],
     call_index: int,
     candidate: dict[str, Any],
 ) -> Any:
+    method_name = example.sequence[call_index]
+    info = methods[method_name]
+    receiver = None if info.get("isStatic", False) else int(
+        example.receiver_refs[call_index] if call_index < len(example.receiver_refs) else 0
+    )
+
+    if candidate.get("synthesis_scope") == "call-local":
+        if receiver is None:
+            raise ValueError("call-local receiver-state synthesis requires an instance method")
+        owner = str(info.get("owner") or info.get("declaringClass") or "java.util.HashSet")
+        args = list(example.input_args[call_index])
+        if candidate.get("mode") in {"args", "joint"}:
+            args = [candidate.get("argument")]
+        return SimpleNamespace(
+            initial_state={receiver: {"type": owner, "data": list(candidate.get("initial_set") or [])}},
+            data_structure_type=owner,
+            sequence=[method_name],
+            input_args=[args],
+            type_inputs=[list(info.get("argumentTypes", []))],
+            expected_outputs=[candidate.get("wanted_output")],
+            type_outputs=[str(info.get("returnType") or "void")],
+            receiver_refs=[receiver],
+        )
+
     trial = _clone_example_through(example, call_index + 1)
     method_name = trial.sequence[call_index]
     info = methods[method_name]
@@ -1685,16 +2323,13 @@ def _trial_from_synthesized(
         if receiver is None:
             raise ValueError("cannot synthesize receiver state for a static method")
         owner = str(info.get("owner") or info.get("declaringClass") or "java.util.HashSet")
-        # The finite synthesis domain deliberately avoids bool/int collisions in a
-        # Python set, preserving the values that will be replayed on the JVM.
-        trial.initial_state = {receiver: {"type": owner, "data": set(candidate["initial_set"])}}
+        trial.initial_state = {receiver: {"type": owner, "data": list(candidate["initial_set"])}}
         trial.data_structure_type = owner
     if candidate.get("argument", None) is not None or candidate.get("mode") in {"args", "joint"}:
         trial.input_args[call_index] = [candidate.get("argument")]
         if call_index < len(trial.type_inputs):
             trial.type_inputs[call_index] = list(info.get("argumentTypes", []))
     return trial
-
 
 def retest_synthesized_case(
     oracle: JdkOracle,
@@ -1706,10 +2341,11 @@ def retest_synthesized_case(
     candidate: dict[str, Any],
 ) -> dict[str, Any]:
     trial = _trial_from_synthesized(example, methods, call_index, candidate)
-    method_name = trial.sequence[call_index]
+    trial_call_index = 0 if candidate.get("synthesis_scope") == "call-local" else call_index
+    method_name = trial.sequence[trial_call_index]
     info = methods[method_name]
     jdk_results = oracle.replay(trial, methods)
-    jdk_result = jdk_results[call_index]
+    jdk_result = jdk_results[trial_call_index]
     wanted = candidate["wanted_output"]
     goal_reached = training_agrees_with_jdk(
         jdk_result, wanted, info.get("returnType"), info.get("returnType")
@@ -1718,12 +2354,12 @@ def retest_synthesized_case(
     heap, next_ref = initial_heap(trial, methods)
     call_text = calls(trial, methods, next_ref)
     receiver_ref = None if info.get("isStatic", False) else int(
-        trial.receiver_refs[call_index] if call_index < len(trial.receiver_refs) else 0
+        trial.receiver_refs[trial_call_index] if trial_call_index < len(trial.receiver_refs) else 0
     )
     hints = _receiver_type_hints(trial, methods)
     receiver_type = hints.get(receiver_ref, info.get("owner", "object"))
     cond, checked_state = jdk_call_condition(
-        f"r{call_index}", jdk_result, info.get("returnType"), receiver_ref, receiver_type
+        f"r{trial_call_index}", jdk_result, info.get("returnType"), receiver_ref, receiver_type
     )
     status = result_words(run_z3(z3, "\n".join([
         base, heap, call_text,
@@ -1755,6 +2391,8 @@ def synthesize_and_retest_example(
     domain: list[Any],
     int_targets: list[Any],
     per_goal: int,
+    engine: str,
+    set_slots: int,
 ) -> list[dict[str, Any]]:
     results: list[dict[str, Any]] = []
     for call_index, method_name in enumerate(example.sequence):
@@ -1769,7 +2407,7 @@ def synthesize_and_retest_example(
             for wanted in goals:
                 candidates = synthesize_cases_for_call(
                     z3, base, example, methods, call_index,
-                    mode, wanted, domain, per_goal,
+                    mode, wanted, domain, per_goal, engine, set_slots,
                 )
                 for candidate in candidates:
                     try:
@@ -1813,8 +2451,16 @@ def main() -> int:
         help="Comma-separated inverse-generation modes: args,state,joint",
     )
     ap.add_argument(
+        "--synth-engine", choices=("symbolic", "finite"), default="symbolic",
+        help="symbolic = unrestricted scalar SMT values with bounded heap shape; finite = legacy candidate-domain enumeration",
+    )
+    ap.add_argument(
+        "--synth-set-slots", type=int, default=4,
+        help="Maximum number of elements in a symbolically synthesized HashSet (values themselves remain unrestricted)",
+    )
+    ap.add_argument(
         "--synth-domain", default='[null,-1,0,1,2,"","x","__missing__"]',
-        help="JSON array used as the finite candidate universe for arguments and HashSet members",
+        help="JSON candidate universe used only with --synth-engine finite",
     )
     ap.add_argument(
         "--synth-int-targets", default="[0,1,2,3]",
@@ -1840,9 +2486,17 @@ def main() -> int:
     if bad_modes:
         raise ValueError(f"Unknown --synth-modes: {bad_modes}; expected args,state,joint")
     synth_domain = _dedupe_domain(_parse_json_list(a.synth_domain, "--synth-domain"))
-    # Python set semantics merge bool with 0/1. Reject that ambiguous receiver universe.
-    if any(isinstance(x, bool) for x in synth_domain) and any(type(x) is int for x in synth_domain):
-        raise ValueError("--synth-domain cannot mix booleans and integers when synthesizing HashSet state")
+    if a.synth_set_slots < 0:
+        raise ValueError("--synth-set-slots must be >= 0")
+    # The finite fallback builds receiver states from a Python candidate universe;
+    # reject the one identity ambiguity that Python sets introduce there.
+    if (
+        a.synth_engine == "finite"
+        and any(mode in {"state", "joint"} for mode in synth_modes)
+        and any(isinstance(x, bool) for x in synth_domain)
+        and any(type(x) is int for x in synth_domain)
+    ):
+        raise ValueError("--synth-domain cannot mix booleans and integers in finite state synthesis")
     synth_int_targets = _parse_json_list(a.synth_int_targets, "--synth-int-targets")
 
     # The shared SMT prelude contains quantified helper axioms. A bare module
@@ -2001,7 +2655,7 @@ def main() -> int:
             if a.synthesize and (a.synth_max_examples == 0 or eidx < a.synth_max_examples):
                 generated = synthesize_and_retest_example(
                     oracle, a.z3, base, ex, methods, synth_modes, synth_domain,
-                    synth_int_targets, a.synth_per_goal,
+                    synth_int_targets, a.synth_per_goal, a.synth_engine, a.synth_set_slots,
                 )
                 for item in generated:
                     item["template_example"] = eidx
@@ -2052,6 +2706,9 @@ def main() -> int:
         synth_pass = sum(1 for x in synthesized if x.get("pass"))
         synth_fail = len(synthesized) - synth_pass
         print("\n=== SYNTHESIZED ROUND-TRIP TESTS ===")
+        print(f"Engine   : {a.synth_engine}")
+        if a.synth_engine == "symbolic":
+            print(f"Set slots: {a.synth_set_slots} (element values unrestricted)")
         print(f"Generated: {len(synthesized)}")
         print(f"Passed   : {synth_pass}")
         print(f"Failed   : {synth_fail}")
