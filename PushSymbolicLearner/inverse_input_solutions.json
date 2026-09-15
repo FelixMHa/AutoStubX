@@ -1,0 +1,107 @@
+[
+  {
+    "mode": "args",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "sequence-prefix",
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": false,
+    "initial_set": null,
+    "argument": 2.0,
+    "call": 0,
+    "method": "contains#obj",
+    "jdk": {
+      "outcome": "normal",
+      "value": false,
+      "receiverState": [
+        "draw",
+        4885,
+        2665,
+        "win"
+      ]
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "input": 2.0,
+    "receiver_state": [
+      "draw",
+      4885,
+      2665,
+      "win"
+    ]
+  },
+  {
+    "mode": "args",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "sequence-prefix",
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": false,
+    "initial_set": null,
+    "argument": 3.0,
+    "call": 0,
+    "method": "contains#obj",
+    "jdk": {
+      "outcome": "normal",
+      "value": false,
+      "receiverState": [
+        "draw",
+        4885,
+        2665,
+        "win"
+      ]
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "input": 3.0,
+    "receiver_state": [
+      "draw",
+      4885,
+      2665,
+      "win"
+    ]
+  },
+  {
+    "mode": "args",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "sequence-prefix",
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": false,
+    "initial_set": null,
+    "argument": 4.0,
+    "call": 0,
+    "method": "contains#obj",
+    "jdk": {
+      "outcome": "normal",
+      "value": false,
+      "receiverState": [
+        "draw",
+        4885,
+        2665,
+        "win"
+      ]
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "input": 4.0,
+    "receiver_state": [
+      "draw",
+      4885,
+      2665,
+      "win"
+    ]
+  }
+]
