@@ -13,8 +13,6 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
-from rungp import loadtrainingdata
-
 
 INT = {"byte", "short", "int", "long", "b", "s", "i", "j"}
 REAL = {"float", "double", "f", "d"}
@@ -638,11 +636,7 @@ def _java_method_name(
     method_key: str,
     info: dict[str, Any],
 ) -> str:
-    """
-    Convert the PushGP/manifest method identifier into the actual JDK method name.
-    """
-
-    # Prefer explicit reflection metadata when available.
+    """Return the reflected JDK method name for a manifest key."""
     for key in ("javaMethod", "methodName", "name", "jdkMethod"):
         value = info.get(key)
         if value:
@@ -650,28 +644,15 @@ def _java_method_name(
 
     s = str(method_key).strip()
 
-    # Strip Java-style signature if present:
-    # get(int) -> get
     if "(" in s:
         s = s.split("(", 1)[0]
 
-    # IMPORTANT:
-    # '#' is an overload/signature suffix in your training method IDs.
-    #
-    # add#obj -> add
-    # size#0  -> size
-    #
-    # Do NOT use rsplit(...)[-1].
     if "#" in s:
         s = s.split("#", 1)[0]
 
-    # Strip optional owner prefix.
-    #
-    # java.util.ArrayList::add -> add
     if "::" in s:
         s = s.rsplit("::", 1)[-1]
 
-    # java.util.ArrayList.add -> add
     if "." in s:
         s = s.rsplit(".", 1)[-1]
 
@@ -684,12 +665,7 @@ def _java_method_name(
 
 
 def _jdk_receiver_type_hints(example: Any, methods: dict[str, dict]) -> dict[int, str]:
-    """Choose concrete JVM receiver classes independently from the SMT heap ABI.
-
-    The SMT intentionally collapses collections to list/map/set kinds.  A real
-    replay must keep the actual declaring class when possible (for example
-    LinkedList must not silently become ArrayList).
-    """
+    """Choose concrete JVM receiver classes from manifest ownership."""
     hints: dict[int, str] = {}
     receiver_refs = list(getattr(example, "receiver_refs", None) or [])
     generic_owners = {
@@ -728,8 +704,6 @@ def _jdk_payload(example: Any, methods: dict[str, dict]) -> dict[str, Any]:
     for raw_ref, raw in state.items():
         ref = int(raw_ref)
         type_name, data = unpack_object(raw, default_type)
-        # Raw list/map/set traces often erase the concrete container class. For
-        # JDK replay, restore it from data_structure_type or the manifest owner.
         if _generic_jdk_state_type(type_name) and not _generic_jdk_state_type(default_type):
             type_name = default_type
         if _generic_jdk_state_type(type_name) and ref in receiver_hints:
@@ -772,15 +746,9 @@ def _jdk_payload(example: Any, methods: dict[str, dict]) -> dict[str, Any]:
             "args": wire_args,
             "returnType": str(info.get("returnType") or "void"),
         }
-        #print(
-        #    f"JDK replay: {method_key!r} -> "
-        #    f"{owner}.{call['name']}({', '.join(full_types)})"
-        #)
         if not call["isStatic"]:
             call["receiver"] = int(example.receiver_refs[i] if i < len(example.receiver_refs) else 0)
         if bind is not None:
-            # The trace's reference number is used only to preserve alias identity
-            # for later calls. The concrete JDK value is still the oracle.
             call["bindReturnRef"] = bind
             if bind >= next_ref:
                 next_ref = bind + 1
@@ -929,9 +897,6 @@ def jdk_receiver_state_condition(
             parts.append(f"(select (select (heap-set-present {heap}) {r}) {v})")
         return "(and " + " ".join(parts) + ")"
 
-    # Scalar-backed wrapper/String/object receivers use heap-object-value in the
-    # generated ABI. If the Java snapshot is opaque, compare its textual payload
-    # only when the manifest gives an explicit scalar receiverValueType.
     value = receiver_state
     if isinstance(receiver_state, dict) and receiver_state.get("kind") == "object":
         if t not in INT | REAL | BOOL | CHAR | BOXED | STRING:
@@ -1011,10 +976,6 @@ def smt_int(x: Any) -> str:
 def smt_real(x: Any) -> str:
     x = float(x)
     if not math.isfinite(x):
-        # pushgp_smt models Java float/double values with SMT Real. SMT Real
-        # has no NaN, +Infinity or -Infinity, so there is no faithful literal
-        # we can emit for these training cases. Do not silently replace the
-        # value with an arbitrary finite number; mark the case unsupported.
         raise UnsupportedConcreteValue(
             f"SMT Real cannot represent IEEE non-finite value {x!r}"
         )
@@ -1038,9 +999,6 @@ def smt_str(x: Any) -> str:
 
     for ch in str(x):
         code = ord(ch)
-        # Keep generated SMT text ASCII-safe.  This avoids Windows
-        # console/code-page problems (for example U+0081 cannot be
-        # encoded by cp1252) and is valid SMT-LIB string construction.
         if code < 0x20 or code > 0x7E:
             flush()
             chunks.append(f"(str.from_code {code})")
@@ -1060,7 +1018,6 @@ def is_reference_type(type_name: Any) -> bool:
         return True
     if any(k in t for k in ("list", "map", "set", "collection", "iterator")):
         return True
-    # pushgp_smt treats other declared Java classes as heap references.
     return True
 
 
@@ -1145,12 +1102,7 @@ def kind(type_name: str, data: Any) -> str:
 
 
 def add_object(heap: str, ref: int, type_name: str, data: Any) -> str:
-    """Encode one concrete heap object using the current pushgp_smt Heap schema.
-
-    Heap now contains ``heap-object-value`` immediately after ``heap-kind``.
-    Collection objects preserve that array unchanged; ordinary object/boxed-value
-    receivers store their concrete payload in it.
-    """
+    """Add one concrete object to the SMT heap."""
     r = smt_int(ref)
     k = kind(type_name, data)
     object_values = f"(heap-object-value {heap})"
@@ -1219,13 +1171,7 @@ def add_object(heap: str, ref: int, type_name: str, data: Any) -> str:
 
 
 def _receiver_type_hints(example: Any, methods: dict[str, dict]) -> dict[int, str]:
-    """Return authoritative receiver encoding hints from the SMT manifest.
-
-    The trace's ``data_structure_type`` is a coarse/legacy default and can be
-    wrong for scalar wrapper receivers.  The generated SMT stub, however, was
-    compiled from exact method metadata.  Use the same owner/receiverKind when
-    reconstructing the concrete pre-heap so tester and stub share one ABI.
-    """
+    """Return SMT receiver encoding hints from manifest metadata."""
     hints: dict[int, str] = {}
     receiver_refs = list(getattr(example, "receiver_refs", None) or [])
 
@@ -1239,9 +1185,6 @@ def _receiver_type_hints(example: Any, methods: dict[str, dict]) -> dict[int, st
         receiver_kind = str(info.get("receiverKind") or "generic").strip().lower()
         receiver_value_type = str(info.get("receiverValueType") or "").strip()
 
-        # Prefer the exact payload type exported by pushgp_smt. This is the same
-        # metadata used to generate the RECEIVER.VALUE selector/precondition.
-        # Fall back to the declaring class for older manifests.
         owner_norm = norm(owner)
         if receiver_value_type:
             hint = receiver_value_type
@@ -1277,10 +1220,6 @@ def initial_heap(example: Any, methods: dict[str, dict]) -> tuple[str, int]:
         ref = int(raw_ref)
         type_name, data = unpack_object(raw, default_type)
 
-        # If this heap object is used as a receiver, encode it with the same
-        # receiver metadata that the generated stub used for its precondition.
-        # Explicit manifest information is more authoritative than the legacy
-        # trace-level data_structure_type default.
         if ref in receiver_hints:
             type_name = receiver_hints[ref]
 
@@ -1316,9 +1255,6 @@ def calls(example: Any, methods: dict[str, dict], next_ref: int) -> str:
         args = example.input_args[i]
         types = info.get("argumentTypes", [])
 
-        # Collection/object arguments that exist as concrete Python collections
-        # need their own heap objects. Allocate them BEFORE constructing the call
-        # so the method receives the heap that actually contains those refs.
         encoded_args = []
         for j, x in enumerate(args):
             trace_types = example.type_inputs[i] if i < len(example.type_inputs) else []
@@ -1381,8 +1317,6 @@ def run_z3(z3: str, text: str) -> str:
             timeout=60,
         )
     except subprocess.TimeoutExpired:
-        # A solver timeout is an unresolved query, not a Python-level crash.  Save
-        # the exact query for diagnosis and let callers treat it like SMT unknown.
         Path("timed_out_query.smt2").write_text(text, encoding="utf-8")
         print("\nZ3 query timed out after 60s; saved to timed_out_query.smt2")
         return "unknown\n"
@@ -1394,6 +1328,26 @@ def run_z3(z3: str, text: str) -> str:
 
 def result_words(text: str) -> list[str]:
     return [x.strip() for x in text.splitlines() if x.strip() in {"sat", "unsat", "unknown"}]
+
+
+def _sat_model(z3: str, query_text: str, names: list[str], parser) -> dict[str, Any] | None:
+    """Return requested values for a SAT query, otherwise None."""
+    if not names:
+        return None
+    status = result_words(run_z3(z3, query_text + "\n(check-sat)\n"))
+    if not status or status[0] != "sat":
+        return None
+    output = run_z3(
+        z3, query_text + "\n(check-sat)\n" + f"(get-value ({' '.join(names)}))\n"
+    )
+    status = result_words(output)
+    if not status or status[0] != "sat":
+        return None
+    model = parser(output)
+    missing = [name for name in names if name not in model]
+    if missing:
+        raise RuntimeError(f"Could not extract synthesis values {missing} from Z3 output:\n{output}")
+    return model
 
 
 def actual(z3: str, base: str, heap: str, call_text: str, i: int, condition: str) -> str:
@@ -1428,11 +1382,6 @@ def _clone_example_prefix(example: Any, stop: int) -> Any:
     )
 
 
-def _clone_example_through(example: Any, stop: int) -> Any:
-    """Create a replayable example containing calls [0, stop)."""
-    return _clone_example_prefix(example, stop)
-
-
 def _parse_json_list(text: str, option: str) -> list[Any]:
     try:
         value = json.loads(text)
@@ -1448,8 +1397,6 @@ def _dedupe_domain(values: list[Any]) -> list[Any]:
     out: list[Any] = []
     seen: set[tuple[str, str]] = set()
     for value in values:
-        # Python considers True == 1 and False == 0 inside sets.  Avoid mixing
-        # booleans with integers in synthesized HashSet receiver states.
         key = (type(value).__name__, json.dumps(value, ensure_ascii=False, sort_keys=True, default=str))
         if key not in seen:
             seen.add(key)
@@ -1583,8 +1530,6 @@ def _synthesize_cases_finite(
         if not _same_receiver_prefix(example, methods, call_index + 1, receiver):
             return []
 
-    # Concrete original initial state for argument-only synthesis; finite symbolic
-    # receiver state for state/joint synthesis.
     membership: list[str] = []
     if synth_state:
         heap_text, membership = _finite_symbolic_set_heap(receiver, domain)
@@ -1614,8 +1559,6 @@ def _synthesize_cases_finite(
         if len(raw_args) != len(declared):
             return []
         for value, type_name in zip(raw_args, declared):
-            # Keep the inverse generator finite/simple: target collection arguments
-            # are not currently synthesized or heap-allocated here.
             if collection_arg(value, type_name):
                 return []
             encoded_args.append(argument(value, type_name))
@@ -1636,29 +1579,9 @@ def _synthesize_cases_finite(
         names = list(membership)
         if synth_arg:
             names.append(arg_idx_name)
-        # First ask only for satisfiability.  During enumeration, blocking the
-        # previous model will eventually make the query UNSAT; requesting
-        # get-value after UNSAT causes Z3's "model is not available" error.
-        query_text = "\n".join(query)
-        status_output = run_z3(z3, query_text + "\n(check-sat)\n")
-        statuses = result_words(status_output)
-        if not statuses or statuses[0] != "sat":
+        model = _sat_model(z3, "\n".join(query), names, _model_scalars)
+        if model is None:
             break
-
-        # Only a SAT query has a model. Re-run the same constraints and request
-        # exactly the finite synthesis variables that need to be decoded.
-        if not names:
-            break
-        output = run_z3(
-            z3,
-            query_text + "\n(check-sat)\n" + f"(get-value ({' '.join(names)}))\n",
-        )
-        model_statuses = result_words(output)
-        if not model_statuses or model_statuses[0] != "sat":
-            break
-        model = _model_scalars(output)
-        if any(name not in model for name in names):
-            raise RuntimeError(f"Could not extract synthesis model values from Z3 output:\n{output}")
 
         state_values = [value for name, value in zip(membership, domain) if bool(model[name])] if synth_state else None
         arg_value = domain[int(model[arg_idx_name])] if synth_arg else None
@@ -1678,14 +1601,6 @@ def _synthesize_cases_finite(
             break
 
     return found
-
-
-# ---------------------------------------------------------------------------
-# Unbounded-value symbolic synthesis
-# ---------------------------------------------------------------------------
-# Values are genuine SMT variables (Int/Real/Bool/String/JValue).  Only heap
-# structure is bounded: a synthesized HashSet has at most --synth-set-slots
-# live elements so that every satisfying model can be concretized on a JVM.
 
 
 def _smt_tokenize(text: str) -> list[Any]:
@@ -1724,7 +1639,6 @@ def _smt_tokenize(text: str) -> list[Any]:
 
 
 def _smt_parse_forms(text: str) -> list[Any]:
-    # Remove status lines; the remaining output is ordinary SMT S-expressions.
     cleaned = "\n".join(
         line for line in text.splitlines()
         if line.strip() not in {"sat", "unsat", "unknown"}
@@ -1811,8 +1725,6 @@ def _smt_real_fraction(expr: Any) -> Fraction:
 
 
 def _decode_z3_string_atom(raw: str) -> str:
-    # Z3 commonly uses these display escapes even though SMT-LIB strings escape
-    # quotes by doubling them (already handled by the tokenizer).
     raw = re.sub(r"\\u\{([0-9a-fA-F]+)\}", lambda m: chr(int(m.group(1), 16)), raw)
     raw = re.sub(r"\\x([0-9a-fA-F]{2})", lambda m: chr(int(m.group(1), 16)), raw)
     return raw
@@ -1885,7 +1797,6 @@ def _symbolic_argument_spec(name: str, type_name: Any) -> tuple[list[str], str] 
     if t in CHAR:
         return [f"(declare-const {name} String)", f"(assert (= (str.len {name}) 1))"], name
 
-    # Reference-like scalar values are represented by JValue in the generated ABI.
     if t in OBJECT or not t:
         allowed = {"null", "int", "bool", "real", "string"}
     elif t in STRING:
@@ -1899,8 +1810,6 @@ def _symbolic_argument_spec(name: str, type_name: Any) -> tuple[list[str], str] 
     elif t in BOXED_CHAR:
         allowed = {"null", "string"}
     else:
-        # Arbitrary reference objects require synthesizing an object graph and a live
-        # JRef, which is deliberately a separate extension from scalar synthesis.
         return None
 
     decls = [
@@ -1931,63 +1840,6 @@ def _decode_symbolic_argument(expr: Any, type_name: Any) -> Any:
     return _decode_jvalue_model(expr)
 
 
-def _symbolic_arg_literal(value: Any, type_name: Any) -> str:
-    return argument(value, type_name)
-
-
-def _unbounded_symbolic_set_heap(
-    receiver: int,
-    slots: int,
-) -> tuple[str, list[str], list[str]]:
-    """A finite-cardinality HashSet whose *element values* are unrestricted JValues."""
-    if slots < 0:
-        raise ValueError("symbolic set slot bound cannot be negative")
-    active = [f"synth_active_{i}" for i in range(slots)]
-    elems = [f"synth_elem_{i}" for i in range(slots)]
-    lines: list[str] = []
-    for a, e in zip(active, elems):
-        lines.append(f"(declare-const {a} Bool)")
-        lines.append(f"(declare-const {e} JValue)")
-        lines.append(f"(assert {_replayable_jvalue_constraint(e)})")
-
-    # Canonicalize occupancy: active slots form a prefix.  Element values themselves
-    # remain unrestricted and are pairwise distinct whenever the slots are active.
-    for i in range(1, slots):
-        lines.append(f"(assert (=> {active[i]} {active[i - 1]}))")
-    for i in range(slots):
-        for j in range(i + 1, slots):
-            lines.append(
-                f"(assert (=> (and {active[i]} {active[j]}) (distinct {elems[i]} {elems[j]})))"
-            )
-
-    if slots:
-        body = "(or " + " ".join(
-            f"(and {a} (= synth_probe {e}))" for a, e in zip(active, elems)
-        ) + ")"
-        size = "(+ " + " ".join(f"(ite {a} 1 0)" for a in active) + ")"
-    else:
-        body = "false"
-        size = "0"
-
-    r = smt_int(receiver)
-    lines.extend([
-        f"(define-fun synth_set_present () (Array JValue Bool) (lambda ((synth_probe JValue)) {body}))",
-        f"(define-fun synth_set_size () Int {size})",
-        "(define-fun h0 () Heap",
-        "  (mk-heap",
-        f"    (store (heap-kind empty-heap) {r} K_SET)",
-        "    (heap-object-value empty-heap)",
-        "    (heap-list-size empty-heap)",
-        "    (heap-list-data empty-heap)",
-        "    (heap-map-size empty-heap)",
-        "    (heap-map-present empty-heap)",
-        "    (heap-map-data empty-heap)",
-        f"    (store (heap-set-size empty-heap) {r} synth_set_size)",
-        f"    (store (heap-set-present empty-heap) {r} synth_set_present)))",
-    ])
-    return "\n".join(lines), active, elems
-
-
 def _symbolic_hashset_summary_heap(
     receiver: int,
     max_size: int,
@@ -2015,7 +1867,6 @@ def _symbolic_hashset_summary_heap(
     if tracked_term is not None:
         lines.extend([
             "(declare-const synth_present Bool)",
-            # A member cannot be present in an empty concrete set.
             "(assert (=> synth_present (> synth_set_size 0)))",
         ])
         names.append("synth_present")
@@ -2042,8 +1893,6 @@ def _java_scalar_same(a: Any, b: Any) -> bool:
     """Equality sufficient for the scalar values synthesized by this tester."""
     if a is None or b is None:
         return a is None and b is None
-    # Java boxed Boolean/Integer/Double/String do not cross-compare by numeric
-    # coercion the way Python's True == 1 does.
     if type(a) is not type(b):
         return False
     if isinstance(a, float) and math.isnan(a) and math.isnan(b):
@@ -2061,8 +1910,6 @@ def _hashset_witness(size: int, tracked_value: Any, present: bool | None) -> lis
             raise ValueError("inconsistent symbolic set: tracked value present at size 0")
         out.append(tracked_value)
 
-    # Strings are valid Object elements and, with a private prefix, are convenient
-    # filler witnesses.  Skip any value equal to the tracked scalar.
     i = 0
     while len(out) < size:
         filler = f"__pushgp_synth_fill_{i}__"
@@ -2123,8 +1970,6 @@ def _synthesize_cases_symbolic(
             return []
         assert receiver is not None
 
-    # Build the target argument first because joint state synthesis tracks the
-    # genuinely symbolic argument directly in heap-set-present.
     declarations: list[str] = []
     encoded_args: list[str] = []
     arg_name = "synth_arg"
@@ -2142,8 +1987,6 @@ def _synthesize_cases_symbolic(
         for value, type_name in zip(raw_args, declared):
             if collection_arg(value, type_name):
                 return []
-            # Until symbolic heap-object synthesis exists, do not create a local
-            # HashSet summary around a dangling fixed reference argument.
             if synth_state and ref_value(value) is not None:
                 return []
             encoded_args.append(argument(value, type_name))
@@ -2177,8 +2020,6 @@ def _synthesize_cases_symbolic(
 
     while len(found) < max(0, limit) and attempts < max_attempts:
         attempts += 1
-        # Declarations must precede the summary heap because its membership array
-        # may store at the symbolic argument term.
         query = [base]
         query.extend(declarations)
         query.append(heap_text)
@@ -2187,28 +2028,10 @@ def _synthesize_cases_symbolic(
         query.append(target)
         query.append(f"(assert {desired})")
         query.extend(blocks)
-        query_text = "\n".join(query)
-
-        status_output = run_z3(z3, query_text + "\n(check-sat)\n")
-        statuses = result_words(status_output)
-        if not statuses or statuses[0] != "sat":
+        names = [*state_names, *([arg_name] if synth_arg else [])]
+        model = _sat_model(z3, "\n".join(query), names, _get_value_pairs)
+        if model is None:
             break
-
-        names = list(state_names)
-        if synth_arg:
-            names.append(arg_name)
-        if not names:
-            break
-        output = run_z3(
-            z3,
-            query_text + "\n(check-sat)\n" + f"(get-value ({' '.join(names)}))\n",
-        )
-        model_statuses = result_words(output)
-        if not model_statuses or model_statuses[0] != "sat":
-            break
-        model = _get_value_pairs(output)
-        if any(name not in model for name in names):
-            raise RuntimeError(f"Could not extract symbolic synthesis model values from Z3 output:\n{output}")
 
         arg_value = _decode_symbolic_argument(model[arg_name], declared[0]) if synth_arg else None
         state_values = None
@@ -2313,7 +2136,7 @@ def _trial_from_synthesized(
             receiver_refs=[receiver],
         )
 
-    trial = _clone_example_through(example, call_index + 1)
+    trial = _clone_example_prefix(example, call_index + 1)
     method_name = trial.sequence[call_index]
     info = methods[method_name]
     receiver = None if info.get("isStatic", False) else int(
@@ -2401,7 +2224,6 @@ def synthesize_and_retest_example(
         if not goals:
             continue
         for mode in modes:
-            # With no arguments, joint adds nothing beyond state synthesis.
             if mode == "joint" and not info.get("argumentTypes"):
                 continue
             for wanted in goals:
@@ -2424,11 +2246,11 @@ def synthesize_and_retest_example(
                         })
     return results
 
-def main() -> int:
+def _build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(
         description=(
-            "Replay every training sequence on a real JDK with persistent object state, "
-            "then prove the generated PushGP SMT stubs agree with that JDK execution"
+            "Replay training sequences on a real JDK and prove the generated SMT "
+            "stubs agree with that execution."
         )
     )
     ap.add_argument("training_data")
@@ -2437,79 +2259,85 @@ def main() -> int:
     ap.add_argument("--z3", default="z3")
     ap.add_argument("--java", default="java", help="Java executable for the concrete oracle")
     ap.add_argument("--javac", default="javac", help="javac executable used to compile the replay harness")
-    ap.add_argument(
-        "--classpath", default=".",
-        help="Extra classpath for concrete replay ('.' is enough for java.* JDK classes)",
-    )
+    ap.add_argument("--classpath", default=".", help="Extra classpath for concrete replay")
     ap.add_argument("--max-samples", type=int, default=1_000_000)
-    ap.add_argument(
-        "--synthesize", action="store_true",
-        help="Generate inverse tests (arguments, receiver state, and/or both) and round-trip them through the JDK and SMT",
-    )
-    ap.add_argument(
-        "--synth-modes", default="args,state,joint",
-        help="Comma-separated inverse-generation modes: args,state,joint",
-    )
+    ap.add_argument("--synthesize", action="store_true", help="Generate and round-trip inverse tests")
+    ap.add_argument("--synth-modes", default="args,state,joint", help="Comma-separated: args,state,joint")
     ap.add_argument(
         "--synth-engine", choices=("symbolic", "finite"), default="symbolic",
-        help="symbolic = unrestricted scalar SMT values with bounded heap shape; finite = legacy candidate-domain enumeration",
+        help="symbolic = unrestricted scalar values; finite = candidate-domain fallback",
     )
     ap.add_argument(
         "--synth-set-slots", type=int, default=4,
-        help="Maximum number of elements in a symbolically synthesized HashSet (values themselves remain unrestricted)",
+        help="Maximum synthesized HashSet size; element values remain unrestricted",
     )
     ap.add_argument(
         "--synth-domain", default='[null,-1,0,1,2,"","x","__missing__"]',
-        help="JSON candidate universe used only with --synth-engine finite",
+        help="JSON candidate universe used only by the finite engine",
     )
-    ap.add_argument(
-        "--synth-int-targets", default="[0,1,2,3]",
-        help="JSON array of desired integer outputs to request from Z3",
-    )
-    ap.add_argument(
-        "--synth-per-goal", type=int, default=2,
-        help="Maximum synthesized models for each (call, mode, desired output)",
-    )
+    ap.add_argument("--synth-int-targets", default="[0,1,2,3]", help="JSON integer output targets")
+    ap.add_argument("--synth-per-goal", type=int, default=2, help="Maximum models per synthesis goal")
     ap.add_argument(
         "--synth-max-examples", type=int, default=20,
-        help="Maximum training examples used as sequence templates for synthesis (0 = all)",
+        help="Training examples used as synthesis templates (0 = all)",
     )
-    a = ap.parse_args()
+    return ap
 
-    examples = loadtrainingdata(a.training_data, max_samples_per_file=a.max_samples)
-    base = re.sub(r"(?m)^\s*\(check-sat\)\s*$", "", Path(a.smt).read_text(encoding="utf-8"))
-    manifest = json.loads(Path(a.manifest).read_text(encoding="utf-8"))
-    methods = {m["method"]: m for m in manifest["methods"]}
 
-    synth_modes = [x.strip().lower() for x in a.synth_modes.split(",") if x.strip()]
-    bad_modes = [x for x in synth_modes if x not in {"args", "state", "joint"}]
-    if bad_modes:
-        raise ValueError(f"Unknown --synth-modes: {bad_modes}; expected args,state,joint")
-    synth_domain = _dedupe_domain(_parse_json_list(a.synth_domain, "--synth-domain"))
+def _load_model(smt_path: str, manifest_path: str) -> tuple[str, dict[str, dict[str, Any]]]:
+    base = re.sub(
+        r"(?m)^\s*\(check-sat\)\s*$", "", Path(smt_path).read_text(encoding="utf-8")
+    )
+    manifest = json.loads(Path(manifest_path).read_text(encoding="utf-8"))
+    return base, {m["method"]: m for m in manifest["methods"]}
+
+
+def _synthesis_options(a: argparse.Namespace) -> tuple[list[str], list[Any], list[Any]]:
+    modes = [x.strip().lower() for x in a.synth_modes.split(",") if x.strip()]
+    bad = [x for x in modes if x not in {"args", "state", "joint"}]
+    if bad:
+        raise ValueError(f"Unknown --synth-modes: {bad}; expected args,state,joint")
     if a.synth_set_slots < 0:
         raise ValueError("--synth-set-slots must be >= 0")
-    # The finite fallback builds receiver states from a Python candidate universe;
-    # reject the one identity ambiguity that Python sets introduce there.
+
+    domain = _dedupe_domain(_parse_json_list(a.synth_domain, "--synth-domain"))
     if (
         a.synth_engine == "finite"
-        and any(mode in {"state", "joint"} for mode in synth_modes)
-        and any(isinstance(x, bool) for x in synth_domain)
-        and any(type(x) is int for x in synth_domain)
+        and any(mode in {"state", "joint"} for mode in modes)
+        and any(isinstance(x, bool) for x in domain)
+        and any(type(x) is int for x in domain)
     ):
         raise ValueError("--synth-domain cannot mix booleans and integers in finite state synthesis")
-    synth_int_targets = _parse_json_list(a.synth_int_targets, "--synth-int-targets")
+    return modes, domain, _parse_json_list(a.synth_int_targets, "--synth-int-targets")
 
-    # The shared SMT prelude contains quantified helper axioms. A bare module
-    # check may be `unknown`; only a definite UNSAT makes the model unusable.
-    base_statuses = result_words(run_z3(a.z3, base + "\n(check-sat)\n"))
-    if not base_statuses:
+
+def _check_base_model(z3: str, base: str) -> None:
+    status = result_words(run_z3(z3, base + "\n(check-sat)\n"))
+    if not status:
         raise RuntimeError("Z3 produced no satisfiability result for the SMT module")
-    if base_statuses[0] == "unsat":
+    if status[0] == "unsat":
         raise RuntimeError("The generated SMT module itself is UNSAT")
-    if base_statuses[0] == "unknown":
-        print("Z3 base check: unknown (continuing; quantified helper axioms can cause this)")
+    if status[0] == "unknown":
+        print("Z3 base check: unknown (continuing; helper axioms can cause this)")
     else:
         print("Z3 base check: sat")
+
+
+def _write_json(path: str, data: Any) -> None:
+    Path(path).write_text(
+        json.dumps(data, indent=2, ensure_ascii=False, default=str) + "\n", encoding="utf-8"
+    )
+
+
+def main() -> int:
+    from rungp import loadtrainingdata
+
+    a = _build_parser().parse_args()
+    examples = loadtrainingdata(a.training_data, max_samples_per_file=a.max_samples)
+    base, methods = _load_model(a.smt, a.manifest)
+    synth_modes, synth_domain, synth_int_targets = _synthesis_options(a)
+
+    _check_base_model(a.z3, base)
     print("Concrete oracle:", jdk_version(a.java))
     print("Replay mode    : stateful sequence replay on real JVM objects")
 
@@ -2526,9 +2354,6 @@ def main() -> int:
 
     with JdkOracle(a.java, a.javac, a.classpath) as oracle:
         for eidx, ex in enumerate(examples):
-            # First execute the WHOLE sequence concretely. Receivers and reference
-            # arguments remain live in one object graph, so mutations from call i
-            # are observed by call i+1 exactly as on the actual JDK.
             try:
                 jdk_results = oracle.replay(ex, methods)
             except (JdkReplayError, ValueError, TypeError) as exc:
@@ -2545,8 +2370,6 @@ def main() -> int:
 
             smt_receiver_hints = _receiver_type_hints(ex, methods)
 
-            # The training labels are now only a diagnostic. They are not the SMT
-            # oracle. This catches stale traces or JDK-version-dependent behavior.
             for i, method in enumerate(ex.sequence):
                 info = methods[method]
                 if training_agrees_with_jdk(
@@ -2568,8 +2391,6 @@ def main() -> int:
                 heap, next_ref = initial_heap(ex, methods)
                 call_text = calls(ex, methods, next_ref)
             except UnsupportedConcreteValue as exc:
-                # Concrete JDK execution can still represent NaN/Infinity, but the
-                # current SMT uses Real and cannot. Skip SMT proof for this sequence.
                 skipped_examples += 1
                 skipped_calls += len(ex.sequence)
                 skipped.append({
@@ -2586,9 +2407,6 @@ def main() -> int:
             for i, method in enumerate(ex.sequence):
                 info = methods[method]
                 try:
-                    # Critical change: this condition is built from the JDK result
-                    # AND, when representable, the concrete post-call JDK receiver
-                    # state. The training label is not the oracle.
                     receiver_ref = None if info.get("isStatic", False) else int(
                         ex.receiver_refs[i] if i < len(ex.receiver_refs) else 0
                     )
@@ -2614,7 +2432,6 @@ def main() -> int:
 
                 expected_conditions[i] = cond
                 testable_calls.append(i)
-                # unsat => the SMT cannot disagree with this concrete JDK result.
                 q.append(f"(push 1)\n(assert (not {cond}))\n(check-sat)\n(pop 1)")
 
             if testable_calls:
@@ -2690,19 +2507,11 @@ def main() -> int:
             f"diff={m['different']} unknown={m['unknown']}"
         )
 
-    Path("smt_jdk_differences.json").write_text(
-        json.dumps(diffs, indent=2, ensure_ascii=False, default=str) + "\n", encoding="utf-8"
-    )
-    Path("training_jdk_differences.json").write_text(
-        json.dumps(trace_diffs, indent=2, ensure_ascii=False, default=str) + "\n", encoding="utf-8"
-    )
-    Path("smt_jdk_skipped.json").write_text(
-        json.dumps(skipped, indent=2, ensure_ascii=False, default=str) + "\n", encoding="utf-8"
-    )
+    _write_json("smt_jdk_differences.json", diffs)
+    _write_json("training_jdk_differences.json", trace_diffs)
+    _write_json("smt_jdk_skipped.json", skipped)
     if a.synthesize:
-        Path("smt_generated_roundtrip_tests.json").write_text(
-            json.dumps(synthesized, indent=2, ensure_ascii=False, default=str) + "\n", encoding="utf-8"
-        )
+        _write_json("smt_generated_roundtrip_tests.json", synthesized)
         synth_pass = sum(1 for x in synthesized if x.get("pass"))
         synth_fail = len(synthesized) - synth_pass
         print("\n=== SYNTHESIZED ROUND-TRIP TESTS ===")
@@ -2725,9 +2534,6 @@ def main() -> int:
         print("Saved training/JDK drift to training_jdk_differences.json")
     if skipped:
         print("Saved unsupported/replay failures to smt_jdk_skipped.json")
-    # A definite SMT/JDK mismatch or an unresolved solver result means the proof
-    # did not succeed. Training/JDK drift is reported separately and does not by
-    # itself make the SMT wrong against the selected actual JDK.
     return 1 if different or unknown or synth_fail else 0
 
 
