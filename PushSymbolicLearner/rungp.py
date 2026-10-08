@@ -582,14 +582,14 @@ def main(argv: Iterable[str] | None = None) -> int:
         # First try the sound/strict translation.
         module = export_genome_to_smt(
             genome=best_genome,
-            output_path="pushgp_model.smt2",
+            output_path=re.sub(r"\.json$", ".smt2", args.output),
             training_data=training_data,
             config=SMTExportConfig(
                 strict=True,
                 max_steps=256,
                 max_paths=256,
             ),
-            manifest_path="pushgp_model_manifest.json",
+            manifest_path = re.sub(r"\.json$", "_manifest.json", args.output),
         )
     
         print("Strict SMT export successful.")
@@ -600,14 +600,14 @@ def main(argv: Iterable[str] | None = None) -> int:
     
         module = export_genome_to_smt(
             genome=best_genome,
-            output_path=args.output.replace(".json", ".smt2"),
+            output_path=re.sub(r"\.json$", ".smt2", args.output),
             training_data=training_data,
             config=SMTExportConfig(
                 strict=False,
                 max_steps=256,
                 max_paths=256,
             ),
-            manifest_path=args.output.replace(".json", "_manifest.json"),
+            manifest_path = re.sub(r"\.json$", "_manifest.json", args.output),
         )
     
         print("Permissive SMT export successful.")

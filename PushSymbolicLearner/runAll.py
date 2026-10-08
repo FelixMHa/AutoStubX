@@ -18,7 +18,7 @@ def startRun(mainfolder, folder):
                     "--population", "400",
                     "--generations", "400",
                     "--profile", "primitives_full",
-                    "--output", f"genomesNew/{filename}_genome.json",
+                    "--output", f"genomesNewer/{filename}_genome.json",
                 ])
     #if os.path.isfile(folder_path) and folder.endswith(".json"):
     #    print(f"Running on {folder_path}...")
@@ -35,7 +35,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_directory", nargs='?', default="../Training-Data-Generation/symbolic-regression-data/training",
                         help="Path to the main data directory containing subfolders")
-    parser.add_argument("--includefilesInMain", default=False, nargs='?', type=bool,
+    parser.add_argument("--includefilesInMain", action="store_true",
                         help="Whether to include files in the main directory")
     args = parser.parse_args()
     mainfolder = args.data_directory
