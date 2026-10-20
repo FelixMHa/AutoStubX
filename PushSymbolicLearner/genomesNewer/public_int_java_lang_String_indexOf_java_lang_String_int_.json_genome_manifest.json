@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "indexOf#obj#int",
+      "owner": "java.lang.String",
+      "smtFunction": "stub_indexOf_obj_int",
+      "preconditionFunction": "stub_indexOf_obj_int_pre",
+      "argumentTypes": [
+        "java.lang.String",
+        "int"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.String",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "indexOf#obj#int: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "indexOf#obj#int: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

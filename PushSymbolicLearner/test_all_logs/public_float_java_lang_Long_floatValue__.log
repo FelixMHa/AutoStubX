@@ -1,0 +1,40 @@
+COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.Long\\public_float_java_lang_Long_floatValue__.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_float_java_lang_Long_floatValue__.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_float_java_lang_Long_floatValue__.json_genome_manifest.json', '--max-samples', '100', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize']
+
+Loading training data from C:\Users\felix\AutoStubX\Training-Data-Generation\symbolic-regression-data\training\java.lang.Long\public_float_java_lang_Long_floatValue__.json
+Max samples per file: 100
+------------------------------------------------------------
+Loading public_float_java_lang_Long_floatValue__.json... (limiting to 100 of 10000 samples)
+------------------------------------------------------------
+Loaded 100 total samples from 1 files
+Z3 base check: sat
+Concrete oracle: openjdk version "17.0.20.1" 2026-08-18
+Replay mode    : stateful sequence replay on real JVM objects
+Processed 50/100Processed 100/100
+
+=== SMT vs ACTUAL JDK ===
+Examples : 100
+Calls    : 100
+Same     : 4
+Different: 96
+Unknown  : 0
+Skipped  : 0 calls in 0 skipped examples
+Agreement: 4.00%  (representable/tested calls only)
+State    : 100 receiver post-states included in the SMT proof
+
+=== TRAINING TRACE vs ACTUAL JDK (diagnostic only) ===
+Same     : 100
+Different: 0
+Agreement: 100.00%
+
+=== PER METHOD: SMT vs JDK ===
+floatValue#0                       4/100     4.00%  diff=96 unknown=0
+
+=== SYNTHESIZED ROUND-TRIP TESTS ===
+Engine   : symbolic
+Set slots: 4 (element values unrestricted)
+Generated: 0
+Passed   : 0
+Failed   : 0
+Saved synthesized cases to smt_generated_roundtrip_tests.json
+
+Saved SMT/JDK mismatches to smt_jdk_differences.json

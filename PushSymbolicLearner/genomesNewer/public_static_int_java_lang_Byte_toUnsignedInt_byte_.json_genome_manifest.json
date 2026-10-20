@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toUnsignedInt#int",
+      "owner": "java.lang.Byte",
+      "smtFunction": "stub_toUnsignedInt_int",
+      "preconditionFunction": "stub_toUnsignedInt_int_pre",
+      "argumentTypes": [
+        "byte"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Byte",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

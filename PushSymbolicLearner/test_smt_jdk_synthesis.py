@@ -704,6 +704,10 @@ def _jdk_payload(example: Any, methods: dict[str, dict]) -> dict[str, Any]:
     for raw_ref, raw in state.items():
         ref = int(raw_ref)
         type_name, data = unpack_object(raw, default_type)
+        if norm(receiver_hints.get(ref)) in SCALAR_TYPES:
+            type_name = receiver_hints[ref]
+        if norm(type_name) in SCALAR_TYPES:
+            data = scalar_payload(data, type_name)
         if _generic_jdk_state_type(type_name) and not _generic_jdk_state_type(default_type):
             type_name = default_type
         if _generic_jdk_state_type(type_name) and ref in receiver_hints:
@@ -1078,9 +1082,14 @@ def argument(x: Any, type_name: Any) -> str:
     return jvalue(x, type_name)
 
 
+
 def unpack_object(raw: Any, default_type: str) -> tuple[str, Any]:
     if isinstance(raw, dict) and "type" in raw and "data" in raw:
         return str(raw.get("type") or default_type), raw.get("data")
+    if isinstance(raw, dict) and "type" in raw and "fields" in raw:
+        fields = raw.get("fields")
+        # empty fields = a bare object with no observable state
+        return str(raw.get("type") or default_type), (fields if fields else None)
     if isinstance(raw, list) or isinstance(raw, tuple):
         return "list", list(raw)
     if isinstance(raw, set):
@@ -1089,9 +1098,54 @@ def unpack_object(raw: Any, default_type: str) -> tuple[str, Any]:
         return "map", raw
     return default_type, raw
 
+SCALAR_TYPES = INT | REAL | BOOL | CHAR | BOXED | STRING
+
+
+def _scalar_default(type_name: Any) -> Any:
+    t = norm(type_name)
+    if t in BOOL | BOXED_BOOL:
+        return False
+    if t in INT | BOXED_INT:
+        return 0
+    if t in REAL | BOXED_REAL:
+        return 0.0
+    if t in CHAR | BOXED_CHAR:
+        return "\0"
+    return ""
+
+
+def scalar_payload(data: Any, type_name: Any) -> Any:
+    """Boxed/scalar/String receivers need a scalar payload. Traces give
+    {'type': ..., 'fields': {}} (-> None) for a dummy receiver."""
+    for _ in range(4):
+        if data is None:
+            return _scalar_default(type_name)
+        if (
+            isinstance(data, dict)
+            and ref_value(data) is None
+            and data.get("kind") != "float-special"
+        ):
+            if "value" in data:
+                data = data["value"]
+            elif "data" in data:
+                data = data["data"]
+            elif len(data) == 1:
+                data = next(iter(data.values()))
+            else:
+                return _scalar_default(type_name)
+        elif isinstance(data, (list, tuple)):
+            if len(data) == 1:
+                data = data[0]
+            else:
+                return _scalar_default(type_name)
+        else:
+            return data
+    return _scalar_default(type_name)
 
 def kind(type_name: str, data: Any) -> str:
     t = norm(type_name)
+    if t in SCALAR_TYPES:
+        return "object"
     if "map" in t or isinstance(data, dict):
         return "map"
     if "set" in t or isinstance(data, set):
@@ -1222,7 +1276,8 @@ def initial_heap(example: Any, methods: dict[str, dict]) -> tuple[str, int]:
 
         if ref in receiver_hints:
             type_name = receiver_hints[ref]
-
+        if norm(type_name) in SCALAR_TYPES:
+            data = scalar_payload(data, type_name)
         name = f"h_init_{n}"
         lines.append(f"(define-fun {name} () Heap {add_object(heap, ref, type_name, data)})")
         heap = name
@@ -2262,6 +2317,7 @@ def _build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--classpath", default=".", help="Extra classpath for concrete replay")
     ap.add_argument("--max-samples", type=int, default=1_000_000)
     ap.add_argument("--synthesize", action="store_true", help="Generate and round-trip inverse tests")
+    ap.add_argument("--synth-only", action="store_true", help="Skip forward validation and ONLY run synthesis tests")
     ap.add_argument("--synth-modes", default="args,state,joint", help="Comma-separated: args,state,joint")
     ap.add_argument(
         "--synth-engine", choices=("symbolic", "finite"), default="symbolic",
@@ -2354,120 +2410,121 @@ def main() -> int:
 
     with JdkOracle(a.java, a.javac, a.classpath) as oracle:
         for eidx, ex in enumerate(examples):
-            try:
-                jdk_results = oracle.replay(ex, methods)
-            except (JdkReplayError, ValueError, TypeError) as exc:
-                skipped_examples += 1
-                skipped_calls += len(ex.sequence)
-                skipped.append({
-                    "example": eidx,
-                    "reason": f"JDK replay failed: {exc}",
-                    "sequence": list(ex.sequence),
-                    "input_args": ex.input_args,
-                    "expected_outputs": ex.expected_outputs,
-                })
-                continue
-
-            smt_receiver_hints = _receiver_type_hints(ex, methods)
-
-            for i, method in enumerate(ex.sequence):
-                info = methods[method]
-                if training_agrees_with_jdk(
-                    jdk_results[i], ex.expected_outputs[i], ex.type_outputs[i], info["returnType"]
-                ):
-                    trace_same += 1
-                else:
-                    trace_different += 1
-                    trace_diffs.append({
-                        "example": eidx,
-                        "call": i,
-                        "method": method,
-                        "args": ex.input_args[i],
-                        "recorded": ex.expected_outputs[i],
-                        "jdk": jdk_results[i],
-                    })
-
-            try:
-                heap, next_ref = initial_heap(ex, methods)
-                call_text = calls(ex, methods, next_ref)
-            except UnsupportedConcreteValue as exc:
-                skipped_examples += 1
-                skipped_calls += len(ex.sequence)
-                skipped.append({
-                    "example": eidx,
-                    "reason": str(exc),
-                    "sequence": list(ex.sequence),
-                    "jdk_results": jdk_results,
-                })
-                continue
-
-            q = [base, heap, call_text]
-            testable_calls: list[int] = []
-            expected_conditions: dict[int, str] = {}
-            for i, method in enumerate(ex.sequence):
-                info = methods[method]
+            if not a.synth_only:    
                 try:
-                    receiver_ref = None if info.get("isStatic", False) else int(
-                        ex.receiver_refs[i] if i < len(ex.receiver_refs) else 0
-                    )
-                    receiver_type = smt_receiver_hints.get(receiver_ref, info.get("owner", "object"))
-                    cond, checked_state = jdk_call_condition(
-                        f"r{i}", jdk_results[i], info["returnType"], receiver_ref, receiver_type
-                    )
-                    if checked_state:
-                        state_checked += 1
-                    elif receiver_ref is not None:
-                        state_unchecked += 1
-                except UnsupportedConcreteValue as exc:
-                    skipped_calls += 1
+                    jdk_results = oracle.replay(ex, methods)
+                except (JdkReplayError, ValueError, TypeError) as exc:
+                    skipped_examples += 1
+                    skipped_calls += len(ex.sequence)
                     skipped.append({
                         "example": eidx,
-                        "call": i,
-                        "method": method,
-                        "args": ex.input_args[i],
-                        "jdk": jdk_results[i],
-                        "reason": str(exc),
+                        "reason": f"JDK replay failed: {exc}",
+                        "sequence": list(ex.sequence),
+                        "input_args": ex.input_args,
+                        "expected_outputs": ex.expected_outputs,
                     })
                     continue
 
-                expected_conditions[i] = cond
-                testable_calls.append(i)
-                q.append(f"(push 1)\n(assert (not {cond}))\n(check-sat)\n(pop 1)")
+                smt_receiver_hints = _receiver_type_hints(ex, methods)
 
-            if testable_calls:
-                status = result_words(run_z3(a.z3, "\n".join(q)))
-                if len(status) != len(testable_calls):
-                    raise RuntimeError(
-                        f"Example {eidx}: expected {len(testable_calls)} Z3 results, "
-                        f"got {len(status)}: {status!r}"
-                    )
-
-                for i, s in zip(testable_calls, status):
-                    method = ex.sequence[i]
-                    m = per_method.setdefault(method, {"total": 0, "same": 0, "different": 0, "unknown": 0})
-                    m["total"] += 1
-                    total += 1
-                    if s == "unsat":
-                        same += 1
-                        m["same"] += 1
-                    elif s == "unknown":
-                        unknown += 1
-                        m["unknown"] += 1
+                for i, method in enumerate(ex.sequence):
+                    info = methods[method]
+                    if training_agrees_with_jdk(
+                        jdk_results[i], ex.expected_outputs[i], ex.type_outputs[i], info["returnType"]
+                    ):
+                        trace_same += 1
                     else:
-                        different += 1
-                        m["different"] += 1
-                        diffs.append({
+                        trace_different += 1
+                        trace_diffs.append({
+                            "example": eidx,
+                            "call": i,
+                            "method": method,
+                            "args": ex.input_args[i],
+                            "recorded": ex.expected_outputs[i],
+                            "jdk": jdk_results[i],
+                        })
+
+                try:
+                    heap, next_ref = initial_heap(ex, methods)
+                    call_text = calls(ex, methods, next_ref)
+                except UnsupportedConcreteValue as exc:
+                    skipped_examples += 1
+                    skipped_calls += len(ex.sequence)
+                    skipped.append({
+                        "example": eidx,
+                        "reason": str(exc),
+                        "sequence": list(ex.sequence),
+                        "jdk_results": jdk_results,
+                    })
+                    continue
+
+                q = [base, heap, call_text]
+                testable_calls: list[int] = []
+                expected_conditions: dict[int, str] = {}
+                for i, method in enumerate(ex.sequence):
+                    info = methods[method]
+                    try:
+                        receiver_ref = None if info.get("isStatic", False) else int(
+                            ex.receiver_refs[i] if i < len(ex.receiver_refs) else 0
+                        )
+                        receiver_type = smt_receiver_hints.get(receiver_ref, info.get("owner", "object"))
+                        cond, checked_state = jdk_call_condition(
+                            f"r{i}", jdk_results[i], info["returnType"], receiver_ref, receiver_type
+                        )
+                        if checked_state:
+                            state_checked += 1
+                        elif receiver_ref is not None:
+                            state_unchecked += 1
+                    except UnsupportedConcreteValue as exc:
+                        skipped_calls += 1
+                        skipped.append({
                             "example": eidx,
                             "call": i,
                             "method": method,
                             "args": ex.input_args[i],
                             "jdk": jdk_results[i],
-                            "recorded_training_output": ex.expected_outputs[i],
-                            "receiver_ref": ex.receiver_refs[i] if i < len(ex.receiver_refs) else 0,
-                            "smt_result": actual(
-                                a.z3, base, heap, call_text, i, expected_conditions[i]
-                            ),
+                            "reason": str(exc),
                         })
+                        continue
+
+                    expected_conditions[i] = cond
+                    testable_calls.append(i)
+                    q.append(f"(push 1)\n(assert (not {cond}))\n(check-sat)\n(pop 1)")
+
+                if testable_calls:
+                    status = result_words(run_z3(a.z3, "\n".join(q)))
+                    if len(status) != len(testable_calls):
+                        raise RuntimeError(
+                            f"Example {eidx}: expected {len(testable_calls)} Z3 results, "
+                            f"got {len(status)}: {status!r}"
+                        )
+
+                    for i, s in zip(testable_calls, status):
+                        method = ex.sequence[i]
+                        m = per_method.setdefault(method, {"total": 0, "same": 0, "different": 0, "unknown": 0})
+                        m["total"] += 1
+                        total += 1
+                        if s == "unsat":
+                            same += 1
+                            m["same"] += 1
+                        elif s == "unknown":
+                            unknown += 1
+                            m["unknown"] += 1
+                        else:
+                            different += 1
+                            m["different"] += 1
+                            diffs.append({
+                                "example": eidx,
+                                "call": i,
+                                "method": method,
+                                "args": ex.input_args[i],
+                                "jdk": jdk_results[i],
+                                "recorded_training_output": ex.expected_outputs[i],
+                                "receiver_ref": ex.receiver_refs[i] if i < len(ex.receiver_refs) else 0,
+                                "smt_result": actual(
+                                    a.z3, base, heap, call_text, i, expected_conditions[i]
+                                ),
+                            })
 
             if a.synthesize and (a.synth_max_examples == 0 or eidx < a.synth_max_examples):
                 generated = synthesize_and_retest_example(

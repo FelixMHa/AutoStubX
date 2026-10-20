@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "valueOf#long",
+      "owner": "java.lang.Long",
+      "smtFunction": "stub_valueOf_long",
+      "preconditionFunction": "stub_valueOf_long_pre",
+      "argumentTypes": [
+        "long"
+      ],
+      "returnType": "java.lang.Long",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Long",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

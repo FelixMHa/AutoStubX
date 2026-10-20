@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "compare#bool#bool",
+      "owner": "java.lang.Boolean",
+      "smtFunction": "stub_compare_bool_bool",
+      "preconditionFunction": "stub_compare_bool_bool_pre",
+      "argumentTypes": [
+        "boolean",
+        "boolean"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Boolean",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

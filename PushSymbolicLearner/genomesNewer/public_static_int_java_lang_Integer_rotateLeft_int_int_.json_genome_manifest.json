@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "rotateLeft#int#int",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_rotateLeft_int_int",
+      "preconditionFunction": "stub_rotateLeft_int_int_pre",
+      "argumentTypes": [
+        "int",
+        "int"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "rotateLeft#int#int: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "rotateLeft#int#int: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

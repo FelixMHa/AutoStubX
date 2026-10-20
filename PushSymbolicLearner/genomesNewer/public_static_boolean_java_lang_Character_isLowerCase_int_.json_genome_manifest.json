@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "isLowerCase#int",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_isLowerCase_int",
+      "preconditionFunction": "stub_isLowerCase_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "isLowerCase#int: Java UTF-16 strings are modeled with the SMT String theory",
+        "isLowerCase#int: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "isLowerCase#int: Java UTF-16 strings are modeled with the SMT String theory",
+    "isLowerCase#int: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

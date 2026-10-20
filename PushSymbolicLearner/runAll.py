@@ -9,13 +9,13 @@ def startRun(mainfolder, folder):
     folder_path = os.path.join(mainfolder, folder)
     if os.path.isdir(folder_path):
         for filename in os.listdir(folder_path):
-            if filename.endswith(".json"):  # only process JSON files
+            if filename.endswith(".json") and "static" in filename and folder == "java.lang.String":
                 filepath = os.path.join(folder_path, filename)
                 print(f"Running on {filepath}...")
     
                 subprocess.run([
                     "python", "rungp.py", filepath,
-                    "--population", "400",
+                    "--population", "100",
                     "--generations", "400",
                     "--profile", "primitives_full",
                     "--output", f"genomesNewer/{filename}_genome.json",
@@ -41,9 +41,9 @@ def main():
     mainfolder = args.data_directory
     if args.includefilesInMain:
         startRun(mainfolder, "")
-    else:
-        for folder in os.listdir(mainfolder):
-            startRun(mainfolder, folder)
+    
+    for folder in os.listdir(mainfolder):
+        startRun(mainfolder, folder)
 
 if __name__ == "__main__":
     main()

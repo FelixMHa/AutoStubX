@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "booleanValue#0",
+      "owner": "java.lang.Boolean",
+      "smtFunction": "stub_booleanValue_0",
+      "preconditionFunction": "stub_booleanValue_0_pre",
+      "argumentTypes": [],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Boolean",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

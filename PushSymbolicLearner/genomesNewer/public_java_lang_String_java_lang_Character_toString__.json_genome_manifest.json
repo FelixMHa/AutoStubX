@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toString#0",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_toString_0",
+      "preconditionFunction": "stub_toString_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toString#0: Java UTF-16 strings are modeled with the SMT String theory",
+        "toString#0: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)",
+        "toString#0: STR_REPLACE_ALL treated as a no-op (pushbase STR_REPLACE_ALL is regex-based and cannot be represented by str.replace_all)"
+      ]
+    }
+  ],
+  "warnings": [
+    "toString#0: Java UTF-16 strings are modeled with the SMT String theory",
+    "toString#0: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)",
+    "toString#0: STR_REPLACE_ALL treated as a no-op (pushbase STR_REPLACE_ALL is regex-based and cannot be represented by str.replace_all)"
+  ]
+}

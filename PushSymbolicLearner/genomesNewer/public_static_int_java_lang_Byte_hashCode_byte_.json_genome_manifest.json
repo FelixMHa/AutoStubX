@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "hashCode#int",
+      "owner": "java.lang.Byte",
+      "smtFunction": "stub_hashCode_int",
+      "preconditionFunction": "stub_hashCode_int_pre",
+      "argumentTypes": [
+        "byte"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Byte",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

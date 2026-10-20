@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toUnsignedString#int",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_toUnsignedString_int",
+      "preconditionFunction": "stub_toUnsignedString_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toUnsignedString#int: Java UTF-16 strings are modeled with the SMT String theory",
+        "toUnsignedString#int: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "toUnsignedString#int: Java UTF-16 strings are modeled with the SMT String theory",
+    "toUnsignedString#int: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

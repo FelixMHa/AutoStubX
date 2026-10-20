@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "rotateRight#long#int",
+      "owner": "java.lang.Long",
+      "smtFunction": "stub_rotateRight_long_int",
+      "preconditionFunction": "stub_rotateRight_long_int_pre",
+      "argumentTypes": [
+        "long",
+        "int"
+      ],
+      "returnType": "long",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Long",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

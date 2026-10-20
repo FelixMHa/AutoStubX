@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toHexString#float",
+      "owner": "java.lang.Double",
+      "smtFunction": "stub_toHexString_float",
+      "preconditionFunction": "stub_toHexString_float_pre",
+      "argumentTypes": [
+        "double"
+      ],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Double",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toHexString#float: Java float/double values are modeled as mathematical SMT Real",
+        "toHexString#float: Java UTF-16 strings are modeled with the SMT String theory",
+        "toHexString#float: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "toHexString#float: Java float/double values are modeled as mathematical SMT Real",
+    "toHexString#float: Java UTF-16 strings are modeled with the SMT String theory",
+    "toHexString#float: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

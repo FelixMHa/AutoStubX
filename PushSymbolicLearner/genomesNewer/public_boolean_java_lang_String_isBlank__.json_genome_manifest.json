@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "isBlank#0",
+      "owner": "java.lang.String",
+      "smtFunction": "stub_isBlank_0",
+      "preconditionFunction": "stub_isBlank_0_pre",
+      "argumentTypes": [],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.String",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "isBlank#0: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "isBlank#0: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

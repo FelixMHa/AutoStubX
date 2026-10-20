@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "multiplyHigh#long#long",
+      "owner": "java.lang.StrictMath",
+      "smtFunction": "stub_multiplyHigh_long_long",
+      "preconditionFunction": "stub_multiplyHigh_long_long_pre",
+      "argumentTypes": [
+        "long",
+        "long"
+      ],
+      "returnType": "long",
+      "receiverKind": "object",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "sum#int#int",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_sum_int_int",
+      "preconditionFunction": "stub_sum_int_int_pre",
+      "argumentTypes": [
+        "int",
+        "int"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

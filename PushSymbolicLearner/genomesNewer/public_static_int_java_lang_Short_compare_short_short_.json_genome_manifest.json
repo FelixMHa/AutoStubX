@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "compare#int#int",
+      "owner": "java.lang.Short",
+      "smtFunction": "stub_compare_int_int",
+      "preconditionFunction": "stub_compare_int_int_pre",
+      "argumentTypes": [
+        "short",
+        "short"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Short",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "getType#int",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_getType_int",
+      "preconditionFunction": "stub_getType_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "getType#int: Java UTF-16 strings are modeled with the SMT String theory",
+        "getType#int: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "getType#int: Java UTF-16 strings are modeled with the SMT String theory",
+    "getType#int: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

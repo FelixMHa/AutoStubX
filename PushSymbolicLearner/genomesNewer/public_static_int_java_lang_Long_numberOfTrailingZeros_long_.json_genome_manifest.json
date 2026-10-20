@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "numberOfTrailingZeros#long",
+      "owner": "java.lang.Long",
+      "smtFunction": "stub_numberOfTrailingZeros_long",
+      "preconditionFunction": "stub_numberOfTrailingZeros_long_pre",
+      "argumentTypes": [
+        "long"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Long",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "abs#long",
+      "owner": "java.lang.Math",
+      "smtFunction": "stub_abs_long",
+      "preconditionFunction": "stub_abs_long_pre",
+      "argumentTypes": [
+        "long"
+      ],
+      "returnType": "long",
+      "receiverKind": "object",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

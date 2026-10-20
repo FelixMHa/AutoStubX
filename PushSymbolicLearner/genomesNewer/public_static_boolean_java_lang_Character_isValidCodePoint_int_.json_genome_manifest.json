@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "isValidCodePoint#int",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_isValidCodePoint_int",
+      "preconditionFunction": "stub_isValidCodePoint_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "isValidCodePoint#int: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "isValidCodePoint#int: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

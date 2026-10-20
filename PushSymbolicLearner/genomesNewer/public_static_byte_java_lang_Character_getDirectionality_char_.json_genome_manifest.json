@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "getDirectionality#char",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_getDirectionality_char",
+      "preconditionFunction": "stub_getDirectionality_char_pre",
+      "argumentTypes": [
+        "char"
+      ],
+      "returnType": "byte",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "getDirectionality#char: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "getDirectionality#char: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toUnsignedLong#int",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_toUnsignedLong_int",
+      "preconditionFunction": "stub_toUnsignedLong_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "long",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

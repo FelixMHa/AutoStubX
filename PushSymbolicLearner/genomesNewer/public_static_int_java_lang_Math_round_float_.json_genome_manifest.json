@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "round#float",
+      "owner": "java.lang.Math",
+      "smtFunction": "stub_round_float",
+      "preconditionFunction": "stub_round_float_pre",
+      "argumentTypes": [
+        "float"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "round#float: Java float/double values are modeled as mathematical SMT Real",
+        "round#float: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "round#float: Java float/double values are modeled as mathematical SMT Real",
+    "round#float: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

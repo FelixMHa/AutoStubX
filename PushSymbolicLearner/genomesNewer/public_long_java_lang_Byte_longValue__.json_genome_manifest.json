@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "longValue#0",
+      "owner": "java.lang.Byte",
+      "smtFunction": "stub_longValue_0",
+      "preconditionFunction": "stub_longValue_0_pre",
+      "argumentTypes": [],
+      "returnType": "long",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Byte",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

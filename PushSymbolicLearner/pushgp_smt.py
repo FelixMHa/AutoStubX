@@ -1591,7 +1591,7 @@ class _MethodCompiler:
         if name in {"FLOAT.IS_NAN", "FLOAT.IS_INF", "FLOAT.IS_FINITE"}:
             self._unsupported(
                 name,
-                "SMT Real has no IEEE NaN or infinity values; use a FloatingPoint backend",
+                "SMT Real has no IEEE NaN or infinity values;",
             )
             return [state]
         if name in {"FLOAT.COS", "FLOAT.TO.STR", "STR.TO.FLOAT"}:

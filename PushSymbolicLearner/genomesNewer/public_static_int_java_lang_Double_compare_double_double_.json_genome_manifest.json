@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "compare#float#float",
+      "owner": "java.lang.Double",
+      "smtFunction": "stub_compare_float_float",
+      "preconditionFunction": "stub_compare_float_float_pre",
+      "argumentTypes": [
+        "double",
+        "double"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Double",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "compare#float#float: Java float/double values are modeled as mathematical SMT Real",
+        "compare#float#float: FLOAT.DIV treated as a no-op (Java/IEEE-754 division by zero requires a FloatingPoint backend)"
+      ]
+    }
+  ],
+  "warnings": [
+    "compare#float#float: Java float/double values are modeled as mathematical SMT Real",
+    "compare#float#float: FLOAT.DIV treated as a no-op (Java/IEEE-754 division by zero requires a FloatingPoint backend)"
+  ]
+}

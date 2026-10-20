@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toHexString#long",
+      "owner": "java.lang.Long",
+      "smtFunction": "stub_toHexString_long",
+      "preconditionFunction": "stub_toHexString_long_pre",
+      "argumentTypes": [
+        "long"
+      ],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Long",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toHexString#long: Java UTF-16 strings are modeled with the SMT String theory",
+        "toHexString#long: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "toHexString#long: Java UTF-16 strings are modeled with the SMT String theory",
+    "toHexString#long: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

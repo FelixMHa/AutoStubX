@@ -781,7 +781,7 @@ def create_pushgp_instruction_set(profile: str = "primitives_full") -> Dict[str,
         STR_TO_INT(), INT_TO_STR(), ASCII_TO_STR(), STR_TO_ASCII(), STR_ITE(),
         STR_CONST(""), STR_CONST(" "),
         ERC_INT(), ERC_FLOAT(),
-        DUP_ANY(), SWAP_ANY(), POP_ANY(),
+        DUP_ANY(), SWAP_ANY(), POP_ANY(), RECEIVER_VALUE(),
     ])
 
     if profile == "ds_smt_minimal":

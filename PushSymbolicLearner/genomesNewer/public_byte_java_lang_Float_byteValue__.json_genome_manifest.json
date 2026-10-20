@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "byteValue#0",
+      "owner": "java.lang.Float",
+      "smtFunction": "stub_byteValue_0",
+      "preconditionFunction": "stub_byteValue_0_pre",
+      "argumentTypes": [],
+      "returnType": "byte",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Float",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "byteValue#0: Java float/double values are modeled as mathematical SMT Real"
+      ]
+    }
+  ],
+  "warnings": [
+    "byteValue#0: Java float/double values are modeled as mathematical SMT Real"
+  ]
+}

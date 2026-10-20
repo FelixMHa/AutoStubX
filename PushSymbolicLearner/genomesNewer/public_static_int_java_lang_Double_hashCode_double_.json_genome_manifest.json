@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "hashCode#float",
+      "owner": "java.lang.Double",
+      "smtFunction": "stub_hashCode_float",
+      "preconditionFunction": "stub_hashCode_float_pre",
+      "argumentTypes": [
+        "double"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Double",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "hashCode#float: Java float/double values are modeled as mathematical SMT Real"
+      ]
+    }
+  ],
+  "warnings": [
+    "hashCode#float: Java float/double values are modeled as mathematical SMT Real"
+  ]
+}

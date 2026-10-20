@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "hashCode#0",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_hashCode_0",
+      "preconditionFunction": "stub_hashCode_0_pre",
+      "argumentTypes": [],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "hashCode#0: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "hashCode#0: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

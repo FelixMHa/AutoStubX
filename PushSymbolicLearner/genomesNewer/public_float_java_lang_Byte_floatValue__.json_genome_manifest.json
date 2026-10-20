@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "floatValue#0",
+      "owner": "java.lang.Byte",
+      "smtFunction": "stub_floatValue_0",
+      "preconditionFunction": "stub_floatValue_0_pre",
+      "argumentTypes": [],
+      "returnType": "float",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Byte",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "floatValue#0: Java float/double values are modeled as mathematical SMT Real",
+        "floatValue#0: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)",
+        "floatValue#0: STR.TO.FLOAT treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "floatValue#0: Java float/double values are modeled as mathematical SMT Real",
+    "floatValue#0: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)",
+    "floatValue#0: STR.TO.FLOAT treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

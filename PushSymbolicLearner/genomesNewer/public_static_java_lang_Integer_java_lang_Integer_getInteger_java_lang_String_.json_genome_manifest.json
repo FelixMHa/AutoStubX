@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "getInteger#obj",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_getInteger_obj",
+      "preconditionFunction": "stub_getInteger_obj_pre",
+      "argumentTypes": [
+        "java.lang.String"
+      ],
+      "returnType": "java.lang.Integer",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "getInteger#obj: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "getInteger#obj: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

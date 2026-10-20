@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toLowerCase#0",
+      "owner": "java.lang.String",
+      "smtFunction": "stub_toLowerCase_0",
+      "preconditionFunction": "stub_toLowerCase_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.String",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toLowerCase#0: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "toLowerCase#0: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

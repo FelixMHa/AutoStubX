@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toString#long#int",
+      "owner": "java.lang.Long",
+      "smtFunction": "stub_toString_long_int",
+      "preconditionFunction": "stub_toString_long_int_pre",
+      "argumentTypes": [
+        "long",
+        "int"
+      ],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Long",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toString#long#int: Java UTF-16 strings are modeled with the SMT String theory",
+        "toString#long#int: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "toString#long#int: Java UTF-16 strings are modeled with the SMT String theory",
+    "toString#long#int: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "min#int#int",
+      "owner": "java.lang.StrictMath",
+      "smtFunction": "stub_min_int_int",
+      "preconditionFunction": "stub_min_int_int_pre",
+      "argumentTypes": [
+        "int",
+        "int"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "valueOf#int",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_valueOf_int",
+      "preconditionFunction": "stub_valueOf_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "java.lang.Integer",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

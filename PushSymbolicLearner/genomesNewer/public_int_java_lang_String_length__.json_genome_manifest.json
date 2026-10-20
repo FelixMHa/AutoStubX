@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "length#0",
+      "owner": "java.lang.String",
+      "smtFunction": "stub_length_0",
+      "preconditionFunction": "stub_length_0_pre",
+      "argumentTypes": [],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.String",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "length#0: Java UTF-16 strings are modeled with the SMT String theory",
+        "length#0: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)",
+        "length#0: FLOAT.DIV treated as a no-op (Java/IEEE-754 division by zero requires a FloatingPoint backend)",
+        "length#0: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "length#0: Java UTF-16 strings are modeled with the SMT String theory",
+    "length#0: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)",
+    "length#0: FLOAT.DIV treated as a no-op (Java/IEEE-754 division by zero requires a FloatingPoint backend)",
+    "length#0: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

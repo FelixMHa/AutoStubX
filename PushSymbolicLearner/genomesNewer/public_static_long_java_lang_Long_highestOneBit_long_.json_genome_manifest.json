@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "highestOneBit#long",
+      "owner": "java.lang.Long",
+      "smtFunction": "stub_highestOneBit_long",
+      "preconditionFunction": "stub_highestOneBit_long_pre",
+      "argumentTypes": [
+        "long"
+      ],
+      "returnType": "long",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Long",
+      "isStatic": false,
+      "symbolicPaths": 3,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

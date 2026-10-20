@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "forDigit#int#int",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_forDigit_int_int",
+      "preconditionFunction": "stub_forDigit_int_int_pre",
+      "argumentTypes": [
+        "int",
+        "int"
+      ],
+      "returnType": "char",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "forDigit#int#int: Java UTF-16 strings are modeled with the SMT String theory",
+        "forDigit#int#int: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "forDigit#int#int: Java UTF-16 strings are modeled with the SMT String theory",
+    "forDigit#int#int: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

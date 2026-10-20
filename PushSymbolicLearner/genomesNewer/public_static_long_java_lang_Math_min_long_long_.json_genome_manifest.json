@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "min#long#long",
+      "owner": "java.lang.Math",
+      "smtFunction": "stub_min_long_long",
+      "preconditionFunction": "stub_min_long_long_pre",
+      "argumentTypes": [
+        "long",
+        "long"
+      ],
+      "returnType": "long",
+      "receiverKind": "object",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

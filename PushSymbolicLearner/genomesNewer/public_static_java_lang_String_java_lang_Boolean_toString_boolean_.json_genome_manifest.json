@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toString#bool",
+      "owner": "java.lang.Boolean",
+      "smtFunction": "stub_toString_bool",
+      "preconditionFunction": "stub_toString_bool_pre",
+      "argumentTypes": [
+        "boolean"
+      ],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Boolean",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toString#bool: Java UTF-16 strings are modeled with the SMT String theory",
+        "toString#bool: STR.TO.FLOAT treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "toString#bool: Java UTF-16 strings are modeled with the SMT String theory",
+    "toString#bool: STR.TO.FLOAT treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

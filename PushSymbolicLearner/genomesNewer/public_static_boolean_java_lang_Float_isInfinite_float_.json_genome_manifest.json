@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "isInfinite#float",
+      "owner": "java.lang.Float",
+      "smtFunction": "stub_isInfinite_float",
+      "preconditionFunction": "stub_isInfinite_float_pre",
+      "argumentTypes": [
+        "float"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Float",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "isInfinite#float: Java float/double values are modeled as mathematical SMT Real",
+        "isInfinite#float: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "isInfinite#float: Java float/double values are modeled as mathematical SMT Real",
+    "isInfinite#float: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

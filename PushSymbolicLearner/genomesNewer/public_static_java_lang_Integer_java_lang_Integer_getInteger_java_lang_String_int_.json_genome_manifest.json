@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "getInteger#obj#int",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_getInteger_obj_int",
+      "preconditionFunction": "stub_getInteger_obj_int_pre",
+      "argumentTypes": [
+        "java.lang.String",
+        "int"
+      ],
+      "returnType": "java.lang.Integer",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "getInteger#obj#int: Java UTF-16 strings are modeled with the SMT String theory",
+        "getInteger#obj#int: FLOAT.DIV treated as a no-op (Java/IEEE-754 division by zero requires a FloatingPoint backend)"
+      ]
+    }
+  ],
+  "warnings": [
+    "getInteger#obj#int: Java UTF-16 strings are modeled with the SMT String theory",
+    "getInteger#obj#int: FLOAT.DIV treated as a no-op (Java/IEEE-754 division by zero requires a FloatingPoint backend)"
+  ]
+}

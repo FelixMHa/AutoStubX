@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "getBoolean#obj",
+      "owner": "java.lang.Boolean",
+      "smtFunction": "stub_getBoolean_obj",
+      "preconditionFunction": "stub_getBoolean_obj_pre",
+      "argumentTypes": [
+        "java.lang.String"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Boolean",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "getBoolean#obj: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "getBoolean#obj: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

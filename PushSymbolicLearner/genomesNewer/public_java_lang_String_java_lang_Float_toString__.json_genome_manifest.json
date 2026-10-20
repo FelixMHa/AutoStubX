@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toString#0",
+      "owner": "java.lang.Float",
+      "smtFunction": "stub_toString_0",
+      "preconditionFunction": "stub_toString_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Float",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toString#0: Java float/double values are modeled as mathematical SMT Real",
+        "toString#0: Java UTF-16 strings are modeled with the SMT String theory",
+        "toString#0: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "toString#0: Java float/double values are modeled as mathematical SMT Real",
+    "toString#0: Java UTF-16 strings are modeled with the SMT String theory",
+    "toString#0: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

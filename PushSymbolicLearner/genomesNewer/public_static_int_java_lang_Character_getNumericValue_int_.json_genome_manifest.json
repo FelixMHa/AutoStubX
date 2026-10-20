@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "getNumericValue#int",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_getNumericValue_int",
+      "preconditionFunction": "stub_getNumericValue_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "getNumericValue#int: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "getNumericValue#int: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

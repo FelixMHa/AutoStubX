@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "compareTo#obj",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_compareTo_obj",
+      "preconditionFunction": "stub_compareTo_obj_pre",
+      "argumentTypes": [
+        "java.lang.Character"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "compareTo#obj: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "compareTo#obj: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

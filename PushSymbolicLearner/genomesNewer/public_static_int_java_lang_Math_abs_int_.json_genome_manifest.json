@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "abs#int",
+      "owner": "java.lang.Math",
+      "smtFunction": "stub_abs_int",
+      "preconditionFunction": "stub_abs_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

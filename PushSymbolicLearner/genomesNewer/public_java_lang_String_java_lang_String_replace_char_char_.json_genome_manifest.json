@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "replace#char#char",
+      "owner": "java.lang.String",
+      "smtFunction": "stub_replace_char_char",
+      "preconditionFunction": "stub_replace_char_char_pre",
+      "argumentTypes": [
+        "char",
+        "char"
+      ],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.String",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "replace#char#char: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "replace#char#char: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

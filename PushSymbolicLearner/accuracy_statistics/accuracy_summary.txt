@@ -1,0 +1,12 @@
+Log files scanned: 259
+
+Main metric: SMT vs ACTUAL JDK Agreement
+
+100%: 52 (20.1%)
+>90% to <100%: 32 (12.4%)
+50% to 90%: 49 (18.9%)
+<50%: 126 (48.6%)
+Unknown: 0 (0.0%)
+
+Note: training-trace agreement is diagnostic only.
+Unknown means no SMT-vs-JDK Agreement line was found.

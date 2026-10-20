@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "digit#char#int",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_digit_char_int",
+      "preconditionFunction": "stub_digit_char_int_pre",
+      "argumentTypes": [
+        "char",
+        "int"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "digit#char#int: Java UTF-16 strings are modeled with the SMT String theory",
+        "digit#char#int: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "digit#char#int: Java UTF-16 strings are modeled with the SMT String theory",
+    "digit#char#int: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

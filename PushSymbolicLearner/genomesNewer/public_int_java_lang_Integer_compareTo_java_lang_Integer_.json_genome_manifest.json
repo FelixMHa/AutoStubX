@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "compareTo#obj",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_compareTo_obj",
+      "preconditionFunction": "stub_compareTo_obj_pre",
+      "argumentTypes": [
+        "java.lang.Integer"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "compareTo#obj: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "compareTo#obj: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

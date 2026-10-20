@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "shortValue#0",
+      "owner": "java.lang.Byte",
+      "smtFunction": "stub_shortValue_0",
+      "preconditionFunction": "stub_shortValue_0_pre",
+      "argumentTypes": [],
+      "returnType": "short",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Byte",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "shortValue#0: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "shortValue#0: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

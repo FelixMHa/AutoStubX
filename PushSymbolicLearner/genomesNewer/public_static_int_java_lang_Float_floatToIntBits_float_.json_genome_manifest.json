@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "floatToIntBits#float",
+      "owner": "java.lang.Float",
+      "smtFunction": "stub_floatToIntBits_float",
+      "preconditionFunction": "stub_floatToIntBits_float_pre",
+      "argumentTypes": [
+        "float"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Float",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "floatToIntBits#float: Java float/double values are modeled as mathematical SMT Real"
+      ]
+    }
+  ],
+  "warnings": [
+    "floatToIntBits#float: Java float/double values are modeled as mathematical SMT Real"
+  ]
+}

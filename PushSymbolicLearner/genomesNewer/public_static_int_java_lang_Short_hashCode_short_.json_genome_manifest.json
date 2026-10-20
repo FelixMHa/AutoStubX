@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "hashCode#int",
+      "owner": "java.lang.Short",
+      "smtFunction": "stub_hashCode_int",
+      "preconditionFunction": "stub_hashCode_int_pre",
+      "argumentTypes": [
+        "short"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Short",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

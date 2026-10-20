@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "concat#obj",
+      "owner": "java.lang.String",
+      "smtFunction": "stub_concat_obj",
+      "preconditionFunction": "stub_concat_obj_pre",
+      "argumentTypes": [
+        "java.lang.String"
+      ],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.String",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "concat#obj: Java UTF-16 strings are modeled with the SMT String theory",
+        "concat#obj: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "concat#obj: Java UTF-16 strings are modeled with the SMT String theory",
+    "concat#obj: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

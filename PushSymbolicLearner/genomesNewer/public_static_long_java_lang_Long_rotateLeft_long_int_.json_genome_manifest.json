@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "rotateLeft#long#int",
+      "owner": "java.lang.Long",
+      "smtFunction": "stub_rotateLeft_long_int",
+      "preconditionFunction": "stub_rotateLeft_long_int_pre",
+      "argumentTypes": [
+        "long",
+        "int"
+      ],
+      "returnType": "long",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Long",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "rotateLeft#long#int: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "rotateLeft#long#int: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

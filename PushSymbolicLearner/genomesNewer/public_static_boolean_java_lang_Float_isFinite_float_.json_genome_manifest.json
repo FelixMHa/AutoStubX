@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "isFinite#float",
+      "owner": "java.lang.Float",
+      "smtFunction": "stub_isFinite_float",
+      "preconditionFunction": "stub_isFinite_float_pre",
+      "argumentTypes": [
+        "float"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Float",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "isFinite#float: Java float/double values are modeled as mathematical SMT Real",
+        "isFinite#float: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "isFinite#float: Java float/double values are modeled as mathematical SMT Real",
+    "isFinite#float: FLOAT.COS treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

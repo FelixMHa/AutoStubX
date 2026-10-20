@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "doubleToLongBits#float",
+      "owner": "java.lang.Double",
+      "smtFunction": "stub_doubleToLongBits_float",
+      "preconditionFunction": "stub_doubleToLongBits_float_pre",
+      "argumentTypes": [
+        "double"
+      ],
+      "returnType": "long",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Double",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "doubleToLongBits#float: Java float/double values are modeled as mathematical SMT Real"
+      ]
+    }
+  ],
+  "warnings": [
+    "doubleToLongBits#float: Java float/double values are modeled as mathematical SMT Real"
+  ]
+}

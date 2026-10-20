@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "numberOfLeadingZeros#long",
+      "owner": "java.lang.Long",
+      "smtFunction": "stub_numberOfLeadingZeros_long",
+      "preconditionFunction": "stub_numberOfLeadingZeros_long_pre",
+      "argumentTypes": [
+        "long"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Long",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "numberOfLeadingZeros#long: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "numberOfLeadingZeros#long: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

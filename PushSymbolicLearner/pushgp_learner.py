@@ -787,10 +787,6 @@ def _extract_expected_state_oracle(example: Any) -> tuple[str, Any]:
     return "none", None
 
 
-def _extract_expected_final_state(example: Any) -> Any:
-    """Backward-compatible helper returning only the state-oracle value."""
-    return _extract_expected_state_oracle(example)[1]
-
 
 def _prepare_evaluation_cases(
     training_data: Sequence[Any],

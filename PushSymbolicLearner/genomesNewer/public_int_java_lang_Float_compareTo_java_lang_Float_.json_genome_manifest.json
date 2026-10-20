@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "compareTo#obj",
+      "owner": "java.lang.Float",
+      "smtFunction": "stub_compareTo_obj",
+      "preconditionFunction": "stub_compareTo_obj_pre",
+      "argumentTypes": [
+        "java.lang.Float"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Float",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "compareTo#obj: Java float/double values are modeled as mathematical SMT Real"
+      ]
+    }
+  ],
+  "warnings": [
+    "compareTo#obj: Java float/double values are modeled as mathematical SMT Real"
+  ]
+}

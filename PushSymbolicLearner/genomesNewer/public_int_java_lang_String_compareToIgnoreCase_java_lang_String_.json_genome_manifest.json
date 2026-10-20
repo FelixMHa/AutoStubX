@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "compareToIgnoreCase#obj",
+      "owner": "java.lang.String",
+      "smtFunction": "stub_compareToIgnoreCase_obj",
+      "preconditionFunction": "stub_compareToIgnoreCase_obj_pre",
+      "argumentTypes": [
+        "java.lang.String"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.String",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "compareToIgnoreCase#obj: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "compareToIgnoreCase#obj: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

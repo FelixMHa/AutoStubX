@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toUnsignedString#long#int",
+      "owner": "java.lang.Long",
+      "smtFunction": "stub_toUnsignedString_long_int",
+      "preconditionFunction": "stub_toUnsignedString_long_int_pre",
+      "argumentTypes": [
+        "long",
+        "int"
+      ],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Long",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toUnsignedString#long#int: Java UTF-16 strings are modeled with the SMT String theory",
+        "toUnsignedString#long#int: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)",
+        "toUnsignedString#long#int: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "toUnsignedString#long#int: Java UTF-16 strings are modeled with the SMT String theory",
+    "toUnsignedString#long#int: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)",
+    "toUnsignedString#long#int: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toString#0",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_toString_0",
+      "preconditionFunction": "stub_toString_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toString#0: Java UTF-16 strings are modeled with the SMT String theory",
+        "toString#0: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)",
+        "toString#0: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "toString#0: Java UTF-16 strings are modeled with the SMT String theory",
+    "toString#0: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)",
+    "toString#0: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "reverseBytes#int",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_reverseBytes_int",
+      "preconditionFunction": "stub_reverseBytes_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "isISOControl#int",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_isISOControl_int",
+      "preconditionFunction": "stub_isISOControl_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "isISOControl#int: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "isISOControl#int: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

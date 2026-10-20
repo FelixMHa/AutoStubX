@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "regionMatches#bool#int#obj#int#int",
+      "owner": "java.lang.String",
+      "smtFunction": "stub_regionMatches_bool_int_obj_int_int",
+      "preconditionFunction": "stub_regionMatches_bool_int_obj_int_int_pre",
+      "argumentTypes": [
+        "boolean",
+        "int",
+        "java.lang.String",
+        "int",
+        "int"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.String",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "regionMatches#bool#int#obj#int#int: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "regionMatches#bool#int#obj#int#int: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

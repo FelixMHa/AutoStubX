@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "stripIndent#0",
+      "owner": "java.lang.String",
+      "smtFunction": "stub_stripIndent_0",
+      "preconditionFunction": "stub_stripIndent_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.String",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "stripIndent#0: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "stripIndent#0: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

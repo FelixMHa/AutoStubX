@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toBinaryString#long",
+      "owner": "java.lang.Long",
+      "smtFunction": "stub_toBinaryString_long",
+      "preconditionFunction": "stub_toBinaryString_long_pre",
+      "argumentTypes": [
+        "long"
+      ],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Long",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toBinaryString#long: Java UTF-16 strings are modeled with the SMT String theory",
+        "toBinaryString#long: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+      ]
+    }
+  ],
+  "warnings": [
+    "toBinaryString#long: Java UTF-16 strings are modeled with the SMT String theory",
+    "toBinaryString#long: INT_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)"
+  ]
+}

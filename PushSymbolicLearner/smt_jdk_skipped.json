@@ -1,1086 +1,2303 @@
 [
   {
-    "example": 238,
-    "reason": "SMT Real cannot represent IEEE non-finite value nan",
+    "example": 55,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@23fc625e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@23fc625e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "add#obj",
-      "add#obj",
-      "add#obj"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "NaN",
-              "kind": "float-special"
-            }
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            false,
-            {
-              "value": "NaN",
-              "kind": "float-special"
-            }
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            false,
-            -6,
-            {
-              "value": "NaN",
-              "kind": "float-special"
-            }
-          ]
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
     ]
   },
   {
-    "example": 388,
-    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "example": 86,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@682a0b20\njava.lang.IllegalArgumentException: java.lang.ClassCastException@682a0b20\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "size#0",
-      "remove#obj",
-      "clear#0",
-      "remove#obj",
-      "contains#obj",
-      "size#0"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": 0,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": null,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": 0,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
     ]
   },
   {
-    "example": 455,
-    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "example": 156,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@448139f0\njava.lang.IllegalArgumentException: java.lang.ClassCastException@448139f0\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "contains#obj",
-      "remove#obj",
-      "add#obj",
-      "remove#obj",
-      "remove#obj",
-      "add#obj"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            1.942215e-23
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            1.942215e-23
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            1.942215e-23
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            1.942215e-23,
-            "²\u0002u±"
-          ]
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
     ]
   },
   {
-    "example": 458,
-    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "example": 175,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@3b9a45b3\njava.lang.IllegalArgumentException: java.lang.ClassCastException@3b9a45b3\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "add#obj",
-      "add#obj",
-      "add#obj",
-      "remove#obj",
-      "add#obj"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            -2.6587643e-10
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            -19,
-            -2.6587643e-10
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            -19,
-            -2.6587643e-10,
-            -30
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            -19,
-            -2.6587643e-10,
-            -30
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            -19,
-            -2.6587643e-10,
-            -30,
-            206
-          ]
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
     ]
   },
   {
-    "example": 475,
-    "reason": "SMT Real cannot represent IEEE non-finite value nan",
+    "example": 178,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@4dd8dc3\njava.lang.IllegalArgumentException: java.lang.ClassCastException@4dd8dc3\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "remove#obj",
-      "clear#0",
-      "contains#obj",
-      "contains#obj",
-      "add#obj"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": null,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            "c¯OdO\b"
-          ]
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
     ]
   },
   {
-    "example": 616,
-    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "example": 206,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@378bf509\njava.lang.IllegalArgumentException: java.lang.ClassCastException@378bf509\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "add#obj",
-      "add#obj",
-      "add#obj",
-      "isEmpty#0",
-      "add#obj"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            false
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            },
-            false
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            },
-            false,
-            true
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            },
-            false,
-            true
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            },
-            false,
-            -62263,
-            true
-          ]
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
     ]
   },
   {
-    "example": 680,
-    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "example": 220,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@16b98e56\njava.lang.IllegalArgumentException: java.lang.ClassCastException@16b98e56\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "add#obj",
-      "add#obj",
-      "contains#obj",
-      "remove#obj",
-      "clear#0",
-      "contains#obj",
-      "contains#obj"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            0
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            0,
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            }
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            0,
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            }
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            0,
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            }
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": null,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
     ]
   },
   {
-    "example": 801,
-    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "example": 276,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@4f3f5b24\njava.lang.IllegalArgumentException: java.lang.ClassCastException@4f3f5b24\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "size#0",
-      "isEmpty#0",
-      "remove#obj",
-      "size#0",
-      "remove#obj",
-      "remove#obj",
-      "remove#obj",
-      "isEmpty#0"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": 0,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": 0,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
     ]
   },
   {
-    "example": 900,
-    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "example": 316,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@6acbcfc0\njava.lang.IllegalArgumentException: java.lang.ClassCastException@6acbcfc0\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "clear#0",
-      "contains#obj",
-      "clear#0",
-      "contains#obj",
-      "remove#obj",
-      "add#obj",
-      "contains#obj"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": null,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": null,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            false
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            false
-          ]
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
     ]
   },
   {
-    "example": 935,
-    "reason": "SMT Real cannot represent IEEE non-finite value -inf",
+    "example": 319,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@5b480cf9\njava.lang.IllegalArgumentException: java.lang.ClassCastException@5b480cf9\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "add#obj",
-      "add#obj",
-      "add#obj",
-      "remove#obj",
-      "isEmpty#0",
-      "contains#obj",
-      "contains#obj"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            "V­$"
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            },
-            "V­$"
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            },
-            ")úL>",
-            "V­$"
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            },
-            ")úL>",
-            "V­$"
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            },
-            ")úL>",
-            "V­$"
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            },
-            ")úL>",
-            "V­$"
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "-Infinity",
-              "kind": "float-special"
-            },
-            ")úL>",
-            "V­$"
-          ]
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
     ]
   },
   {
-    "example": 946,
-    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "example": 385,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@10f87f48\njava.lang.IllegalArgumentException: java.lang.ClassCastException@10f87f48\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "contains#obj",
-      "remove#obj",
-      "remove#obj",
-      "isEmpty#0",
-      "contains#obj",
-      "isEmpty#0",
-      "isEmpty#0"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
     ]
   },
   {
-    "example": 951,
-    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "example": 429,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@4e50df2e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@4e50df2e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "size#0",
-      "add#obj",
-      "remove#obj",
-      "size#0",
-      "size#0",
-      "clear#0",
-      "remove#obj"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": 0,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            "kð"
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            "kð"
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": 1,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            "kð"
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": 1,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            "kð"
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": null,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
     ]
   },
   {
-    "example": 962,
-    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "example": 451,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@34a245ab\njava.lang.IllegalArgumentException: java.lang.ClassCastException@34a245ab\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "add#obj",
-      "add#obj",
-      "isEmpty#0",
-      "size#0",
-      "remove#obj",
-      "clear#0",
-      "isEmpty#0"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            -183074038000000.0
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "Infinity",
-              "kind": "float-special"
-            },
-            -183074038000000.0
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "Infinity",
-              "kind": "float-special"
-            },
-            -183074038000000.0
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": 2,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "Infinity",
-              "kind": "float-special"
-            },
-            -183074038000000.0
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            {
-              "value": "Infinity",
-              "kind": "float-special"
-            },
-            -183074038000000.0
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": null,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
     ]
   },
   {
-    "example": 983,
-    "reason": "SMT Real cannot represent IEEE non-finite value inf",
+    "example": 467,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@12edcd21\njava.lang.IllegalArgumentException: java.lang.ClassCastException@12edcd21\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
     "sequence": [
-      "clear#0",
-      "size#0",
-      "isEmpty#0",
-      "add#obj",
-      "clear#0",
-      "clear#0",
-      "remove#obj",
-      "size#0"
+      "isInfinite#0"
     ],
-    "jdk_results": [
-      {
-        "outcome": "normal",
-        "value": null,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": 0,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": true,
-        "receiverState": {
-          "kind": "set",
-          "values": [
-            true
-          ]
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": null,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": null,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": false,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      },
-      {
-        "outcome": "normal",
-        "value": 0,
-        "receiverState": {
-          "kind": "set",
-          "values": []
-        }
-      }
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 533,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@5b6f7412\njava.lang.IllegalArgumentException: java.lang.ClassCastException@5b6f7412\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 544,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@7530d0a\njava.lang.IllegalArgumentException: java.lang.ClassCastException@7530d0a\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 624,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@506e1b77\njava.lang.IllegalArgumentException: java.lang.ClassCastException@506e1b77\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 682,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@3d494fbf\njava.lang.IllegalArgumentException: java.lang.ClassCastException@3d494fbf\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 748,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@b1bc7ed\njava.lang.IllegalArgumentException: java.lang.ClassCastException@b1bc7ed\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 870,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@1b2c6ec2\njava.lang.IllegalArgumentException: java.lang.ClassCastException@1b2c6ec2\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 905,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@1e80bfe8\njava.lang.IllegalArgumentException: java.lang.ClassCastException@1e80bfe8\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 910,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@cc34f4d\njava.lang.IllegalArgumentException: java.lang.ClassCastException@cc34f4d\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 958,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@6f539caf\njava.lang.IllegalArgumentException: java.lang.ClassCastException@6f539caf\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1038,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@2dda6444\njava.lang.IllegalArgumentException: java.lang.ClassCastException@2dda6444\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1078,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@378fd1ac\njava.lang.IllegalArgumentException: java.lang.ClassCastException@378fd1ac\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1141,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@37a71e93\njava.lang.IllegalArgumentException: java.lang.ClassCastException@37a71e93\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1465,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@7106e68e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@7106e68e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1525,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@76fb509a\njava.lang.IllegalArgumentException: java.lang.ClassCastException@76fb509a\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1606,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@4d405ef7\njava.lang.IllegalArgumentException: java.lang.ClassCastException@4d405ef7\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1664,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@c4437c4\njava.lang.IllegalArgumentException: java.lang.ClassCastException@c4437c4\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1703,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@1a6c5a9e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@1a6c5a9e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 1720,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@254989ff\njava.lang.IllegalArgumentException: java.lang.ClassCastException@254989ff\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1747,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@49c2faae\njava.lang.IllegalArgumentException: java.lang.ClassCastException@49c2faae\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1758,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@439f5b3d\njava.lang.IllegalArgumentException: java.lang.ClassCastException@439f5b3d\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 1781,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@17f052a3\njava.lang.IllegalArgumentException: java.lang.ClassCastException@17f052a3\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 1785,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@685f4c2e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@685f4c2e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1800,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@238e0d81\njava.lang.IllegalArgumentException: java.lang.ClassCastException@238e0d81\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 1809,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@728938a9\njava.lang.IllegalArgumentException: java.lang.ClassCastException@728938a9\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1810,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@5910e440\njava.lang.IllegalArgumentException: java.lang.ClassCastException@5910e440\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 1864,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@246b179d\njava.lang.IllegalArgumentException: java.lang.ClassCastException@246b179d\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 1971,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@3d646c37\njava.lang.IllegalArgumentException: java.lang.ClassCastException@3d646c37\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 1980,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@2ef1e4fa\njava.lang.IllegalArgumentException: java.lang.ClassCastException@2ef1e4fa\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 2146,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@68de145\njava.lang.IllegalArgumentException: java.lang.ClassCastException@68de145\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 2536,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@421faab1\njava.lang.IllegalArgumentException: java.lang.ClassCastException@421faab1\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 2569,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@25f38edc\njava.lang.IllegalArgumentException: java.lang.ClassCastException@25f38edc\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 2615,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@506c589e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@506c589e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 2709,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@799f7e29\njava.lang.IllegalArgumentException: java.lang.ClassCastException@799f7e29\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 2720,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@5c29bfd\njava.lang.IllegalArgumentException: java.lang.ClassCastException@5c29bfd\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 2753,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@42110406\njava.lang.IllegalArgumentException: java.lang.ClassCastException@42110406\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 2829,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@579bb367\njava.lang.IllegalArgumentException: java.lang.ClassCastException@579bb367\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 2851,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@41906a77\njava.lang.IllegalArgumentException: java.lang.ClassCastException@41906a77\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 2910,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@6e5e91e4\njava.lang.IllegalArgumentException: java.lang.ClassCastException@6e5e91e4\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 2926,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@5cb0d902\njava.lang.IllegalArgumentException: java.lang.ClassCastException@5cb0d902\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 3088,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@5ef04b5\njava.lang.IllegalArgumentException: java.lang.ClassCastException@5ef04b5\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 3179,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@14514713\njava.lang.IllegalArgumentException: java.lang.ClassCastException@14514713\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 3215,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@4459eb14\njava.lang.IllegalArgumentException: java.lang.ClassCastException@4459eb14\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 3304,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@6659c656\njava.lang.IllegalArgumentException: java.lang.ClassCastException@6659c656\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 3329,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@2328c243\njava.lang.IllegalArgumentException: java.lang.ClassCastException@2328c243\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 3338,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@45283ce2\njava.lang.IllegalArgumentException: java.lang.ClassCastException@45283ce2\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 3356,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@77a567e1\njava.lang.IllegalArgumentException: java.lang.ClassCastException@77a567e1\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 3407,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@108c4c35\njava.lang.IllegalArgumentException: java.lang.ClassCastException@108c4c35\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 3459,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@2d38eb89\njava.lang.IllegalArgumentException: java.lang.ClassCastException@2d38eb89\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 3670,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@27f8302d\njava.lang.IllegalArgumentException: java.lang.ClassCastException@27f8302d\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 3712,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@23ab930d\njava.lang.IllegalArgumentException: java.lang.ClassCastException@23ab930d\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 3765,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@619a5dff\njava.lang.IllegalArgumentException: java.lang.ClassCastException@619a5dff\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 3833,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@7ab2bfe1\njava.lang.IllegalArgumentException: java.lang.ClassCastException@7ab2bfe1\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 4029,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@b1a58a3\njava.lang.IllegalArgumentException: java.lang.ClassCastException@b1a58a3\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4037,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@6477463f\njava.lang.IllegalArgumentException: java.lang.ClassCastException@6477463f\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 4150,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@18769467\njava.lang.IllegalArgumentException: java.lang.ClassCastException@18769467\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4216,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@4ee285c6\njava.lang.IllegalArgumentException: java.lang.ClassCastException@4ee285c6\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4276,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@15327b79\njava.lang.IllegalArgumentException: java.lang.ClassCastException@15327b79\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 4287,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@5b80350b\njava.lang.IllegalArgumentException: java.lang.ClassCastException@5b80350b\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 4289,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@22927a81\njava.lang.IllegalArgumentException: java.lang.ClassCastException@22927a81\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4290,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@61e4705b\njava.lang.IllegalArgumentException: java.lang.ClassCastException@61e4705b\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4291,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@1376c05c\njava.lang.IllegalArgumentException: java.lang.ClassCastException@1376c05c\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4294,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@deb6432\njava.lang.IllegalArgumentException: java.lang.ClassCastException@deb6432\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4455,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4478,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4500,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4518,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4534,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4666,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4702,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4839,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4849,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 4852,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 4892,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 4934,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 5023,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 5030,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 5105,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 5155,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 5288,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 5293,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 5330,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 5345,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 5421,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 5496,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 5506,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 5613,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 5616,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 5692,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 5738,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 5779,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 5818,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 5840,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 5928,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 5958,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 6000,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 6036,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 6170,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 6177,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 6280,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 6324,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 6380,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 6499,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 6560,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 6665,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 6719,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 6781,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 6895,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 6933,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 6989,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 7080,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7129,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7219,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7227,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 7255,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7317,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7389,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7431,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7481,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 7525,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7579,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7613,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7615,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7637,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7737,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 7807,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7910,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 7989,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 7998,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 8156,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 8186,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 8220,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 8277,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 8377,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 8421,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 8446,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 8450,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 8485,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 8491,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 8637,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 8638,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 8722,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 8757,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 8838,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 8884,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 8891,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 9040,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 9107,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 9120,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 9121,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 9140,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 9167,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 9193,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 9251,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 9271,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 9292,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 9364,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 9459,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 9507,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 9599,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 9646,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      false
+    ]
+  },
+  {
+    "example": 9769,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 9871,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
+    ]
+  },
+  {
+    "example": 9892,
+    "reason": "JDK replay failed: java.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\njava.lang.IllegalArgumentException: java.lang.ClassCastException@f2a0b8e\r\n\tat java.base/jdk.internal.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat PushGpJdkReplay.replay(PushGpJdkReplay.java:521)\r\n\tat PushGpJdkReplay.main(PushGpJdkReplay.java:558)\r\n",
+    "sequence": [
+      "isInfinite#0"
+    ],
+    "input_args": [
+      []
+    ],
+    "expected_outputs": [
+      true
     ]
   }
 ]

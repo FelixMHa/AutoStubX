@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "getExponent#float",
+      "owner": "java.lang.Math",
+      "smtFunction": "stub_getExponent_float",
+      "preconditionFunction": "stub_getExponent_float_pre",
+      "argumentTypes": [
+        "float"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": null,
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "getExponent#float: Java float/double values are modeled as mathematical SMT Real",
+        "getExponent#float: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "getExponent#float: Java float/double values are modeled as mathematical SMT Real",
+    "getExponent#float: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

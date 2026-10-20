@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "shortValue#0",
+      "owner": "java.lang.Float",
+      "smtFunction": "stub_shortValue_0",
+      "preconditionFunction": "stub_shortValue_0_pre",
+      "argumentTypes": [],
+      "returnType": "short",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Float",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "shortValue#0: Java float/double values are modeled as mathematical SMT Real"
+      ]
+    }
+  ],
+  "warnings": [
+    "shortValue#0: Java float/double values are modeled as mathematical SMT Real"
+  ]
+}

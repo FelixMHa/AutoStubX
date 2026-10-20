@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "isJavaLetter#char",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_isJavaLetter_char",
+      "preconditionFunction": "stub_isJavaLetter_char_pre",
+      "argumentTypes": [
+        "char"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "isJavaLetter#char: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "isJavaLetter#char: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

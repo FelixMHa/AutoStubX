@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "highestOneBit#int",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_highestOneBit_int",
+      "preconditionFunction": "stub_highestOneBit_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

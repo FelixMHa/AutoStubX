@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toBinaryString#int",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_toBinaryString_int",
+      "preconditionFunction": "stub_toBinaryString_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toBinaryString#int: Java UTF-16 strings are modeled with the SMT String theory",
+        "toBinaryString#int: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)",
+        "toBinaryString#int: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "toBinaryString#int: Java UTF-16 strings are modeled with the SMT String theory",
+    "toBinaryString#int: ASCII_TO_STR treated as a no-op (Java conversion/case semantics are solver-specific)",
+    "toBinaryString#int: FLOAT.TO.STR treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

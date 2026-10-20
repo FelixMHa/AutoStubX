@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "longValue#0",
+      "owner": "java.lang.Short",
+      "smtFunction": "stub_longValue_0",
+      "preconditionFunction": "stub_longValue_0_pre",
+      "argumentTypes": [],
+      "returnType": "long",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Short",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "longValue#0: STR_REPLACE_ALL treated as a no-op (pushbase STR_REPLACE_ALL is regex-based and cannot be represented by str.replace_all)"
+      ]
+    }
+  ],
+  "warnings": [
+    "longValue#0: STR_REPLACE_ALL treated as a no-op (pushbase STR_REPLACE_ALL is regex-based and cannot be represented by str.replace_all)"
+  ]
+}

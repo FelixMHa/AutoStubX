@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "valueOf#bool",
+      "owner": "java.lang.Boolean",
+      "smtFunction": "stub_valueOf_bool",
+      "preconditionFunction": "stub_valueOf_bool_pre",
+      "argumentTypes": [
+        "boolean"
+      ],
+      "returnType": "java.lang.Boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Boolean",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "valueOf#bool: STR.TO.FLOAT treated as a no-op (not exactly representable in the selected SMT theory)"
+      ]
+    }
+  ],
+  "warnings": [
+    "valueOf#bool: STR.TO.FLOAT treated as a no-op (not exactly representable in the selected SMT theory)"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "valueOf#int",
+      "owner": "java.lang.Short",
+      "smtFunction": "stub_valueOf_int",
+      "preconditionFunction": "stub_valueOf_int_pre",
+      "argumentTypes": [
+        "short"
+      ],
+      "returnType": "java.lang.Short",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Short",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "valueOf#int: FLOAT.DIV treated as a no-op (Java/IEEE-754 division by zero requires a FloatingPoint backend)"
+      ]
+    }
+  ],
+  "warnings": [
+    "valueOf#int: FLOAT.DIV treated as a no-op (Java/IEEE-754 division by zero requires a FloatingPoint backend)"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "compareUnsigned#int#int",
+      "owner": "java.lang.Byte",
+      "smtFunction": "stub_compareUnsigned_int_int",
+      "preconditionFunction": "stub_compareUnsigned_int_int_pre",
+      "argumentTypes": [
+        "byte",
+        "byte"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Byte",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

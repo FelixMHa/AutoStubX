@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "lastIndexOf#int#int",
+      "owner": "java.lang.String",
+      "smtFunction": "stub_lastIndexOf_int_int",
+      "preconditionFunction": "stub_lastIndexOf_int_int_pre",
+      "argumentTypes": [
+        "int",
+        "int"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.String",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "lastIndexOf#int#int: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "lastIndexOf#int#int: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

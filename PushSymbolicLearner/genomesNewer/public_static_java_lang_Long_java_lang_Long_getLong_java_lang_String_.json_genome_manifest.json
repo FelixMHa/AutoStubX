@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "getLong#obj",
+      "owner": "java.lang.Long",
+      "smtFunction": "stub_getLong_obj",
+      "preconditionFunction": "stub_getLong_obj_pre",
+      "argumentTypes": [
+        "java.lang.String"
+      ],
+      "returnType": "java.lang.Long",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Long",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": [
+        "getLong#obj: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "getLong#obj: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

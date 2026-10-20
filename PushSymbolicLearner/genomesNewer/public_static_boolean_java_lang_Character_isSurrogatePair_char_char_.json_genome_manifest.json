@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "isSurrogatePair#char#char",
+      "owner": "java.lang.Character",
+      "smtFunction": "stub_isSurrogatePair_char_char",
+      "preconditionFunction": "stub_isSurrogatePair_char_char_pre",
+      "argumentTypes": [
+        "char",
+        "char"
+      ],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Character",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "isSurrogatePair#char#char: Java UTF-16 strings are modeled with the SMT String theory",
+        "isSurrogatePair#char#char: STR_REPLACE_ALL treated as a no-op (pushbase STR_REPLACE_ALL is regex-based and cannot be represented by str.replace_all)"
+      ]
+    }
+  ],
+  "warnings": [
+    "isSurrogatePair#char#char: Java UTF-16 strings are modeled with the SMT String theory",
+    "isSurrogatePair#char#char: STR_REPLACE_ALL treated as a no-op (pushbase STR_REPLACE_ALL is regex-based and cannot be represented by str.replace_all)"
+  ]
+}

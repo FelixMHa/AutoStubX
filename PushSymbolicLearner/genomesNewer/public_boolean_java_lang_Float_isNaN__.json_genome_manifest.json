@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "isNaN#0",
+      "owner": "java.lang.Float",
+      "smtFunction": "stub_isNaN_0",
+      "preconditionFunction": "stub_isNaN_0_pre",
+      "argumentTypes": [],
+      "returnType": "boolean",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Float",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "isNaN#0: Java float/double values are modeled as mathematical SMT Real"
+      ]
+    }
+  ],
+  "warnings": [
+    "isNaN#0: Java float/double values are modeled as mathematical SMT Real"
+  ]
+}

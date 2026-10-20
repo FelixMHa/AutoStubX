@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "compare#int#int",
+      "owner": "java.lang.Byte",
+      "smtFunction": "stub_compare_int_int",
+      "preconditionFunction": "stub_compare_int_int_pre",
+      "argumentTypes": [
+        "byte",
+        "byte"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Byte",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

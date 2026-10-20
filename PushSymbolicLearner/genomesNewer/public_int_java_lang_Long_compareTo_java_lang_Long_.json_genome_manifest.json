@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "compareTo#obj",
+      "owner": "java.lang.Long",
+      "smtFunction": "stub_compareTo_obj",
+      "preconditionFunction": "stub_compareTo_obj_pre",
+      "argumentTypes": [
+        "java.lang.Long"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Long",
+      "isStatic": false,
+      "symbolicPaths": 2,
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

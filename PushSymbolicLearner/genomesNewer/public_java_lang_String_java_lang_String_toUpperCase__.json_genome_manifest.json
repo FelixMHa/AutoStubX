@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "toUpperCase#0",
+      "owner": "java.lang.String",
+      "smtFunction": "stub_toUpperCase_0",
+      "preconditionFunction": "stub_toUpperCase_0_pre",
+      "argumentTypes": [],
+      "returnType": "java.lang.String",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.String",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "toUpperCase#0: Java UTF-16 strings are modeled with the SMT String theory"
+      ]
+    }
+  ],
+  "warnings": [
+    "toUpperCase#0: Java UTF-16 strings are modeled with the SMT String theory"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "format": "SMT-LIB 2",
+  "methods": [
+    {
+      "method": "hashCode#int",
+      "owner": "java.lang.Integer",
+      "smtFunction": "stub_hashCode_int",
+      "preconditionFunction": "stub_hashCode_int_pre",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "int",
+      "receiverKind": "object",
+      "receiverValueType": "java.lang.Integer",
+      "isStatic": false,
+      "symbolicPaths": 1,
+      "warnings": [
+        "hashCode#int: STR_REPLACE_ALL treated as a no-op (pushbase STR_REPLACE_ALL is regex-based and cannot be represented by str.replace_all)"
+      ]
+    }
+  ],
+  "warnings": [
+    "hashCode#int: STR_REPLACE_ALL treated as a no-op (pushbase STR_REPLACE_ALL is regex-based and cannot be represented by str.replace_all)"
+  ]
+}
