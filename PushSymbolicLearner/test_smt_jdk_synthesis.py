@@ -1498,15 +1498,30 @@ def _finite_symbolic_set_heap(receiver: int, domain: list[Any]) -> tuple[str, li
     return "\n".join(lines), membership
 
 
-def _goal_values(info: dict[str, Any], int_targets: list[Any]) -> list[Any]:
+def _goal_values(info: dict[str, Any], int_targets: list[Any], example: Any = None) -> list[Any]:
     rt = norm(info.get("returnType"))
+    
     if rt in BOOL:
         return [False, True]
-    if rt in INT:
-        return [int(x) for x in int_targets]
     if rt in VOID:
         return [None]
-    return []
+
+    goals: list[Any] = []
+
+    # 1. Pull unique, valid ground-truth outputs directly from training data traces
+    if example is not None and hasattr(example, "expected_outputs"):
+        for out in example.expected_outputs:
+            if out not in goals and out != "error" and not expected_error(out, rt):
+                goals.append(out)
+
+    # 2. If trace outputs are sparse, supplement with target goals (e.g. [-1, 0, 1] for ints)
+    if rt in INT:
+        for target in int_targets:
+            val = int(target)
+            if val not in goals:
+                goals.append(val)
+
+    return goals
 
 
 def _model_scalars(output: str) -> dict[str, Any]:
@@ -1988,7 +2003,6 @@ def _candidate_identity(candidate: dict[str, Any]) -> str:
         default=lambda x: repr(x),
     )
 
-
 def _synthesize_cases_symbolic(
     z3: str,
     base: str,
@@ -2000,30 +2014,33 @@ def _synthesize_cases_symbolic(
     limit: int,
     set_slots: int,
 ) -> list[dict[str, Any]]:
-    """Inverse generation with unrestricted scalar values.
-
-    Argument-only synthesis preserves the concrete training prefix.  State and
-    joint synthesis use a compact *call-local* HashSet pre-state: symbolic size
-    plus symbolic membership of the target argument.  This is exact for the
-    generated HashSet size/isEmpty/clear/contains/add/remove stubs and avoids the
-    expensive arbitrary-JValue slot/lambda encoding.
-    """
     method_name = example.sequence[call_index]
     info = methods[method_name]
     declared = list(info.get("argumentTypes", []))
     is_static = bool(info.get("isStatic", False))
+
+    # --- FAST GUARDS: Skip impossible Z3 calls immediately ---
+    if mode == "args" and len(declared) == 0:
+        return []  # 'args' mode requires exactly 1 parameter
+    if mode == "state" and is_static:
+        return []  # 'state' mode requires an instance method
+    if mode == "joint" and (is_static or len(declared) == 0):
+        return []  # 'joint' mode requires an instance method with arguments
     receiver = None if is_static else int(
         example.receiver_refs[call_index] if call_index < len(example.receiver_refs) else 0
     )
 
     synth_arg = mode in {"args", "joint"}
     synth_state = mode in {"state", "joint"}
+    
     if synth_arg and len(declared) != 1:
-        return []
-    if synth_state:
-        if is_static or str(info.get("receiverKind") or "").lower() != "set":
+        if mode == "joint" and not is_static:
+            synth_arg = False
+        else:
             return []
-        assert receiver is not None
+            
+    if synth_state and is_static:
+        return []
 
     declarations: list[str] = []
     encoded_args: list[str] = []
@@ -2047,11 +2064,53 @@ def _synthesize_cases_symbolic(
             encoded_args.append(argument(value, type_name))
 
     state_names: list[str] = []
+    is_set_receiver = str(info.get("receiverKind") or "").lower() == "set"
+
     if synth_state:
-        tracked_term = encoded_args[0] if len(encoded_args) == 1 else None
-        heap_text, state_names = _symbolic_hashset_summary_heap(
-            receiver, set_slots, tracked_term
-        )
+        assert receiver is not None
+        if is_set_receiver:
+            tracked_term = encoded_args[0] if len(encoded_args) == 1 else None
+            heap_text, state_names = _symbolic_hashset_summary_heap(
+                receiver, set_slots, tracked_term
+            )
+        else:
+            rec_type = info.get("owner", "java.lang.Object")
+            rec_norm = norm(rec_type)
+            
+            if rec_norm in INT:
+                declarations.append("(declare-const synth_receiver_val Int)")
+                rec_term = "(JInt synth_receiver_val)"
+            elif rec_norm in REAL:
+                declarations.append("(declare-const synth_receiver_val Real)")
+                rec_term = "(JReal synth_receiver_val)"
+            elif rec_norm in BOOL:
+                declarations.append("(declare-const synth_receiver_val Bool)")
+                rec_term = "(JBool synth_receiver_val)"
+            else:
+                spec = _symbolic_argument_spec("synth_receiver_val", rec_type)
+                if spec is not None:
+                    rec_decls, rec_term = spec
+                    declarations.extend(rec_decls)
+                else:
+                    declarations.extend([
+                        "(declare-const synth_receiver_val JValue)",
+                        f"(assert {_replayable_jvalue_constraint('synth_receiver_val')})"
+                    ])
+                    rec_term = "synth_receiver_val"
+
+            r = smt_int(receiver)
+            heap_text = "\n".join([
+                "(define-fun h0 () Heap",
+                "  (mk-heap",
+                f"    (store (heap-kind empty-heap) {r} K_OBJECT)",
+                f"    (store (heap-object-value empty-heap) {r} {rec_term})",
+                "    (heap-list-size empty-heap) (heap-list-data empty-heap)",
+                "    (heap-map-size empty-heap) (heap-map-present empty-heap)",
+                "    (heap-map-data empty-heap) (heap-set-size empty-heap)",
+                "    (heap-set-present empty-heap)))",
+            ])
+            state_names = ["synth_receiver_val"]
+
         prefix_text = ""
         pre_heap = "h0"
         synthesis_scope = "call-local"
@@ -2066,6 +2125,7 @@ def _synthesize_cases_symbolic(
         synthesis_scope = "sequence-prefix"
 
     target = _target_call_smt(info, pre_heap, receiver, encoded_args)
+    # Strictly assert that the SMT result must equal the ground-truth target output `wanted`
     desired = expected_condition("r_synth", wanted, info.get("returnType"), info.get("returnType"))
     blocks: list[str] = []
     found: list[dict[str, Any]] = []
@@ -2083,7 +2143,11 @@ def _synthesize_cases_symbolic(
         query.append(target)
         query.append(f"(assert {desired})")
         query.extend(blocks)
-        names = [*state_names, *([arg_name] if synth_arg else [])]
+
+        names = [*state_names]
+        if synth_arg:
+            names.append(arg_name)
+
         model = _sat_model(z3, "\n".join(query), names, _get_value_pairs)
         if model is None:
             break
@@ -2092,23 +2156,35 @@ def _synthesize_cases_symbolic(
         state_values = None
         solved_size = None
         solved_present = None
+
         if synth_state:
-            solved_size = _smt_int_value(model["synth_set_size"])
-            solved_present = (
-                _smt_bool_value(model["synth_present"])
-                if "synth_present" in state_names else None
-            )
-            if len(declared) == 1:
-                tracked_value = arg_value if synth_arg else example.input_args[call_index][0]
+            if is_set_receiver:
+                solved_size = _smt_int_value(model["synth_set_size"])
+                solved_present = (
+                    _smt_bool_value(model["synth_present"])
+                    if "synth_present" in state_names else None
+                )
+                tracked_value = arg_value if synth_arg else (
+                    example.input_args[call_index][0] if example.input_args[call_index] else None
+                )
+                state_values = _hashset_witness(solved_size, tracked_value, solved_present)
             else:
-                tracked_value = None
-            state_values = _hashset_witness(solved_size, tracked_value, solved_present)
+                raw_rec = model["synth_receiver_val"]
+                rec_norm = norm(info.get("owner", "java.lang.Object"))
+                if rec_norm in INT:
+                    state_values = _smt_int_value(raw_rec)
+                elif rec_norm in REAL:
+                    state_values = float(_smt_real_fraction(raw_rec))
+                elif rec_norm in BOOL:
+                    state_values = _smt_bool_value(raw_rec)
+                else:
+                    state_values = _decode_symbolic_argument(raw_rec, info.get("owner", "java.lang.Object"))
 
         candidate = {
             "mode": mode,
             "synthesis_engine": "symbolic",
             "synthesis_scope": synthesis_scope,
-            "symbolic_set_slots": set_slots if synth_state else None,
+            "symbolic_set_slots": set_slots if (synth_state and is_set_receiver) else None,
             "symbolic_set_size": solved_size,
             "symbolic_target_present": solved_present,
             "wanted_output": wanted,
@@ -2173,19 +2249,35 @@ def _trial_from_synthesized(
         example.receiver_refs[call_index] if call_index < len(example.receiver_refs) else 0
     )
 
+    raw_init = candidate.get("initial_set")
+    init_data = list(raw_init) if isinstance(raw_init, (list, tuple, set)) else raw_init
+
     if candidate.get("synthesis_scope") == "call-local":
         if receiver is None:
             raise ValueError("call-local receiver-state synthesis requires an instance method")
         owner = str(info.get("owner") or info.get("declaringClass") or "java.util.HashSet")
+        
+        # Preserve existing template arguments
         args = list(example.input_args[call_index])
-        if candidate.get("mode") in {"args", "joint"}:
-            args = [candidate.get("argument")]
+        synth_arg = candidate.get("argument")
+
+        # Update synthesized argument without dropping remaining parameters
+        if synth_arg is not None:
+            if args:
+                args[0] = synth_arg
+            else:
+                args = [synth_arg]
+        elif candidate.get("mode") == "args" and len(args) == 1:
+            args = [synth_arg]
+
+        declared_types = list(info.get("argumentTypes", []))
+
         return SimpleNamespace(
-            initial_state={receiver: {"type": owner, "data": list(candidate.get("initial_set") or [])}},
+            initial_state={receiver: {"type": owner, "data": init_data}},
             data_structure_type=owner,
             sequence=[method_name],
             input_args=[args],
-            type_inputs=[list(info.get("argumentTypes", []))],
+            type_inputs=[declared_types],
             expected_outputs=[candidate.get("wanted_output")],
             type_outputs=[str(info.get("returnType") or "void")],
             receiver_refs=[receiver],
@@ -2201,12 +2293,18 @@ def _trial_from_synthesized(
         if receiver is None:
             raise ValueError("cannot synthesize receiver state for a static method")
         owner = str(info.get("owner") or info.get("declaringClass") or "java.util.HashSet")
-        trial.initial_state = {receiver: {"type": owner, "data": list(candidate["initial_set"])}}
+        trial.initial_state = {receiver: {"type": owner, "data": init_data}}
         trial.data_structure_type = owner
-    if candidate.get("argument", None) is not None or candidate.get("mode") in {"args", "joint"}:
-        trial.input_args[call_index] = [candidate.get("argument")]
+        
+    synth_arg = candidate.get("argument")
+    if synth_arg is not None:
+        if trial.input_args[call_index]:
+            trial.input_args[call_index][0] = synth_arg
+        else:
+            trial.input_args[call_index] = [synth_arg]
         if call_index < len(trial.type_inputs):
             trial.type_inputs[call_index] = list(info.get("argumentTypes", []))
+            
     return trial
 
 def retest_synthesized_case(
@@ -2271,20 +2369,32 @@ def synthesize_and_retest_example(
     per_goal: int,
     engine: str,
     set_slots: int,
+    synth_cache: set[tuple[str, str, Any]] = None,
+    target_total: int = 100,
 ) -> list[dict[str, Any]]:
+    if synth_cache is None:
+        synth_cache = set()
+
     results: list[dict[str, Any]] = []
     for call_index, method_name in enumerate(example.sequence):
         info = methods[method_name]
-        goals = _goal_values(info, int_targets)
+        goals = _goal_values(info, int_targets, example=example)
         if not goals:
             continue
+
+        # Distribute 100 tests evenly across all output goals and active modes
+        quota_per_goal = max(1, target_total // (len(goals) * len(modes)))
+
         for mode in modes:
-            if mode == "joint" and not info.get("argumentTypes"):
-                continue
             for wanted in goals:
+                cache_key = (method_name, mode, wanted)
+                if cache_key in synth_cache:
+                    continue
+                synth_cache.add(cache_key)
+
                 candidates = synthesize_cases_for_call(
                     z3, base, example, methods, call_index,
-                    mode, wanted, domain, per_goal, engine, set_slots,
+                    mode, wanted, domain, quota_per_goal, engine, set_slots,
                 )
                 for candidate in candidates:
                     try:
@@ -2300,6 +2410,42 @@ def synthesize_and_retest_example(
                             "error": str(exc),
                         })
     return results
+
+def select_balanced_templates(examples: list[Any], method_info: dict[str, Any], target_count: int = 100) -> list[tuple[int, Any, Any]]:
+    """Group examples by their recorded output and select a balanced mix across all unique outputs."""
+    rt = norm(method_info.get("returnType"))
+    
+    # 1. Group example indices by their first-call expected output
+    by_output: dict[Any, list[tuple[int, Any]]] = {}
+    for eidx, ex in enumerate(examples):
+        if not ex.expected_outputs:
+            continue
+        out = ex.expected_outputs[0]
+        if out == "error" or expected_error(out, rt):
+            continue
+            
+        # Normalize representations for dictionary grouping
+        key = repr(out)
+        by_output.setdefault(key, []).append((eidx, ex))
+
+    if not by_output:
+        return []
+
+    # 2. Calculate how many templates to pick per unique output class
+    unique_goals = list(by_output.keys())
+    per_goal_quota = max(1, target_count // len(unique_goals))
+
+    selected: list[tuple[int, Any, Any]] = []
+    for key, items in by_output.items():
+        # Stratified sampling: pick evenly spread templates across the dataset
+        step = max(1, len(items) // per_goal_quota)
+        sampled = items[::step][:per_goal_quota]
+        
+        for eidx, ex in sampled:
+            wanted_val = ex.expected_outputs[0]
+            selected.append((eidx, ex, wanted_val))
+
+    return selected
 
 def _build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(
@@ -2407,6 +2553,7 @@ def main() -> int:
     trace_diffs: list[dict[str, Any]] = []
     per_method: dict[str, dict[str, int]] = {}
     synthesized: list[dict[str, Any]] = []
+    synth_cache: set[tuple[str, str, Any]] = set()
 
     with JdkOracle(a.java, a.javac, a.classpath) as oracle:
         for eidx, ex in enumerate(examples):
@@ -2530,6 +2677,7 @@ def main() -> int:
                 generated = synthesize_and_retest_example(
                     oracle, a.z3, base, ex, methods, synth_modes, synth_domain,
                     synth_int_targets, a.synth_per_goal, a.synth_engine, a.synth_set_slots,
+                    synth_cache=synth_cache,  # <-- Pass the shared cache here
                 )
                 for item in generated:
                     item["template_example"] = eidx
@@ -2563,12 +2711,12 @@ def main() -> int:
             f"{method:30} {m['same']:5}/{m['total']:<5} {acc:7.2%}  "
             f"diff={m['different']} unknown={m['unknown']}"
         )
-
-    _write_json("smt_jdk_differences.json", diffs)
-    _write_json("training_jdk_differences.json", trace_diffs)
-    _write_json("smt_jdk_skipped.json", skipped)
+    file_stem = Path(a.training_data).stem
+    _write_json("./evaluation/roundtrip/" + file_stem + "_jdk_differences.json", diffs)
+    _write_json("./evaluation/roundtrip/" + file_stem + "_training_jdk_differences.json", trace_diffs)
+    _write_json("./evaluation/roundtrip/" + file_stem + "_skipped.json", skipped)
     if a.synthesize:
-        _write_json("smt_generated_roundtrip_tests.json", synthesized)
+        _write_json("./evaluation/roundtrip/" + file_stem + "_roundtrip_tests.json", synthesized)
         synth_pass = sum(1 for x in synthesized if x.get("pass"))
         synth_fail = len(synthesized) - synth_pass
         print("\n=== SYNTHESIZED ROUND-TRIP TESTS ===")

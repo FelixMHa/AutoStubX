@@ -1,4 +1,4 @@
-COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.Float\\public_static_java_lang_String_java_lang_Float_toHexString_float_.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_java_lang_String_java_lang_Float_toHexString_float_.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_java_lang_String_java_lang_Float_toHexString_float_.json_genome_manifest.json']
+COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.Float\\public_static_java_lang_String_java_lang_Float_toHexString_float_.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_java_lang_String_java_lang_Float_toHexString_float_.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_java_lang_String_java_lang_Float_toHexString_float_.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-max-examples', '100']
 
 Loading training data from C:\Users\felix\AutoStubX\Training-Data-Generation\symbolic-regression-data\training\java.lang.Float\public_static_java_lang_String_java_lang_Float_toHexString_float_.json
 Max samples per file: 1000000
@@ -6,43 +6,35 @@ Max samples per file: 1000000
 Loading public_static_java_lang_String_java_lang_Float_toHexString_float_.json... (10000 samples)
 ------------------------------------------------------------
 Loaded 10000 total samples from 1 files
+Z3 base check: sat
+Concrete oracle: openjdk version "17.0.20.1" 2026-08-18
+Replay mode    : stateful sequence replay on real JVM objects
 Traceback (most recent call last):
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2596, in <module>
+  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2743, in <module>
     raise SystemExit(main())
                      ~~~~^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2395, in main
-    _check_base_model(a.z3, base)
-    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2370, in _check_base_model
-    status = result_words(run_z3(z3, base + "\n(check-sat)\n"))
-                          ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 1365, in run_z3
-    p = subprocess.run(
-        [z3, "-in", "-smt2"],
-    ...<5 lines>...
-        timeout=60,
+  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2674, in main
+    generated = synthesize_and_retest_example(
+        oracle, a.z3, base, ex, methods, synth_modes, synth_domain,
+        synth_int_targets, a.synth_per_goal, a.synth_engine, a.synth_set_slots,
+        synth_cache=synth_cache,  # <-- Pass the shared cache here
     )
-  File "C:\Users\felix\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\subprocess.py", line 555, in run
-    with Popen(*popenargs, **kwargs) as process:
-         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\subprocess.py", line 1039, in __init__
-    self._execute_child(args, executable, preexec_fn, close_fds,
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                        pass_fds, cwd, env,
-                        ^^^^^^^^^^^^^^^^^^^
-    ...<5 lines>...
-                        gid, gids, uid, umask,
-                        ^^^^^^^^^^^^^^^^^^^^^^
-                        start_new_session, process_group)
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\subprocess.py", line 1553, in _execute_child
-    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
-                       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
-                             # no special security
-                             ^^^^^^^^^^^^^^^^^^^^^
-    ...<4 lines>...
-                             cwd,
-                             ^^^^
-                             startupinfo)
-                             ^^^^^^^^^^^^
-FileNotFoundError: [WinError 2] Das System kann die angegebene Datei nicht finden
+  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2392, in synthesize_and_retest_example
+    candidates = synthesize_cases_for_call(
+        z3, base, example, methods, call_index,
+        mode, wanted, domain, per_goal, engine, set_slots,
+    )
+  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2234, in synthesize_cases_for_call
+    return _synthesize_cases_symbolic(
+        z3, base, example, methods, call_index, mode, wanted, limit, set_slots
+    )
+  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2064, in _synthesize_cases_symbolic
+    encoded_args.append(argument(value, type_name))
+                        ~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 1077, in argument
+    return smt_real(x)
+  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 983, in smt_real
+    raise UnsupportedConcreteValue(
+        f"SMT Real cannot represent IEEE non-finite value {x!r}"
+    )
+UnsupportedConcreteValue: SMT Real cannot represent IEEE non-finite value nan

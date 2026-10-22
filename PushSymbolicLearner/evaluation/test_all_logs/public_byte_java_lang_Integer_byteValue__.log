@@ -1,4 +1,4 @@
-COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.Integer\\public_byte_java_lang_Integer_byteValue__.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_byte_java_lang_Integer_byteValue__.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_byte_java_lang_Integer_byteValue__.json_genome_manifest.json', '--z3', 'C:\\z3-4.12.1-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-max-examples', '100']
+COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.Integer\\public_byte_java_lang_Integer_byteValue__.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_byte_java_lang_Integer_byteValue__.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_byte_java_lang_Integer_byteValue__.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-per-goal', '50']
 
 Loading training data from C:\Users\felix\AutoStubX\Training-Data-Generation\symbolic-regression-data\training\java.lang.Integer\public_byte_java_lang_Integer_byteValue__.json
 Max samples per file: 1000000
@@ -6,43 +6,35 @@ Max samples per file: 1000000
 Loading public_byte_java_lang_Integer_byteValue__.json... (10000 samples)
 ------------------------------------------------------------
 Loaded 10000 total samples from 1 files
-Traceback (most recent call last):
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2597, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2396, in main
-    _check_base_model(a.z3, base)
-    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2371, in _check_base_model
-    status = result_words(run_z3(z3, base + "\n(check-sat)\n"))
-                          ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 1365, in run_z3
-    p = subprocess.run(
-        [z3, "-in", "-smt2"],
-    ...<5 lines>...
-        timeout=60,
-    )
-  File "C:\Users\felix\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\subprocess.py", line 555, in run
-    with Popen(*popenargs, **kwargs) as process:
-         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\subprocess.py", line 1039, in __init__
-    self._execute_child(args, executable, preexec_fn, close_fds,
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                        pass_fds, cwd, env,
-                        ^^^^^^^^^^^^^^^^^^^
-    ...<5 lines>...
-                        gid, gids, uid, umask,
-                        ^^^^^^^^^^^^^^^^^^^^^^
-                        start_new_session, process_group)
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\subprocess.py", line 1553, in _execute_child
-    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
-                       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
-                             # no special security
-                             ^^^^^^^^^^^^^^^^^^^^^
-    ...<4 lines>...
-                             cwd,
-                             ^^^^
-                             startupinfo)
-                             ^^^^^^^^^^^^
-FileNotFoundError: [WinError 2] Das System kann die angegebene Datei nicht finden
+Z3 base check: sat
+Concrete oracle: openjdk version "17.0.20.1" 2026-08-18
+Replay mode    : stateful sequence replay on real JVM objects
+Processed 50/10000Processed 100/10000Processed 150/10000Processed 200/10000Processed 250/10000Processed 300/10000Processed 350/10000Processed 400/10000Processed 450/10000Processed 500/10000Processed 550/10000Processed 600/10000Processed 650/10000Processed 700/10000Processed 750/10000Processed 800/10000Processed 850/10000Processed 900/10000Processed 950/10000Processed 1000/10000Processed 1050/10000Processed 1100/10000Processed 1150/10000Processed 1200/10000Processed 1250/10000Processed 1300/10000Processed 1350/10000Processed 1400/10000Processed 1450/10000Processed 1500/10000Processed 1550/10000Processed 1600/10000Processed 1650/10000Processed 1700/10000Processed 1750/10000Processed 1800/10000Processed 1850/10000Processed 1900/10000Processed 1950/10000Processed 2000/10000Processed 2050/10000Processed 2100/10000Processed 2150/10000Processed 2200/10000Processed 2250/10000Processed 2300/10000Processed 2350/10000Processed 2400/10000Processed 2450/10000Processed 2500/10000Processed 2550/10000Processed 2600/10000Processed 2650/10000Processed 2700/10000Processed 2750/10000Processed 2800/10000Processed 2850/10000Processed 2900/10000Processed 2950/10000Processed 3000/10000Processed 3050/10000Processed 3100/10000Processed 3150/10000Processed 3200/10000Processed 3250/10000Processed 3300/10000Processed 3350/10000Processed 3400/10000Processed 3450/10000Processed 3500/10000Processed 3550/10000Processed 3600/10000Processed 3650/10000Processed 3700/10000Processed 3750/10000Processed 3800/10000Processed 3850/10000Processed 3900/10000Processed 3950/10000Processed 4000/10000Processed 4050/10000Processed 4100/10000Processed 4150/10000Processed 4200/10000Processed 4250/10000Processed 4300/10000Processed 4350/10000Processed 4400/10000Processed 4450/10000Processed 4500/10000Processed 4550/10000Processed 4600/10000Processed 4650/10000Processed 4700/10000Processed 4750/10000Processed 4800/10000Processed 4850/10000Processed 4900/10000Processed 4950/10000Processed 5000/10000Processed 5050/10000Processed 5100/10000Processed 5150/10000Processed 5200/10000Processed 5250/10000Processed 5300/10000Processed 5350/10000Processed 5400/10000Processed 5450/10000Processed 5500/10000Processed 5550/10000Processed 5600/10000Processed 5650/10000Processed 5700/10000Processed 5750/10000Processed 5800/10000Processed 5850/10000Processed 5900/10000Processed 5950/10000Processed 6000/10000Processed 6050/10000Processed 6100/10000Processed 6150/10000Processed 6200/10000Processed 6250/10000Processed 6300/10000Processed 6350/10000Processed 6400/10000Processed 6450/10000Processed 6500/10000Processed 6550/10000Processed 6600/10000Processed 6650/10000Processed 6700/10000Processed 6750/10000Processed 6800/10000Processed 6850/10000Processed 6900/10000Processed 6950/10000Processed 7000/10000Processed 7050/10000Processed 7100/10000Processed 7150/10000Processed 7200/10000Processed 7250/10000Processed 7300/10000Processed 7350/10000Processed 7400/10000Processed 7450/10000Processed 7500/10000Processed 7550/10000Processed 7600/10000Processed 7650/10000Processed 7700/10000Processed 7750/10000Processed 7800/10000Processed 7850/10000Processed 7900/10000Processed 7950/10000Processed 8000/10000Processed 8050/10000Processed 8100/10000Processed 8150/10000Processed 8200/10000Processed 8250/10000Processed 8300/10000Processed 8350/10000Processed 8400/10000Processed 8450/10000Processed 8500/10000Processed 8550/10000Processed 8600/10000Processed 8650/10000Processed 8700/10000Processed 8750/10000Processed 8800/10000Processed 8850/10000Processed 8900/10000Processed 8950/10000Processed 9000/10000Processed 9050/10000Processed 9100/10000Processed 9150/10000Processed 9200/10000Processed 9250/10000Processed 9300/10000Processed 9350/10000Processed 9400/10000Processed 9450/10000Processed 9500/10000Processed 9550/10000Processed 9600/10000Processed 9650/10000Processed 9700/10000Processed 9750/10000Processed 9800/10000Processed 9850/10000Processed 9900/10000Processed 9950/10000Processed 10000/10000
+
+=== SMT vs ACTUAL JDK ===
+Examples : 10000
+Calls    : 0
+Same     : 0
+Different: 0
+Unknown  : 0
+Skipped  : 0 calls in 0 skipped examples
+Agreement: 0.00%  (representable/tested calls only)
+State    : 0 receiver post-states included in the SMT proof
+
+=== TRAINING TRACE vs ACTUAL JDK (diagnostic only) ===
+Same     : 0
+Different: 0
+Agreement: 0.00%
+
+=== PER METHOD: SMT vs JDK ===
+
+=== SYNTHESIZED ROUND-TRIP TESTS ===
+Engine   : symbolic
+Set slots: 4 (element values unrestricted)
+Generated: 22
+Passed   : 22
+Failed   : 0
+state   : 22/22 passed
+Saved synthesized cases to smt_generated_roundtrip_tests.json
+
+Saved SMT/JDK mismatches to smt_jdk_differences.json
