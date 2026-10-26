@@ -1,4 +1,4 @@
-COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.String\\public_java_lang_String_java_lang_String_stripTrailing__.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_java_lang_String_java_lang_String_stripTrailing__.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_java_lang_String_java_lang_String_stripTrailing__.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-max-examples', '100']
+COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.String\\public_java_lang_String_java_lang_String_stripTrailing__.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_java_lang_String_java_lang_String_stripTrailing__.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_java_lang_String_java_lang_String_stripTrailing__.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-per-goal', '50']
 
 Loading training data from C:\Users\felix\AutoStubX\Training-Data-Generation\symbolic-regression-data\training\java.lang.String\public_java_lang_String_java_lang_String_stripTrailing__.json
 Max samples per file: 1000000
@@ -9,7 +9,109 @@ Loaded 10000 total samples from 1 files
 Z3 base check: sat
 Concrete oracle: openjdk version "17.0.20.1" 2026-08-18
 Replay mode    : stateful sequence replay on real JVM objects
-Processed 50/10000Processed 100/10000Processed 150/10000Processed 200/10000Processed 250/10000Processed 300/10000Processed 350/10000Processed 400/10000Processed 450/10000Processed 500/10000Processed 550/10000Processed 600/10000Processed 650/10000Processed 700/10000Processed 750/10000Processed 800/10000Processed 850/10000Processed 900/10000Processed 950/10000Processed 1000/10000Processed 1050/10000Processed 1100/10000Processed 1150/10000Processed 1200/10000Processed 1250/10000Processed 1300/10000Processed 1350/10000Processed 1400/10000Processed 1450/10000Processed 1500/10000Processed 1550/10000Processed 1600/10000Processed 1650/10000Processed 1700/10000Processed 1750/10000Processed 1800/10000Processed 1850/10000Processed 1900/10000Processed 1950/10000Processed 2000/10000Processed 2050/10000Processed 2100/10000Processed 2150/10000Processed 2200/10000Processed 2250/10000Processed 2300/10000Processed 2350/10000Processed 2400/10000Processed 2450/10000Processed 2500/10000Processed 2550/10000Processed 2600/10000Processed 2650/10000Processed 2700/10000Processed 2750/10000Processed 2800/10000Processed 2850/10000Processed 2900/10000Processed 2950/10000Processed 3000/10000Processed 3050/10000Processed 3100/10000Processed 3150/10000Processed 3200/10000Processed 3250/10000Processed 3300/10000Processed 3350/10000Processed 3400/10000Processed 3450/10000Processed 3500/10000Processed 3550/10000Processed 3600/10000Processed 3650/10000Processed 3700/10000Processed 3750/10000Processed 3800/10000Processed 3850/10000Processed 3900/10000Processed 3950/10000Processed 4000/10000Processed 4050/10000Processed 4100/10000Processed 4150/10000Processed 4200/10000Processed 4250/10000Processed 4300/10000Processed 4350/10000Processed 4400/10000Processed 4450/10000Processed 4500/10000Processed 4550/10000Processed 4600/10000Processed 4650/10000Processed 4700/10000Processed 4750/10000Processed 4800/10000Processed 4850/10000Processed 4900/10000Processed 4950/10000Processed 5000/10000Processed 5050/10000Processed 5100/10000Processed 5150/10000Processed 5200/10000Processed 5250/10000Processed 5300/10000Processed 5350/10000Processed 5400/10000Processed 5450/10000Processed 5500/10000Processed 5550/10000Processed 5600/10000Processed 5650/10000Processed 5700/10000Processed 5750/10000Processed 5800/10000Processed 5850/10000Processed 5900/10000Processed 5950/10000Processed 6000/10000Processed 6050/10000Processed 6100/10000Processed 6150/10000Processed 6200/10000Processed 6250/10000Processed 6300/10000Processed 6350/10000Processed 6400/10000Processed 6450/10000Processed 6500/10000Processed 6550/10000Processed 6600/10000Processed 6650/10000Processed 6700/10000Processed 6750/10000Processed 6800/10000Processed 6850/10000Processed 6900/10000Processed 6950/10000Processed 7000/10000Processed 7050/10000Processed 7100/10000Processed 7150/10000Processed 7200/10000Processed 7250/10000Processed 7300/10000Processed 7350/10000Processed 7400/10000Processed 7450/10000Processed 7500/10000Processed 7550/10000Processed 7600/10000Processed 7650/10000Processed 7700/10000Processed 7750/10000Processed 7800/10000Processed 7850/10000Processed 7900/10000Processed 7950/10000Processed 8000/10000Processed 8050/10000Processed 8100/10000Processed 8150/10000Processed 8200/10000Processed 8250/10000Processed 8300/10000Processed 8350/10000Processed 8400/10000Processed 8450/10000Processed 8500/10000Processed 8550/10000Processed 8600/10000Processed 8650/10000Processed 8700/10000Processed 8750/10000Processed 8800/10000Processed 8850/10000Processed 8900/10000Processed 8950/10000Processed 9000/10000Processed 9050/10000Processed 9100/10000Processed 9150/10000Processed 9200/10000Processed 9250/10000Processed 9300/10000Processed 9350/10000Processed 9400/10000Processed 9450/10000Processed 9500/10000Processed 9550/10000Processed 9600/10000Processed 9650/10000Processed 9700/10000Processed 9750/10000Processed 9800/10000Processed 9850/10000Processed 9900/10000Processed 9950/10000Processed 10000/10000
+
+Synthesizing up to 100 round-trip tests ...
+  [  1/100] state stripTrailing#0 -> ''  PASS
+  [  2/100] state stripTrailing#0 -> 'è8/o\x00èÕ'  PASS
+  [  3/100] state stripTrailing#0 -> '!ÿò»~,+h'  PASS
+  [  4/100] state stripTrailing#0 -> 'Mf²m2f\x9a'  PASS
+  [  5/100] state stripTrailing#0 -> '¸I\x87\x08\x0e£Ð'  PASS
+  [  6/100] state stripTrailing#0 -> '\x92\x1f3n\x15Ä¶tº'  PASS
+  [  7/100] state stripTrailing#0 -> '\x83\x03A\nÿ¸\x8a\x99"'  PASS
+  [  8/100] state stripTrailing#0 -> 'æÊ'  PASS
+  [  9/100] state stripTrailing#0 -> 'q\x8d\x85~\x83'  PASS
+  [ 10/100] state stripTrailing#0 -> 'FÖÆ³rù#7'  PASS
+  [ 11/100] state stripTrailing#0 -> '\x9aÚh\r\x91'  PASS
+  [ 12/100] state stripTrailing#0 -> 'Æ\x1bù"½'  PASS
+  [ 13/100] state stripTrailing#0 -> '\x01'  PASS
+  [ 14/100] state stripTrailing#0 -> '¦2\x93\x80'  PASS
+  [ 15/100] state stripTrailing#0 -> 'ß®\r\x98"IoëÏ'  PASS
+  [ 16/100] state stripTrailing#0 -> 'Ì'  PASS
+  [ 17/100] state stripTrailing#0 -> '\x1e\x03Ó\x1d<'  PASS
+  [ 18/100] state stripTrailing#0 -> '\nÉ\x10/¥zî¥{'  PASS
+  [ 19/100] state stripTrailing#0 -> '\x9e\x0c\x9a'  PASS
+  [ 20/100] state stripTrailing#0 -> 'à'  PASS
+  [ 21/100] state stripTrailing#0 -> 'ùØÞÃ'  PASS
+  [ 22/100] state stripTrailing#0 -> '\x05Ø'  PASS
+  [ 23/100] state stripTrailing#0 -> '$)%\x8d\x93F\t\x00'  PASS
+  [ 24/100] state stripTrailing#0 -> 'îÕ6Y'  PASS
+  [ 25/100] state stripTrailing#0 -> '-å'  PASS
+  [ 26/100] state stripTrailing#0 -> '\x9c@r\x8b%%`4\x15'  PASS
+  [ 27/100] state stripTrailing#0 -> '½¦ÂÐ'  PASS
+  [ 28/100] state stripTrailing#0 -> '®£u¤~Þ\x02'  PASS
+  [ 29/100] state stripTrailing#0 -> '\x99ò;²-Ú'  PASS
+  [ 30/100] state stripTrailing#0 -> 'à¬\x1cæc\x8cF\x83C'  PASS
+  [ 31/100] state stripTrailing#0 -> 'õÚ'  PASS
+  [ 32/100] state stripTrailing#0 -> 'w~Jê\x81'  PASS
+  [ 33/100] state stripTrailing#0 -> '¦:Í\x1d@¡¬'  PASS
+  [ 34/100] state stripTrailing#0 -> 'Q'  PASS
+  [ 35/100] state stripTrailing#0 -> '·Hù\x08'  PASS
+  [ 36/100] state stripTrailing#0 -> 'K#óN\x18\x9f'  PASS
+  [ 37/100] state stripTrailing#0 -> '\r\túÝâ¶\x0b\x89'  PASS
+  [ 38/100] state stripTrailing#0 -> 'ø\x17\x14Ô'  PASS
+  [ 39/100] state stripTrailing#0 -> '>Ä\x82é\x91\x91'  PASS
+  [ 40/100] state stripTrailing#0 -> '\x00T)oº'  PASS
+  [ 41/100] state stripTrailing#0 -> '\x1bJ¶ï'  PASS
+  [ 42/100] state stripTrailing#0 -> 'Ü'  PASS
+  [ 43/100] state stripTrailing#0 -> 'ºadÂ\x1eç\x7f\x8e'  PASS
+  [ 44/100] state stripTrailing#0 -> '¯\x87('  PASS
+  [ 45/100] state stripTrailing#0 -> '´\x1cAÚ¸\x83\x06'  PASS
+  [ 46/100] state stripTrailing#0 -> '«±(Ø¨°\x08¦'  PASS
+  [ 47/100] state stripTrailing#0 -> ']$'  PASS
+  [ 48/100] state stripTrailing#0 -> 'Å\x04»7'  PASS
+  [ 49/100] state stripTrailing#0 -> "é'Ð\x19"  PASS
+  [ 50/100] state stripTrailing#0 -> '\x1ap\x9a\x98Eßà\x90'  PASS
+  [ 51/100] state stripTrailing#0 -> 'gÁùL\x08\x85x7Ù'  PASS
+  [ 52/100] state stripTrailing#0 -> 'h\xad÷ø\x1c\x011Üv'  PASS
+  [ 53/100] state stripTrailing#0 -> 'ôÀ\x99.'  PASS
+  [ 54/100] state stripTrailing#0 -> '®\x1cµ>öb©'  PASS
+  [ 55/100] state stripTrailing#0 -> '\x8dºv>íÙºM»'  PASS
+  [ 56/100] state stripTrailing#0 -> 'p\x06$2(f'  PASS
+  [ 57/100] state stripTrailing#0 -> '\x87û'  PASS
+  [ 58/100] state stripTrailing#0 -> 'wV\x02O¼'  PASS
+  [ 59/100] state stripTrailing#0 -> 'L^\x8f'  PASS
+  [ 60/100] state stripTrailing#0 -> '$Iºâþ'  PASS
+  [ 61/100] state stripTrailing#0 -> "b'1s\x06W"  PASS
+  [ 62/100] state stripTrailing#0 -> 'Ãê\x89¸^Â'  PASS
+  [ 63/100] state stripTrailing#0 -> '*y\x80Ê\x1d\x99,Z\x83'  PASS
+  [ 64/100] state stripTrailing#0 -> '\x86â\x90\\Û\x1c\rJÖ'  PASS
+  [ 65/100] state stripTrailing#0 -> "ñ\x99A¢²\x18'"  PASS
+  [ 66/100] state stripTrailing#0 -> '|¡'  PASS
+  [ 67/100] state stripTrailing#0 -> '±N3'  PASS
+  [ 68/100] state stripTrailing#0 -> '>âÌ÷'  PASS
+  [ 69/100] state stripTrailing#0 -> 'Ë_ëgÅÃ'  PASS
+  [ 70/100] state stripTrailing#0 -> 'Å\x13Ô\x05\x14&'  PASS
+  [ 71/100] state stripTrailing#0 -> 'ü'  PASS
+  [ 72/100] state stripTrailing#0 -> '%\x80\xadæ»\x87\x88'  PASS
+  [ 73/100] state stripTrailing#0 -> 'ô'  PASS
+  [ 74/100] state stripTrailing#0 -> 'ù+^×©'  PASS
+  [ 75/100] state stripTrailing#0 -> 'e3'  PASS
+  [ 76/100] state stripTrailing#0 -> 'Ð\x9fØÇEÝÕ'  PASS
+  [ 77/100] state stripTrailing#0 -> '\x9e\x87'  PASS
+  [ 78/100] state stripTrailing#0 -> '\x94\x95ÐÑ\x0f'  PASS
+  [ 79/100] state stripTrailing#0 -> 'Ê2]\x95H'  PASS
+  [ 80/100] state stripTrailing#0 -> '%¨Á³¦§'  PASS
+  [ 81/100] state stripTrailing#0 -> 'd\xa0d®\x9c¼\xad['  PASS
+  [ 82/100] state stripTrailing#0 -> 'í9L³ú%K'  PASS
+  [ 83/100] state stripTrailing#0 -> 'è¬ñKTÿ'  PASS
+  [ 84/100] state stripTrailing#0 -> 'Z\x94'  PASS
+  [ 85/100] state stripTrailing#0 -> '\x157\x1c\x9b'  PASS
+  [ 86/100] state stripTrailing#0 -> 'ÌZ?\x07`ÀÆñ\x89'  PASS
+  [ 87/100] state stripTrailing#0 -> '\x9eÝ\x9a(Ûm'  PASS
+  [ 88/100] state stripTrailing#0 -> "\x1c'"  PASS
+  [ 89/100] state stripTrailing#0 -> '/*Xäê'  PASS
+  [ 90/100] state stripTrailing#0 -> '\x99'  PASS
+  [ 91/100] state stripTrailing#0 -> "\x98+'¹²\x8b"  PASS
+  [ 92/100] state stripTrailing#0 -> '\x8cÖ]Îc7é'  PASS
+  [ 93/100] state stripTrailing#0 -> 'Ã|'  PASS
+  [ 94/100] state stripTrailing#0 -> 'zwÊ'  PASS
+  [ 95/100] state stripTrailing#0 -> 'Q\x88'  PASS
+  [ 96/100] state stripTrailing#0 -> 'ò\x1ba'  PASS
+  [ 97/100] state stripTrailing#0 -> 'Ë\x84³}ºÈÕÙ\x12'  PASS
+  [ 98/100] state stripTrailing#0 -> 'xµþb\x14Â'  PASS
+  [ 99/100] state stripTrailing#0 -> '"\x02m&¯8¤ÊÖ'  PASS
+  [100/100] state stripTrailing#0 -> 'iy\x89\x15'  PASS
+
 
 === SMT vs ACTUAL JDK ===
 Examples : 10000
@@ -30,11 +132,34 @@ Agreement: 0.00%
 
 === SYNTHESIZED ROUND-TRIP TESTS ===
 Engine   : symbolic
-Set slots: 4 (element values unrestricted)
-Generated: 93
-Passed   : 93
+Target   : 100
+Generated: 100
+Passed   : 100
 Failed   : 0
-state   : 93/93 passed
-Saved synthesized cases to smt_generated_roundtrip_tests.json
-
-Saved SMT/JDK mismatches to smt_jdk_differences.json
+args    : 0/0 passed  (not available for any method)
+state   : 100/100 passed
+joint   : 0/0 passed  (not available for any method)
+Tests per recorded output (method -> output):
+  stripTrailing#0 -> '': 1
+  stripTrailing#0 -> 'è8/o\x00èÕ': 1
+  stripTrailing#0 -> '!ÿò»~,+h': 1
+  stripTrailing#0 -> 'Mf²m2f\x9a': 1
+  stripTrailing#0 -> '¸I\x87\x08\x0e£Ð': 1
+  stripTrailing#0 -> '\x92\x1f3n\x15Ä¶tº': 1
+  stripTrailing#0 -> '\x83\x03A\nÿ¸\x8a\x99"': 1
+  stripTrailing#0 -> 'æÊ': 1
+  stripTrailing#0 -> 'q\x8d\x85~\x83': 1
+  stripTrailing#0 -> 'FÖÆ³rù#7': 1
+  stripTrailing#0 -> '\x9aÚh\r\x91': 1
+  stripTrailing#0 -> 'Æ\x1bù"½': 1
+  stripTrailing#0 -> '\x01': 1
+  stripTrailing#0 -> '¦2\x93\x80': 1
+  stripTrailing#0 -> 'ß®\r\x98"IoëÏ': 1
+  stripTrailing#0 -> 'Ì': 1
+  stripTrailing#0 -> '\x1e\x03Ó\x1d<': 1
+  stripTrailing#0 -> '\nÉ\x10/¥zî¥{': 1
+  stripTrailing#0 -> '\x9e\x0c\x9a': 1
+  stripTrailing#0 -> 'à': 1
+  ... and 8126 more outputs
+Set slots: 4 (element values unrestricted)
+Saved synthesized cases to ./evaluation/roundtrip/public_java_lang_String_java_lang_String_stripTrailing___roundtrip_tests.json

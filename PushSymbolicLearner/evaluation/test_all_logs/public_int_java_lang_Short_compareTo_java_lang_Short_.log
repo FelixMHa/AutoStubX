@@ -9,28 +9,157 @@ Loaded 10000 total samples from 1 files
 Z3 base check: sat
 Concrete oracle: openjdk version "17.0.20.1" 2026-08-18
 Replay mode    : stateful sequence replay on real JVM objects
-Traceback (most recent call last):
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2746, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2558, in main
-    with JdkOracle(a.java, a.javac, a.classpath) as oracle:
-         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 770, in __init__
-    compile_p = subprocess.run(
-        [javac, "-encoding", "UTF-8", "-cp", cp, str(source)],
-        capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60,
-    )
-  File "C:\Users\felix\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\subprocess.py", line 557, in run
-    stdout, stderr = process.communicate(input, timeout=timeout)
-                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\subprocess.py", line 1221, in communicate
-    stdout, stderr = self._communicate(input, endtime, timeout)
-                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\subprocess.py", line 1662, in _communicate
-    self.stdout_thread.join(self._remaining_time(endtime))
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\threading.py", line 1133, in join
-    self._os_thread_handle.join(timeout)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
-KeyboardInterrupt
+
+Synthesizing up to 100 round-trip tests ...
+  [  1/100] args  compareTo#obj -> 31  FAIL
+  [  2/100] state compareTo#obj -> 31  FAIL
+  [  3/100] joint compareTo#obj -> 31  FAIL
+  [  4/100] args  compareTo#obj -> -406  FAIL
+  [  5/100] state compareTo#obj -> -6  FAIL
+  [  6/100] joint compareTo#obj -> -406  FAIL
+  [  7/100] args  compareTo#obj -> -32302  FAIL
+  [  8/100] state compareTo#obj -> 301  FAIL
+  [  9/100] joint compareTo#obj -> -32302  FAIL
+  [ 10/100] args  compareTo#obj -> 3415  FAIL
+  [ 11/100] state compareTo#obj -> -36  FAIL
+  [ 12/100] joint compareTo#obj -> 3415  FAIL
+  [ 13/100] args  compareTo#obj -> -6  FAIL
+  [ 14/100] state compareTo#obj -> 0  FAIL
+  [ 15/100] joint compareTo#obj -> -6  FAIL
+  [ 16/100] args  compareTo#obj -> 4278  FAIL
+  [ 17/100] state compareTo#obj -> -387  FAIL
+  [ 18/100] joint compareTo#obj -> 4278  FAIL
+  [ 19/100] args  compareTo#obj -> 301  FAIL
+  [ 20/100] state compareTo#obj -> -29  FAIL
+  [ 21/100] joint compareTo#obj -> 301  FAIL
+  [ 22/100] args  compareTo#obj -> -32  FAIL
+  [ 23/100] state compareTo#obj -> 876  FAIL
+  [ 24/100] joint compareTo#obj -> -32  FAIL
+  [ 25/100] args  compareTo#obj -> -396  FAIL
+  [ 26/100] state compareTo#obj -> -10  FAIL
+  [ 27/100] joint compareTo#obj -> -396  FAIL
+  [ 28/100] args  compareTo#obj -> 57  FAIL
+  [ 29/100] state compareTo#obj -> -95  FAIL
+  [ 30/100] joint compareTo#obj -> 57  FAIL
+  [ 31/100] args  compareTo#obj -> 10695  FAIL
+  [ 32/100] state compareTo#obj -> -543  FAIL
+  [ 33/100] joint compareTo#obj -> 10695  FAIL
+  [ 34/100] args  compareTo#obj -> -1063  FAIL
+  [ 35/100] state compareTo#obj -> 80  FAIL
+  [ 36/100] joint compareTo#obj -> -1063  FAIL
+  [ 37/100] args  compareTo#obj -> -36  FAIL
+  [ 38/100] state compareTo#obj -> 1  FAIL
+  [ 39/100] joint compareTo#obj -> -36  FAIL
+  [ 40/100] args  compareTo#obj -> 8157  FAIL
+  [ 41/100] state compareTo#obj -> -8  FAIL
+  [ 42/100] joint compareTo#obj -> 8157  FAIL
+  [ 43/100] args  compareTo#obj -> 2043  FAIL
+  [ 44/100] state compareTo#obj -> 10  FAIL
+  [ 45/100] joint compareTo#obj -> 2043  FAIL
+  [ 46/100] args  compareTo#obj -> -5054  FAIL
+  [ 47/100] state compareTo#obj -> 15  FAIL
+  [ 48/100] joint compareTo#obj -> -5054  FAIL
+  [ 49/100] args  compareTo#obj -> 4119  FAIL
+  [ 50/100] state compareTo#obj -> 239  FAIL
+  [ 51/100] joint compareTo#obj -> 4119  FAIL
+  [ 52/100] args  compareTo#obj -> 997  FAIL
+  [ 53/100] state compareTo#obj -> 87  FAIL
+  [ 54/100] joint compareTo#obj -> 997  FAIL
+  [ 55/100] args  compareTo#obj -> -259  FAIL
+  [ 56/100] state compareTo#obj -> 32768  FAIL
+  [ 57/100] joint compareTo#obj -> -259  FAIL
+  [ 58/100] args  compareTo#obj -> 6199  FAIL
+  [ 59/100] state compareTo#obj -> 17  FAIL
+  [ 60/100] joint compareTo#obj -> 6199  FAIL
+  [ 61/100] args  compareTo#obj -> -7412  FAIL
+  [ 62/100] state compareTo#obj -> 4  FAIL
+  [ 63/100] joint compareTo#obj -> -7412  FAIL
+  [ 64/100] args  compareTo#obj -> -18522  FAIL
+  [ 65/100] state compareTo#obj -> 5701  FAIL
+  [ 66/100] joint compareTo#obj -> -18522  FAIL
+  [ 67/100] args  compareTo#obj -> -15149  FAIL
+  [ 68/100] state compareTo#obj -> -7  FAIL
+  [ 69/100] joint compareTo#obj -> -15149  FAIL
+  [ 70/100] args  compareTo#obj -> 2468  FAIL
+  [ 71/100] state compareTo#obj -> 3  FAIL
+  [ 72/100] joint compareTo#obj -> 2468  FAIL
+  [ 73/100] args  compareTo#obj -> 539  FAIL
+  [ 74/100] state compareTo#obj -> -30  FAIL
+  [ 75/100] joint compareTo#obj -> 539  FAIL
+  [ 76/100] args  compareTo#obj -> -252  FAIL
+  [ 77/100] state compareTo#obj -> 6  FAIL
+  [ 78/100] joint compareTo#obj -> -252  FAIL
+  [ 79/100] args  compareTo#obj -> -642  FAIL
+  [ 80/100] state compareTo#obj -> 393  FAIL
+  [ 81/100] joint compareTo#obj -> -642  FAIL
+  [ 82/100] args  compareTo#obj -> 0  PASS
+  [ 83/100] state compareTo#obj -> 9  FAIL
+  [ 84/100] joint compareTo#obj -> 0  FAIL
+  [ 85/100] args  compareTo#obj -> -387  PASS
+  [ 86/100] state compareTo#obj -> 2  FAIL
+  [ 87/100] joint compareTo#obj -> -387  FAIL
+  [ 88/100] args  compareTo#obj -> -29  FAIL
+  [ 89/100] state compareTo#obj -> -854  FAIL
+  [ 90/100] joint compareTo#obj -> -29  FAIL
+  [ 91/100] args  compareTo#obj -> 22155  FAIL
+  [ 92/100] state compareTo#obj -> -19  FAIL
+  [ 93/100] joint compareTo#obj -> 22155  FAIL
+  [ 94/100] args  compareTo#obj -> -2817  FAIL
+  [ 95/100] state compareTo#obj -> 114  FAIL
+  [ 96/100] joint compareTo#obj -> -2817  FAIL
+  [ 97/100] args  compareTo#obj -> -323  FAIL
+  [ 98/100] state compareTo#obj -> 5  FAIL
+  [ 99/100] joint compareTo#obj -> -323  FAIL
+  [100/100] args  compareTo#obj -> 111  FAIL
+
+
+=== SMT vs ACTUAL JDK ===
+Examples : 10000
+Calls    : 0
+Same     : 0
+Different: 0
+Unknown  : 0
+Skipped  : 0 calls in 0 skipped examples
+Agreement: 0.00%  (representable/tested calls only)
+State    : 0 receiver post-states included in the SMT proof
+
+=== TRAINING TRACE vs ACTUAL JDK (diagnostic only) ===
+Same     : 0
+Different: 0
+Agreement: 0.00%
+
+=== PER METHOD: SMT vs JDK ===
+
+=== SYNTHESIZED ROUND-TRIP TESTS ===
+Engine   : symbolic
+Target   : 100
+Generated: 100
+Passed   : 2
+Failed   : 98
+args    : 2/34 passed
+state   : 0/33 passed
+joint   : 0/33 passed
+Tests per recorded output (method -> output):
+  compareTo#obj -> 31: 3
+  compareTo#obj -> -406: 2
+  compareTo#obj -> -32302: 2
+  compareTo#obj -> 3415: 2
+  compareTo#obj -> -6: 3
+  compareTo#obj -> 4278: 2
+  compareTo#obj -> 301: 3
+  compareTo#obj -> -32: 2
+  compareTo#obj -> -396: 2
+  compareTo#obj -> 57: 2
+  compareTo#obj -> 10695: 2
+  compareTo#obj -> -1063: 2
+  compareTo#obj -> -36: 3
+  compareTo#obj -> 8157: 2
+  compareTo#obj -> 2043: 2
+  compareTo#obj -> -5054: 2
+  compareTo#obj -> 4119: 2
+  compareTo#obj -> 997: 2
+  compareTo#obj -> -259: 2
+  compareTo#obj -> 6199: 2
+  ... and 5713 more outputs
+Set slots: 4 (element values unrestricted)
+Saved synthesized cases to ./evaluation/roundtrip/public_int_java_lang_Short_compareTo_java_lang_Short__roundtrip_tests.json

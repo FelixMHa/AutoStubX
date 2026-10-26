@@ -7,11 +7,13 @@ import re
 import subprocess
 import tempfile
 import os
+import itertools
+from collections import deque
 from decimal import Decimal
 from fractions import Fraction
 from pathlib import Path
 from types import SimpleNamespace
-from typing import Any
+from typing import Any, Iterator
 
 
 INT = {"byte", "short", "int", "long", "b", "s", "i", "j"}
@@ -526,7 +528,6 @@ public final class PushGpJdkReplay {
             Map<String,Object> c = (Map<String,Object>)c0;
             String ownerName = String.valueOf(c.get("owner"));
             String methodName = String.valueOf(c.get("name"));
-            boolean isStatic = Boolean.TRUE.equals(c.get("isStatic"));
             List<Object> typeNames = (List<Object>)c.getOrDefault("argumentTypes", List.of());
             List<Object> argWires = (List<Object>)c.getOrDefault("args", List.of());
             Class<?>[] ptypes = new Class<?>[typeNames.size()];
@@ -545,17 +546,20 @@ public final class PushGpJdkReplay {
                     args[i] = coerce(decodeWire(w, tn, refs, ids), ptypes[i]);
                 }
             }
+            // Static-ness is read off the real JDK method; no manifest flag is involved.
+            Class<?> owner = typeClass(ownerName);
+            Method m = resolveMethod(owner, methodName, ptypes, args);
+            boolean isStatic = Modifier.isStatic(m.getModifiers());
+            Integer rid = c.get("receiver") instanceof Number rn ? Integer.valueOf(rn.intValue()) : null;
             Object receiver = null;
             if (!isStatic) {
-                int rid = ((Number)c.get("receiver")).intValue();
+                if (rid == null) throw new IllegalStateException("instance method " + ownerName + "." + methodName + " was replayed without a receiver reference");
                 if (!refs.containsKey(rid)) throw new IllegalStateException("receiver reference " + rid + " is not live on the JDK heap");
                 receiver = refs.get(rid);
             }
 
             LinkedHashMap<String,Object> out = new LinkedHashMap<>();
             try {
-                Class<?> owner = typeClass(ownerName);
-                Method m = resolveMethod(owner, methodName, ptypes, args);
                 try { m.setAccessible(true); } catch (Throwable ignored) {}
                 Object value = m.invoke(receiver, args);
                 Object bind0 = c.get("bindReturnRef");
@@ -574,7 +578,6 @@ public final class PushGpJdkReplay {
                 out.put("message", t.getMessage());
             }
             if (!isStatic) {
-                int rid = ((Number)c.get("receiver")).intValue();
                 out.put("receiverState", encodeStateObject(refs.get(rid), refs, ids, nextRef));
             }
             results.add(out);
@@ -608,6 +611,82 @@ public final class PushGpJdkReplay {
     }
 }
 """
+
+
+def _smt_function_arity(smt_text: str, name: str) -> int | None:
+    """Number of parameters the SMT module declares for function `name`.
+
+    Works for define-fun, define-fun-rec and declare-fun; returns None when the
+    function cannot be located.
+    """
+    # Drop ';' comments first so a commented-out definition cannot be matched.
+    smt_text = re.sub(r";[^\n]*", "", smt_text)
+    match = re.search(
+        r"\(\s*(?:define-fun-rec|define-fun|declare-fun)\s+\|?"
+        + re.escape(str(name))
+        + r"\|?\s*\(",
+        smt_text,
+    )
+    if match is None:
+        return None
+    i, n = match.end(), len(smt_text)
+    depth, count, in_atom = 1, 0, False
+    while i < n:
+        c = smt_text[i]
+        if c == ";":
+            while i < n and smt_text[i] != "\n":
+                i += 1
+            in_atom = False
+            continue
+        if c == "(":
+            if depth == 1:
+                count += 1
+            depth += 1
+            in_atom = False
+        elif c == ")":
+            depth -= 1
+            in_atom = False
+            if depth == 0:
+                return count
+        elif c.isspace():
+            in_atom = False
+        else:
+            if depth == 1 and not in_atom:
+                count += 1
+            in_atom = True
+        i += 1
+    return None
+
+
+def _stub_takes_receiver(info: dict[str, Any], smt_text: str) -> bool | None:
+    """Read the receiver convention off the stub's own signature.
+
+    Every generated stub takes (heap, [receiver], arg_0 ... arg_n), so
+    arity - 1 - len(argumentTypes) is 1 when a receiver is passed and 0 when not.
+    """
+    arity = _smt_function_arity(smt_text, str(info.get("smtFunction") or ""))
+    if arity is None:
+        return None
+    extra = arity - 1 - len(info.get("argumentTypes", []))
+    return {0: False, 1: True}.get(extra)
+
+
+def has_receiver(info: dict[str, Any]) -> bool:
+    """True when calls to this method carry a receiver.
+
+    `_load_model` decides this from the SMT stub signature. The manifest's
+    isStatic flag is only consulted if the stub could not be inspected at all.
+    """
+    flag = info.get("_takesReceiver")
+    if flag is None:
+        return not info.get("isStatic", False)
+    return bool(flag)
+
+
+def _receiver_ref(example: Any, i: int) -> int:
+    refs = getattr(example, "receiver_refs", None) or []
+    value = refs[i] if i < len(refs) else 0
+    return int(0 if value is None else value)
 
 
 def _wire_value(x: Any) -> Any:
@@ -674,7 +753,7 @@ def _jdk_receiver_type_hints(example: Any, methods: dict[str, dict]) -> dict[int
     }
     for i, method_name in enumerate(list(example.sequence or [])):
         info = methods.get(method_name)
-        if not info or info.get("isStatic", False):
+        if not info or not has_receiver(info):
             continue
         ref = int(receiver_refs[i] if i < len(receiver_refs) else 0)
         owner = str(info.get("owner") or info.get("declaringClass") or "").strip()
@@ -745,13 +824,16 @@ def _jdk_payload(example: Any, methods: dict[str, dict]) -> dict[str, Any]:
         call = {
             "owner": owner,
             "name": _java_method_name(method_key, info),
-            "isStatic": bool(info.get("isStatic", False)),
             "argumentTypes": full_types,
             "args": wire_args,
             "returnType": str(info.get("returnType") or "void"),
         }
-        if not call["isStatic"]:
-            call["receiver"] = int(example.receiver_refs[i] if i < len(example.receiver_refs) else 0)
+        # The replay harness decides static vs. instance by reflecting on the real
+        # JDK method, so a receiver is sent whenever the stub or the trace has one
+        # (a receiver passed to a static method is ignored by reflection).
+        raw_receiver = example.receiver_refs[i] if i < len(example.receiver_refs) else None
+        if has_receiver(info) or raw_receiver is not None:
+            call["receiver"] = int(raw_receiver or 0)
         if bind is not None:
             call["bindReturnRef"] = bind
             if bind >= next_ref:
@@ -1231,7 +1313,7 @@ def _receiver_type_hints(example: Any, methods: dict[str, dict]) -> dict[int, st
 
     for i, method_name in enumerate(list(example.sequence or [])):
         info = methods.get(method_name)
-        if not info or info.get("isStatic", False):
+        if not info or not has_receiver(info):
             continue
 
         ref = int(receiver_refs[i] if i < len(receiver_refs) else 0)
@@ -1329,9 +1411,8 @@ def calls(example: Any, methods: dict[str, dict], next_ref: int) -> str:
                 encoded_args.append(argument(x, t))
 
         params = [heap]
-        if not info.get("isStatic", False):
-            receiver = example.receiver_refs[i] if i < len(example.receiver_refs) else 0
-            params.append(smt_int(receiver))
+        if has_receiver(info):
+            params.append(smt_int(_receiver_ref(example, i)))
         params.extend(encoded_args)
 
         out.append(
@@ -1498,32 +1579,6 @@ def _finite_symbolic_set_heap(receiver: int, domain: list[Any]) -> tuple[str, li
     return "\n".join(lines), membership
 
 
-def _goal_values(info: dict[str, Any], int_targets: list[Any], example: Any = None) -> list[Any]:
-    rt = norm(info.get("returnType"))
-    
-    if rt in BOOL:
-        return [False, True]
-    if rt in VOID:
-        return [None]
-
-    goals: list[Any] = []
-
-    # 1. Pull unique, valid ground-truth outputs directly from training data traces
-    if example is not None and hasattr(example, "expected_outputs"):
-        for out in example.expected_outputs:
-            if out not in goals and out != "error" and not expected_error(out, rt):
-                goals.append(out)
-
-    # 2. If trace outputs are sparse, supplement with target goals (e.g. [-1, 0, 1] for ints)
-    if rt in INT:
-        for target in int_targets:
-            val = int(target)
-            if val not in goals:
-                goals.append(val)
-
-    return goals
-
-
 def _model_scalars(output: str) -> dict[str, Any]:
     values: dict[str, Any] = {}
     for name, raw in re.findall(r"\(\s*([A-Za-z_][A-Za-z0-9_]*)\s+(true|false|-?\d+)\s*\)", output):
@@ -1544,7 +1599,7 @@ def _target_call_smt(
     result_name: str = "r_synth",
 ) -> str:
     params = [pre_heap]
-    if not info.get("isStatic", False):
+    if has_receiver(info):
         if receiver is None:
             raise ValueError("instance method requires a receiver")
         params.append(smt_int(receiver))
@@ -1561,7 +1616,7 @@ def _same_receiver_prefix(example: Any, methods: dict[str, dict], through: int, 
     refs = list(getattr(example, "receiver_refs", None) or [])
     for i, method_name in enumerate(list(example.sequence or [])[:through]):
         info = methods[method_name]
-        if info.get("isStatic", False):
+        if not has_receiver(info):
             continue
         ref = int(refs[i] if i < len(refs) else 0)
         if ref != receiver:
@@ -1584,19 +1639,15 @@ def _synthesize_cases_finite(
     method_name = example.sequence[call_index]
     info = methods[method_name]
     declared = list(info.get("argumentTypes", []))
-    is_static = bool(info.get("isStatic", False))
-    receiver = None if is_static else int(
-        example.receiver_refs[call_index] if call_index < len(example.receiver_refs) else 0
-    )
+    receiver = _receiver_ref(example, call_index) if has_receiver(info) else None
 
     synth_arg = mode in {"args", "joint"}
     synth_state = mode in {"state", "joint"}
     if synth_arg and len(declared) != 1:
         return []
     if synth_state:
-        if is_static or str(info.get("receiverKind") or "").lower() != "set":
+        if receiver is None or str(info.get("receiverKind") or "").lower() != "set":
             return []
-        assert receiver is not None
         if not _same_receiver_prefix(example, methods, call_index + 1, receiver):
             return []
 
@@ -1657,6 +1708,8 @@ def _synthesize_cases_finite(
         arg_value = domain[int(model[arg_idx_name])] if synth_arg else None
         found.append({
             "mode": mode,
+            "arg_synthesized": synth_arg,
+            "state_synthesized": synth_state,
             "wanted_output": wanted,
             "initial_set": state_values,
             "argument": arg_value,
@@ -2003,7 +2056,7 @@ def _candidate_identity(candidate: dict[str, Any]) -> str:
         default=lambda x: repr(x),
     )
 
-def _synthesize_cases_symbolic(
+def _iter_symbolic_cases(
     z3: str,
     base: str,
     example: Any,
@@ -2013,34 +2066,27 @@ def _synthesize_cases_symbolic(
     wanted: Any,
     limit: int,
     set_slots: int,
-) -> list[dict[str, Any]]:
+) -> Iterator[dict[str, Any]]:
+    """Lazily enumerate distinct symbolic models (at most `limit`) for one call site."""
     method_name = example.sequence[call_index]
     info = methods[method_name]
     declared = list(info.get("argumentTypes", []))
-    is_static = bool(info.get("isStatic", False))
 
-    # --- FAST GUARDS: Skip impossible Z3 calls immediately ---
-    if mode == "args" and len(declared) == 0:
-        return []  # 'args' mode requires exactly 1 parameter
-    if mode == "state" and is_static:
-        return []  # 'state' mode requires an instance method
-    if mode == "joint" and (is_static or len(declared) == 0):
-        return []  # 'joint' mode requires an instance method with arguments
-    receiver = None if is_static else int(
-        example.receiver_refs[call_index] if call_index < len(example.receiver_refs) else 0
-    )
+    # Mode availability is read off the stub itself (receiver present? exactly one
+    # scalar argument? synthesizable receiver state?), never off the manifest's
+    # isStatic flag. Unavailable modes return before any Z3 call is made.
+    if mode not in available_synth_modes(info, [mode]):
+        return
+    receiver = _receiver_ref(example, call_index) if has_receiver(info) else None
 
     synth_arg = mode in {"args", "joint"}
     synth_state = mode in {"state", "joint"}
     
     if synth_arg and len(declared) != 1:
-        if mode == "joint" and not is_static:
-            synth_arg = False
-        else:
-            return []
+        return
             
-    if synth_state and is_static:
-        return []
+    if synth_state and receiver is None:
+        return
 
     declarations: list[str] = []
     encoded_args: list[str] = []
@@ -2184,6 +2230,8 @@ def _synthesize_cases_symbolic(
             "mode": mode,
             "synthesis_engine": "symbolic",
             "synthesis_scope": synthesis_scope,
+            "arg_synthesized": synth_arg,
+            "state_synthesized": synth_state,
             "symbolic_set_slots": set_slots if (synth_state and is_set_receiver) else None,
             "symbolic_set_size": solved_size,
             "symbolic_target_present": solved_present,
@@ -2207,10 +2255,12 @@ def _synthesize_cases_symbolic(
             continue
         seen.add(key)
         found.append(candidate)
+        yield candidate
 
     return found
 
-def synthesize_cases_for_call(
+
+def iter_synthesis_candidates(
     z3: str,
     base: str,
     example: Any,
@@ -2222,18 +2272,20 @@ def synthesize_cases_for_call(
     limit: int,
     engine: str = "symbolic",
     set_slots: int = 4,
-) -> list[dict[str, Any]]:
+) -> Iterator[dict[str, Any]]:
+    """Yield distinct candidate inputs for one call site that should produce `wanted`."""
     if engine == "finite":
-        cases = _synthesize_cases_finite(
+        for case in _synthesize_cases_finite(
             z3, base, example, methods, call_index, mode, wanted, domain, limit
-        )
-        for case in cases:
+        ):
             case.setdefault("synthesis_engine", "finite")
-        return cases
+            yield case
+        return
     if engine == "symbolic":
-        return _synthesize_cases_symbolic(
+        yield from _iter_symbolic_cases(
             z3, base, example, methods, call_index, mode, wanted, limit, set_slots
         )
+        return
     raise ValueError(f"unknown synthesis engine {engine!r}")
 
 
@@ -2243,35 +2295,25 @@ def _trial_from_synthesized(
     call_index: int,
     candidate: dict[str, Any],
 ) -> Any:
+    """Build the concrete example that a synthesized candidate describes."""
     method_name = example.sequence[call_index]
     info = methods[method_name]
-    receiver = None if info.get("isStatic", False) else int(
-        example.receiver_refs[call_index] if call_index < len(example.receiver_refs) else 0
-    )
-
+    receiver = _receiver_ref(example, call_index) if has_receiver(info) else None
+    # A synthesized value may legitimately be None (Java null), so the explicit
+    # flags written by the engines decide what was synthesized.
+    synth_arg = bool(candidate.get("arg_synthesized", candidate.get("argument") is not None))
+    synth_state = bool(candidate.get("state_synthesized", candidate.get("initial_set") is not None))
     raw_init = candidate.get("initial_set")
     init_data = list(raw_init) if isinstance(raw_init, (list, tuple, set)) else raw_init
+    owner = str(info.get("owner") or info.get("declaringClass") or "java.util.HashSet")
+    declared_types = list(info.get("argumentTypes", []))
 
     if candidate.get("synthesis_scope") == "call-local":
         if receiver is None:
-            raise ValueError("call-local receiver-state synthesis requires an instance method")
-        owner = str(info.get("owner") or info.get("declaringClass") or "java.util.HashSet")
-        
-        # Preserve existing template arguments
+            raise ValueError("call-local receiver-state synthesis requires a receiver")
         args = list(example.input_args[call_index])
-        synth_arg = candidate.get("argument")
-
-        # Update synthesized argument without dropping remaining parameters
-        if synth_arg is not None:
-            if args:
-                args[0] = synth_arg
-            else:
-                args = [synth_arg]
-        elif candidate.get("mode") == "args" and len(args) == 1:
-            args = [synth_arg]
-
-        declared_types = list(info.get("argumentTypes", []))
-
+        if synth_arg:
+            args = [candidate.get("argument")] + args[1:]
         return SimpleNamespace(
             initial_state={receiver: {"type": owner, "data": init_data}},
             data_structure_type=owner,
@@ -2284,28 +2326,19 @@ def _trial_from_synthesized(
         )
 
     trial = _clone_example_prefix(example, call_index + 1)
-    method_name = trial.sequence[call_index]
-    info = methods[method_name]
-    receiver = None if info.get("isStatic", False) else int(
-        trial.receiver_refs[call_index] if call_index < len(trial.receiver_refs) else 0
-    )
-    if candidate.get("initial_set") is not None:
+    if synth_state:
         if receiver is None:
-            raise ValueError("cannot synthesize receiver state for a static method")
-        owner = str(info.get("owner") or info.get("declaringClass") or "java.util.HashSet")
+            raise ValueError("cannot synthesize receiver state for a call without a receiver")
         trial.initial_state = {receiver: {"type": owner, "data": init_data}}
         trial.data_structure_type = owner
-        
-    synth_arg = candidate.get("argument")
-    if synth_arg is not None:
-        if trial.input_args[call_index]:
-            trial.input_args[call_index][0] = synth_arg
-        else:
-            trial.input_args[call_index] = [synth_arg]
+    if synth_arg:
+        trial.input_args[call_index] = [candidate.get("argument")] + list(trial.input_args[call_index])[1:]
         if call_index < len(trial.type_inputs):
-            trial.type_inputs[call_index] = list(info.get("argumentTypes", []))
-            
+            trial.type_inputs[call_index] = declared_types
+    if call_index < len(trial.expected_outputs):
+        trial.expected_outputs[call_index] = candidate.get("wanted_output")
     return trial
+
 
 def retest_synthesized_case(
     oracle: JdkOracle,
@@ -2329,9 +2362,7 @@ def retest_synthesized_case(
 
     heap, next_ref = initial_heap(trial, methods)
     call_text = calls(trial, methods, next_ref)
-    receiver_ref = None if info.get("isStatic", False) else int(
-        trial.receiver_refs[trial_call_index] if trial_call_index < len(trial.receiver_refs) else 0
-    )
+    receiver_ref = _receiver_ref(trial, trial_call_index) if has_receiver(info) else None
     hints = _receiver_type_hints(trial, methods)
     receiver_type = hints.get(receiver_ref, info.get("owner", "object"))
     cond, checked_state = jdk_call_condition(
@@ -2357,95 +2388,322 @@ def retest_synthesized_case(
     }
 
 
-def synthesize_and_retest_example(
+SYNTH_MODE_ORDER = ("args", "state", "joint")
+# Give up on an (output, mode) bucket after this many consecutive templates that
+# produced nothing new, so an unreachable output cannot stall the whole run.
+SYNTH_MAX_EMPTY_TEMPLATES = 10
+
+
+def _canon_key(x: Any) -> str:
+    """Stable string identity for a concrete value (1, 1.0 and True stay distinct)."""
+    canonical = _canonical_value(x)
+    try:
+        return json.dumps(canonical, ensure_ascii=False, sort_keys=True, default=repr)
+    except TypeError:
+        return repr(canonical)
+
+
+def _single_synth_arg(info: dict[str, Any]) -> bool:
+    """Exactly one argument whose value the symbolic engine can solve for."""
+    declared = list(info.get("argumentTypes", []))
+    return len(declared) == 1 and _symbolic_argument_spec("synth_arg", declared[0]) is not None
+
+
+def _state_synth_kind(info: dict[str, Any]) -> str | None:
+    """Kind of receiver state the engine can synthesize, or None.
+
+    The receiver's existence comes from the stub signature (has_receiver), not
+    from the manifest's isStatic flag.
+    """
+    if not has_receiver(info):
+        return None
+    if str(info.get("receiverKind") or "").strip().lower() == "set":
+        return "set"
+    owner = norm(info.get("owner") or info.get("declaringClass"))
+    value_type = norm(info.get("receiverValueType"))
+    if owner in SCALAR_TYPES | OBJECT or value_type in SCALAR_TYPES:
+        return "scalar"
+    return None
+
+
+def available_synth_modes(info: dict[str, Any], requested: list[str]) -> list[str]:
+    """Which of the requested synthesis modes make sense for this method."""
+    arg_ok = _single_synth_arg(info)
+    state_ok = _state_synth_kind(info) is not None
+    ok = {"args": arg_ok, "state": state_ok, "joint": arg_ok and state_ok}
+    return [mode for mode in requested if ok.get(mode)]
+
+
+def _collect_synth_pool(
+    examples: list[Any],
+    methods: dict[str, dict],
+    int_targets: list[Any],
+    max_examples: int,
+) -> tuple[dict[str, dict[str, dict[str, Any]]], dict[str, list[tuple[int, int]]]]:
+    """Group call sites by method and by the output the training data recorded.
+
+    Returns (pool, sites): pool[method][output_key] = {"wanted", "sites"} and
+    sites[method] = every (example, call) in which the method is invoked.
+    Errors are not used as output goals.
+    """
+    pool: dict[str, dict[str, dict[str, Any]]] = {}
+    sites: dict[str, list[tuple[int, int]]] = {}
+    limit = len(examples) if max_examples <= 0 else min(max_examples, len(examples))
+    for eidx in range(limit):
+        ex = examples[eidx]
+        outputs = list(getattr(ex, "expected_outputs", None) or [])
+        trace_types = list(getattr(ex, "type_outputs", None) or [])
+        for i, method in enumerate(ex.sequence):
+            info = methods.get(method)
+            if info is None:
+                continue
+            sites.setdefault(method, []).append((eidx, i))
+            recorded = outputs[i] if i < len(outputs) else None
+            trace_type = trace_types[i] if i < len(trace_types) else None
+            if norm(info.get("returnType")) in VOID:
+                key, wanted = "void", None
+            elif expected_error(recorded, trace_type):
+                continue
+            else:
+                key, wanted = _canon_key(recorded), recorded
+            goal = pool.setdefault(method, {}).setdefault(key, {"wanted": wanted, "sites": []})
+            goal["sites"].append((eidx, i))
+
+    # Optional extra integer goals (--synth-int-targets); empty by default.
+    for method, goals in pool.items():
+        if norm(methods[method].get("returnType")) in INT:
+            for target in int_targets:
+                goals.setdefault(_canon_key(int(target)), {"wanted": int(target), "sites": []})
+    return pool, sites
+
+
+def _template_key(mode: str, example: Any, i: int, info: dict[str, Any]) -> str:
+    """Two call sites with the same key would give identical synthesis problems."""
+    receiver = _receiver_ref(example, i) if has_receiver(info) else None
+    if mode == "joint":
+        return _canon_key(["joint", receiver])
+    if mode == "state":
+        return _canon_key(["state", receiver, list(example.input_args[i])])
+    refs = list(getattr(example, "receiver_refs", None) or [])
+    return _canon_key([
+        "args",
+        example.initial_state,
+        list(example.sequence[:i]),
+        [list(a) for a in example.input_args[:i]],
+        refs[:i + 1],
+    ])
+
+
+def _trial_key(trial: Any) -> str:
+    """Identity of a concrete test input: initial heap, call prefix and arguments."""
+    return _canon_key([
+        trial.initial_state,
+        list(trial.sequence),
+        [list(a) for a in trial.input_args],
+        list(trial.receiver_refs),
+    ])
+
+
+class _SynthCell:
+    """One (mode, method, recorded output) bucket of the equal-spread schedule."""
+
+    def __init__(self, mode: str, method: str, goal_key: str, wanted: Any,
+                 goal_sites: list[tuple[int, int]]):
+        self.mode = mode
+        self.method = method
+        self.goal_key = goal_key
+        self.wanted = wanted
+        self.goal_sites = goal_sites
+        self.count = 0
+        self.done = False
+        self._stream: Iterator[tuple[int, int, dict[str, Any]]] | None = None
+
+    def output_label(self) -> str:
+        text = "void" if self.goal_key == "void" else repr(self.wanted)
+        return text if len(text) <= 40 else text[:37] + "..."
+
+    def _templates(self, ctx: Any) -> Iterator[tuple[int, int]]:
+        """Call sites to solve against: sites that recorded this output first, then all others."""
+        info = ctx.methods[self.method]
+        seen: set[str] = set()
+        for eidx, i in itertools.chain(self.goal_sites, ctx.sites[self.method]):
+            key = _template_key(self.mode, ctx.examples[eidx], i, info)
+            if key not in seen:
+                seen.add(key)
+                yield eidx, i
+
+    def _generate(self, ctx: Any) -> Iterator[tuple[int, int, dict[str, Any]]]:
+        empty_templates = 0
+        for eidx, i in self._templates(ctx):
+            example = ctx.examples[eidx]
+            fresh = 0
+            try:
+                for cand in iter_synthesis_candidates(
+                    ctx.z3, ctx.base, example, ctx.methods, i, self.mode, self.wanted,
+                    ctx.domain, ctx.model_limit, ctx.engine, ctx.set_slots,
+                ):
+                    try:
+                        key = _trial_key(_trial_from_synthesized(example, ctx.methods, i, cand))
+                    except (ValueError, KeyError, TypeError) as exc:
+                        ctx.notes.append({"method": self.method, "mode": self.mode, "reason": str(exc)})
+                        continue
+                    if key in ctx.seen:
+                        continue  # identical concrete input already used by another test
+                    ctx.seen.add(key)
+                    fresh += 1
+                    yield eidx, i, cand
+            except (ValueError, KeyError, TypeError) as exc:
+                # e.g. UnsupportedConcreteValue in a training argument: skip this template only
+                ctx.notes.append({"method": self.method, "mode": self.mode, "reason": str(exc)})
+            empty_templates = 0 if fresh else empty_templates + 1
+            if empty_templates >= SYNTH_MAX_EMPTY_TEMPLATES:
+                return
+
+    def next_result(self, ctx: Any) -> dict[str, Any] | None:
+        """Produce and round-trip the next distinct test, or None once exhausted."""
+        if self.done:
+            return None
+        if self._stream is None:
+            self._stream = self._generate(ctx)
+        try:
+            eidx, i, cand = next(self._stream)
+        except StopIteration:
+            self.done = True
+            return None
+        except RuntimeError as exc:  # Z3 rejected a synthesis query
+            self.done = True
+            self.count += 1
+            return {
+                "mode": self.mode, "method": self.method, "goal_key": self.goal_key,
+                "wanted_output": self.wanted, "pass": False,
+                "error": f"synthesis failed: {exc}",
+            }
+        try:
+            result = retest_synthesized_case(
+                ctx.oracle, ctx.z3, ctx.base, ctx.examples[eidx], ctx.methods, i, cand
+            )
+        except (JdkReplayError, UnsupportedConcreteValue, ValueError, TypeError,
+                KeyError, RuntimeError, OSError) as exc:
+            result = {**cand, "call": i, "method": self.method, "pass": False, "error": str(exc)}
+        result["template_example"] = eidx
+        result["goal_key"] = self.goal_key
+        self.count += 1
+        return result
+
+
+def synthesize_roundtrip_suite(
     oracle: JdkOracle,
     z3: str,
     base: str,
-    example: Any,
+    examples: list[Any],
     methods: dict[str, dict],
     modes: list[str],
     domain: list[Any],
     int_targets: list[Any],
-    per_goal: int,
+    total: int,
     engine: str,
     set_slots: int,
-    synth_cache: set[tuple[str, str, Any]] = None,
-    target_total: int = 100,
-) -> list[dict[str, Any]]:
-    if synth_cache is None:
-        synth_cache = set()
+    max_examples: int,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Generate up to `total` round-trip tests with distinct inputs.
+
+    * Expected outputs come from the training data; every (method, output) pair is
+      its own bucket.
+    * Modes that are available (see available_synth_modes) share the budget equally;
+      inside a mode the budget is shared equally over the buckets.
+    * A bucket or mode that runs out of distinct inputs hands its remaining share to
+      the others, so the suite still reaches `total` whenever it is possible.
+    """
+    pool, sites = _collect_synth_pool(examples, methods, int_targets, max_examples)
+    ctx = SimpleNamespace(
+        oracle=oracle, z3=z3, base=base, examples=examples, methods=methods,
+        domain=domain, engine=engine, set_slots=set_slots, model_limit=max(1, total),
+        sites=sites, seen=set(), notes=[],
+    )
+
+    all_cells: list[_SynthCell] = []
+    rings: dict[str, deque[_SynthCell]] = {}
+    for mode in modes:
+        ring: deque[_SynthCell] = deque()
+        for method, goals in pool.items():
+            if not available_synth_modes(methods[method], [mode]):
+                continue
+            for key, goal in goals.items():
+                ring.append(_SynthCell(mode, method, key, goal["wanted"], goal["sites"]))
+        if ring:
+            rings[mode] = ring
+            all_cells.extend(ring)
 
     results: list[dict[str, Any]] = []
-    for call_index, method_name in enumerate(example.sequence):
-        info = methods[method_name]
-        goals = _goal_values(info, int_targets, example=example)
-        if not goals:
-            continue
+    active = deque(rings)
+    while len(results) < total and active:
+        mode = active[0]
+        active.rotate(-1)
+        ring = rings[mode]
+        while ring:
+            cell = ring[0]
+            if cell.count >= (total // max(1, len(all_cells))):
+                ring.pop()
+                continue
+            ring.rotate(-1)
+            item = cell.next_result(ctx)
+            if item is None:
+                ring.pop()  # exhausted: it was just rotated to the back
+                continue
+            results.append(item)
+            print(
+                f"  [{len(results):3}/{total}] {mode:5} {cell.method} -> {cell.output_label()}  "
+                f"{'PASS' if item.get('pass') else 'FAIL'}"
+            )
+            break
+        if not ring:
+            active.remove(mode)
 
-        # Distribute 100 tests evenly across all output goals and active modes
-        quota_per_goal = max(1, target_total // (len(goals) * len(modes)))
+    outputs: dict[tuple[str, str], dict[str, Any]] = {}
+    for cell in all_cells:
+        row = outputs.setdefault(
+            (cell.method, cell.goal_key),
+            {"method": cell.method, "output": cell.output_label(), "tests": 0},
+        )
+        row["tests"] += cell.count
+    report = {
+        "requested": total,
+        "generated": len(results),
+        "by_mode": {m: sum(1 for r in results if r.get("mode") == m) for m in modes},
+        "by_output": list(outputs.values()),
+        "modes_per_method": {m: available_synth_modes(methods[m], list(modes)) for m in pool},
+        "modes_without_any_method": [m for m in modes if m not in rings],
+        "skipped_templates": len(ctx.notes),
+    }
+    return results, report
 
-        for mode in modes:
-            for wanted in goals:
-                cache_key = (method_name, mode, wanted)
-                if cache_key in synth_cache:
-                    continue
-                synth_cache.add(cache_key)
 
-                candidates = synthesize_cases_for_call(
-                    z3, base, example, methods, call_index,
-                    mode, wanted, domain, quota_per_goal, engine, set_slots,
-                )
-                for candidate in candidates:
-                    try:
-                        results.append(retest_synthesized_case(
-                            oracle, z3, base, example, methods, call_index, candidate
-                        ))
-                    except (JdkReplayError, UnsupportedConcreteValue, ValueError, TypeError, RuntimeError) as exc:
-                        results.append({
-                            **candidate,
-                            "call": call_index,
-                            "method": method_name,
-                            "pass": False,
-                            "error": str(exc),
-                        })
-    return results
+def print_synth_report(report: dict[str, Any], synthesized: list[dict[str, Any]], engine: str) -> None:
+    passed = sum(1 for x in synthesized if x.get("pass"))
+    print("\n=== SYNTHESIZED ROUND-TRIP TESTS ===")
+    print(f"Engine   : {engine}")
+    print(f"Target   : {report['requested']}")
+    print(f"Generated: {len(synthesized)}")
+    print(f"Passed   : {passed}")
+    print(f"Failed   : {len(synthesized) - passed}")
+    for mode, count in report["by_mode"].items():
+        ok = sum(1 for x in synthesized if x.get("mode") == mode and x.get("pass"))
+        note = "  (not available for any method)" if mode in report["modes_without_any_method"] else ""
+        print(f"{mode:8}: {ok}/{count} passed{note}")
+    print("Tests per recorded output (method -> output):")
+    rows = report["by_output"]
+    for row in rows[:20]:
+        print(f"  {row['method']} -> {row['output']}: {row['tests']}")
+    if len(rows) > 20:
+        print(f"  ... and {len(rows) - 20} more outputs")
+    if report["skipped_templates"]:
+        print(f"Skipped  : {report['skipped_templates']} unusable templates/candidates")
+    if report["generated"] < report["requested"]:
+        print(
+            f"WARNING: only {report['generated']} of {report['requested']} tests could be generated "
+            "with distinct inputs (every available mode/output was exhausted)."
+        )
 
-def select_balanced_templates(examples: list[Any], method_info: dict[str, Any], target_count: int = 100) -> list[tuple[int, Any, Any]]:
-    """Group examples by their recorded output and select a balanced mix across all unique outputs."""
-    rt = norm(method_info.get("returnType"))
-    
-    # 1. Group example indices by their first-call expected output
-    by_output: dict[Any, list[tuple[int, Any]]] = {}
-    for eidx, ex in enumerate(examples):
-        if not ex.expected_outputs:
-            continue
-        out = ex.expected_outputs[0]
-        if out == "error" or expected_error(out, rt):
-            continue
-            
-        # Normalize representations for dictionary grouping
-        key = repr(out)
-        by_output.setdefault(key, []).append((eidx, ex))
-
-    if not by_output:
-        return []
-
-    # 2. Calculate how many templates to pick per unique output class
-    unique_goals = list(by_output.keys())
-    per_goal_quota = max(1, target_count // len(unique_goals))
-
-    selected: list[tuple[int, Any, Any]] = []
-    for key, items in by_output.items():
-        # Stratified sampling: pick evenly spread templates across the dataset
-        step = max(1, len(items) // per_goal_quota)
-        sampled = items[::step][:per_goal_quota]
-        
-        for eidx, ex in sampled:
-            wanted_val = ex.expected_outputs[0]
-            selected.append((eidx, ex, wanted_val))
-
-    return selected
 
 def _build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(
@@ -2477,11 +2735,26 @@ def _build_parser() -> argparse.ArgumentParser:
         "--synth-domain", default='[null,-1,0,1,2,"","x","__missing__"]',
         help="JSON candidate universe used only by the finite engine",
     )
-    ap.add_argument("--synth-int-targets", default="[0,1,2,3]", help="JSON integer output targets")
-    ap.add_argument("--synth-per-goal", type=int, default=2, help="Maximum models per synthesis goal")
     ap.add_argument(
-        "--synth-max-examples", type=int, default=20,
-        help="Training examples used as synthesis templates (0 = all)",
+        "--synth-total", type=int, default=100,
+        help=(
+            "Number of round-trip tests to generate per run. They are split equally over "
+            "the available modes (args/state/joint) and, inside each mode, over the distinct "
+            "outputs recorded in the training data; every test uses a different input"
+        ),
+    )
+    ap.add_argument(
+        "--synth-int-targets", default="[]",
+        help="Optional JSON array of extra integer output goals; by default only outputs "
+             "recorded in the training data are used",
+    )
+    ap.add_argument(
+        "--synth-per-goal", type=int, default=0,
+        help="Deprecated and ignored (kept so existing command lines still work); use --synth-total",
+    )
+    ap.add_argument(
+        "--synth-max-examples", type=int, default=0,
+        help="Only use the first N training examples as synthesis templates (0 = all)",
     )
     return ap
 
@@ -2491,7 +2764,18 @@ def _load_model(smt_path: str, manifest_path: str) -> tuple[str, dict[str, dict[
         r"(?m)^\s*\(check-sat\)\s*$", "", Path(smt_path).read_text(encoding="utf-8")
     )
     manifest = json.loads(Path(manifest_path).read_text(encoding="utf-8"))
-    return base, {m["method"]: m for m in manifest["methods"]}
+    methods: dict[str, dict[str, Any]] = {}
+    for m in manifest["methods"]:
+        # Whether a call carries a receiver is read off the stub's own signature.
+        takes_receiver = _stub_takes_receiver(m, base)
+        if takes_receiver is None:
+            print(
+                f"WARNING: cannot infer the receiver convention of {m['method']!r} from its SMT "
+                "signature; falling back to the manifest's isStatic flag for this method"
+            )
+        m["_takesReceiver"] = takes_receiver
+        methods[m["method"]] = m
+    return base, methods
 
 
 def _synthesis_options(a: argparse.Namespace) -> tuple[list[str], list[Any], list[Any]]:
@@ -2501,6 +2785,8 @@ def _synthesis_options(a: argparse.Namespace) -> tuple[list[str], list[Any], lis
         raise ValueError(f"Unknown --synth-modes: {bad}; expected args,state,joint")
     if a.synth_set_slots < 0:
         raise ValueError("--synth-set-slots must be >= 0")
+    if a.synth_total < 1:
+        raise ValueError("--synth-total must be >= 1")
 
     domain = _dedupe_domain(_parse_json_list(a.synth_domain, "--synth-domain"))
     if (
@@ -2526,6 +2812,7 @@ def _check_base_model(z3: str, base: str) -> None:
 
 
 def _write_json(path: str, data: Any) -> None:
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
     Path(path).write_text(
         json.dumps(data, indent=2, ensure_ascii=False, default=str) + "\n", encoding="utf-8"
     )
@@ -2553,7 +2840,7 @@ def main() -> int:
     trace_diffs: list[dict[str, Any]] = []
     per_method: dict[str, dict[str, int]] = {}
     synthesized: list[dict[str, Any]] = []
-    synth_cache: set[tuple[str, str, Any]] = set()
+    synth_report: dict[str, Any] = {}
 
     with JdkOracle(a.java, a.javac, a.classpath) as oracle:
         for eidx, ex in enumerate(examples):
@@ -2611,9 +2898,7 @@ def main() -> int:
                 for i, method in enumerate(ex.sequence):
                     info = methods[method]
                     try:
-                        receiver_ref = None if info.get("isStatic", False) else int(
-                            ex.receiver_refs[i] if i < len(ex.receiver_refs) else 0
-                        )
+                        receiver_ref = _receiver_ref(ex, i) if has_receiver(info) else None
                         receiver_type = smt_receiver_hints.get(receiver_ref, info.get("owner", "object"))
                         cond, checked_state = jdk_call_condition(
                             f"r{i}", jdk_results[i], info["returnType"], receiver_ref, receiver_type
@@ -2673,18 +2958,16 @@ def main() -> int:
                                 ),
                             })
 
-            if a.synthesize and (a.synth_max_examples == 0 or eidx < a.synth_max_examples):
-                generated = synthesize_and_retest_example(
-                    oracle, a.z3, base, ex, methods, synth_modes, synth_domain,
-                    synth_int_targets, a.synth_per_goal, a.synth_engine, a.synth_set_slots,
-                    synth_cache=synth_cache,  # <-- Pass the shared cache here
-                )
-                for item in generated:
-                    item["template_example"] = eidx
-                synthesized.extend(generated)
-
-            if (eidx + 1) % 50 == 0 or eidx + 1 == len(examples):
+            if not a.synth_only and ((eidx + 1) % 50 == 0 or eidx + 1 == len(examples)):
                 print(f"Processed {eidx + 1}/{len(examples)}", end="\r")
+
+        if a.synthesize:
+            print(f"\nSynthesizing up to {a.synth_total} round-trip tests ...")
+            synthesized, synth_report = synthesize_roundtrip_suite(
+                oracle, a.z3, base, examples, methods, synth_modes, synth_domain,
+                synth_int_targets, a.synth_total, a.synth_engine, a.synth_set_slots,
+                a.synth_max_examples,
+            )
 
     print("\n\n=== SMT vs ACTUAL JDK ===")
     print(f"Examples : {len(examples)}")
@@ -2712,33 +2995,29 @@ def main() -> int:
             f"diff={m['different']} unknown={m['unknown']}"
         )
     file_stem = Path(a.training_data).stem
-    _write_json("./evaluation/roundtrip/" + file_stem + "_jdk_differences.json", diffs)
-    _write_json("./evaluation/roundtrip/" + file_stem + "_training_jdk_differences.json", trace_diffs)
-    _write_json("./evaluation/roundtrip/" + file_stem + "_skipped.json", skipped)
+    out_dir = "./evaluation/roundtrip/"
+    if not a.synth_only:
+        # With --synth-only no forward validation ran, so don't overwrite earlier
+        # results with empty lists.
+        _write_json(out_dir + file_stem + "_jdk_differences.json", diffs)
+        _write_json(out_dir + file_stem + "_training_jdk_differences.json", trace_diffs)
+        _write_json(out_dir + file_stem + "_skipped.json", skipped)
     if a.synthesize:
-        _write_json("./evaluation/roundtrip/" + file_stem + "_roundtrip_tests.json", synthesized)
-        synth_pass = sum(1 for x in synthesized if x.get("pass"))
-        synth_fail = len(synthesized) - synth_pass
-        print("\n=== SYNTHESIZED ROUND-TRIP TESTS ===")
-        print(f"Engine   : {a.synth_engine}")
+        tests_path = out_dir + file_stem + "_roundtrip_tests.json"
+        _write_json(tests_path, synthesized)
+        synth_fail = sum(1 for x in synthesized if not x.get("pass"))
+        print_synth_report(synth_report, synthesized, a.synth_engine)
         if a.synth_engine == "symbolic":
             print(f"Set slots: {a.synth_set_slots} (element values unrestricted)")
-        print(f"Generated: {len(synthesized)}")
-        print(f"Passed   : {synth_pass}")
-        print(f"Failed   : {synth_fail}")
-        for mode in synth_modes:
-            rows = [x for x in synthesized if x.get("mode") == mode]
-            if rows:
-                ok = sum(1 for x in rows if x.get("pass"))
-                print(f"{mode:8}: {ok}/{len(rows)} passed")
-        print("Saved synthesized cases to smt_generated_roundtrip_tests.json")
+        print(f"Saved synthesized cases to {tests_path}")
     else:
         synth_fail = 0
-    print("\nSaved SMT/JDK mismatches to smt_jdk_differences.json")
-    if trace_diffs:
-        print("Saved training/JDK drift to training_jdk_differences.json")
-    if skipped:
-        print("Saved unsupported/replay failures to smt_jdk_skipped.json")
+    if not a.synth_only:
+        print(f"\nSaved SMT/JDK mismatches to {out_dir}{file_stem}_jdk_differences.json")
+        if trace_diffs:
+            print(f"Saved training/JDK drift to {out_dir}{file_stem}_training_jdk_differences.json")
+        if skipped:
+            print(f"Saved unsupported/replay failures to {out_dir}{file_stem}_skipped.json")
     return 1 if different or unknown or synth_fail else 0
 
 

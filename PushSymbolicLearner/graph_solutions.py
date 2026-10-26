@@ -1,178 +1,83 @@
-
+import os
 import re
-import csv
-from pathlib import Path
-from collections import Counter
-
 import matplotlib.pyplot as plt
 
-LOG_DIR = Path(
-    r"C:\Users\felix\AutoStubX\PushSymbolicLearner\test_all_logs"
-)
-OUTPUT_DIR = LOG_DIR.parent / "accuracy_statistics"
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+def parse_logs_and_plot(log_dir="./evaluation/test_all_logs"):
+    accuracies = {}
 
-# Main metric: SMT vs actual JDK
-SMT_AGREEMENT = re.compile(
-    r"===\s*SMT\s+vs\s+ACTUAL\s+JDK\s*==="
-    r"(.*?)(?=\n\s*===|\Z)",
-    re.I | re.S,
-)
+    # Regular expressions to extract data
+    # Matches the JSON filename to use as the stub label
+    name_pattern = re.compile(r"Loading training data from .*?[/\\](.*?)\.json")
+    gen_pattern = re.compile(r"Generated:\s*(\d+)")
+    pass_pattern = re.compile(r"Passed\s*:\s*(\d+)")
 
-AGREEMENT_VALUE = re.compile(
-    r"\bAgreement\s*:\s*([0-9]+(?:\.[0-9]+)?)\s*%",
-    re.I,
-)
+    if not os.path.exists(log_dir):
+        print(f"Directory not found: {log_dir}")
+        return
 
-TRAINING_AGREEMENT = re.compile(
-    r"===\s*TRAINING\s+TRACE\s+vs\s+ACTUAL\s+JDK\s*==="
-    r"(.*?)(?=\n\s*===|\Z)",
-    re.I | re.S,
-)
+    for filename in os.listdir(log_dir):
+        filepath = os.path.join(log_dir, filename)
+        if not os.path.isfile(filepath):
+            continue
 
-def extract_section_accuracy(text, section_pattern):
-    section = section_pattern.search(text)
-    if not section:
-        return None
+        with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+            content = f.read()
 
-    matches = list(AGREEMENT_VALUE.finditer(section.group(1)))
-    if not matches:
-        return None
+            name_match = name_pattern.search(content)
+            gen_match = gen_pattern.search(content)
+            pass_match = pass_pattern.search(content)
 
-    return float(matches[-1].group(1))
+            if gen_match and pass_match:
+                # Use the extracted JSON name, or fallback to the log filename
+                stub_name = name_match.group(1) if name_match else filename
+                
+                generated = int(gen_match.group(1))
+                passed = int(pass_match.group(1))
 
+                # Calculate accuracy, defaulting to 0 if no tests were generated
+                accuracy = (passed / generated * 100) if generated > 0 else 0.0
+                accuracies[stub_name] = accuracy
 
-def classify(accuracy):
-    if accuracy is None:
-        return "Unknown"
-    if accuracy >= 99.999999:
-        return "100%"
-    if accuracy > 90:
-        return ">90% to <100%"
-    if accuracy >= 50:
-        return "50% to 90%"
-    return "<50%"
+    if not accuracies:
+        print("No valid round-trip data found in the logs.")
+        return
 
+    # Sort by accuracy descending for a cleaner graph
+    sorted_stubs = sorted(accuracies.items(), key=lambda x: x[1], reverse=True)
+    labels = [item[0] for item in sorted_stubs]
+    values = [item[1] for item in sorted_stubs]
 
-def detect_status(text):
-    # Detect the explicit batch-runner status if it appears in the log.
-    if re.search(r"\bFAIL\s*\(exit code [1-9]\d*\)", text, re.I):
-        return "FAIL"
-    if re.search(r"\bPASS\b", text, re.I):
-        return "PASS"
-    return "NOT_RECORDED"
+    # Generate the bar chart
+    plt.figure(figsize=(12, 6))
+    bars = plt.bar(labels, values, color='skyblue', edgecolor='black')
+    
+    plt.title("Stub Round-Trip Accuracies", fontsize=14, fontweight='bold')
+    plt.ylabel("Accuracy (%)", fontsize=12)
+    plt.xlabel("Stub Name", fontsize=12)
+    plt.ylim(0, 105) # Add slight padding above 100%
+    
+    # Rotate x-axis labels to prevent overlap
+    plt.xticks(rotation=45, ha="right", fontsize=9)
 
-
-def main():
-    if not LOG_DIR.exists():
-        raise SystemExit(f"Log directory not found: {LOG_DIR}")
-
-    logs = sorted(LOG_DIR.rglob("*.log"))
-    if not logs:
-        raise SystemExit(f"No .log files found in: {LOG_DIR}")
-
-    category_order = [
-        "100%",
-        ">90% to <100%",
-        "50% to 90%",
-        "<50%",
-        "Unknown",
-    ]
-
-    counts = Counter()
-    rows = []
-
-    for log_path in logs:
-        text = log_path.read_text(encoding="utf-8", errors="replace")
-
-        # The main accuracy metric
-        smt_accuracy = extract_section_accuracy(text, SMT_AGREEMENT)
-
-        # Diagnostic metric kept separate
-        training_accuracy = extract_section_accuracy(
-            text, TRAINING_AGREEMENT
+    # Add the percentage text on top of each bar
+    for bar in bars:
+        height = bar.get_height()
+        plt.text(
+            bar.get_x() + bar.get_width() / 2, 
+            height + 1, 
+            f'{height:.1f}%', 
+            ha='center', 
+            va='bottom', 
+            fontsize=9
         )
 
-        category = classify(smt_accuracy)
-        status = detect_status(text)
-        counts[category] += 1
-
-        rows.append({
-            "log_file": str(log_path),
-            "status": status,
-            "smt_vs_jdk_agreement_percent": (
-                "" if smt_accuracy is None else smt_accuracy
-            ),
-            "accuracy_category": category,
-            "training_trace_vs_jdk_percent": (
-                "" if training_accuracy is None else training_accuracy
-            ),
-        })
-
-    # Export details
-    csv_path = OUTPUT_DIR / "accuracy_details.csv"
-    with csv_path.open(
-        "w", newline="", encoding="utf-8-sig"
-    ) as f:
-        writer = csv.DictWriter(
-            f,
-            fieldnames=[
-                "log_file",
-                "status",
-                "smt_vs_jdk_agreement_percent",
-                "accuracy_category",
-                "training_trace_vs_jdk_percent",
-            ],
-        )
-        writer.writeheader()
-        writer.writerows(rows)
-
-    # Plot main SMT vs JDK agreement distribution
-    values = [counts[c] for c in category_order]
-
-    plt.figure(figsize=(10, 6))
-    bars = plt.bar(category_order, values)
-    plt.title(f"SMT vs Actual JDK Agreement ({len(logs)} logs)")
-    plt.xlabel("Agreement category")
-    plt.ylabel("Number of log files")
-    plt.xticks(rotation=15, ha="right")
-    plt.bar_label(bars, padding=3)
     plt.tight_layout()
-
-    graph_path = OUTPUT_DIR / "accuracy_statistics.png"
-    plt.savefig(graph_path, dpi=160)
-    plt.close()
-
-    # Summary report
-    summary_path = OUTPUT_DIR / "accuracy_summary.txt"
-    with summary_path.open("w", encoding="utf-8") as f:
-        f.write(f"Log files scanned: {len(logs)}\n\n")
-        f.write("Main metric: SMT vs ACTUAL JDK Agreement\n\n")
-
-        for category in category_order:
-            n = counts[category]
-            pct = 100 * n / len(logs)
-            f.write(f"{category}: {n} ({pct:.1f}%)\n")
-
-        f.write("\nNote: training-trace agreement is diagnostic only.\n")
-        f.write("Unknown means no SMT-vs-JDK Agreement line was found.\n")
-
-    print(f"\nScanned {len(logs)} logs")
-    print("Metric: SMT vs ACTUAL JDK Agreement\n")
-
-    for category in category_order:
-        print(f"{category:18} {counts[category]:5}")
-
-    print(f"\nGraph:   {graph_path}")
-    print(f"CSV:     {csv_path}")
-    print(f"Summary: {summary_path}")
-
-    if counts["Unknown"]:
-        print(
-            f"\nWarning: {counts['Unknown']} logs had no recognizable "
-            "SMT-vs-JDK Agreement value."
-        )
-
+    
+    # Save and show the plot
+    output_image = "roundtrip_accuracies.png"
+    plt.savefig(output_image)
+    print(f"Graph saved as {output_image}")
+    plt.show()
 
 if __name__ == "__main__":
-    main()
+    parse_logs_and_plot()

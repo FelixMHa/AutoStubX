@@ -1,4 +1,4 @@
-COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.Float\\public_static_boolean_java_lang_Float_isInfinite_float_.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_boolean_java_lang_Float_isInfinite_float_.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_boolean_java_lang_Float_isInfinite_float_.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-max-examples', '100']
+COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.Float\\public_static_boolean_java_lang_Float_isInfinite_float_.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_boolean_java_lang_Float_isInfinite_float_.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_boolean_java_lang_Float_isInfinite_float_.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-per-goal', '50']
 
 Loading training data from C:\Users\felix\AutoStubX\Training-Data-Generation\symbolic-regression-data\training\java.lang.Float\public_static_boolean_java_lang_Float_isInfinite_float_.json
 Max samples per file: 1000000
@@ -9,7 +9,109 @@ Loaded 10000 total samples from 1 files
 Z3 base check: sat
 Concrete oracle: openjdk version "17.0.20.1" 2026-08-18
 Replay mode    : stateful sequence replay on real JVM objects
-Processed 50/10000Processed 100/10000Processed 150/10000Processed 200/10000Processed 250/10000Processed 300/10000Processed 350/10000Processed 400/10000Processed 450/10000Processed 500/10000Processed 550/10000Processed 600/10000Processed 650/10000Processed 700/10000Processed 750/10000Processed 800/10000Processed 850/10000Processed 900/10000Processed 950/10000Processed 1000/10000Processed 1050/10000Processed 1100/10000Processed 1150/10000Processed 1200/10000Processed 1250/10000Processed 1300/10000Processed 1350/10000Processed 1400/10000Processed 1450/10000Processed 1500/10000Processed 1550/10000Processed 1600/10000Processed 1650/10000Processed 1700/10000Processed 1750/10000Processed 1800/10000Processed 1850/10000Processed 1900/10000Processed 1950/10000Processed 2000/10000Processed 2050/10000Processed 2100/10000Processed 2150/10000Processed 2200/10000Processed 2250/10000Processed 2300/10000Processed 2350/10000Processed 2400/10000Processed 2450/10000Processed 2500/10000Processed 2550/10000Processed 2600/10000Processed 2650/10000Processed 2700/10000Processed 2750/10000Processed 2800/10000Processed 2850/10000Processed 2900/10000Processed 2950/10000Processed 3000/10000Processed 3050/10000Processed 3100/10000Processed 3150/10000Processed 3200/10000Processed 3250/10000Processed 3300/10000Processed 3350/10000Processed 3400/10000Processed 3450/10000Processed 3500/10000Processed 3550/10000Processed 3600/10000Processed 3650/10000Processed 3700/10000Processed 3750/10000Processed 3800/10000Processed 3850/10000Processed 3900/10000Processed 3950/10000Processed 4000/10000Processed 4050/10000Processed 4100/10000Processed 4150/10000Processed 4200/10000Processed 4250/10000Processed 4300/10000Processed 4350/10000Processed 4400/10000Processed 4450/10000Processed 4500/10000Processed 4550/10000Processed 4600/10000Processed 4650/10000Processed 4700/10000Processed 4750/10000Processed 4800/10000Processed 4850/10000Processed 4900/10000Processed 4950/10000Processed 5000/10000Processed 5050/10000Processed 5100/10000Processed 5150/10000Processed 5200/10000Processed 5250/10000Processed 5300/10000Processed 5350/10000Processed 5400/10000Processed 5450/10000Processed 5500/10000Processed 5550/10000Processed 5600/10000Processed 5650/10000Processed 5700/10000Processed 5750/10000Processed 5800/10000Processed 5850/10000Processed 5900/10000Processed 5950/10000Processed 6000/10000Processed 6050/10000Processed 6100/10000Processed 6150/10000Processed 6200/10000Processed 6250/10000Processed 6300/10000Processed 6350/10000Processed 6400/10000Processed 6450/10000Processed 6500/10000Processed 6550/10000Processed 6600/10000Processed 6650/10000Processed 6700/10000Processed 6750/10000Processed 6800/10000Processed 6850/10000Processed 6900/10000Processed 6950/10000Processed 7000/10000Processed 7050/10000Processed 7100/10000Processed 7150/10000Processed 7200/10000Processed 7250/10000Processed 7300/10000Processed 7350/10000Processed 7400/10000Processed 7450/10000Processed 7500/10000Processed 7550/10000Processed 7600/10000Processed 7650/10000Processed 7700/10000Processed 7750/10000Processed 7800/10000Processed 7850/10000Processed 7900/10000Processed 7950/10000Processed 8000/10000Processed 8050/10000Processed 8100/10000Processed 8150/10000Processed 8200/10000Processed 8250/10000Processed 8300/10000Processed 8350/10000Processed 8400/10000Processed 8450/10000Processed 8500/10000Processed 8550/10000Processed 8600/10000Processed 8650/10000Processed 8700/10000Processed 8750/10000Processed 8800/10000Processed 8850/10000Processed 8900/10000Processed 8950/10000Processed 9000/10000Processed 9050/10000Processed 9100/10000Processed 9150/10000Processed 9200/10000Processed 9250/10000Processed 9300/10000Processed 9350/10000Processed 9400/10000Processed 9450/10000Processed 9500/10000Processed 9550/10000Processed 9600/10000Processed 9650/10000Processed 9700/10000Processed 9750/10000Processed 9800/10000Processed 9850/10000Processed 9900/10000Processed 9950/10000Processed 10000/10000
+
+Synthesizing up to 100 round-trip tests ...
+  [  1/100] args  isInfinite#float -> False  PASS
+  [  2/100] state isInfinite#float -> False  PASS
+  [  3/100] joint isInfinite#float -> False  PASS
+  [  4/100] args  isInfinite#float -> False  PASS
+  [  5/100] state isInfinite#float -> False  PASS
+  [  6/100] joint isInfinite#float -> False  PASS
+  [  7/100] args  isInfinite#float -> False  PASS
+  [  8/100] state isInfinite#float -> False  PASS
+  [  9/100] joint isInfinite#float -> False  PASS
+  [ 10/100] args  isInfinite#float -> False  PASS
+  [ 11/100] state isInfinite#float -> False  PASS
+  [ 12/100] joint isInfinite#float -> False  PASS
+  [ 13/100] args  isInfinite#float -> False  PASS
+  [ 14/100] state isInfinite#float -> False  PASS
+  [ 15/100] joint isInfinite#float -> False  PASS
+  [ 16/100] args  isInfinite#float -> False  PASS
+  [ 17/100] state isInfinite#float -> False  PASS
+  [ 18/100] joint isInfinite#float -> False  PASS
+  [ 19/100] args  isInfinite#float -> False  PASS
+  [ 20/100] state isInfinite#float -> False  PASS
+  [ 21/100] joint isInfinite#float -> False  PASS
+  [ 22/100] args  isInfinite#float -> False  PASS
+  [ 23/100] state isInfinite#float -> False  PASS
+  [ 24/100] joint isInfinite#float -> False  PASS
+  [ 25/100] args  isInfinite#float -> False  PASS
+  [ 26/100] state isInfinite#float -> False  PASS
+  [ 27/100] joint isInfinite#float -> False  PASS
+  [ 28/100] args  isInfinite#float -> False  PASS
+  [ 29/100] state isInfinite#float -> False  PASS
+  [ 30/100] joint isInfinite#float -> False  PASS
+  [ 31/100] args  isInfinite#float -> False  PASS
+  [ 32/100] state isInfinite#float -> False  PASS
+  [ 33/100] joint isInfinite#float -> False  PASS
+  [ 34/100] args  isInfinite#float -> False  PASS
+  [ 35/100] state isInfinite#float -> False  PASS
+  [ 36/100] joint isInfinite#float -> False  PASS
+  [ 37/100] args  isInfinite#float -> False  PASS
+  [ 38/100] state isInfinite#float -> False  PASS
+  [ 39/100] joint isInfinite#float -> False  PASS
+  [ 40/100] args  isInfinite#float -> False  PASS
+  [ 41/100] state isInfinite#float -> False  PASS
+  [ 42/100] joint isInfinite#float -> False  PASS
+  [ 43/100] args  isInfinite#float -> False  PASS
+  [ 44/100] state isInfinite#float -> False  PASS
+  [ 45/100] joint isInfinite#float -> False  PASS
+  [ 46/100] args  isInfinite#float -> False  PASS
+  [ 47/100] state isInfinite#float -> False  PASS
+  [ 48/100] joint isInfinite#float -> False  PASS
+  [ 49/100] args  isInfinite#float -> False  PASS
+  [ 50/100] state isInfinite#float -> False  PASS
+  [ 51/100] joint isInfinite#float -> False  PASS
+  [ 52/100] args  isInfinite#float -> False  PASS
+  [ 53/100] state isInfinite#float -> False  PASS
+  [ 54/100] joint isInfinite#float -> False  PASS
+  [ 55/100] args  isInfinite#float -> False  PASS
+  [ 56/100] state isInfinite#float -> False  PASS
+  [ 57/100] joint isInfinite#float -> False  PASS
+  [ 58/100] args  isInfinite#float -> False  PASS
+  [ 59/100] state isInfinite#float -> False  PASS
+  [ 60/100] joint isInfinite#float -> False  PASS
+  [ 61/100] args  isInfinite#float -> False  PASS
+  [ 62/100] state isInfinite#float -> False  PASS
+  [ 63/100] joint isInfinite#float -> False  PASS
+  [ 64/100] args  isInfinite#float -> False  PASS
+  [ 65/100] state isInfinite#float -> False  PASS
+  [ 66/100] joint isInfinite#float -> False  PASS
+  [ 67/100] args  isInfinite#float -> False  PASS
+  [ 68/100] state isInfinite#float -> False  PASS
+  [ 69/100] joint isInfinite#float -> False  PASS
+  [ 70/100] args  isInfinite#float -> False  PASS
+  [ 71/100] state isInfinite#float -> False  PASS
+  [ 72/100] joint isInfinite#float -> False  PASS
+  [ 73/100] args  isInfinite#float -> False  PASS
+  [ 74/100] state isInfinite#float -> False  PASS
+  [ 75/100] joint isInfinite#float -> False  PASS
+  [ 76/100] args  isInfinite#float -> False  PASS
+  [ 77/100] state isInfinite#float -> False  PASS
+  [ 78/100] joint isInfinite#float -> False  PASS
+  [ 79/100] args  isInfinite#float -> False  PASS
+  [ 80/100] state isInfinite#float -> False  PASS
+  [ 81/100] joint isInfinite#float -> False  PASS
+  [ 82/100] args  isInfinite#float -> False  PASS
+  [ 83/100] state isInfinite#float -> False  PASS
+  [ 84/100] joint isInfinite#float -> False  PASS
+  [ 85/100] args  isInfinite#float -> False  PASS
+  [ 86/100] state isInfinite#float -> False  PASS
+  [ 87/100] joint isInfinite#float -> False  PASS
+  [ 88/100] args  isInfinite#float -> False  PASS
+  [ 89/100] state isInfinite#float -> False  PASS
+  [ 90/100] joint isInfinite#float -> False  PASS
+  [ 91/100] args  isInfinite#float -> False  PASS
+  [ 92/100] state isInfinite#float -> False  PASS
+  [ 93/100] joint isInfinite#float -> False  PASS
+  [ 94/100] args  isInfinite#float -> False  PASS
+  [ 95/100] state isInfinite#float -> False  PASS
+  [ 96/100] joint isInfinite#float -> False  PASS
+  [ 97/100] args  isInfinite#float -> False  PASS
+  [ 98/100] state isInfinite#float -> False  PASS
+  [ 99/100] joint isInfinite#float -> False  PASS
+  [100/100] args  isInfinite#float -> False  PASS
+
 
 === SMT vs ACTUAL JDK ===
 Examples : 10000
@@ -30,13 +132,16 @@ Agreement: 0.00%
 
 === SYNTHESIZED ROUND-TRIP TESTS ===
 Engine   : symbolic
-Set slots: 4 (element values unrestricted)
-Generated: 6
-Passed   : 6
+Target   : 100
+Generated: 100
+Passed   : 100
 Failed   : 0
-args    : 2/2 passed
-state   : 2/2 passed
-joint   : 2/2 passed
-Saved synthesized cases to smt_generated_roundtrip_tests.json
-
-Saved SMT/JDK mismatches to smt_jdk_differences.json
+args    : 34/34 passed
+state   : 33/33 passed
+joint   : 33/33 passed
+Tests per recorded output (method -> output):
+  isInfinite#float -> False: 100
+  isInfinite#float -> True: 0
+Skipped  : 2 unusable templates/candidates
+Set slots: 4 (element values unrestricted)
+Saved synthesized cases to ./evaluation/roundtrip/public_static_boolean_java_lang_Float_isInfinite_float__roundtrip_tests.json

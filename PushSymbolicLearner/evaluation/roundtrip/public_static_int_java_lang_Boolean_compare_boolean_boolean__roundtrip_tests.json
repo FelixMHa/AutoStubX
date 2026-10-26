@@ -3,6 +3,8 @@
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -13,20 +15,48 @@
     "method": "compare#bool#bool",
     "jdk": {
       "outcome": "normal",
-      "value": -1,
-      "receiverState": false
+      "value": -1
     },
     "jdk_reached_wanted_output": true,
     "smt_retest_status": "unsat",
     "smt_retest_agrees_with_jdk": true,
-    "receiver_state_checked": true,
+    "receiver_state_checked": false,
     "pass": true,
-    "template_example": 2
+    "template_example": 2,
+    "goal_key": "-1"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": 0,
+    "initial_set": false,
+    "argument": null,
+    "call": 0,
+    "method": "compare#bool#bool",
+    "jdk": {
+      "outcome": "normal",
+      "value": 0
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": false,
+    "pass": true,
+    "template_example": 4,
+    "goal_key": "0"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -37,20 +67,48 @@
     "method": "compare#bool#bool",
     "jdk": {
       "outcome": "normal",
-      "value": -1,
-      "receiverState": true
+      "value": -1
     },
     "jdk_reached_wanted_output": true,
     "smt_retest_status": "unsat",
     "smt_retest_agrees_with_jdk": true,
-    "receiver_state_checked": true,
+    "receiver_state_checked": false,
     "pass": true,
-    "template_example": 2
+    "template_example": 2,
+    "goal_key": "-1"
   },
   {
-    "mode": "joint",
+    "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": 0,
+    "initial_set": true,
+    "argument": null,
+    "call": 0,
+    "method": "compare#bool#bool",
+    "jdk": {
+      "outcome": "normal",
+      "value": 0
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": false,
+    "pass": true,
+    "template_example": 4,
+    "goal_key": "0"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -61,20 +119,48 @@
     "method": "compare#bool#bool",
     "jdk": {
       "outcome": "normal",
-      "value": -1,
-      "receiverState": false
+      "value": 1
+    },
+    "jdk_reached_wanted_output": false,
+    "smt_retest_status": "sat",
+    "smt_retest_agrees_with_jdk": false,
+    "receiver_state_checked": false,
+    "pass": false,
+    "template_example": 0,
+    "goal_key": "-1"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": 0,
+    "initial_set": false,
+    "argument": null,
+    "call": 0,
+    "method": "compare#bool#bool",
+    "jdk": {
+      "outcome": "normal",
+      "value": 0
     },
     "jdk_reached_wanted_output": true,
     "smt_retest_status": "unsat",
     "smt_retest_agrees_with_jdk": true,
-    "receiver_state_checked": true,
+    "receiver_state_checked": false,
     "pass": true,
-    "template_example": 2
+    "template_example": 5,
+    "goal_key": "0"
   },
   {
-    "mode": "joint",
+    "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -85,14 +171,40 @@
     "method": "compare#bool#bool",
     "jdk": {
       "outcome": "normal",
-      "value": -1,
-      "receiverState": true
+      "value": 1
+    },
+    "jdk_reached_wanted_output": false,
+    "smt_retest_status": "sat",
+    "smt_retest_agrees_with_jdk": false,
+    "receiver_state_checked": false,
+    "pass": false,
+    "template_example": 0,
+    "goal_key": "-1"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": 0,
+    "initial_set": true,
+    "argument": null,
+    "call": 0,
+    "method": "compare#bool#bool",
+    "jdk": {
+      "outcome": "normal",
+      "value": 0
     },
     "jdk_reached_wanted_output": true,
     "smt_retest_status": "unsat",
     "smt_retest_agrees_with_jdk": true,
-    "receiver_state_checked": true,
+    "receiver_state_checked": false,
     "pass": true,
-    "template_example": 2
+    "template_example": 5,
+    "goal_key": "0"
   }
 ]

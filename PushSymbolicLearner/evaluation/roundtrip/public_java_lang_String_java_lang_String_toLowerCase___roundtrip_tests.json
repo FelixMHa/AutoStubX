@@ -3,6 +3,8 @@
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -21,12 +23,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 0
+    "template_example": 0,
+    "goal_key": "\"\\u0004ø0àç\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -45,12 +50,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 1
+    "template_example": 1,
+    "goal_key": "\"bk\\u0002kÿõ2ª\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -69,12 +77,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 2
+    "template_example": 2,
+    "goal_key": "\"ò\\bëû\\u0002ohâ*\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -93,12 +104,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 3
+    "template_example": 3,
+    "goal_key": "\"næè¢ö\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -117,12 +131,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 4
+    "template_example": 4,
+    "goal_key": "\"s»u\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -141,12 +158,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 5
+    "template_example": 5,
+    "goal_key": "\"û+0\\u0018.\\n\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -165,12 +185,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 6
+    "template_example": 6,
+    "goal_key": "\"ô\\u0004(ôá¤\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -189,12 +212,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 7
+    "template_example": 7,
+    "goal_key": "\"½4ù\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -213,12 +239,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 8
+    "template_example": 8,
+    "goal_key": "\"å,{´\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -237,12 +266,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 9
+    "template_example": 9,
+    "goal_key": "\"yê\\rçç)c\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -261,12 +293,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 10
+    "template_example": 10,
+    "goal_key": "\"3\\tzu\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -285,12 +320,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 11
+    "template_example": 11,
+    "goal_key": "\"\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -309,12 +347,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 12
+    "template_example": 12,
+    "goal_key": "\"èªuø-\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -333,12 +374,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 13
+    "template_example": 13,
+    "goal_key": "\",>\\u0010?\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -357,12 +401,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 14
+    "template_example": 14,
+    "goal_key": "\"b¶¬\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -381,12 +428,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 15
+    "template_example": 15,
+    "goal_key": "\"ªf\\u0011ô\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -405,12 +455,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 16
+    "template_example": 16,
+    "goal_key": "\"á'\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -429,12 +482,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 17
+    "template_example": 17,
+    "goal_key": "\"õï>5;®\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -453,12 +509,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 18
+    "template_example": 18,
+    "goal_key": "\"\\\"\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -477,12 +536,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 19
+    "template_example": 19,
+    "goal_key": "\"f/{»ëðû\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -501,12 +563,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 20
+    "template_example": 20,
+    "goal_key": "\"+îïzýhf1\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -525,12 +590,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 21
+    "template_example": 21,
+    "goal_key": "\"hëþvj\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -549,12 +617,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 22
+    "template_example": 22,
+    "goal_key": "\"\\u001d?©ê7¡\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -573,12 +644,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 23
+    "template_example": 23,
+    "goal_key": "\"´4ö¾(fc¢\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -597,12 +671,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 25
+    "template_example": 25,
+    "goal_key": "\"çé:ùä\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -621,12 +698,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 26
+    "template_example": 26,
+    "goal_key": "\"\\u0016ú\\bh\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -645,12 +725,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 27
+    "template_example": 27,
+    "goal_key": "\"i\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -669,12 +752,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 28
+    "template_example": 28,
+    "goal_key": "\"a©gå±î\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -693,12 +779,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 29
+    "template_example": 29,
+    "goal_key": "\"!á>r\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -717,12 +806,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 30
+    "template_example": 30,
+    "goal_key": "\"/*\\u0006f!ñ\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -741,12 +833,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 31
+    "template_example": 31,
+    "goal_key": "\"{å]®\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -765,12 +860,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 32
+    "template_example": 32,
+    "goal_key": "\"dµ\\u0004ª;\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -789,12 +887,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 33
+    "template_example": 33,
+    "goal_key": "\"äh-ø°\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -813,12 +914,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 34
+    "template_example": 34,
+    "goal_key": "\"±\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -837,12 +941,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 35
+    "template_example": 35,
+    "goal_key": "\"íb .-ç\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -861,12 +968,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 36
+    "template_example": 36,
+    "goal_key": "\"þiû\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -885,12 +995,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 37
+    "template_example": 37,
+    "goal_key": "\"ffºks\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -909,12 +1022,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 38
+    "template_example": 38,
+    "goal_key": "\"¨lò}g\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -933,12 +1049,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 39
+    "template_example": 39,
+    "goal_key": "\"w)\\u0000ß\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -957,12 +1076,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 40
+    "template_example": 40,
+    "goal_key": "\"äõép\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -981,12 +1103,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 41
+    "template_example": 41,
+    "goal_key": "\"«ñ­\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1005,12 +1130,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 42
+    "template_example": 42,
+    "goal_key": "\"^ý\\f\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1029,12 +1157,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 43
+    "template_example": 43,
+    "goal_key": "\"ês~r\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1053,12 +1184,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 44
+    "template_example": 44,
+    "goal_key": "\"\\u0010|ãnfb¨õ\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1077,12 +1211,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 45
+    "template_example": 45,
+    "goal_key": "\"õ\\u001a¿¨¾\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1101,12 +1238,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 46
+    "template_example": 46,
+    "goal_key": "\"ï¼\\u001b\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1125,12 +1265,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 47
+    "template_example": 47,
+    "goal_key": "\"*\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1149,12 +1292,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 48
+    "template_example": 48,
+    "goal_key": "\"æ\\u0017v\\u0015\\u000fë\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1173,12 +1319,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 50
+    "template_example": 50,
+    "goal_key": "\"ñå\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1197,12 +1346,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 51
+    "template_example": 51,
+    "goal_key": "\".¢ïå\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1221,12 +1373,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 52
+    "template_example": 52,
+    "goal_key": "\"eðj\\u0010.\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1245,12 +1400,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 53
+    "template_example": 53,
+    "goal_key": "\"³è\\u000b\\u0001\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1269,12 +1427,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 54
+    "template_example": 54,
+    "goal_key": "\"ø%ä\\u0002t\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1293,12 +1454,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 55
+    "template_example": 55,
+    "goal_key": "\"u\\u0013¥\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1317,12 +1481,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 56
+    "template_example": 56,
+    "goal_key": "\"`ùµ¸7\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1341,12 +1508,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 59
+    "template_example": 59,
+    "goal_key": "\"<óø_eg>á\\u0018\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1365,12 +1535,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 60
+    "template_example": 60,
+    "goal_key": "\"²\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1389,12 +1562,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 61
+    "template_example": 61,
+    "goal_key": "\"?&\\u0013h\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1413,12 +1589,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 62
+    "template_example": 62,
+    "goal_key": "\"¯ée\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1437,12 +1616,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 63
+    "template_example": 63,
+    "goal_key": "\"\\u0001ç·\\u0016jw´\\u000bõ\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1461,12 +1643,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 64
+    "template_example": 64,
+    "goal_key": "\"oø\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1485,12 +1670,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 65
+    "template_example": 65,
+    "goal_key": "\"÷j»%xpòê\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1509,12 +1697,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 66
+    "template_example": 66,
+    "goal_key": "\"5\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1533,12 +1724,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 67
+    "template_example": 67,
+    "goal_key": "\"½ùiéúfe\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1557,12 +1751,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 68
+    "template_example": 68,
+    "goal_key": "\"mÿjesàü\\u001b\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1581,12 +1778,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 70
+    "template_example": 70,
+    "goal_key": "\"k\\fª~;\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1605,12 +1805,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 71
+    "template_example": 71,
+    "goal_key": "\"æû0\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1629,12 +1832,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 72
+    "template_example": 72,
+    "goal_key": "\"\\u0005\\u0016¡íâa}\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1653,12 +1859,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 73
+    "template_example": 73,
+    "goal_key": "\"\\u0016âs\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1677,12 +1886,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 74
+    "template_example": 74,
+    "goal_key": "\"9xós\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1701,12 +1913,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 75
+    "template_example": 75,
+    "goal_key": "\"²\\u0007êv\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1725,12 +1940,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 76
+    "template_example": 76,
+    "goal_key": "\"7¯í\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1749,12 +1967,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 77
+    "template_example": 77,
+    "goal_key": "\"kô!\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1773,12 +1994,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 78
+    "template_example": 78,
+    "goal_key": "\"f\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1797,12 +2021,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 79
+    "template_example": 79,
+    "goal_key": "\"ìènúáû¦\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1821,12 +2048,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 80
+    "template_example": 80,
+    "goal_key": "\"äï\\n\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1845,12 +2075,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 81
+    "template_example": 81,
+    "goal_key": "\"x££säæâ½\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1869,12 +2102,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 82
+    "template_example": 82,
+    "goal_key": "\"±ú\\u0004|u\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1893,12 +2129,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 83
+    "template_example": 83,
+    "goal_key": "\"n<\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1917,12 +2156,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 84
+    "template_example": 84,
+    "goal_key": "\"\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1941,12 +2183,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 85
+    "template_example": 85,
+    "goal_key": "\"'\\f\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1965,12 +2210,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 86
+    "template_example": 86,
+    "goal_key": "\"»p?¥(ã\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1989,12 +2237,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 87
+    "template_example": 87,
+    "goal_key": "\"bë\\u0006öàt2\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2013,12 +2264,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 88
+    "template_example": 88,
+    "goal_key": "\"h½^+µ¶ê\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2037,12 +2291,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 89
+    "template_example": 89,
+    "goal_key": "\"òýb²\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2061,12 +2318,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 90
+    "template_example": 90,
+    "goal_key": "\"où>ñµór\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2085,12 +2345,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 91
+    "template_example": 91,
+    "goal_key": "\"r÷\\u001a½\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2109,12 +2372,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 93
+    "template_example": 93,
+    "goal_key": "\"fø\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2133,12 +2399,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 94
+    "template_example": 94,
+    "goal_key": "\"\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2157,12 +2426,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 95
+    "template_example": 95,
+    "goal_key": "\"ªøºë¥ü-\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2181,12 +2453,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 96
+    "template_example": 96,
+    "goal_key": "\"aµ\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2205,12 +2480,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 97
+    "template_example": 97,
+    "goal_key": "\"\\u0014á+ýwoü\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2229,12 +2507,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 98
+    "template_example": 98,
+    "goal_key": "\"ûëéuyý\""
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2253,6 +2534,169 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 99
+    "template_example": 99,
+    "goal_key": "\"è\""
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": "\u0004çð",
+    "initial_set": "\u0004çð",
+    "argument": null,
+    "call": 0,
+    "method": "toLowerCase#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": "\u0004çð",
+      "receiverState": "\u0004çð"
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 100,
+    "goal_key": "\"\\u0004çð\""
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": "",
+    "initial_set": "",
+    "argument": null,
+    "call": 0,
+    "method": "toLowerCase#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": "",
+      "receiverState": ""
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 101,
+    "goal_key": "\"\""
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": "gq\u0003we[â",
+    "initial_set": "gq\u0003we[â",
+    "argument": null,
+    "call": 0,
+    "method": "toLowerCase#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": "gq\u0003we[â",
+      "receiverState": "gq\u0003we[â"
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 102,
+    "goal_key": "\"gq\\u0003we[â\""
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": "òiû\u0000;óü¼h",
+    "initial_set": "òiû\u0000;óü¼h",
+    "argument": null,
+    "call": 0,
+    "method": "toLowerCase#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": "òiû\u0000;óü¼h",
+      "receiverState": "òiû\u0000;óü¼h"
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 103,
+    "goal_key": "\"òiû\\u0000;óü¼h\""
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": "wxtsü",
+    "initial_set": "wxtsü",
+    "argument": null,
+    "call": 0,
+    "method": "toLowerCase#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": "wxtsü",
+      "receiverState": "wxtsü"
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 104,
+    "goal_key": "\"wxtsü\""
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": "ã\\1ã\u0005r\u001f¸°",
+    "initial_set": "ã\\1ã\u0005r\u001f¸°",
+    "argument": null,
+    "call": 0,
+    "method": "toLowerCase#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": "ã\\1ã\u0005r\u001f¸°",
+      "receiverState": "ã\\1ã\u0005r\u001f¸°"
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 105,
+    "goal_key": "\"ã\\\\1ã\\u0005r\\u001f¸°\""
   }
 ]

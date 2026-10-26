@@ -1,4 +1,4 @@
-COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.String\\public_int_java_lang_String_compareToIgnoreCase_java_lang_String_.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_int_java_lang_String_compareToIgnoreCase_java_lang_String_.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_int_java_lang_String_compareToIgnoreCase_java_lang_String_.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-max-examples', '100']
+COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.String\\public_int_java_lang_String_compareToIgnoreCase_java_lang_String_.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_int_java_lang_String_compareToIgnoreCase_java_lang_String_.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_int_java_lang_String_compareToIgnoreCase_java_lang_String_.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-per-goal', '50']
 
 Loading training data from C:\Users\felix\AutoStubX\Training-Data-Generation\symbolic-regression-data\training\java.lang.String\public_int_java_lang_String_compareToIgnoreCase_java_lang_String_.json
 Max samples per file: 1000000
@@ -9,7 +9,109 @@ Loaded 10000 total samples from 1 files
 Z3 base check: sat
 Concrete oracle: openjdk version "17.0.20.1" 2026-08-18
 Replay mode    : stateful sequence replay on real JVM objects
-Processed 50/10000Processed 100/10000Processed 150/10000Processed 200/10000Processed 250/10000Processed 300/10000Processed 350/10000Processed 400/10000Processed 450/10000Processed 500/10000Processed 550/10000Processed 600/10000Processed 650/10000Processed 700/10000Processed 750/10000Processed 800/10000Processed 850/10000Processed 900/10000Processed 950/10000Processed 1000/10000Processed 1050/10000Processed 1100/10000Processed 1150/10000Processed 1200/10000Processed 1250/10000Processed 1300/10000Processed 1350/10000Processed 1400/10000Processed 1450/10000Processed 1500/10000Processed 1550/10000Processed 1600/10000Processed 1650/10000Processed 1700/10000Processed 1750/10000Processed 1800/10000Processed 1850/10000Processed 1900/10000Processed 1950/10000Processed 2000/10000Processed 2050/10000Processed 2100/10000Processed 2150/10000Processed 2200/10000Processed 2250/10000Processed 2300/10000Processed 2350/10000Processed 2400/10000Processed 2450/10000Processed 2500/10000Processed 2550/10000Processed 2600/10000Processed 2650/10000Processed 2700/10000Processed 2750/10000Processed 2800/10000Processed 2850/10000Processed 2900/10000Processed 2950/10000Processed 3000/10000Processed 3050/10000Processed 3100/10000Processed 3150/10000Processed 3200/10000Processed 3250/10000Processed 3300/10000Processed 3350/10000Processed 3400/10000Processed 3450/10000Processed 3500/10000Processed 3550/10000Processed 3600/10000Processed 3650/10000Processed 3700/10000Processed 3750/10000Processed 3800/10000Processed 3850/10000Processed 3900/10000Processed 3950/10000Processed 4000/10000Processed 4050/10000Processed 4100/10000Processed 4150/10000Processed 4200/10000Processed 4250/10000Processed 4300/10000Processed 4350/10000Processed 4400/10000Processed 4450/10000Processed 4500/10000Processed 4550/10000Processed 4600/10000Processed 4650/10000Processed 4700/10000Processed 4750/10000Processed 4800/10000Processed 4850/10000Processed 4900/10000Processed 4950/10000Processed 5000/10000Processed 5050/10000Processed 5100/10000Processed 5150/10000Processed 5200/10000Processed 5250/10000Processed 5300/10000Processed 5350/10000Processed 5400/10000Processed 5450/10000Processed 5500/10000Processed 5550/10000Processed 5600/10000Processed 5650/10000Processed 5700/10000Processed 5750/10000Processed 5800/10000Processed 5850/10000Processed 5900/10000Processed 5950/10000Processed 6000/10000Processed 6050/10000Processed 6100/10000Processed 6150/10000Processed 6200/10000Processed 6250/10000Processed 6300/10000Processed 6350/10000Processed 6400/10000Processed 6450/10000Processed 6500/10000Processed 6550/10000Processed 6600/10000Processed 6650/10000Processed 6700/10000Processed 6750/10000Processed 6800/10000Processed 6850/10000Processed 6900/10000Processed 6950/10000Processed 7000/10000Processed 7050/10000Processed 7100/10000Processed 7150/10000Processed 7200/10000Processed 7250/10000Processed 7300/10000Processed 7350/10000Processed 7400/10000Processed 7450/10000Processed 7500/10000Processed 7550/10000Processed 7600/10000Processed 7650/10000Processed 7700/10000Processed 7750/10000Processed 7800/10000Processed 7850/10000Processed 7900/10000Processed 7950/10000Processed 8000/10000Processed 8050/10000Processed 8100/10000Processed 8150/10000Processed 8200/10000Processed 8250/10000Processed 8300/10000Processed 8350/10000Processed 8400/10000Processed 8450/10000Processed 8500/10000Processed 8550/10000Processed 8600/10000Processed 8650/10000Processed 8700/10000Processed 8750/10000Processed 8800/10000Processed 8850/10000Processed 8900/10000Processed 8950/10000Processed 9000/10000Processed 9050/10000Processed 9100/10000Processed 9150/10000Processed 9200/10000Processed 9250/10000Processed 9300/10000Processed 9350/10000Processed 9400/10000Processed 9450/10000Processed 9500/10000Processed 9550/10000Processed 9600/10000Processed 9650/10000Processed 9700/10000Processed 9750/10000Processed 9800/10000Processed 9850/10000Processed 9900/10000Processed 9950/10000Processed 10000/10000
+
+Synthesizing up to 100 round-trip tests ...
+  [  1/100] args  compareToIgnoreCase#obj -> -96  PASS
+  [  2/100] state compareToIgnoreCase#obj -> -96  PASS
+  [  3/100] joint compareToIgnoreCase#obj -> -96  PASS
+  [  4/100] args  compareToIgnoreCase#obj -> -89  PASS
+  [  5/100] state compareToIgnoreCase#obj -> -89  PASS
+  [  6/100] joint compareToIgnoreCase#obj -> -89  FAIL
+  [  7/100] args  compareToIgnoreCase#obj -> 119  PASS
+  [  8/100] state compareToIgnoreCase#obj -> 119  PASS
+  [  9/100] joint compareToIgnoreCase#obj -> 119  PASS
+  [ 10/100] args  compareToIgnoreCase#obj -> 231  PASS
+  [ 11/100] state compareToIgnoreCase#obj -> 231  PASS
+  [ 12/100] joint compareToIgnoreCase#obj -> 231  FAIL
+  [ 13/100] args  compareToIgnoreCase#obj -> -164  PASS
+  [ 14/100] state compareToIgnoreCase#obj -> -164  PASS
+  [ 15/100] joint compareToIgnoreCase#obj -> -164  FAIL
+  [ 16/100] args  compareToIgnoreCase#obj -> 17  PASS
+  [ 17/100] state compareToIgnoreCase#obj -> 17  PASS
+  [ 18/100] joint compareToIgnoreCase#obj -> 17  PASS
+  [ 19/100] args  compareToIgnoreCase#obj -> -55  PASS
+  [ 20/100] state compareToIgnoreCase#obj -> -55  PASS
+  [ 21/100] joint compareToIgnoreCase#obj -> -55  FAIL
+  [ 22/100] args  compareToIgnoreCase#obj -> 148  PASS
+  [ 23/100] state compareToIgnoreCase#obj -> 148  PASS
+  [ 24/100] joint compareToIgnoreCase#obj -> 148  PASS
+  [ 25/100] args  compareToIgnoreCase#obj -> 157  PASS
+  [ 26/100] state compareToIgnoreCase#obj -> 157  PASS
+  [ 27/100] joint compareToIgnoreCase#obj -> 157  FAIL
+  [ 28/100] args  compareToIgnoreCase#obj -> -11  PASS
+  [ 29/100] state compareToIgnoreCase#obj -> -11  PASS
+  [ 30/100] joint compareToIgnoreCase#obj -> -11  PASS
+  [ 31/100] args  compareToIgnoreCase#obj -> -86  PASS
+  [ 32/100] state compareToIgnoreCase#obj -> -86  PASS
+  [ 33/100] joint compareToIgnoreCase#obj -> -86  PASS
+  [ 34/100] args  compareToIgnoreCase#obj -> 3  PASS
+  [ 35/100] state compareToIgnoreCase#obj -> 3  FAIL
+  [ 36/100] joint compareToIgnoreCase#obj -> 3  PASS
+  [ 37/100] args  compareToIgnoreCase#obj -> -6  PASS
+  [ 38/100] state compareToIgnoreCase#obj -> -6  PASS
+  [ 39/100] joint compareToIgnoreCase#obj -> -6  PASS
+  [ 40/100] args  compareToIgnoreCase#obj -> 2  PASS
+  [ 41/100] state compareToIgnoreCase#obj -> 2  FAIL
+  [ 42/100] joint compareToIgnoreCase#obj -> 2  PASS
+  [ 43/100] args  compareToIgnoreCase#obj -> 29  PASS
+  [ 44/100] state compareToIgnoreCase#obj -> 29  FAIL
+  [ 45/100] joint compareToIgnoreCase#obj -> 29  PASS
+  [ 46/100] args  compareToIgnoreCase#obj -> 92  FAIL
+  [ 47/100] state compareToIgnoreCase#obj -> 92  PASS
+  [ 48/100] joint compareToIgnoreCase#obj -> 92  PASS
+  [ 49/100] args  compareToIgnoreCase#obj -> 118  PASS
+  [ 50/100] state compareToIgnoreCase#obj -> 118  PASS
+  [ 51/100] joint compareToIgnoreCase#obj -> 118  PASS
+  [ 52/100] args  compareToIgnoreCase#obj -> -127  PASS
+  [ 53/100] state compareToIgnoreCase#obj -> -127  PASS
+  [ 54/100] joint compareToIgnoreCase#obj -> -127  PASS
+  [ 55/100] args  compareToIgnoreCase#obj -> 91  PASS
+  [ 56/100] state compareToIgnoreCase#obj -> 91  PASS
+  [ 57/100] joint compareToIgnoreCase#obj -> 91  FAIL
+  [ 58/100] args  compareToIgnoreCase#obj -> -105  PASS
+  [ 59/100] state compareToIgnoreCase#obj -> -105  PASS
+  [ 60/100] joint compareToIgnoreCase#obj -> -105  PASS
+  [ 61/100] args  compareToIgnoreCase#obj -> -120  PASS
+  [ 62/100] state compareToIgnoreCase#obj -> -120  PASS
+  [ 63/100] joint compareToIgnoreCase#obj -> -120  FAIL
+  [ 64/100] args  compareToIgnoreCase#obj -> -1  FAIL
+  [ 65/100] state compareToIgnoreCase#obj -> -1  PASS
+  [ 66/100] joint compareToIgnoreCase#obj -> -1  FAIL
+  [ 67/100] args  compareToIgnoreCase#obj -> -54  PASS
+  [ 68/100] state compareToIgnoreCase#obj -> -54  PASS
+  [ 69/100] joint compareToIgnoreCase#obj -> -54  FAIL
+  [ 70/100] args  compareToIgnoreCase#obj -> 0  PASS
+  [ 71/100] state compareToIgnoreCase#obj -> 0  PASS
+  [ 72/100] joint compareToIgnoreCase#obj -> 0  PASS
+  [ 73/100] args  compareToIgnoreCase#obj -> 5  PASS
+  [ 74/100] state compareToIgnoreCase#obj -> 5  PASS
+  [ 75/100] joint compareToIgnoreCase#obj -> 5  PASS
+  [ 76/100] args  compareToIgnoreCase#obj -> 21  PASS
+  [ 77/100] state compareToIgnoreCase#obj -> 21  PASS
+  [ 78/100] joint compareToIgnoreCase#obj -> 21  PASS
+  [ 79/100] args  compareToIgnoreCase#obj -> 4  PASS
+  [ 80/100] state compareToIgnoreCase#obj -> 4  FAIL
+  [ 81/100] joint compareToIgnoreCase#obj -> 4  PASS
+  [ 82/100] args  compareToIgnoreCase#obj -> -13  PASS
+  [ 83/100] state compareToIgnoreCase#obj -> -13  PASS
+  [ 84/100] joint compareToIgnoreCase#obj -> -13  PASS
+  [ 85/100] args  compareToIgnoreCase#obj -> -133  PASS
+  [ 86/100] state compareToIgnoreCase#obj -> -133  PASS
+  [ 87/100] joint compareToIgnoreCase#obj -> -133  FAIL
+  [ 88/100] args  compareToIgnoreCase#obj -> 90  PASS
+  [ 89/100] state compareToIgnoreCase#obj -> 90  PASS
+  [ 90/100] joint compareToIgnoreCase#obj -> 90  PASS
+  [ 91/100] args  compareToIgnoreCase#obj -> 1  PASS
+  [ 92/100] state compareToIgnoreCase#obj -> 1  PASS
+  [ 93/100] joint compareToIgnoreCase#obj -> 1  PASS
+  [ 94/100] args  compareToIgnoreCase#obj -> 141  FAIL
+  [ 95/100] state compareToIgnoreCase#obj -> 141  PASS
+  [ 96/100] joint compareToIgnoreCase#obj -> 141  FAIL
+  [ 97/100] args  compareToIgnoreCase#obj -> -94  PASS
+  [ 98/100] state compareToIgnoreCase#obj -> -94  FAIL
+  [ 99/100] joint compareToIgnoreCase#obj -> -94  PASS
+  [100/100] args  compareToIgnoreCase#obj -> -193  PASS
+
 
 === SMT vs ACTUAL JDK ===
 Examples : 10000
@@ -27,21 +129,37 @@ Different: 0
 Agreement: 0.00%
 
 === PER METHOD: SMT vs JDK ===
-Traceback (most recent call last):
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2743, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2716, in main
-    _write_json("./evaluation/roundtrip/" + file_stem + "_roundtrip_tests.json", synthesized)
-    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2526, in _write_json
-    Path(path).write_text(
-    ~~~~~~~~~~~~~~~~~~~~~^
-        json.dumps(data, indent=2, ensure_ascii=False, default=str) + "\n", encoding="utf-8"
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\felix\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\pathlib\__init__.py", line 810, in write_text
-    return f.write(data)
-           ~~~~~~~^^^^^^
-UnicodeEncodeError: 'utf-8' codec can't encode character '\udc9d' in position 262166: surrogates not allowed
+
+=== SYNTHESIZED ROUND-TRIP TESTS ===
+Engine   : symbolic
+Target   : 100
+Generated: 100
+Passed   : 81
+Failed   : 19
+args    : 31/34 passed
+state   : 28/33 passed
+joint   : 22/33 passed
+Tests per recorded output (method -> output):
+  compareToIgnoreCase#obj -> -96: 3
+  compareToIgnoreCase#obj -> -89: 3
+  compareToIgnoreCase#obj -> 119: 3
+  compareToIgnoreCase#obj -> 231: 3
+  compareToIgnoreCase#obj -> -164: 3
+  compareToIgnoreCase#obj -> 17: 3
+  compareToIgnoreCase#obj -> -55: 3
+  compareToIgnoreCase#obj -> 148: 3
+  compareToIgnoreCase#obj -> 157: 3
+  compareToIgnoreCase#obj -> -11: 3
+  compareToIgnoreCase#obj -> -86: 3
+  compareToIgnoreCase#obj -> 3: 3
+  compareToIgnoreCase#obj -> -6: 3
+  compareToIgnoreCase#obj -> 2: 3
+  compareToIgnoreCase#obj -> 29: 3
+  compareToIgnoreCase#obj -> 92: 3
+  compareToIgnoreCase#obj -> 118: 3
+  compareToIgnoreCase#obj -> -127: 3
+  compareToIgnoreCase#obj -> 91: 3
+  compareToIgnoreCase#obj -> -105: 3
+  ... and 546 more outputs
+Set slots: 4 (element values unrestricted)
+Saved synthesized cases to ./evaluation/roundtrip/public_int_java_lang_String_compareToIgnoreCase_java_lang_String__roundtrip_tests.json

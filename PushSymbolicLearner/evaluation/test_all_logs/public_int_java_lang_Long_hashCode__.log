@@ -9,7 +9,109 @@ Loaded 10000 total samples from 1 files
 Z3 base check: sat
 Concrete oracle: openjdk version "17.0.20.1" 2026-08-18
 Replay mode    : stateful sequence replay on real JVM objects
-Processed 50/10000Processed 100/10000Processed 150/10000Processed 200/10000Processed 250/10000Processed 300/10000Processed 350/10000Processed 400/10000Processed 450/10000Processed 500/10000Processed 550/10000Processed 600/10000Processed 650/10000Processed 700/10000Processed 750/10000Processed 800/10000Processed 850/10000Processed 900/10000Processed 950/10000Processed 1000/10000Processed 1050/10000Processed 1100/10000Processed 1150/10000Processed 1200/10000Processed 1250/10000Processed 1300/10000Processed 1350/10000Processed 1400/10000Processed 1450/10000Processed 1500/10000Processed 1550/10000Processed 1600/10000Processed 1650/10000Processed 1700/10000Processed 1750/10000Processed 1800/10000Processed 1850/10000Processed 1900/10000Processed 1950/10000Processed 2000/10000Processed 2050/10000Processed 2100/10000Processed 2150/10000Processed 2200/10000Processed 2250/10000Processed 2300/10000Processed 2350/10000Processed 2400/10000Processed 2450/10000Processed 2500/10000Processed 2550/10000Processed 2600/10000Processed 2650/10000Processed 2700/10000Processed 2750/10000Processed 2800/10000Processed 2850/10000Processed 2900/10000Processed 2950/10000Processed 3000/10000Processed 3050/10000Processed 3100/10000Processed 3150/10000Processed 3200/10000Processed 3250/10000Processed 3300/10000Processed 3350/10000Processed 3400/10000Processed 3450/10000Processed 3500/10000Processed 3550/10000Processed 3600/10000Processed 3650/10000Processed 3700/10000Processed 3750/10000Processed 3800/10000Processed 3850/10000Processed 3900/10000Processed 3950/10000Processed 4000/10000Processed 4050/10000Processed 4100/10000Processed 4150/10000Processed 4200/10000Processed 4250/10000Processed 4300/10000Processed 4350/10000Processed 4400/10000Processed 4450/10000Processed 4500/10000Processed 4550/10000Processed 4600/10000Processed 4650/10000Processed 4700/10000Processed 4750/10000Processed 4800/10000Processed 4850/10000Processed 4900/10000Processed 4950/10000Processed 5000/10000Processed 5050/10000Processed 5100/10000Processed 5150/10000Processed 5200/10000Processed 5250/10000Processed 5300/10000Processed 5350/10000Processed 5400/10000Processed 5450/10000Processed 5500/10000Processed 5550/10000Processed 5600/10000Processed 5650/10000Processed 5700/10000Processed 5750/10000Processed 5800/10000Processed 5850/10000Processed 5900/10000Processed 5950/10000Processed 6000/10000Processed 6050/10000Processed 6100/10000Processed 6150/10000Processed 6200/10000Processed 6250/10000Processed 6300/10000Processed 6350/10000Processed 6400/10000Processed 6450/10000Processed 6500/10000Processed 6550/10000Processed 6600/10000Processed 6650/10000Processed 6700/10000Processed 6750/10000Processed 6800/10000Processed 6850/10000Processed 6900/10000Processed 6950/10000Processed 7000/10000Processed 7050/10000Processed 7100/10000Processed 7150/10000Processed 7200/10000Processed 7250/10000Processed 7300/10000Processed 7350/10000Processed 7400/10000Processed 7450/10000Processed 7500/10000Processed 7550/10000Processed 7600/10000Processed 7650/10000Processed 7700/10000Processed 7750/10000Processed 7800/10000Processed 7850/10000Processed 7900/10000Processed 7950/10000Processed 8000/10000Processed 8050/10000Processed 8100/10000Processed 8150/10000Processed 8200/10000Processed 8250/10000Processed 8300/10000Processed 8350/10000Processed 8400/10000Processed 8450/10000Processed 8500/10000Processed 8550/10000Processed 8600/10000Processed 8650/10000Processed 8700/10000Processed 8750/10000Processed 8800/10000Processed 8850/10000Processed 8900/10000Processed 8950/10000Processed 9000/10000Processed 9050/10000Processed 9100/10000Processed 9150/10000Processed 9200/10000Processed 9250/10000Processed 9300/10000Processed 9350/10000Processed 9400/10000Processed 9450/10000Processed 9500/10000Processed 9550/10000Processed 9600/10000Processed 9650/10000Processed 9700/10000Processed 9750/10000Processed 9800/10000Processed 9850/10000Processed 9900/10000Processed 9950/10000Processed 10000/10000
+
+Synthesizing up to 100 round-trip tests ...
+  [  1/100] state hashCode#0 -> 3  PASS
+  [  2/100] state hashCode#0 -> 77724  PASS
+  [  3/100] state hashCode#0 -> 28500361  PASS
+  [  4/100] state hashCode#0 -> 506791566  PASS
+  [  5/100] state hashCode#0 -> 159762621  PASS
+  [  6/100] state hashCode#0 -> 2076071000  PASS
+  [  7/100] state hashCode#0 -> 635  PASS
+  [  8/100] state hashCode#0 -> 259314516  PASS
+  [  9/100] state hashCode#0 -> 145535849  PASS
+  [ 10/100] state hashCode#0 -> 10482671  PASS
+  [ 11/100] state hashCode#0 -> 570543612  PASS
+  [ 12/100] state hashCode#0 -> 1086761798  PASS
+  [ 13/100] state hashCode#0 -> 1379966979  PASS
+  [ 14/100] state hashCode#0 -> 8581517  PASS
+  [ 15/100] state hashCode#0 -> 652788560  PASS
+  [ 16/100] state hashCode#0 -> 8896  PASS
+  [ 17/100] state hashCode#0 -> 724703  PASS
+  [ 18/100] state hashCode#0 -> 2  PASS
+  [ 19/100] state hashCode#0 -> 1747684055  PASS
+  [ 20/100] state hashCode#0 -> 9  PASS
+  [ 21/100] state hashCode#0 -> 9877  PASS
+  [ 22/100] state hashCode#0 -> 7823  PASS
+  [ 23/100] state hashCode#0 -> 1  PASS
+  [ 24/100] state hashCode#0 -> 391155473  PASS
+  [ 25/100] state hashCode#0 -> 2079569047  PASS
+  [ 26/100] state hashCode#0 -> 9216815  PASS
+  [ 27/100] state hashCode#0 -> 1040302039  PASS
+  [ 28/100] state hashCode#0 -> 722450969  PASS
+  [ 29/100] state hashCode#0 -> 20881  PASS
+  [ 30/100] state hashCode#0 -> 174638223  PASS
+  [ 31/100] state hashCode#0 -> 45461  PASS
+  [ 32/100] state hashCode#0 -> 210  PASS
+  [ 33/100] state hashCode#0 -> 159  PASS
+  [ 34/100] state hashCode#0 -> 0  PASS
+  [ 35/100] state hashCode#0 -> 2010742592  PASS
+  [ 36/100] state hashCode#0 -> 62389  PASS
+  [ 37/100] state hashCode#0 -> 1985445874  PASS
+  [ 38/100] state hashCode#0 -> 446365098  PASS
+  [ 39/100] state hashCode#0 -> 163460  PASS
+  [ 40/100] state hashCode#0 -> 60843  PASS
+  [ 41/100] state hashCode#0 -> 676598591  PASS
+  [ 42/100] state hashCode#0 -> 5667515  PASS
+  [ 43/100] state hashCode#0 -> 1025504216  PASS
+  [ 44/100] state hashCode#0 -> 2115463616  PASS
+  [ 45/100] state hashCode#0 -> 16171  PASS
+  [ 46/100] state hashCode#0 -> 17888  PASS
+  [ 47/100] state hashCode#0 -> 121222  PASS
+  [ 48/100] state hashCode#0 -> 6740416  PASS
+  [ 49/100] state hashCode#0 -> 1581897381  PASS
+  [ 50/100] state hashCode#0 -> 123  PASS
+  [ 51/100] state hashCode#0 -> 3959  PASS
+  [ 52/100] state hashCode#0 -> 40  PASS
+  [ 53/100] state hashCode#0 -> 1328143277  PASS
+  [ 54/100] state hashCode#0 -> 941543190  PASS
+  [ 55/100] state hashCode#0 -> 1430149076  PASS
+  [ 56/100] state hashCode#0 -> 76419220  PASS
+  [ 57/100] state hashCode#0 -> 273010173  PASS
+  [ 58/100] state hashCode#0 -> 437140  PASS
+  [ 59/100] state hashCode#0 -> 21  PASS
+  [ 60/100] state hashCode#0 -> 1476188420  PASS
+  [ 61/100] state hashCode#0 -> 93015924  PASS
+  [ 62/100] state hashCode#0 -> 12829  PASS
+  [ 63/100] state hashCode#0 -> 36998  PASS
+  [ 64/100] state hashCode#0 -> 570675206  PASS
+  [ 65/100] state hashCode#0 -> 2108501462  PASS
+  [ 66/100] state hashCode#0 -> 167  PASS
+  [ 67/100] state hashCode#0 -> 1301002672  PASS
+  [ 68/100] state hashCode#0 -> 3169  PASS
+  [ 69/100] state hashCode#0 -> 1337  PASS
+  [ 70/100] state hashCode#0 -> 270804006  PASS
+  [ 71/100] state hashCode#0 -> 860050679  PASS
+  [ 72/100] state hashCode#0 -> 139432092  PASS
+  [ 73/100] state hashCode#0 -> 116760644  PASS
+  [ 74/100] state hashCode#0 -> 559867705  PASS
+  [ 75/100] state hashCode#0 -> 114636590  PASS
+  [ 76/100] state hashCode#0 -> 4056765  PASS
+  [ 77/100] state hashCode#0 -> 37357354  PASS
+  [ 78/100] state hashCode#0 -> 22498  PASS
+  [ 79/100] state hashCode#0 -> 1785250639  PASS
+  [ 80/100] state hashCode#0 -> 2128113429  PASS
+  [ 81/100] state hashCode#0 -> 4103116  PASS
+  [ 82/100] state hashCode#0 -> 383494594  PASS
+  [ 83/100] state hashCode#0 -> 6700952  PASS
+  [ 84/100] state hashCode#0 -> 3509499  PASS
+  [ 85/100] state hashCode#0 -> 339561742  PASS
+  [ 86/100] state hashCode#0 -> 1433407425  PASS
+  [ 87/100] state hashCode#0 -> 237483116  PASS
+  [ 88/100] state hashCode#0 -> 1018771  PASS
+  [ 89/100] state hashCode#0 -> 59463766  PASS
+  [ 90/100] state hashCode#0 -> 6633  PASS
+  [ 91/100] state hashCode#0 -> 42  PASS
+  [ 92/100] state hashCode#0 -> 1290948245  PASS
+  [ 93/100] state hashCode#0 -> 90517  PASS
+  [ 94/100] state hashCode#0 -> 220390116  PASS
+  [ 95/100] state hashCode#0 -> 1089124  PASS
+  [ 96/100] state hashCode#0 -> 6464879  PASS
+  [ 97/100] state hashCode#0 -> 124  PASS
+  [ 98/100] state hashCode#0 -> 10157  PASS
+  [ 99/100] state hashCode#0 -> 166466608  PASS
+  [100/100] state hashCode#0 -> 131  PASS
+
 
 === SMT vs ACTUAL JDK ===
 Examples : 10000
@@ -30,11 +132,34 @@ Agreement: 0.00%
 
 === SYNTHESIZED ROUND-TRIP TESTS ===
 Engine   : symbolic
+Target   : 100
+Generated: 100
+Passed   : 100
+Failed   : 0
+args    : 0/0 passed  (not available for any method)
+state   : 100/100 passed
+joint   : 0/0 passed  (not available for any method)
+Tests per recorded output (method -> output):
+  hashCode#0 -> -897919262: 0
+  hashCode#0 -> 3: 1
+  hashCode#0 -> 77724: 1
+  hashCode#0 -> 28500361: 1
+  hashCode#0 -> -2147483648: 0
+  hashCode#0 -> 506791566: 1
+  hashCode#0 -> -1070384689: 0
+  hashCode#0 -> -1621817862: 0
+  hashCode#0 -> 159762621: 1
+  hashCode#0 -> 2076071000: 1
+  hashCode#0 -> 635: 1
+  hashCode#0 -> 259314516: 1
+  hashCode#0 -> 145535849: 1
+  hashCode#0 -> 10482671: 1
+  hashCode#0 -> 570543612: 1
+  hashCode#0 -> 1086761798: 1
+  hashCode#0 -> -1280648100: 0
+  hashCode#0 -> 1379966979: 1
+  hashCode#0 -> 8581517: 1
+  hashCode#0 -> 652788560: 1
+  ... and 8243 more outputs
 Set slots: 4 (element values unrestricted)
-Generated: 35
-Passed   : 18
-Failed   : 17
-state   : 18/35 passed
-Saved synthesized cases to smt_generated_roundtrip_tests.json
-
-Saved SMT/JDK mismatches to smt_jdk_differences.json
+Saved synthesized cases to ./evaluation/roundtrip/public_int_java_lang_Long_hashCode___roundtrip_tests.json

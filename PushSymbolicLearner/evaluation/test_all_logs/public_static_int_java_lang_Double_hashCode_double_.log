@@ -1,4 +1,4 @@
-COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.Double\\public_static_int_java_lang_Double_hashCode_double_.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_int_java_lang_Double_hashCode_double_.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_int_java_lang_Double_hashCode_double_.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-max-examples', '100']
+COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.Double\\public_static_int_java_lang_Double_hashCode_double_.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_int_java_lang_Double_hashCode_double_.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_int_java_lang_Double_hashCode_double_.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-per-goal', '50']
 
 Loading training data from C:\Users\felix\AutoStubX\Training-Data-Generation\symbolic-regression-data\training\java.lang.Double\public_static_int_java_lang_Double_hashCode_double_.json
 Max samples per file: 1000000
@@ -9,32 +9,158 @@ Loaded 10000 total samples from 1 files
 Z3 base check: sat
 Concrete oracle: openjdk version "17.0.20.1" 2026-08-18
 Replay mode    : stateful sequence replay on real JVM objects
-Traceback (most recent call last):
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2743, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2674, in main
-    generated = synthesize_and_retest_example(
-        oracle, a.z3, base, ex, methods, synth_modes, synth_domain,
-        synth_int_targets, a.synth_per_goal, a.synth_engine, a.synth_set_slots,
-        synth_cache=synth_cache,  # <-- Pass the shared cache here
-    )
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2392, in synthesize_and_retest_example
-    candidates = synthesize_cases_for_call(
-        z3, base, example, methods, call_index,
-        mode, wanted, domain, per_goal, engine, set_slots,
-    )
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2234, in synthesize_cases_for_call
-    return _synthesize_cases_symbolic(
-        z3, base, example, methods, call_index, mode, wanted, limit, set_slots
-    )
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2064, in _synthesize_cases_symbolic
-    encoded_args.append(argument(value, type_name))
-                        ~~~~~~~~^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 1077, in argument
-    return smt_real(x)
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 983, in smt_real
-    raise UnsupportedConcreteValue(
-        f"SMT Real cannot represent IEEE non-finite value {x!r}"
-    )
-UnsupportedConcreteValue: SMT Real cannot represent IEEE non-finite value inf
+
+Synthesizing up to 100 round-trip tests ...
+  [  1/100] args  hashCode#float -> 1  FAIL
+  [  2/100] state hashCode#float -> 1  PASS
+  [  3/100] joint hashCode#float -> 1  FAIL
+  [  4/100] args  hashCode#float -> 1  FAIL
+  [  5/100] state hashCode#float -> 1  PASS
+  [  6/100] joint hashCode#float -> 1  FAIL
+  [  7/100] args  hashCode#float -> 1  FAIL
+  [  8/100] state hashCode#float -> 1  PASS
+  [  9/100] joint hashCode#float -> 1  FAIL
+  [ 10/100] args  hashCode#float -> 1  FAIL
+  [ 11/100] state hashCode#float -> 1  PASS
+  [ 12/100] joint hashCode#float -> 1  FAIL
+  [ 13/100] args  hashCode#float -> 1  FAIL
+  [ 14/100] state hashCode#float -> 1  PASS
+  [ 15/100] joint hashCode#float -> 1  FAIL
+  [ 16/100] args  hashCode#float -> 1  FAIL
+  [ 17/100] state hashCode#float -> 1  PASS
+  [ 18/100] joint hashCode#float -> 1  FAIL
+  [ 19/100] args  hashCode#float -> 1  FAIL
+  [ 20/100] state hashCode#float -> 1  PASS
+  [ 21/100] joint hashCode#float -> 1  FAIL
+  [ 22/100] args  hashCode#float -> 1  FAIL
+  [ 23/100] state hashCode#float -> 1  PASS
+  [ 24/100] joint hashCode#float -> 1  FAIL
+  [ 25/100] args  hashCode#float -> 1  FAIL
+  [ 26/100] state hashCode#float -> 1  PASS
+  [ 27/100] joint hashCode#float -> 1  FAIL
+  [ 28/100] args  hashCode#float -> 1  FAIL
+  [ 29/100] state hashCode#float -> 1  PASS
+  [ 30/100] joint hashCode#float -> 1  FAIL
+  [ 31/100] args  hashCode#float -> 1  FAIL
+  [ 32/100] state hashCode#float -> 1  PASS
+  [ 33/100] joint hashCode#float -> 1  FAIL
+  [ 34/100] args  hashCode#float -> 1  FAIL
+  [ 35/100] state hashCode#float -> 1  PASS
+  [ 36/100] joint hashCode#float -> 1  FAIL
+  [ 37/100] args  hashCode#float -> 1  FAIL
+  [ 38/100] state hashCode#float -> 1  PASS
+  [ 39/100] joint hashCode#float -> 1  FAIL
+  [ 40/100] args  hashCode#float -> 1  FAIL
+  [ 41/100] state hashCode#float -> 1  PASS
+  [ 42/100] joint hashCode#float -> 1  FAIL
+  [ 43/100] args  hashCode#float -> 1  FAIL
+  [ 44/100] state hashCode#float -> 1  PASS
+  [ 45/100] joint hashCode#float -> 1  FAIL
+  [ 46/100] args  hashCode#float -> 1  FAIL
+  [ 47/100] state hashCode#float -> 1  PASS
+  [ 48/100] joint hashCode#float -> 1  FAIL
+  [ 49/100] args  hashCode#float -> 1  FAIL
+  [ 50/100] state hashCode#float -> 1  PASS
+  [ 51/100] joint hashCode#float -> 1  FAIL
+  [ 52/100] args  hashCode#float -> 1  FAIL
+  [ 53/100] state hashCode#float -> 1  PASS
+  [ 54/100] joint hashCode#float -> 1  FAIL
+  [ 55/100] args  hashCode#float -> 1  FAIL
+  [ 56/100] state hashCode#float -> 1  PASS
+  [ 57/100] joint hashCode#float -> 1  FAIL
+  [ 58/100] args  hashCode#float -> 1  FAIL
+  [ 59/100] state hashCode#float -> 1  PASS
+  [ 60/100] joint hashCode#float -> 1  FAIL
+  [ 61/100] args  hashCode#float -> 1  FAIL
+  [ 62/100] state hashCode#float -> 1  PASS
+  [ 63/100] joint hashCode#float -> 1  FAIL
+  [ 64/100] args  hashCode#float -> 1  FAIL
+  [ 65/100] state hashCode#float -> 1  PASS
+  [ 66/100] joint hashCode#float -> 1  FAIL
+  [ 67/100] args  hashCode#float -> 1  FAIL
+  [ 68/100] state hashCode#float -> 1  PASS
+  [ 69/100] joint hashCode#float -> 1  FAIL
+  [ 70/100] args  hashCode#float -> 1  FAIL
+  [ 71/100] state hashCode#float -> 1  PASS
+  [ 72/100] joint hashCode#float -> 1  FAIL
+  [ 73/100] args  hashCode#float -> 1  FAIL
+  [ 74/100] state hashCode#float -> 1  PASS
+  [ 75/100] joint hashCode#float -> 1  FAIL
+  [ 76/100] args  hashCode#float -> 1  FAIL
+  [ 77/100] state hashCode#float -> 1  PASS
+  [ 78/100] joint hashCode#float -> 1  FAIL
+  [ 79/100] args  hashCode#float -> 1  FAIL
+  [ 80/100] state hashCode#float -> 1  PASS
+  [ 81/100] joint hashCode#float -> 1  FAIL
+  [ 82/100] args  hashCode#float -> 1  FAIL
+  [ 83/100] state hashCode#float -> 1  PASS
+  [ 84/100] joint hashCode#float -> 1  FAIL
+  [ 85/100] args  hashCode#float -> 1  FAIL
+  [ 86/100] state hashCode#float -> 1  PASS
+  [ 87/100] joint hashCode#float -> 1  FAIL
+  [ 88/100] args  hashCode#float -> 1  FAIL
+  [ 89/100] state hashCode#float -> 1  PASS
+  [ 90/100] joint hashCode#float -> 1  FAIL
+  [ 91/100] args  hashCode#float -> 1  FAIL
+  [ 92/100] state hashCode#float -> 1  PASS
+  [ 93/100] joint hashCode#float -> 1  FAIL
+  [ 94/100] args  hashCode#float -> 1  FAIL
+  [ 95/100] state hashCode#float -> 1  PASS
+  [ 96/100] joint hashCode#float -> 1  FAIL
+  [ 97/100] args  hashCode#float -> 1  FAIL
+  [ 98/100] state hashCode#float -> 1  PASS
+  [ 99/100] joint hashCode#float -> 1  FAIL
+  [100/100] args  hashCode#float -> 1  FAIL
+
+
+=== SMT vs ACTUAL JDK ===
+Examples : 10000
+Calls    : 0
+Same     : 0
+Different: 0
+Unknown  : 0
+Skipped  : 0 calls in 0 skipped examples
+Agreement: 0.00%  (representable/tested calls only)
+State    : 0 receiver post-states included in the SMT proof
+
+=== TRAINING TRACE vs ACTUAL JDK (diagnostic only) ===
+Same     : 0
+Different: 0
+Agreement: 0.00%
+
+=== PER METHOD: SMT vs JDK ===
+
+=== SYNTHESIZED ROUND-TRIP TESTS ===
+Engine   : symbolic
+Target   : 100
+Generated: 100
+Passed   : 33
+Failed   : 67
+args    : 0/34 passed
+state   : 33/33 passed
+joint   : 0/33 passed
+Tests per recorded output (method -> output):
+  hashCode#float -> 2134456458: 0
+  hashCode#float -> -1559420094: 0
+  hashCode#float -> -192334103: 0
+  hashCode#float -> 1085219508: 0
+  hashCode#float -> -1621813420: 0
+  hashCode#float -> 899324066: 0
+  hashCode#float -> -1209154072: 0
+  hashCode#float -> 1960051706: 0
+  hashCode#float -> -1411159980: 0
+  hashCode#float -> 419697352: 0
+  hashCode#float -> -597226307: 0
+  hashCode#float -> -581372013: 0
+  hashCode#float -> 1072693248: 0
+  hashCode#float -> -899150409: 0
+  hashCode#float -> -1672820084: 0
+  hashCode#float -> 904195602: 0
+  hashCode#float -> -1456406854: 0
+  hashCode#float -> 1571307560: 0
+  hashCode#float -> -583575146: 0
+  hashCode#float -> 2144250384: 0
+  ... and 9478 more outputs
+Skipped  : 3 unusable templates/candidates
+Set slots: 4 (element values unrestricted)
+Saved synthesized cases to ./evaluation/roundtrip/public_static_int_java_lang_Double_hashCode_double__roundtrip_tests.json

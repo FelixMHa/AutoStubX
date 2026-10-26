@@ -1,3 +1,146 @@
-COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.String\\public_boolean_java_lang_String_regionMatches_boolean_int_java_lang_String_int_int_.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_boolean_java_lang_String_regionMatches_boolean_int_java_lang_String_int_int_.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_boolean_java_lang_String_regionMatches_boolean_int_java_lang_String_int_int_.json_genome_manifest.json', '--synthesize', '--synth-only', '--synth-per-goal', '50', '--synth-set-slots', '100', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe']
+COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.String\\public_boolean_java_lang_String_regionMatches_boolean_int_java_lang_String_int_int_.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_boolean_java_lang_String_regionMatches_boolean_int_java_lang_String_int_int_.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_boolean_java_lang_String_regionMatches_boolean_int_java_lang_String_int_int_.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-per-goal', '50']
 
-KeyboardInterrupt
+Loading training data from C:\Users\felix\AutoStubX\Training-Data-Generation\symbolic-regression-data\training\java.lang.String\public_boolean_java_lang_String_regionMatches_boolean_int_java_lang_String_int_int_.json
+Max samples per file: 1000000
+------------------------------------------------------------
+Loading public_boolean_java_lang_String_regionMatches_boolean_int_java_lang_String_int_int_.json... (10000 samples)
+------------------------------------------------------------
+Loaded 10000 total samples from 1 files
+Z3 base check: sat
+Concrete oracle: openjdk version "17.0.20.1" 2026-08-18
+Replay mode    : stateful sequence replay on real JVM objects
+
+Synthesizing up to 100 round-trip tests ...
+  [  1/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [  2/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [  3/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [  4/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [  5/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [  6/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [  7/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [  8/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [  9/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 10/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 11/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 12/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 13/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 14/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 15/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 16/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 17/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 18/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 19/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 20/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 21/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 22/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 23/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 24/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 25/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 26/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 27/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 28/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 29/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 30/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 31/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 32/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 33/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 34/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 35/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 36/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 37/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 38/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 39/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 40/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 41/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 42/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 43/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 44/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 45/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 46/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 47/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 48/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 49/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 50/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 51/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 52/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 53/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 54/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 55/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 56/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 57/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 58/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 59/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 60/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 61/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 62/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 63/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 64/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 65/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 66/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 67/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 68/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 69/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 70/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 71/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 72/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 73/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 74/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 75/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 76/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 77/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 78/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 79/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 80/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 81/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 82/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 83/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 84/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 85/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 86/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 87/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 88/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 89/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 90/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 91/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 92/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 93/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 94/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 95/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 96/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 97/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 98/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [ 99/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+  [100/100] state regionMatches#bool#int#obj#int#int -> False  PASS
+
+
+=== SMT vs ACTUAL JDK ===
+Examples : 10000
+Calls    : 0
+Same     : 0
+Different: 0
+Unknown  : 0
+Skipped  : 0 calls in 0 skipped examples
+Agreement: 0.00%  (representable/tested calls only)
+State    : 0 receiver post-states included in the SMT proof
+
+=== TRAINING TRACE vs ACTUAL JDK (diagnostic only) ===
+Same     : 0
+Different: 0
+Agreement: 0.00%
+
+=== PER METHOD: SMT vs JDK ===
+
+=== SYNTHESIZED ROUND-TRIP TESTS ===
+Engine   : symbolic
+Target   : 100
+Generated: 100
+Passed   : 100
+Failed   : 0
+args    : 0/0 passed  (not available for any method)
+state   : 100/100 passed
+joint   : 0/0 passed  (not available for any method)
+Tests per recorded output (method -> output):
+  regionMatches#bool#int#obj#int#int -> False: 100
+  regionMatches#bool#int#obj#int#int -> True: 0
+Set slots: 4 (element values unrestricted)
+Saved synthesized cases to ./evaluation/roundtrip/public_boolean_java_lang_String_regionMatches_boolean_int_java_lang_String_int_int__roundtrip_tests.json

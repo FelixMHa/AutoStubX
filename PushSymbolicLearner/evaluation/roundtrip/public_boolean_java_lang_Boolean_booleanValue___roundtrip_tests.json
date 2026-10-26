@@ -3,6 +3,8 @@
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -21,12 +23,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 0
+    "template_example": 0,
+    "goal_key": "false"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -45,6 +50,7 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 0
+    "template_example": 2,
+    "goal_key": "true"
   }
 ]

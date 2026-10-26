@@ -9,7 +9,109 @@ Loaded 10000 total samples from 1 files
 Z3 base check: sat
 Concrete oracle: openjdk version "17.0.20.1" 2026-08-18
 Replay mode    : stateful sequence replay on real JVM objects
-Processed 50/10000Processed 100/10000Processed 150/10000Processed 200/10000Processed 250/10000Processed 300/10000Processed 350/10000Processed 400/10000Processed 450/10000Processed 500/10000Processed 550/10000Processed 600/10000Processed 650/10000Processed 700/10000Processed 750/10000Processed 800/10000Processed 850/10000Processed 900/10000Processed 950/10000Processed 1000/10000Processed 1050/10000Processed 1100/10000Processed 1150/10000Processed 1200/10000Processed 1250/10000Processed 1300/10000Processed 1350/10000Processed 1400/10000Processed 1450/10000Processed 1500/10000Processed 1550/10000Processed 1600/10000Processed 1650/10000Processed 1700/10000Processed 1750/10000Processed 1800/10000Processed 1850/10000Processed 1900/10000Processed 1950/10000Processed 2000/10000Processed 2050/10000Processed 2100/10000Processed 2150/10000Processed 2200/10000Processed 2250/10000Processed 2300/10000Processed 2350/10000Processed 2400/10000Processed 2450/10000Processed 2500/10000Processed 2550/10000Processed 2600/10000Processed 2650/10000Processed 2700/10000Processed 2750/10000Processed 2800/10000Processed 2850/10000Processed 2900/10000Processed 2950/10000Processed 3000/10000Processed 3050/10000Processed 3100/10000Processed 3150/10000Processed 3200/10000Processed 3250/10000Processed 3300/10000Processed 3350/10000Processed 3400/10000Processed 3450/10000Processed 3500/10000Processed 3550/10000Processed 3600/10000Processed 3650/10000Processed 3700/10000Processed 3750/10000Processed 3800/10000Processed 3850/10000Processed 3900/10000Processed 3950/10000Processed 4000/10000Processed 4050/10000Processed 4100/10000Processed 4150/10000Processed 4200/10000Processed 4250/10000Processed 4300/10000Processed 4350/10000Processed 4400/10000Processed 4450/10000Processed 4500/10000Processed 4550/10000Processed 4600/10000Processed 4650/10000Processed 4700/10000Processed 4750/10000Processed 4800/10000Processed 4850/10000Processed 4900/10000Processed 4950/10000Processed 5000/10000Processed 5050/10000Processed 5100/10000Processed 5150/10000Processed 5200/10000Processed 5250/10000Processed 5300/10000Processed 5350/10000Processed 5400/10000Processed 5450/10000Processed 5500/10000Processed 5550/10000Processed 5600/10000Processed 5650/10000Processed 5700/10000Processed 5750/10000Processed 5800/10000Processed 5850/10000Processed 5900/10000Processed 5950/10000Processed 6000/10000Processed 6050/10000Processed 6100/10000Processed 6150/10000Processed 6200/10000Processed 6250/10000Processed 6300/10000Processed 6350/10000Processed 6400/10000Processed 6450/10000Processed 6500/10000Processed 6550/10000Processed 6600/10000Processed 6650/10000Processed 6700/10000Processed 6750/10000Processed 6800/10000Processed 6850/10000Processed 6900/10000Processed 6950/10000Processed 7000/10000Processed 7050/10000Processed 7100/10000Processed 7150/10000Processed 7200/10000Processed 7250/10000Processed 7300/10000Processed 7350/10000Processed 7400/10000Processed 7450/10000Processed 7500/10000Processed 7550/10000Processed 7600/10000Processed 7650/10000Processed 7700/10000Processed 7750/10000Processed 7800/10000Processed 7850/10000Processed 7900/10000Processed 7950/10000Processed 8000/10000Processed 8050/10000Processed 8100/10000Processed 8150/10000Processed 8200/10000Processed 8250/10000Processed 8300/10000Processed 8350/10000Processed 8400/10000Processed 8450/10000Processed 8500/10000Processed 8550/10000Processed 8600/10000Processed 8650/10000Processed 8700/10000Processed 8750/10000Processed 8800/10000Processed 8850/10000Processed 8900/10000Processed 8950/10000Processed 9000/10000Processed 9050/10000Processed 9100/10000Processed 9150/10000Processed 9200/10000Processed 9250/10000Processed 9300/10000Processed 9350/10000Processed 9400/10000Processed 9450/10000Processed 9500/10000Processed 9550/10000Processed 9600/10000Processed 9650/10000Processed 9700/10000Processed 9750/10000Processed 9800/10000Processed 9850/10000Processed 9900/10000Processed 9950/10000Processed 10000/10000
+
+Synthesizing up to 100 round-trip tests ...
+  [  1/100] state floatValue#0 -> 0.0  FAIL
+  [  2/100] state floatValue#0 -> 0.0  FAIL
+  [  3/100] state floatValue#0 -> 0.0  FAIL
+  [  4/100] state floatValue#0 -> 0.0  FAIL
+  [  5/100] state floatValue#0 -> 0.0  FAIL
+  [  6/100] state floatValue#0 -> 0.0  FAIL
+  [  7/100] state floatValue#0 -> 0.0  FAIL
+  [  8/100] state floatValue#0 -> 0.0  FAIL
+  [  9/100] state floatValue#0 -> 0.0  FAIL
+  [ 10/100] state floatValue#0 -> 0.0  FAIL
+  [ 11/100] state floatValue#0 -> 0.0  FAIL
+  [ 12/100] state floatValue#0 -> 0.0  FAIL
+  [ 13/100] state floatValue#0 -> 0.0  FAIL
+  [ 14/100] state floatValue#0 -> 0.0  FAIL
+  [ 15/100] state floatValue#0 -> 0.0  FAIL
+  [ 16/100] state floatValue#0 -> 0.0  FAIL
+  [ 17/100] state floatValue#0 -> 0.0  FAIL
+  [ 18/100] state floatValue#0 -> 0.0  FAIL
+  [ 19/100] state floatValue#0 -> 0.0  FAIL
+  [ 20/100] state floatValue#0 -> 0.0  FAIL
+  [ 21/100] state floatValue#0 -> 0.0  FAIL
+  [ 22/100] state floatValue#0 -> 0.0  FAIL
+  [ 23/100] state floatValue#0 -> 0.0  FAIL
+  [ 24/100] state floatValue#0 -> 0.0  FAIL
+  [ 25/100] state floatValue#0 -> 0.0  FAIL
+  [ 26/100] state floatValue#0 -> 0.0  FAIL
+  [ 27/100] state floatValue#0 -> 0.0  FAIL
+  [ 28/100] state floatValue#0 -> 0.0  FAIL
+  [ 29/100] state floatValue#0 -> 0.0  FAIL
+  [ 30/100] state floatValue#0 -> 0.0  FAIL
+  [ 31/100] state floatValue#0 -> 0.0  FAIL
+  [ 32/100] state floatValue#0 -> 0.0  FAIL
+  [ 33/100] state floatValue#0 -> 0.0  FAIL
+  [ 34/100] state floatValue#0 -> 0.0  FAIL
+  [ 35/100] state floatValue#0 -> 0.0  FAIL
+  [ 36/100] state floatValue#0 -> 0.0  FAIL
+  [ 37/100] state floatValue#0 -> 0.0  FAIL
+  [ 38/100] state floatValue#0 -> 0.0  FAIL
+  [ 39/100] state floatValue#0 -> 0.0  FAIL
+  [ 40/100] state floatValue#0 -> 0.0  FAIL
+  [ 41/100] state floatValue#0 -> 0.0  FAIL
+  [ 42/100] state floatValue#0 -> 0.0  FAIL
+  [ 43/100] state floatValue#0 -> 0.0  FAIL
+  [ 44/100] state floatValue#0 -> 0.0  FAIL
+  [ 45/100] state floatValue#0 -> 0.0  FAIL
+  [ 46/100] state floatValue#0 -> 0.0  FAIL
+  [ 47/100] state floatValue#0 -> 0.0  FAIL
+  [ 48/100] state floatValue#0 -> 0.0  FAIL
+  [ 49/100] state floatValue#0 -> 0.0  FAIL
+  [ 50/100] state floatValue#0 -> 0.0  FAIL
+  [ 51/100] state floatValue#0 -> 0.0  FAIL
+  [ 52/100] state floatValue#0 -> 0.0  FAIL
+  [ 53/100] state floatValue#0 -> 0.0  FAIL
+  [ 54/100] state floatValue#0 -> 0.0  FAIL
+  [ 55/100] state floatValue#0 -> 0.0  FAIL
+  [ 56/100] state floatValue#0 -> 0.0  FAIL
+  [ 57/100] state floatValue#0 -> 0.0  FAIL
+  [ 58/100] state floatValue#0 -> 0.0  FAIL
+  [ 59/100] state floatValue#0 -> 0.0  FAIL
+  [ 60/100] state floatValue#0 -> 0.0  FAIL
+  [ 61/100] state floatValue#0 -> 0.0  FAIL
+  [ 62/100] state floatValue#0 -> 0.0  FAIL
+  [ 63/100] state floatValue#0 -> 0.0  FAIL
+  [ 64/100] state floatValue#0 -> 0.0  FAIL
+  [ 65/100] state floatValue#0 -> 0.0  FAIL
+  [ 66/100] state floatValue#0 -> 0.0  FAIL
+  [ 67/100] state floatValue#0 -> 0.0  FAIL
+  [ 68/100] state floatValue#0 -> 0.0  FAIL
+  [ 69/100] state floatValue#0 -> 0.0  FAIL
+  [ 70/100] state floatValue#0 -> 0.0  FAIL
+  [ 71/100] state floatValue#0 -> 0.0  FAIL
+  [ 72/100] state floatValue#0 -> 0.0  FAIL
+  [ 73/100] state floatValue#0 -> 0.0  FAIL
+  [ 74/100] state floatValue#0 -> 0.0  FAIL
+  [ 75/100] state floatValue#0 -> 0.0  FAIL
+  [ 76/100] state floatValue#0 -> 0.0  FAIL
+  [ 77/100] state floatValue#0 -> 0.0  FAIL
+  [ 78/100] state floatValue#0 -> 0.0  FAIL
+  [ 79/100] state floatValue#0 -> 0.0  FAIL
+  [ 80/100] state floatValue#0 -> 0.0  FAIL
+  [ 81/100] state floatValue#0 -> 0.0  FAIL
+  [ 82/100] state floatValue#0 -> 0.0  FAIL
+  [ 83/100] state floatValue#0 -> 0.0  FAIL
+  [ 84/100] state floatValue#0 -> 0.0  FAIL
+  [ 85/100] state floatValue#0 -> 0.0  FAIL
+  [ 86/100] state floatValue#0 -> 0.0  FAIL
+  [ 87/100] state floatValue#0 -> 0.0  FAIL
+  [ 88/100] state floatValue#0 -> 0.0  FAIL
+  [ 89/100] state floatValue#0 -> 0.0  FAIL
+  [ 90/100] state floatValue#0 -> 0.0  FAIL
+  [ 91/100] state floatValue#0 -> 0.0  FAIL
+  [ 92/100] state floatValue#0 -> 0.0  FAIL
+  [ 93/100] state floatValue#0 -> 0.0  FAIL
+  [ 94/100] state floatValue#0 -> 0.0  FAIL
+  [ 95/100] state floatValue#0 -> 0.0  FAIL
+  [ 96/100] state floatValue#0 -> 0.0  FAIL
+  [ 97/100] state floatValue#0 -> 0.0  FAIL
+  [ 98/100] state floatValue#0 -> 0.0  FAIL
+  [ 99/100] state floatValue#0 -> 0.0  FAIL
+  [100/100] state floatValue#0 -> 0.0  FAIL
+
 
 === SMT vs ACTUAL JDK ===
 Examples : 10000
@@ -30,11 +132,34 @@ Agreement: 0.00%
 
 === SYNTHESIZED ROUND-TRIP TESTS ===
 Engine   : symbolic
-Set slots: 4 (element values unrestricted)
-Generated: 33
+Target   : 100
+Generated: 100
 Passed   : 0
-Failed   : 33
-state   : 0/33 passed
-Saved synthesized cases to smt_generated_roundtrip_tests.json
-
-Saved SMT/JDK mismatches to smt_jdk_differences.json
+Failed   : 100
+args    : 0/0 passed  (not available for any method)
+state   : 0/100 passed
+joint   : 0/0 passed  (not available for any method)
+Tests per recorded output (method -> output):
+  floatValue#0 -> -2419.0: 0
+  floatValue#0 -> 484.0: 0
+  floatValue#0 -> 230.0: 0
+  floatValue#0 -> 3639.0: 0
+  floatValue#0 -> -4477.0: 0
+  floatValue#0 -> -11244660.0: 0
+  floatValue#0 -> 0.0: 100
+  floatValue#0 -> -294.0: 0
+  floatValue#0 -> -33953.0: 0
+  floatValue#0 -> 264685.0: 0
+  floatValue#0 -> -201498128.0: 0
+  floatValue#0 -> -195.0: 0
+  floatValue#0 -> 351030.0: 0
+  floatValue#0 -> -3987519.0: 0
+  floatValue#0 -> -1620035.0: 0
+  floatValue#0 -> -24.0: 0
+  floatValue#0 -> -9372115.0: 0
+  floatValue#0 -> -102353152.0: 0
+  floatValue#0 -> 1920171.0: 0
+  floatValue#0 -> 245.0: 0
+  ... and 6998 more outputs
+Set slots: 4 (element values unrestricted)
+Saved synthesized cases to ./evaluation/roundtrip/public_float_java_lang_Integer_floatValue___roundtrip_tests.json

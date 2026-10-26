@@ -1,4 +1,4 @@
-COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.Double\\public_static_long_java_lang_Double_doubleToLongBits_double_.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_long_java_lang_Double_doubleToLongBits_double_.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_long_java_lang_Double_doubleToLongBits_double_.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-max-examples', '100']
+COMMAND: ['C:\\Users\\felix\\AutoStubX\\.venv\\Scripts\\python.exe', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\test_smt_jdk_synthesis.py', 'C:\\Users\\felix\\AutoStubX\\Training-Data-Generation\\symbolic-regression-data\\training\\java.lang.Double\\public_static_long_java_lang_Double_doubleToLongBits_double_.json', '--smt', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_long_java_lang_Double_doubleToLongBits_double_.json_genome.smt2', '--manifest', 'C:\\Users\\felix\\AutoStubX\\PushSymbolicLearner\\genomesNewer\\public_static_long_java_lang_Double_doubleToLongBits_double_.json_genome_manifest.json', '--z3', 'C:\\Users\\felix\\z3-5.1.0-x64-win\\bin\\z3.exe', '--synthesize', '--synth-only', '--synth-per-goal', '50']
 
 Loading training data from C:\Users\felix\AutoStubX\Training-Data-Generation\symbolic-regression-data\training\java.lang.Double\public_static_long_java_lang_Double_doubleToLongBits_double_.json
 Max samples per file: 1000000
@@ -9,32 +9,58 @@ Loaded 10000 total samples from 1 files
 Z3 base check: sat
 Concrete oracle: openjdk version "17.0.20.1" 2026-08-18
 Replay mode    : stateful sequence replay on real JVM objects
-Traceback (most recent call last):
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2743, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2674, in main
-    generated = synthesize_and_retest_example(
-        oracle, a.z3, base, ex, methods, synth_modes, synth_domain,
-        synth_int_targets, a.synth_per_goal, a.synth_engine, a.synth_set_slots,
-        synth_cache=synth_cache,  # <-- Pass the shared cache here
-    )
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2392, in synthesize_and_retest_example
-    candidates = synthesize_cases_for_call(
-        z3, base, example, methods, call_index,
-        mode, wanted, domain, per_goal, engine, set_slots,
-    )
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2234, in synthesize_cases_for_call
-    return _synthesize_cases_symbolic(
-        z3, base, example, methods, call_index, mode, wanted, limit, set_slots
-    )
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 2064, in _synthesize_cases_symbolic
-    encoded_args.append(argument(value, type_name))
-                        ~~~~~~~~^^^^^^^^^^^^^^^^^^
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 1077, in argument
-    return smt_real(x)
-  File "C:\Users\felix\AutoStubX\PushSymbolicLearner\test_smt_jdk_synthesis.py", line 983, in smt_real
-    raise UnsupportedConcreteValue(
-        f"SMT Real cannot represent IEEE non-finite value {x!r}"
-    )
-UnsupportedConcreteValue: SMT Real cannot represent IEEE non-finite value -inf
+
+Synthesizing up to 100 round-trip tests ...
+
+
+=== SMT vs ACTUAL JDK ===
+Examples : 10000
+Calls    : 0
+Same     : 0
+Different: 0
+Unknown  : 0
+Skipped  : 0 calls in 0 skipped examples
+Agreement: 0.00%  (representable/tested calls only)
+State    : 0 receiver post-states included in the SMT proof
+
+=== TRAINING TRACE vs ACTUAL JDK (diagnostic only) ===
+Same     : 0
+Different: 0
+Agreement: 0.00%
+
+=== PER METHOD: SMT vs JDK ===
+
+=== SYNTHESIZED ROUND-TRIP TESTS ===
+Engine   : symbolic
+Target   : 100
+Generated: 0
+Passed   : 0
+Failed   : 0
+args    : 0/0 passed
+state   : 0/0 passed
+joint   : 0/0 passed
+Tests per recorded output (method -> output):
+  doubleToLongBits#float -> -2499719596648185503: 0
+  doubleToLongBits#float -> 4828734260446027561: 0
+  doubleToLongBits#float -> 5655032077851898977: 0
+  doubleToLongBits#float -> -4808049583249078882: 0
+  doubleToLongBits#float -> 5172108577491176078: 0
+  doubleToLongBits#float -> -2882936434287156948: 0
+  doubleToLongBits#float -> -5858372641073364315: 0
+  doubleToLongBits#float -> 4686189161858458700: 0
+  doubleToLongBits#float -> -5530296201458712068: 0
+  doubleToLongBits#float -> 3752244886684255694: 0
+  doubleToLongBits#float -> 5248078589160758970: 0
+  doubleToLongBits#float -> -5055735218197058098: 0
+  doubleToLongBits#float -> -2938191175940547688: 0
+  doubleToLongBits#float -> 4104317330977861420: 0
+  doubleToLongBits#float -> -2983788036595700976: 0
+  doubleToLongBits#float -> -4617436600542454952: 0
+  doubleToLongBits#float -> -3705235041714291344: 0
+  doubleToLongBits#float -> 5420936216639560424: 0
+  doubleToLongBits#float -> -4616189618054758400: 0
+  doubleToLongBits#float -> -4712223246696276687: 0
+  ... and 9508 more outputs
+WARNING: only 0 of 100 tests could be generated with distinct inputs (every available mode/output was exhausted).
+Set slots: 4 (element values unrestricted)
+Saved synthesized cases to ./evaluation/roundtrip/public_static_long_java_lang_Double_doubleToLongBits_double__roundtrip_tests.json

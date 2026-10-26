@@ -3,6 +3,8 @@
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -21,36 +23,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 0
+    "template_example": 0,
+    "goal_key": "10"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
-    "symbolic_set_slots": null,
-    "symbolic_set_size": null,
-    "symbolic_target_present": null,
-    "wanted_output": 0,
-    "initial_set": 0,
-    "argument": null,
-    "call": 0,
-    "method": "shortValue#0",
-    "jdk": {
-      "outcome": "normal",
-      "value": 0,
-      "receiverState": 0
-    },
-    "jdk_reached_wanted_output": true,
-    "smt_retest_status": "unsat",
-    "smt_retest_agrees_with_jdk": true,
-    "receiver_state_checked": true,
-    "pass": true,
-    "template_example": 0
-  },
-  {
-    "mode": "state",
-    "synthesis_engine": "symbolic",
-    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -69,60 +50,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 0
+    "template_example": 1,
+    "goal_key": "1"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
-    "symbolic_set_slots": null,
-    "symbolic_set_size": null,
-    "symbolic_target_present": null,
-    "wanted_output": 2,
-    "initial_set": 2,
-    "argument": null,
-    "call": 0,
-    "method": "shortValue#0",
-    "jdk": {
-      "outcome": "normal",
-      "value": 2,
-      "receiverState": 2
-    },
-    "jdk_reached_wanted_output": true,
-    "smt_retest_status": "unsat",
-    "smt_retest_agrees_with_jdk": true,
-    "receiver_state_checked": true,
-    "pass": true,
-    "template_example": 0
-  },
-  {
-    "mode": "state",
-    "synthesis_engine": "symbolic",
-    "synthesis_scope": "call-local",
-    "symbolic_set_slots": null,
-    "symbolic_set_size": null,
-    "symbolic_target_present": null,
-    "wanted_output": 3,
-    "initial_set": 3,
-    "argument": null,
-    "call": 0,
-    "method": "shortValue#0",
-    "jdk": {
-      "outcome": "normal",
-      "value": 3,
-      "receiverState": 3
-    },
-    "jdk_reached_wanted_output": true,
-    "smt_retest_status": "unsat",
-    "smt_retest_agrees_with_jdk": true,
-    "receiver_state_checked": true,
-    "pass": true,
-    "template_example": 0
-  },
-  {
-    "mode": "state",
-    "synthesis_engine": "symbolic",
-    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -141,12 +77,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 2
+    "template_example": 2,
+    "goal_key": "-17931"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -165,12 +104,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 3
+    "template_example": 3,
+    "goal_key": "13903"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -189,12 +131,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 4
+    "template_example": 4,
+    "goal_key": "-22135"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -213,12 +158,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 5
+    "template_example": 5,
+    "goal_key": "2029"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -237,12 +185,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 6
+    "template_example": 6,
+    "goal_key": "13516"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -261,12 +212,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 7
+    "template_example": 7,
+    "goal_key": "-4100"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -285,12 +239,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 8
+    "template_example": 8,
+    "goal_key": "22814"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -309,12 +266,42 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 9
+    "template_example": 9,
+    "goal_key": "-6"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": 0,
+    "initial_set": 0,
+    "argument": null,
+    "call": 0,
+    "method": "shortValue#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": 0,
+      "receiverState": 0
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 10,
+    "goal_key": "0"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -333,12 +320,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 11
+    "template_example": 11,
+    "goal_key": "-20145"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -357,12 +347,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 12
+    "template_example": 12,
+    "goal_key": "16917"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -381,12 +374,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 13
+    "template_example": 13,
+    "goal_key": "21493"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -405,12 +401,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 14
+    "template_example": 14,
+    "goal_key": "24223"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -429,12 +428,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 15
+    "template_example": 15,
+    "goal_key": "-1"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -453,12 +455,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 16
+    "template_example": 16,
+    "goal_key": "1260"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -477,12 +482,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 17
+    "template_example": 17,
+    "goal_key": "2973"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -501,12 +509,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 18
+    "template_example": 18,
+    "goal_key": "-3009"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -525,12 +536,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 19
+    "template_example": 19,
+    "goal_key": "12946"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -549,12 +563,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 20
+    "template_example": 20,
+    "goal_key": "24962"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -573,12 +590,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 21
+    "template_example": 21,
+    "goal_key": "20739"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -597,12 +617,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 22
+    "template_example": 22,
+    "goal_key": "-8490"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -621,12 +644,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 24
+    "template_example": 24,
+    "goal_key": "-14"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -645,12 +671,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 25
+    "template_example": 25,
+    "goal_key": "31535"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -669,12 +698,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 26
+    "template_example": 26,
+    "goal_key": "-8351"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -693,12 +725,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 27
+    "template_example": 27,
+    "goal_key": "7171"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -717,12 +752,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 28
+    "template_example": 28,
+    "goal_key": "23555"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -741,12 +779,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 30
+    "template_example": 30,
+    "goal_key": "-6090"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -765,12 +806,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 31
+    "template_example": 31,
+    "goal_key": "10460"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -789,12 +833,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 33
+    "template_example": 33,
+    "goal_key": "-7"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -813,12 +860,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 34
+    "template_example": 34,
+    "goal_key": "-3310"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -837,12 +887,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 35
+    "template_example": 35,
+    "goal_key": "11999"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -861,12 +914,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 36
+    "template_example": 36,
+    "goal_key": "-54"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -885,12 +941,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 37
+    "template_example": 37,
+    "goal_key": "-9215"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -909,12 +968,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 38
+    "template_example": 38,
+    "goal_key": "-17736"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -933,12 +995,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 39
+    "template_example": 39,
+    "goal_key": "-7015"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -957,12 +1022,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 40
+    "template_example": 40,
+    "goal_key": "21964"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -981,12 +1049,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 41
+    "template_example": 41,
+    "goal_key": "5210"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1005,12 +1076,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 42
+    "template_example": 42,
+    "goal_key": "-24772"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1029,12 +1103,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 43
+    "template_example": 43,
+    "goal_key": "29486"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1053,12 +1130,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 44
+    "template_example": 44,
+    "goal_key": "16722"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1077,12 +1157,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 46
+    "template_example": 46,
+    "goal_key": "-9952"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1101,12 +1184,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 47
+    "template_example": 47,
+    "goal_key": "-8706"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1125,12 +1211,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 48
+    "template_example": 48,
+    "goal_key": "27037"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1149,12 +1238,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 49
+    "template_example": 49,
+    "goal_key": "19933"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1173,12 +1265,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 50
+    "template_example": 50,
+    "goal_key": "9872"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1197,12 +1292,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 52
+    "template_example": 52,
+    "goal_key": "-8501"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1221,12 +1319,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 53
+    "template_example": 53,
+    "goal_key": "3474"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1245,12 +1346,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 54
+    "template_example": 54,
+    "goal_key": "11580"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1269,12 +1373,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 55
+    "template_example": 55,
+    "goal_key": "-7586"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1293,12 +1400,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 58
+    "template_example": 58,
+    "goal_key": "25131"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1317,12 +1427,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 60
+    "template_example": 60,
+    "goal_key": "23350"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1341,12 +1454,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 61
+    "template_example": 61,
+    "goal_key": "11843"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1365,12 +1481,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 62
+    "template_example": 62,
+    "goal_key": "-2537"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1389,12 +1508,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 63
+    "template_example": 63,
+    "goal_key": "-31"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1413,12 +1535,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 64
+    "template_example": 64,
+    "goal_key": "6193"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1437,12 +1562,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 65
+    "template_example": 65,
+    "goal_key": "-15"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1461,12 +1589,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 66
+    "template_example": 66,
+    "goal_key": "-7938"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1485,12 +1616,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 67
+    "template_example": 67,
+    "goal_key": "-29066"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1509,12 +1643,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 68
+    "template_example": 68,
+    "goal_key": "9764"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1533,12 +1670,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 69
+    "template_example": 69,
+    "goal_key": "-32271"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1557,12 +1697,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 70
+    "template_example": 70,
+    "goal_key": "-5"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1581,12 +1724,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 71
+    "template_example": 71,
+    "goal_key": "32164"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1605,12 +1751,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 72
+    "template_example": 72,
+    "goal_key": "12645"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1629,12 +1778,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 73
+    "template_example": 73,
+    "goal_key": "-1610"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1653,12 +1805,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 74
+    "template_example": 74,
+    "goal_key": "-31886"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1677,12 +1832,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 75
+    "template_example": 75,
+    "goal_key": "1160"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1701,12 +1859,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 76
+    "template_example": 76,
+    "goal_key": "19107"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1725,12 +1886,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 77
+    "template_example": 77,
+    "goal_key": "-21951"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1749,12 +1913,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 78
+    "template_example": 78,
+    "goal_key": "10100"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1773,12 +1940,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 79
+    "template_example": 79,
+    "goal_key": "32697"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1797,12 +1967,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 80
+    "template_example": 80,
+    "goal_key": "-26"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1821,12 +1994,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 81
+    "template_example": 81,
+    "goal_key": "-20129"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1845,12 +2021,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 82
+    "template_example": 82,
+    "goal_key": "-16919"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1869,12 +2048,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 83
+    "template_example": 83,
+    "goal_key": "-598"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1893,12 +2075,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 84
+    "template_example": 84,
+    "goal_key": "-212"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1917,12 +2102,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 86
+    "template_example": 86,
+    "goal_key": "16950"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1941,12 +2129,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 87
+    "template_example": 87,
+    "goal_key": "1677"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1965,12 +2156,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 88
+    "template_example": 88,
+    "goal_key": "18966"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -1989,12 +2183,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 89
+    "template_example": 89,
+    "goal_key": "-24"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2013,12 +2210,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 90
+    "template_example": 90,
+    "goal_key": "15589"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2037,12 +2237,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 91
+    "template_example": 91,
+    "goal_key": "-29723"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2061,12 +2264,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 93
+    "template_example": 93,
+    "goal_key": "27113"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2085,12 +2291,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 94
+    "template_example": 94,
+    "goal_key": "24886"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2109,12 +2318,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 95
+    "template_example": 95,
+    "goal_key": "243"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2133,12 +2345,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 96
+    "template_example": 96,
+    "goal_key": "8207"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2157,12 +2372,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 97
+    "template_example": 97,
+    "goal_key": "-18385"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2181,12 +2399,15 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 98
+    "template_example": 98,
+    "goal_key": "15742"
   },
   {
     "mode": "state",
     "synthesis_engine": "symbolic",
     "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
     "symbolic_set_slots": null,
     "symbolic_set_size": null,
     "symbolic_target_present": null,
@@ -2205,6 +2426,277 @@
     "smt_retest_agrees_with_jdk": true,
     "receiver_state_checked": true,
     "pass": true,
-    "template_example": 99
+    "template_example": 99,
+    "goal_key": "19049"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": -31920,
+    "initial_set": -31920,
+    "argument": null,
+    "call": 0,
+    "method": "shortValue#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": -31920,
+      "receiverState": -31920
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 100,
+    "goal_key": "-31920"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": 98,
+    "initial_set": 98,
+    "argument": null,
+    "call": 0,
+    "method": "shortValue#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": 98,
+      "receiverState": 98
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 101,
+    "goal_key": "98"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": -22473,
+    "initial_set": -22473,
+    "argument": null,
+    "call": 0,
+    "method": "shortValue#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": -22473,
+      "receiverState": -22473
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 102,
+    "goal_key": "-22473"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": -27161,
+    "initial_set": -27161,
+    "argument": null,
+    "call": 0,
+    "method": "shortValue#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": -27161,
+      "receiverState": -27161
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 103,
+    "goal_key": "-27161"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": 1545,
+    "initial_set": 1545,
+    "argument": null,
+    "call": 0,
+    "method": "shortValue#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": 1545,
+      "receiverState": 1545
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 104,
+    "goal_key": "1545"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": -14895,
+    "initial_set": -14895,
+    "argument": null,
+    "call": 0,
+    "method": "shortValue#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": -14895,
+      "receiverState": -14895
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 105,
+    "goal_key": "-14895"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": -23879,
+    "initial_set": -23879,
+    "argument": null,
+    "call": 0,
+    "method": "shortValue#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": -23879,
+      "receiverState": -23879
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 106,
+    "goal_key": "-23879"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": 12118,
+    "initial_set": 12118,
+    "argument": null,
+    "call": 0,
+    "method": "shortValue#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": 12118,
+      "receiverState": 12118
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 107,
+    "goal_key": "12118"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": 16437,
+    "initial_set": 16437,
+    "argument": null,
+    "call": 0,
+    "method": "shortValue#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": 16437,
+      "receiverState": 16437
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 108,
+    "goal_key": "16437"
+  },
+  {
+    "mode": "state",
+    "synthesis_engine": "symbolic",
+    "synthesis_scope": "call-local",
+    "arg_synthesized": false,
+    "state_synthesized": true,
+    "symbolic_set_slots": null,
+    "symbolic_set_size": null,
+    "symbolic_target_present": null,
+    "wanted_output": -5853,
+    "initial_set": -5853,
+    "argument": null,
+    "call": 0,
+    "method": "shortValue#0",
+    "jdk": {
+      "outcome": "normal",
+      "value": -5853,
+      "receiverState": -5853
+    },
+    "jdk_reached_wanted_output": true,
+    "smt_retest_status": "unsat",
+    "smt_retest_agrees_with_jdk": true,
+    "receiver_state_checked": true,
+    "pass": true,
+    "template_example": 109,
+    "goal_key": "-5853"
   }
 ]
